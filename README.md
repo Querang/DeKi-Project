@@ -1,5 +1,6 @@
 ## **Desktop helper**
-
+![](https://img.shields.io/github/issues/Querang/DeKi-Project)
+![](https://img.shields.io/github/last-commit/Querang/DeKi-Project)
 ## **О программе**
 Порой, нам может наскучить наш обычный и блеклый рабочий стол с бездушными иконками приложений. Но даже
 небольшое приложение, которое могло бы составить нам небольшую компанию, скрасило бы утомительное

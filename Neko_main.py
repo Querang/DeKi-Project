@@ -15,12 +15,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         size = screen.size()
 
         self.setupUi(self)
-        self.setGeometry(0, size.height()//8, size.width(), size.height())
+        self.setGeometry(0, size.height() // 8, size.width(), size.height())
 
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
-        self.frame_rule_command.hide()
+        # add widget
+        self.grid = QtWidgets.QGridLayout(self.frame_11)
+
+        # self.frame_rule_command.hide()
         self.command_panel_frame.hide()
         self.setting_frame.hide()
 
@@ -33,10 +36,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.rule_command_back_button.clicked.connect(self.back_on_main_frame)
         self.like_command_button.clicked.connect(self.show_hide_like_command)
         self.teg_button.clicked.connect(self.show_setting_frame)
-
+        self.bread_button.clicked.connect(self.get_directory)
         # set variables
         self.like_button_check = False
         self.teg_button_check = False
+        self.dirlist = []
 
     def hide_main_window(self):
         self.showMinimized()
@@ -64,6 +68,55 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.frame_main.show()
         self.frame_rule_command.hide()
         self.command_panel_frame.show()
+        self.dirlist = []
+        while self.grid.count():
+            item = self.grid.takeAt(0)
+            widget = item.widget()
+            # if widget has some id attributes you need to
+            # save in a list to maintain order, you can do that here
+            # i.e.:   aList.append(widget.someId)
+            widget.deleteLater()
+    # выбор файлов для действия
+    def get_directory(self):
+
+        folder = QtWidgets.QFileDialog.getExistingDirectory(None, "Выбрать папку", ".")
+        print(folder)
+        self.dirlist.append(folder)
+        print(self.dirlist)
+        for i in range(3):
+            column = [[0, 0], [0, 1], [1, 0], [1, 1], ]
+            x, y = column[i]
+            if i < len(self.dirlist):
+                label = QtWidgets.QLabel()
+                label.setGeometry(QtCore.QRect(0, 0, 121, 151))
+                label.setMaximumSize(121, 151)
+
+                label.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+                                    "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                    "border-radius: 13px;\n"
+                                    "font-size: 12px;\n"
+                                    "line-height: 27px;\n"
+                                    "\n"
+                                    "color: #FFFFFF;")
+                if len(self.dirlist[i]) > 20:
+                    ne = self.dirlist[i][:20] + "\n" + self.dirlist[i][20:40:] + "\n" + self.dirlist[i][40:60:] + "\n" + \
+                         self.dirlist[i][60::]
+                label.setText(ne)
+                self.grid.addWidget(label, x, y)
+
+
+            else:
+                label = QtWidgets.QLabel()
+                label.setGeometry(QtCore.QRect(0, 0, 121, 151))
+                label.setStyleSheet("background: rgba(23, 23, 23, 0);\n"
+                                    "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                    "border-radius: 13px;\n"
+                                    "font-size: 12px;\n"
+                                    "line-height: 27px;\n"
+                                    "\n"
+                                    "color: #FFFFFF;")
+                self.grid.addWidget(label, x, y)
+
 
 
 app = QApplication(sys.argv)

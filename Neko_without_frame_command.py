@@ -263,21 +263,21 @@ class Ui_MainWindow(object):
                                    "\n"
                                    "color: #FFFFFF;")
         self.label_4.setObjectName("label_4")
-        self.pushButton_21 = QtWidgets.QPushButton(self.frame_rule_command)
-        self.pushButton_21.setGeometry(QtCore.QRect(300, 100, 191, 131))
-        self.pushButton_21.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+        self.bread_button = QtWidgets.QPushButton(self.frame_rule_command)
+        self.bread_button.setGeometry(QtCore.QRect(300, 100, 191, 131))
+        self.bread_button.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
                                          "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                          "border-radius: 13px;\n"
                                          "font-size: 18px;\n"
                                          "line-height: 27px;\n"
                                          "\n"
                                          "color: #FFFFFF;")
-        self.pushButton_21.setText("")
+        self.bread_button.setText("")
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap("material/image 43.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton_21.setIcon(icon4)
-        self.pushButton_21.setIconSize(QtCore.QSize(260, 146))
-        self.pushButton_21.setObjectName("pushButton_21")
+        self.bread_button.setIcon(icon4)
+        self.bread_button.setIconSize(QtCore.QSize(260, 146))
+        self.bread_button.setObjectName("bread_button")
         self.lineEdit_4 = QtWidgets.QLineEdit(self.frame_rule_command)
         self.lineEdit_4.setGeometry(QtCore.QRect(330, 270, 151, 55))
         self.lineEdit_4.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
@@ -304,30 +304,25 @@ class Ui_MainWindow(object):
                                                     "color: #FFFFFF;")
         self.rule_command_back_button.setObjectName("rule_command_back_button")
         self.frame_11 = QtWidgets.QFrame(self.frame_rule_command)
-        self.frame_11.setGeometry(QtCore.QRect(-10, 79, 301, 181))
+        self.frame_11.setGeometry(QtCore.QRect(10, 79, 281, 311))
         self.frame_11.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_11.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_11.setObjectName("frame_11")
-        self.label_9 = QtWidgets.QLabel(self.frame_11)
-        self.label_9.setGeometry(QtCore.QRect(170, 10, 121, 151))
-        self.label_9.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
-                                   "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                   "border-radius: 13px;\n"
-                                   "font-size: 12px;\n"
-                                   "line-height: 27px;\n"
-                                   "\n"
-                                   "color: #FFFFFF;")
-        self.label_9.setObjectName("label_9")
-        self.label_10 = QtWidgets.QLabel(self.frame_11)
-        self.label_10.setGeometry(QtCore.QRect(40, 10, 121, 111))
-        self.label_10.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
-                                    "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                    "border-radius: 13px;\n"
-                                    "font-size: 12px;\n"
-                                    "line-height: 27px;\n"
-                                    "\n"
-                                    "color: #FFFFFF;")
-        self.label_10.setObjectName("label_10")
+
+        # сетка для отображения выбранных файлов
+        # self.grid = QtWidgets.QGridLayout(self.frame_11)
+        # self.label_9 = QtWidgets.QLabel(self.frame_11)
+        # self.label_9.setGeometry(QtCore.QRect(170, 10, 121, 151))
+        # self.label_9.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+        #                            "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                            "border-radius: 13px;\n"
+        #                            "font-size: 12px;\n"
+        #                            "line-height: 27px;\n"
+        #                            "\n"
+        #                            "color: #FFFFFF;")
+        # self.label_9.setObjectName("")
+        # self.label_9.hide()
+
         self.command_panel_frame = QtWidgets.QFrame(self.centralwidget)
         self.command_panel_frame.setGeometry(QtCore.QRect(1050, 60, 171, 491))
         self.command_panel_frame.setStyleSheet("background: rgba(23, 23, 23, 0.83);\n"
@@ -402,11 +397,8 @@ class Ui_MainWindow(object):
                                                       "     в быстрый запуск то *кликни* на хлеб"))
         self.lineEdit_4.setText(_translate("MainWindow", "    set site"))
 
-        self.label_9.setText(_translate("MainWindow",
-                                        "\"C:GamesMight & Magic.Heroes 6.Gold Edition.v 2.1.1.0 + 4 DLCMight & Magic Heroes\n"
-                                        " VI.exe\" /offline \n"
-                                        ""))
-        self.label_10.setText(_translate("MainWindow",
-                                         "\"C:GamesMight & Magic.Heroes 6.Gold Edition.v 2.1.1.0 + 4 DLCMight & Magic Heroes\n"
-                                         " VI.exe\" /offline \n"
-                                         ""))
+        # self.label_9.setText(_translate("MainWindow",
+        #                                 "\"C:GamesMight & Magic.Heroes 6.Gold Edition.v 2.1.1.0 + 4 DLCMight & Magic Heroes\n"
+        #                                 " VI.exe\" /offline \n"
+        #                                 ""))
+

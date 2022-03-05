@@ -386,8 +386,8 @@ class Ui_MainWindow(object):
         self.rule_command_back_button.setText(_translate("MainWindow", "back"))
 
         # lineedit
-        self.lineEdit_2.setText(_translate("MainWindow", "              enter name command "))
-        self.lineEdit_4.setText(_translate("MainWindow", "    set site"))
+        self.lineEdit_2.setText(_translate("MainWindow", "enter name command"))
+        self.lineEdit_4.setText(_translate("MainWindow", "set site"))
 
         # label ru
         self.label_3.setText(_translate("MainWindow", "          Семпай,надеюсь, ты меня не просто так позвал?"))
@@ -395,7 +395,7 @@ class Ui_MainWindow(object):
                                                       " вставь ссылку"))
         self.label_4.setText(_translate("MainWindow", "     Если хочешь добавить приложение\n"
                                                       "     в быстрый запуск то *кликни* на хлеб"))
-        self.lineEdit_4.setText(_translate("MainWindow", "    set site"))
+        self.lineEdit_4.setText(_translate("MainWindow", "set site"))
 
         # self.label_9.setText(_translate("MainWindow",
         #                                 "\"C:GamesMight & Magic.Heroes 6.Gold Edition.v 2.1.1.0 + 4 DLCMight & Magic Heroes\n"

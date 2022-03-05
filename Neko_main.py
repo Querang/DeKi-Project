@@ -1,5 +1,5 @@
 import sys
-
+import sqlite_Neko
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut
@@ -37,10 +37,44 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.like_command_button.clicked.connect(self.show_hide_like_command)
         self.teg_button.clicked.connect(self.show_setting_frame)
         self.bread_button.clicked.connect(self.get_directory)
+        self.pushButton_20.clicked.connect(self.add_date_in_Neko_bd)
         # set variables
         self.like_button_check = False
         self.teg_button_check = False
         self.dirlist = []
+        self.link_site = ""
+
+    def add_date_in_Neko_bd(self):
+        print("hi")
+        self.link_site = self.lineEdit_4.text()
+        print(self.link_site)
+        if (self.dirlist != "") and (self.link_site == "set site"):
+            conn = sqlite_Neko.create_connection("Neko.db")
+            command = self.lineEdit_2.text()
+
+            file = []
+            with conn:
+                for i in range(4):
+                    if i<len(self.dirlist):
+                        file.append(self.dirlist[i])
+                    else:
+                        file.append("")
+
+                task = ("f", file[0],file[1],file[2],file[3],"", command)
+                sqlite_Neko.create_task(conn, task)
+                self.dirlist = []
+                self.clear_grid()
+                print("hi")
+                self.lineEdit_2.setText("access")
+        elif (self.dirlist == "") and (self.link_site != "set site"):
+            conn = sqlite_Neko.create_connection("Neko.db")
+            command = self.lineEdit_2.text()
+            with conn:
+                task = ("s","","","","", self.link_site, command)
+                sqlite_Neko.create_task(conn, task)
+                self.lineEdit_2.setText("access")
+        else:
+            self.lineEdit_2.setText("fail")
 
     def hide_main_window(self):
         self.showMinimized()
@@ -69,6 +103,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.frame_rule_command.hide()
         self.command_panel_frame.show()
         self.dirlist = []
+        self.clear_grid()
+    def clear_grid(self):
         while self.grid.count():
             item = self.grid.takeAt(0)
             widget = item.widget()
@@ -76,6 +112,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # save in a list to maintain order, you can do that here
             # i.e.:   aList.append(widget.someId)
             widget.deleteLater()
+
     # выбор файлов для действия
     def get_directory(self):
 
@@ -83,7 +120,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print(folder)
         self.dirlist.append(folder)
         print(self.dirlist)
-        for i in range(3):
+        for i in range(4):
             column = [[0, 0], [0, 1], [1, 0], [1, 1], ]
             x, y = column[i]
             if i < len(self.dirlist):
@@ -116,7 +153,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                     "\n"
                                     "color: #FFFFFF;")
                 self.grid.addWidget(label, x, y)
-
 
 
 app = QApplication(sys.argv)

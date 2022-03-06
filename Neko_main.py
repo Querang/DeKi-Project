@@ -23,9 +23,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # add widget
         self.grid = QtWidgets.QGridLayout(self.frame_11)
 
-        # self.frame_rule_command.hide()
+        self.frame_rule_command.hide()
         self.command_panel_frame.hide()
-        self.setting_frame.hide()
+        #self.setting_frame.hide()
 
         # hotkey
         self.shortcut = QShortcut(QKeySequence("Ctrl+W"), self)
@@ -43,38 +43,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.teg_button_check = False
         self.dirlist = []
         self.link_site = ""
-
-    def add_date_in_Neko_bd(self):
-        print("hi")
-        self.link_site = self.lineEdit_4.text()
-        print(self.link_site)
-        if (self.dirlist != "") and (self.link_site == "set site"):
-            conn = sqlite_Neko.create_connection("Neko.db")
-            command = self.lineEdit_2.text()
-
-            file = []
-            with conn:
-                for i in range(4):
-                    if i<len(self.dirlist):
-                        file.append(self.dirlist[i])
-                    else:
-                        file.append("")
-
-                task = ("f", file[0],file[1],file[2],file[3],"", command)
-                sqlite_Neko.create_task(conn, task)
-                self.dirlist = []
-                self.clear_grid()
-                print("hi")
-                self.lineEdit_2.setText("access")
-        elif (self.dirlist == "") and (self.link_site != "set site"):
-            conn = sqlite_Neko.create_connection("Neko.db")
-            command = self.lineEdit_2.text()
-            with conn:
-                task = ("s","","","","", self.link_site, command)
-                sqlite_Neko.create_task(conn, task)
-                self.lineEdit_2.setText("access")
-        else:
-            self.lineEdit_2.setText("fail")
+        self.del_list = []
 
     def hide_main_window(self):
         self.showMinimized()
@@ -83,6 +52,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.frame_main.hide()
         self.frame_rule_command.show()
         self.command_panel_frame.hide()
+        self.show_update_item_in_area_delite_choice()
 
     def show_hide_like_command(self):
         if self.like_button_check:
@@ -104,6 +74,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.command_panel_frame.show()
         self.dirlist = []
         self.clear_grid()
+
+    # ADD FRAME FUN
     def clear_grid(self):
         while self.grid.count():
             item = self.grid.takeAt(0)
@@ -154,6 +126,77 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                     "color: #FFFFFF;")
                 self.grid.addWidget(label, x, y)
 
+    def add_date_in_Neko_bd(self):
+        self.link_site = self.lineEdit_4.text()
+        if (self.dirlist != "") and (self.link_site == "set site"):
+            conn = sqlite_Neko.create_connection("Neko.db")
+            command = self.lineEdit_2.text()
+            file = []
+            with conn:
+                for i in range(4):
+                    if i < len(self.dirlist):
+                        file.append(self.dirlist[i])
+                    else:
+                        file.append("")
+
+                task = ("f", file[0], file[1], file[2], file[3], "", command)
+                sqlite_Neko.create_task(conn, task)
+                self.dirlist = []
+                self.clear_grid()
+                self.lineEdit_2.setText("access")
+        elif (self.dirlist == "") and (self.link_site != "set site"):
+            conn = sqlite_Neko.create_connection("Neko.db")
+            command = self.lineEdit_2.text()
+            with conn:
+                task = ("s", "", "", "", "", self.link_site, command)
+                sqlite_Neko.create_task(conn, task)
+                self.lineEdit_2.setText("access")
+        else:
+            self.lineEdit_2.setText("fail")
+
+
+    def show_update_item_in_area_delite_choice(self):
+        w = QtWidgets.QWidget()
+        w.setLayout(self.gridLayout)
+        for i in range(10):
+            self.pushButton = QtWidgets.QPushButton()
+            self.pushButton.setGeometry(QtCore.QRect(30, 20, 200, 32))
+            self.pushButton.setMinimumSize(200, 32)
+            self.pushButton.setStyleSheet("border-radius: 2px;\n"
+                                             "font: 12pt \"MS Shell Dlg 2\";\n"
+                                             "color: rgba(255, 255, 255, 0.67);\n"
+                                             "\n"
+                                             "background: rgba(23, 23, 23, 0.31);\n"
+                                             "border: 1px solid rgba(233, 233, 233, 0.22);\n"
+                                             "box-sizing: border-box;\n"
+                                             "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+            self.pushButton.setText("qq")
+            self.pushButton.clicked.connect(lambda checked, button=self.pushButton: self.active_button(button))
+            self.gridLayout.addWidget(self.pushButton, 0, i)
+        self.scrollArea_3.setWidget(w)
+
+    def active_button(self,pushButton):
+        pushButton.setStyleSheet("border-radius: 2px;\n"
+                                 "font: 12pt \"MS Shell Dlg 2\";\n"
+                                 "color: rgba(255, 255, 255, 0.67);\n"
+                                 "\n"
+                                 "background: rgba(43, 43, 23, 0.31);\n"
+                                 "border: 1px solid rgba(233, 233, 233, 0.22);\n"
+                                 "box-sizing: border-box;\n"
+                                 "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+        qq = pushButton.text()
+        self.del_list.append(qq)
+        print(self.del_list)
+
+
+    def clear_delite_bar(self):
+        while self.gridLayout.count():
+            item = self.gridLayout.takeAt(0)
+            widget = item.widget()
+            # if widget has some id attributes you need to
+            # save in a list to maintain order, you can do that here
+            # i.e.:   aList.append(widget.someId)
+            widget.deleteLater()
 
 app = QApplication(sys.argv)
 w = MainWindow()

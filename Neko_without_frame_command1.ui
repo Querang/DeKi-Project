@@ -416,7 +416,7 @@ border-radius: 13px;</string>
        <x>270</x>
        <y>480</y>
        <width>661</width>
-       <height>69</height>
+       <height>81</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -430,51 +430,87 @@ border-radius: 13px;</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QPushButton" name="pushButton_17">
+     <widget class="QScrollArea" name="scrollArea_2">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>20</y>
-        <width>200</width>
-        <height>32</height>
+        <x>10</x>
+        <y>7</y>
+        <width>641</width>
+        <height>71</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">border-radius: 2px;
-font: 12pt &quot;MS Shell Dlg 2&quot;;
-color: rgba(255, 255, 255, 0.67);
+       <string notr="true"> QScrollBar:horizontal {
+	border: none;
+    background: rgb(23, 23, 23);
+	border-radius: 10px;
 
-background: rgba(23, 23, 23, 0.31);
-border: 1px solid rgba(233, 233, 233, 0.22);
-box-sizing: border-box;
-box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
-      </property>
-      <property name="text">
-       <string>youtube</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_18">
-      <property name="geometry">
-       <rect>
-        <x>240</x>
-        <y>20</y>
-        <width>200</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">border-radius: 2px;
-font: 12pt &quot;MS Shell Dlg 2&quot;;
-color: rgba(255, 255, 255, 0.67);
+    hight: 5px;
+    margin: 8px -20px 0px -30px;
+	
+ }
 
-background: rgba(23, 23, 23, 0.31);
-border: 1px solid rgba(233, 233, 233, 0.22);
-box-sizing: border-box;
-box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
+/*  HANDLE BAR VERTICAL */
+QScrollBar::handle:horizontal {	
+	background-color: rgba(255, 255, 255, 0.67);
+	max-height: 4px;
+	max-width: 10px;
+	border-radius: 10px;
+
+}
+/* BTN TOP - SCROLLBAR */
+QScrollBar::sub-line:horizontal {
+	border: none;
+	
+	width:0 px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	subcontrol-position: left;
+	subcontrol-origin: margin;
+}
+/* RESET ARROW */
+QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal {
+	background: none;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+	background: none;
+}
+</string>
       </property>
-      <property name="text">
-       <string>GitKraken</string>
+      <property name="widgetResizable">
+       <bool>true</bool>
       </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>1218</width>
+         <height>54</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: rgba(23, 23, 23, 0.0);</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QFrame" name="frame_6">
+          <property name="minimumSize">
+           <size>
+            <width>1200</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </widget>
     <widget class="QPushButton" name="pushButton_19">
@@ -808,42 +844,18 @@ border-radius: 13px;</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QScrollArea" name="scrollArea_2">
-      <property name="geometry">
-       <rect>
-        <x>-1</x>
-        <y>-1</y>
-        <width>281</width>
-        <height>461</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background: rgba(23, 23, 23, 0);
-border-radius: 13px;</string>
-      </property>
-      <property name="widgetResizable">
-       <bool>true</bool>
-      </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents_2">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>281</width>
-         <height>461</height>
-        </rect>
-       </property>
-       <widget class="QPushButton" name="pushButton_8">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>21</y>
-          <width>151</width>
-          <height>51</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">border-radius: 2px;
+    </widget>
+    <widget class="QPushButton" name="pushButton_9">
+     <property name="geometry">
+      <rect>
+       <x>1250</x>
+       <y>170</y>
+       <width>151</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-radius: 2px;
 font: 12pt &quot;MS Shell Dlg 2&quot;;
 color: rgba(255, 255, 255, 0.67);
 
@@ -851,22 +863,22 @@ background: rgba(23, 23, 23, 0.31);
 border: 1px solid rgba(233, 233, 233, 0.22);
 box-sizing: border-box;
 box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
-        </property>
-        <property name="text">
-         <string>command 1</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_9">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>90</y>
-          <width>151</width>
-          <height>51</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">border-radius: 2px;
+     </property>
+     <property name="text">
+      <string> command 2</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_8">
+     <property name="geometry">
+      <rect>
+       <x>1260</x>
+       <y>110</y>
+       <width>151</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-radius: 2px;
 font: 12pt &quot;MS Shell Dlg 2&quot;;
 color: rgba(255, 255, 255, 0.67);
 
@@ -874,13 +886,10 @@ background: rgba(23, 23, 23, 0.31);
 border: 1px solid rgba(233, 233, 233, 0.22);
 box-sizing: border-box;
 box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
-        </property>
-        <property name="text">
-         <string> command 2</string>
-        </property>
-       </widget>
-      </widget>
-     </widget>
+     </property>
+     <property name="text">
+      <string>command 1</string>
+     </property>
     </widget>
    </widget>
   </widget>

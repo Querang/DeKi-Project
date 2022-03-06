@@ -167,36 +167,86 @@ class Ui_MainWindow(object):
         self.frame_rule_command.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_rule_command.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_rule_command.setObjectName("frame_rule_command")
+
+        # фрейм где отображается выбор кнопок для удаления
         self.frame_8 = QtWidgets.QFrame(self.frame_rule_command)
-        self.frame_8.setGeometry(QtCore.QRect(270, 480, 661, 69))
+        self.frame_8.setGeometry(QtCore.QRect(270, 480, 661, 81))
         self.frame_8.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
                                    "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                    "border-radius: 13px;")
         self.frame_8.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_8.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_8.setObjectName("frame_8")
-        self.pushButton_17 = QtWidgets.QPushButton(self.frame_8)
-        self.pushButton_17.setGeometry(QtCore.QRect(30, 20, 200, 32))
-        self.pushButton_17.setStyleSheet("border-radius: 2px;\n"
-                                         "font: 12pt \"MS Shell Dlg 2\";\n"
-                                         "color: rgba(255, 255, 255, 0.67);\n"
-                                         "\n"
-                                         "background: rgba(23, 23, 23, 0.31);\n"
-                                         "border: 1px solid rgba(233, 233, 233, 0.22);\n"
-                                         "box-sizing: border-box;\n"
-                                         "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
-        self.pushButton_17.setObjectName("pushButton_17")
-        self.pushButton_18 = QtWidgets.QPushButton(self.frame_8)
-        self.pushButton_18.setGeometry(QtCore.QRect(240, 20, 200, 32))
-        self.pushButton_18.setStyleSheet("border-radius: 2px;\n"
-                                         "font: 12pt \"MS Shell Dlg 2\";\n"
-                                         "color: rgba(255, 255, 255, 0.67);\n"
-                                         "\n"
-                                         "background: rgba(23, 23, 23, 0.31);\n"
-                                         "border: 1px solid rgba(233, 233, 233, 0.22);\n"
-                                         "box-sizing: border-box;\n"
-                                         "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
-        self.pushButton_18.setObjectName("pushButton_18")
+        self.scrollArea_3 = QtWidgets.QScrollArea(self.frame_8)
+        self.scrollArea_3.setGeometry(QtCore.QRect(10, 7, 641, 71))
+        self.scrollArea_3.setStyleSheet(" QScrollBar:horizontal {\n"
+                                        "    border: none;\n"
+                                        "    background: rgb(23, 23, 23);\n"
+                                        "    border-radius: 10px;\n"
+                                        "\n"
+                                        "    hight: 5px;\n"
+                                        "    margin: 8px -20px 0px -30px;\n"
+                                        "    \n"
+                                        " }\n"
+                                        "\n"
+                                        "/*  HANDLE BAR VERTICAL */\n"
+                                        "QScrollBar::handle:horizontal {    \n"
+                                        "    background-color: rgba(255, 255, 255, 0.67);\n"
+                                        "    max-height: 4px;\n"
+                                        "    max-width: 10px;\n"
+                                        "    border-radius: 10px;\n"
+                                        "\n"
+                                        "}\n"
+                                        "/* BTN TOP - SCROLLBAR */\n"
+                                        "QScrollBar::sub-line:horizontal {\n"
+                                        "    border: none;\n"
+                                        "    \n"
+                                        "    width:0 px;\n"
+                                        "    border-top-left-radius: 7px;\n"
+                                        "    border-top-right-radius: 7px;\n"
+                                        "    subcontrol-position: left;\n"
+                                        "    subcontrol-origin: margin;\n"
+                                        "}\n"
+                                        "/* RESET ARROW */\n"
+                                        "QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal {\n"
+                                        "    background: none;\n"
+                                        "}\n"
+                                        "QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
+                                        "    background: none;\n"
+                                        "}\n"
+                                        "")
+        self.scrollArea_3.setWidgetResizable(True)
+        self.scrollArea_3.setObjectName("scrollArea_2")
+        self.scrollAreaWidgetContents_3 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 1218, 54))
+        self.scrollAreaWidgetContents_3.setStyleSheet("background: rgba(23, 23, 23, 0.0);")
+        self.scrollAreaWidgetContents_3.setObjectName("scrollAreaWidgetContents_2")
+        self.gridLayout = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_3)
+        self.gridLayout.setObjectName("gridLayout")
+
+
+        # self.pushButton_17 = QtWidgets.QPushButton(self.frame_8)
+        # self.pushButton_17.setGeometry(QtCore.QRect(30, 20, 200, 32))
+        # self.pushButton_17.setStyleSheet("border-radius: 2px;\n"
+        #                                  "font: 12pt \"MS Shell Dlg 2\";\n"
+        #                                  "color: rgba(255, 255, 255, 0.67);\n"
+        #                                  "\n"
+        #                                  "background: rgba(23, 23, 23, 0.31);\n"
+        #                                  "border: 1px solid rgba(233, 233, 233, 0.22);\n"
+        #                                  "box-sizing: border-box;\n"
+        #                                  "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+        # self.pushButton_17.setObjectName("pushButton_17")
+        # self.pushButton_18 = QtWidgets.QPushButton(self.frame_8)
+        # self.pushButton_18.setGeometry(QtCore.QRect(240, 20, 200, 32))
+        # self.pushButton_18.setStyleSheet("border-radius: 2px;\n"
+        #                                  "font: 12pt \"MS Shell Dlg 2\";\n"
+        #                                  "color: rgba(255, 255, 255, 0.67);\n"
+        #                                  "\n"
+        #                                  "background: rgba(23, 23, 23, 0.31);\n"
+        #                                  "border: 1px solid rgba(233, 233, 233, 0.22);\n"
+        #                                  "box-sizing: border-box;\n"
+        #                                  "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+        # self.pushButton_18.setObjectName("pushButton_18")
         self.pushButton_19 = QtWidgets.QPushButton(self.frame_rule_command)
         self.pushButton_19.setGeometry(QtCore.QRect(940, 480, 71, 61))
         self.pushButton_19.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
@@ -266,12 +316,12 @@ class Ui_MainWindow(object):
         self.bread_button = QtWidgets.QPushButton(self.frame_rule_command)
         self.bread_button.setGeometry(QtCore.QRect(300, 100, 191, 131))
         self.bread_button.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
-                                         "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                         "border-radius: 13px;\n"
-                                         "font-size: 18px;\n"
-                                         "line-height: 27px;\n"
-                                         "\n"
-                                         "color: #FFFFFF;")
+                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                        "border-radius: 13px;\n"
+                                        "font-size: 18px;\n"
+                                        "line-height: 27px;\n"
+                                        "\n"
+                                        "color: #FFFFFF;")
         self.bread_button.setText("")
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap("material/image 43.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -378,8 +428,8 @@ class Ui_MainWindow(object):
         self.pushButton_3.setText(_translate("MainWindow", "setting"))
         self.rule_command_button.setText(_translate("MainWindow", "ruling command"))
         self.pushButton_7.setText(_translate("MainWindow", "q&&a"))
-        self.pushButton_17.setText(_translate("MainWindow", "youtube"))
-        self.pushButton_18.setText(_translate("MainWindow", "GitKraken"))
+        # self.pushButton_17.setText(_translate("MainWindow", "youtube"))
+        # self.pushButton_18.setText(_translate("MainWindow", "GitKraken"))
         self.pushButton_19.setText(_translate("MainWindow", "delite"))
         self.pushButton_8.setText(_translate("MainWindow", "command 1"))
         self.pushButton_9.setText(_translate("MainWindow", " command 2"))
@@ -401,4 +451,3 @@ class Ui_MainWindow(object):
         #                                 "\"C:GamesMight & Magic.Heroes 6.Gold Edition.v 2.1.1.0 + 4 DLCMight & Magic Heroes\n"
         #                                 " VI.exe\" /offline \n"
         #                                 ""))
-

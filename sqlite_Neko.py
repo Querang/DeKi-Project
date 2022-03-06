@@ -65,7 +65,7 @@ def select_all_command(conn):
     rows = cur.fetchall()
     command = []
     for i in rows:
-        command.append(i[3])
+        command.append(i[-1])
     return command
 
 def delete_task(conn, command):

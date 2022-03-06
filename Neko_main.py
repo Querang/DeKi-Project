@@ -38,6 +38,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.teg_button.clicked.connect(self.show_setting_frame)
         self.bread_button.clicked.connect(self.get_directory)
         self.pushButton_20.clicked.connect(self.add_date_in_Neko_bd)
+        self.pushButton_19.clicked.connect(self.del_command)
         # set variables
         self.like_button_check = False
         self.teg_button_check = False
@@ -74,6 +75,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.command_panel_frame.show()
         self.dirlist = []
         self.clear_grid()
+        self.del_list = []
+        self.clear_delite_bar()
 
     # ADD FRAME FUN
     def clear_grid(self):
@@ -128,7 +131,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def add_date_in_Neko_bd(self):
         self.link_site = self.lineEdit_4.text()
-        if (self.dirlist != "") and (self.link_site == "set site"):
+        if (self.dirlist != []) and (self.link_site == "set site"):
             conn = sqlite_Neko.create_connection("Neko.db")
             command = self.lineEdit_2.text()
             file = []
@@ -144,24 +147,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dirlist = []
                 self.clear_grid()
                 self.lineEdit_2.setText("access")
-        elif (self.dirlist == "") and (self.link_site != "set site"):
+        elif (self.dirlist == []) and (self.link_site != "set site"):
             conn = sqlite_Neko.create_connection("Neko.db")
             command = self.lineEdit_2.text()
             with conn:
                 task = ("s", "", "", "", "", self.link_site, command)
                 sqlite_Neko.create_task(conn, task)
                 self.lineEdit_2.setText("access")
+
         else:
             self.lineEdit_2.setText("fail")
+        self.clear_delite_bar()
+        self.show_update_item_in_area_delite_choice()
 
 
     def show_update_item_in_area_delite_choice(self):
         w = QtWidgets.QWidget()
         w.setLayout(self.gridLayout)
-        for i in range(10):
+        conn = sqlite_Neko.create_connection("Neko.db")
+        with conn:
+            name = sqlite_Neko.select_all_command(conn)
+            print(name)
+        for i,j in enumerate(name):
             self.pushButton = QtWidgets.QPushButton()
             self.pushButton.setGeometry(QtCore.QRect(30, 20, 200, 32))
-            self.pushButton.setMinimumSize(200, 32)
+            self.pushButton.setMinimumSize(200, 52)
+            self.pushButton.setMaximumSize(200, 52)
             self.pushButton.setStyleSheet("border-radius: 2px;\n"
                                              "font: 12pt \"MS Shell Dlg 2\";\n"
                                              "color: rgba(255, 255, 255, 0.67);\n"
@@ -170,7 +181,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                              "border: 1px solid rgba(233, 233, 233, 0.22);\n"
                                              "box-sizing: border-box;\n"
                                              "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
-            self.pushButton.setText("qq")
+            self.pushButton.setText(f"{j}")
             self.pushButton.clicked.connect(lambda checked, button=self.pushButton: self.active_button(button))
             self.gridLayout.addWidget(self.pushButton, 0, i)
         self.scrollArea_3.setWidget(w)
@@ -180,7 +191,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                  "font: 12pt \"MS Shell Dlg 2\";\n"
                                  "color: rgba(255, 255, 255, 0.67);\n"
                                  "\n"
-                                 "background: rgba(43, 43, 23, 0.31);\n"
+                                 "background: rgba(74, 65, 65, 0.31);\n"
                                  "border: 1px solid rgba(233, 233, 233, 0.22);\n"
                                  "box-sizing: border-box;\n"
                                  "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
@@ -197,6 +208,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # save in a list to maintain order, you can do that here
             # i.e.:   aList.append(widget.someId)
             widget.deleteLater()
+    def del_command(self):
+        conn = sqlite_Neko.create_connection("Neko.db")
+        with conn:
+            for i in self.del_list:
+                sqlite_Neko.delete_task(conn,i)
+        self.clear_delite_bar()
+        self.show_update_item_in_area_delite_choice()
 
 app = QApplication(sys.argv)
 w = MainWindow()

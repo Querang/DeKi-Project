@@ -440,11 +440,12 @@ border-radius: 13px;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true"> QScrollBar:horizontal {
+       <string notr="true">
+ QScrollBar:horizontal {
 	border: none;
     background: rgb(23, 23, 23);
 	border-radius: 10px;
-
+	border-radius: 10px;
     hight: 5px;
     margin: 8px -20px 0px -30px;
 	
@@ -454,14 +455,15 @@ border-radius: 13px;</string>
 QScrollBar::handle:horizontal {	
 	background-color: rgba(255, 255, 255, 0.67);
 	max-height: 4px;
-	max-width: 10px;
+	max-width: 5px;
+	border-radius: 10px;
 	border-radius: 10px;
 
 }
 /* BTN TOP - SCROLLBAR */
 QScrollBar::sub-line:horizontal {
 	border: none;
-	
+	border-radius: 10px;
 	width:0 px;
 	border-top-left-radius: 7px;
 	border-top-right-radius: 7px;
@@ -471,6 +473,7 @@ QScrollBar::sub-line:horizontal {
 /* RESET ARROW */
 QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal {
 	background: none;
+	border-radius: 10px;
 }
 QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
 	background: none;

@@ -162,8 +162,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
     def show_update_item_in_area_delite_choice(self):
-        w = QtWidgets.QWidget()
-        w.setLayout(self.gridLayout)
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             name = sqlite_Neko.select_all_command(conn)
@@ -183,8 +181,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                              "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
             self.pushButton.setText(f"{j}")
             self.pushButton.clicked.connect(lambda checked, button=self.pushButton: self.active_button(button))
-            self.gridLayout.addWidget(self.pushButton, 0, i)
-        self.scrollArea_3.setWidget(w)
+            self.Layout.addWidget(self.pushButton,0,i)
+
 
     def active_button(self,pushButton):
         pushButton.setStyleSheet("border-radius: 2px;\n"
@@ -201,8 +199,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
     def clear_delite_bar(self):
-        while self.gridLayout.count():
-            item = self.gridLayout.takeAt(0)
+        while self.Layout.count():
+            item = self.Layout.takeAt(0)
             widget = item.widget()
             # if widget has some id attributes you need to
             # save in a list to maintain order, you can do that here

@@ -223,8 +223,10 @@ class Ui_MainWindow(object):
         self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 1218, 54))
         self.scrollAreaWidgetContents_3.setStyleSheet("background: rgba(23, 23, 23, 0.0);")
         self.scrollAreaWidgetContents_3.setObjectName("scrollAreaWidgetContents_2")
-        self.gridLayout = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_3)
-        self.gridLayout.setObjectName("gridLayout")
+        self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_3)
+        self.Layout = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_3)
+        self.Layout.setAlignment(QtCore.Qt.AlignLeft)
+        self.Layout.setObjectName("gridLayout")
 
 
         # self.pushButton_17 = QtWidgets.QPushButton(self.frame_8)

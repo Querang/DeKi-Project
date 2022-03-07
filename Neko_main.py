@@ -3,7 +3,7 @@ import sqlite_Neko
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut
-from Neko_without_frame_command import Ui_MainWindow
+from Neko_layout import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -37,8 +37,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.like_command_button.clicked.connect(self.show_hide_like_command)
         self.teg_button.clicked.connect(self.show_setting_frame)
         self.bread_button.clicked.connect(self.get_directory)
-        self.pushButton_20.clicked.connect(self.add_date_in_Neko_bd)
-        self.pushButton_19.clicked.connect(self.del_command)
+        self.push_add_command.clicked.connect(self.add_date_in_Neko_bd)
+        self.button_delite_command.clicked.connect(self.del_command)
         # set variables
         self.like_button_check = False
         self.teg_button_check = False
@@ -133,7 +133,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.link_site = self.lineEdit_4.text()
         if (self.dirlist != []) and (self.link_site == "set site"):
             conn = sqlite_Neko.create_connection("Neko.db")
-            command = self.lineEdit_2.text()
+            command = self.input_name_command.text()
             file = []
             with conn:
                 for i in range(4):
@@ -146,17 +146,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 sqlite_Neko.create_task(conn, task)
                 self.dirlist = []
                 self.clear_grid()
-                self.lineEdit_2.setText("access")
+                self.input_name_command.setText("access")
         elif (self.dirlist == []) and (self.link_site != "set site"):
             conn = sqlite_Neko.create_connection("Neko.db")
-            command = self.lineEdit_2.text()
+            command = self.input_name_command.text()
             with conn:
                 task = ("s", "", "", "", "", self.link_site, command)
                 sqlite_Neko.create_task(conn, task)
-                self.lineEdit_2.setText("access")
+                self.input_name_command.setText("access")
 
         else:
-            self.lineEdit_2.setText("fail")
+            self.input_name_command.setText("fail")
         self.clear_delite_bar()
         self.show_update_item_in_area_delite_choice()
 
@@ -167,6 +167,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             name = sqlite_Neko.select_all_command(conn)
             print(name)
         for i,j in enumerate(name):
+            if len(name)>3:
+                self.scrollArea_3.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+            else:
+                self.scrollArea_3.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
             self.pushButton = QtWidgets.QPushButton()
             self.pushButton.setGeometry(QtCore.QRect(30, 20, 200, 32))
             self.pushButton.setMinimumSize(200, 52)

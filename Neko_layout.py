@@ -24,26 +24,31 @@ class Ui_MainWindow(object):
         MainWindow.setIconSize(QtCore.QSize(50, 50))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        """main frame"""
         self.frame_main = QtWidgets.QFrame(self.centralwidget)
         self.frame_main.setGeometry(QtCore.QRect(360, 139, 731, 471))
         self.frame_main.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_main.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_main.setObjectName("frame")
-        self.label = QtWidgets.QLabel(self.frame_main)
-        self.label.setGeometry(QtCore.QRect(360, -80, 721, 461))
-        self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("material/Без имени-1 2 (1).png"))
-        self.label.setObjectName("label")
-        self.label_3 = QtWidgets.QLabel(self.frame_main)
-        self.label_3.setGeometry(QtCore.QRect(0, 290, 491, 91))
-        self.label_3.setStyleSheet("font-size: 18px;\n"
-                                   "line-height: 40px;\n"
-                                   "\n"
-                                   "color: #FFFFFF;\n"
-                                   "background: rgba(23, 23, 23, 0.85);\n"
-                                   "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                   "border-radius: 13px;")
-        self.label_3.setObjectName("label_3")
+        """view character """
+        self.character_label = QtWidgets.QLabel(self.frame_main)
+        self.character_label.setGeometry(QtCore.QRect(360, -80, 721, 461))
+        self.character_label.setText("")
+        self.character_label.setPixmap(QtGui.QPixmap("material/Без имени-1 2 (1).png"))
+        self.character_label.setObjectName("character_label")
+        """dialog character on main frame"""
+        self.dialog_character = QtWidgets.QLabel(self.frame_main)
+        self.dialog_character.setGeometry(QtCore.QRect(0, 290, 491, 91))
+        self.dialog_character.setStyleSheet("font-size: 18px;\n"
+                                            "line-height: 40px;\n"
+                                            "\n"
+                                            "color: #FFFFFF;\n"
+                                            "background: rgba(23, 23, 23, 0.85);\n"
+                                            "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                            "border-radius: 13px;")
+        self.dialog_character.setObjectName("label_3")
+
+        """frame панели настроек - отображает кнопки: rule_command_button, q_a_button, setting_button """
         self.setting_frame = QtWidgets.QFrame(self.frame_main)
         self.setting_frame.setGeometry(QtCore.QRect(0, 80, 283, 179))
         self.setting_frame.setStyleSheet("background: rgba(23, 23, 23, 0.83);\n"
@@ -52,6 +57,7 @@ class Ui_MainWindow(object):
         self.setting_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.setting_frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.setting_frame.setObjectName("setting_frame")
+        """для прокрутки setting_frame """
         self.scrollArea = QtWidgets.QScrollArea(self.setting_frame)
         self.scrollArea.setGeometry(QtCore.QRect(-1, -1, 281, 181))
         self.scrollArea.setStyleSheet("background: rgba(23, 23, 23, 0);\n"
@@ -61,17 +67,19 @@ class Ui_MainWindow(object):
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
         self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 281, 181))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
-        self.pushButton_3 = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
-        self.pushButton_3.setGeometry(QtCore.QRect(40, 30, 200, 32))
-        self.pushButton_3.setStyleSheet("border-radius: 2px;\n"
-                                        "font: 12pt \"MS Shell Dlg 2\";\n"
-                                        "color: rgba(255, 255, 255, 0.67);\n"
-                                        "\n"
-                                        "background: rgba(23, 23, 23, 0.31);\n"
-                                        "border: 1px solid rgba(233, 233, 233, 0.22);\n"
-                                        "box-sizing: border-box;\n"
-                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
-        self.pushButton_3.setObjectName("pushButton_3")
+
+        self.setting_button = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
+        self.setting_button.setGeometry(QtCore.QRect(40, 30, 200, 32))
+        self.setting_button.setStyleSheet("border-radius: 2px;\n"
+                                          "font: 12pt \"MS Shell Dlg 2\";\n"
+                                          "color: rgba(255, 255, 255, 0.67);\n"
+                                          "\n"
+                                          "background: rgba(23, 23, 23, 0.31);\n"
+                                          "border: 1px solid rgba(233, 233, 233, 0.22);\n"
+                                          "box-sizing: border-box;\n"
+                                          "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+        self.setting_button.setObjectName("pushButton_3")
+        """переход на add/del frame"""
         self.rule_command_button = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
         self.rule_command_button.setGeometry(QtCore.QRect(40, 80, 200, 32))
         self.rule_command_button.setStyleSheet("border-radius: 2px;\n"
@@ -83,60 +91,57 @@ class Ui_MainWindow(object):
                                                "box-sizing: border-box;\n"
                                                "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
         self.rule_command_button.setObjectName("rule_command_button")
-        self.pushButton_7 = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
-        self.pushButton_7.setGeometry(QtCore.QRect(40, 130, 200, 32))
-        self.pushButton_7.setStyleSheet("border-radius: 2px;\n"
-                                        "font: 12pt \"MS Shell Dlg 2\";\n"
-                                        "color: rgba(255, 255, 255, 0.67);\n"
-                                        "\n"
-                                        "background: rgba(23, 23, 23, 0.31);\n"
-                                        "border: 1px solid rgba(233, 233, 233, 0.22);\n"
-                                        "box-sizing: border-box;\n"
-                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
-        self.pushButton_7.setObjectName("pushButton_7")
-        self.pushButton_11 = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
-        self.pushButton_11.setEnabled(True)
-        self.pushButton_11.setGeometry(QtCore.QRect(-6, 0, 61, 61))
-        self.pushButton_11.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                         "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                         "border-radius: 13px;")
-        self.pushButton_11.setText("")
+        self.q_a_button = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
+        self.q_a_button.setGeometry(QtCore.QRect(40, 130, 200, 32))
+        self.q_a_button.setStyleSheet("border-radius: 2px;\n"
+                                      "font: 12pt \"MS Shell Dlg 2\";\n"
+                                      "color: rgba(255, 255, 255, 0.67);\n"
+                                      "\n"
+                                      "background: rgba(23, 23, 23, 0.31);\n"
+                                      "border: 1px solid rgba(233, 233, 233, 0.22);\n"
+                                      "box-sizing: border-box;\n"
+                                      "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+        self.q_a_button.setObjectName("teg_icon_button")
+        self.teg_icon_button = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
+        self.teg_icon_button.setEnabled(True)
+        self.teg_icon_button.setGeometry(QtCore.QRect(-6, 0, 61, 61))
+        self.teg_icon_button.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+                                           "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                           "border-radius: 13px;")
+        self.teg_icon_button.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("material/image 42.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton_11.setIcon(icon)
-        self.pushButton_11.setIconSize(QtCore.QSize(50, 50))
-        self.pushButton_11.setAutoDefault(False)
-        self.pushButton_11.setDefault(False)
-        self.pushButton_11.setObjectName("pushButton_11")
+        self.teg_icon_button.setIcon(icon)
+        self.teg_icon_button.setIconSize(QtCore.QSize(50, 50))
+        self.teg_icon_button.setAutoDefault(False)
+        self.teg_icon_button.setDefault(False)
+        self.teg_icon_button.setObjectName("teg_icon_button")
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        self.frame_5 = QtWidgets.QFrame(self.frame_main)
-        self.frame_5.setGeometry(QtCore.QRect(170, 140, 571, 80))
-        self.frame_5.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_5.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_5.setObjectName("frame_5")
-        self.frame_2 = QtWidgets.QFrame(self.frame_main)
-        self.frame_2.setGeometry(QtCore.QRect(580, 90, 91, 217))
-        self.frame_2.setStyleSheet("background: rgba(23, 23, 23, 0.83);\n"
-                                   "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                   "border-radius: 13px;")
-        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_2.setObjectName("frame_2")
-        self.pushButton = QtWidgets.QPushButton(self.frame_2)
-        self.pushButton.setEnabled(True)
-        self.pushButton.setGeometry(QtCore.QRect(14, 10, 61, 61))
-        self.pushButton.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+
+        """ frame с иконками других фреймов содержит button_note,like_command_button,teg_button"""
+        self.frame_icon_other_frame = QtWidgets.QFrame(self.frame_main)
+        self.frame_icon_other_frame.setGeometry(QtCore.QRect(580, 90, 91, 217))
+        self.frame_icon_other_frame.setStyleSheet("background: rgba(23, 23, 23, 0.83);\n"
+                                                  "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                                  "border-radius: 13px;")
+        self.frame_icon_other_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_icon_other_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_icon_other_frame.setObjectName("frame_icon_other_frame")
+        self.button_note = QtWidgets.QPushButton(self.frame_icon_other_frame)
+        self.button_note.setEnabled(True)
+        self.button_note.setGeometry(QtCore.QRect(14, 10, 61, 61))
+        self.button_note.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
                                       "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                       "border-radius: 13px;")
-        self.pushButton.setText("")
+        self.button_note.setText("")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("material/image 40.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton.setIcon(icon1)
-        self.pushButton.setIconSize(QtCore.QSize(50, 50))
-        self.pushButton.setAutoDefault(False)
-        self.pushButton.setDefault(False)
-        self.pushButton.setObjectName("pushButton")
-        self.like_command_button = QtWidgets.QPushButton(self.frame_2)
+        self.button_note.setIcon(icon1)
+        self.button_note.setIconSize(QtCore.QSize(50, 50))
+        self.button_note.setAutoDefault(False)
+        self.button_note.setDefault(False)
+        self.button_note.setObjectName("button_note")
+        self.like_command_button = QtWidgets.QPushButton(self.frame_icon_other_frame)
         self.like_command_button.setEnabled(True)
         self.like_command_button.setGeometry(QtCore.QRect(14, 76, 61, 61))
         self.like_command_button.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
@@ -150,7 +155,7 @@ class Ui_MainWindow(object):
         self.like_command_button.setAutoDefault(False)
         self.like_command_button.setDefault(False)
         self.like_command_button.setObjectName("like_command_button")
-        self.teg_button = QtWidgets.QPushButton(self.frame_2)
+        self.teg_button = QtWidgets.QPushButton(self.frame_icon_other_frame)
         self.teg_button.setEnabled(True)
         self.teg_button.setGeometry(QtCore.QRect(14, 136, 61, 61))
         self.teg_button.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
@@ -162,22 +167,25 @@ class Ui_MainWindow(object):
         self.teg_button.setAutoDefault(False)
         self.teg_button.setDefault(False)
         self.teg_button.setObjectName("teg_button")
+
+        """ frame add/del """
         self.frame_rule_command = QtWidgets.QFrame(self.centralwidget)
         self.frame_rule_command.setGeometry(QtCore.QRect(19, 19, 1361, 561))
         self.frame_rule_command.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_rule_command.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_rule_command.setObjectName("frame_rule_command")
 
-        # фрейм где отображается выбор кнопок для удаления
-        self.frame_8 = QtWidgets.QFrame(self.frame_rule_command)
-        self.frame_8.setGeometry(QtCore.QRect(270, 480, 661, 81))
-        self.frame_8.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+        """фрейм где отображается выбор кнопок для удаления"""
+        self.frame_choice_del_button = QtWidgets.QFrame(self.frame_rule_command)
+        self.frame_choice_del_button.setGeometry(QtCore.QRect(270, 480, 661, 81))
+        self.frame_choice_del_button.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
                                    "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                    "border-radius: 13px;")
-        self.frame_8.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_8.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_8.setObjectName("frame_8")
-        self.scrollArea_3 = QtWidgets.QScrollArea(self.frame_8)
+        self.frame_choice_del_button.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_choice_del_button.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_choice_del_button.setObjectName("frame_choice_del_button")
+        """расширение контейнера frame_choice_del_button """
+        self.scrollArea_3 = QtWidgets.QScrollArea(self.frame_choice_del_button)
         self.scrollArea_3.setGeometry(QtCore.QRect(10, 7, 641, 71))
         self.scrollArea_3.setStyleSheet(" QScrollBar:horizontal {\n"
                                         "    border: none;\n"
@@ -218,7 +226,7 @@ class Ui_MainWindow(object):
         self.scrollArea_3.setWidgetResizable(True)
         self.scrollArea_3.setObjectName("scrollArea_2")
         self.scrollArea_3.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.scrollArea_3.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        self.scrollArea_3.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.scrollAreaWidgetContents_3 = QtWidgets.QWidget()
         self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 1218, 54))
         self.scrollAreaWidgetContents_3.setStyleSheet("background: rgba(23, 23, 23, 0.0);")
@@ -229,62 +237,42 @@ class Ui_MainWindow(object):
         self.Layout.setObjectName("gridLayout")
 
 
-        # self.pushButton_17 = QtWidgets.QPushButton(self.frame_8)
-        # self.pushButton_17.setGeometry(QtCore.QRect(30, 20, 200, 32))
-        # self.pushButton_17.setStyleSheet("border-radius: 2px;\n"
-        #                                  "font: 12pt \"MS Shell Dlg 2\";\n"
-        #                                  "color: rgba(255, 255, 255, 0.67);\n"
-        #                                  "\n"
-        #                                  "background: rgba(23, 23, 23, 0.31);\n"
-        #                                  "border: 1px solid rgba(233, 233, 233, 0.22);\n"
-        #                                  "box-sizing: border-box;\n"
-        #                                  "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
-        # self.pushButton_17.setObjectName("pushButton_17")
-        # self.pushButton_18 = QtWidgets.QPushButton(self.frame_8)
-        # self.pushButton_18.setGeometry(QtCore.QRect(240, 20, 200, 32))
-        # self.pushButton_18.setStyleSheet("border-radius: 2px;\n"
-        #                                  "font: 12pt \"MS Shell Dlg 2\";\n"
-        #                                  "color: rgba(255, 255, 255, 0.67);\n"
-        #                                  "\n"
-        #                                  "background: rgba(23, 23, 23, 0.31);\n"
-        #                                  "border: 1px solid rgba(233, 233, 233, 0.22);\n"
-        #                                  "box-sizing: border-box;\n"
-        #                                  "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
-        # self.pushButton_18.setObjectName("pushButton_18")
-        self.pushButton_19 = QtWidgets.QPushButton(self.frame_rule_command)
-        self.pushButton_19.setGeometry(QtCore.QRect(940, 480, 71, 61))
-        self.pushButton_19.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+        self.button_delite_command = QtWidgets.QPushButton(self.frame_rule_command)
+        self.button_delite_command.setGeometry(QtCore.QRect(940, 480, 71, 61))
+        self.button_delite_command.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
                                          "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                          "border-radius: 13px;\n"
                                          "font-size: 18px;\n"
                                          "line-height: 27px;\n"
                                          "\n"
                                          "color: #FFFFFF;")
-        self.pushButton_19.setObjectName("pushButton_19")
-        self.lineEdit_2 = QtWidgets.QLineEdit(self.frame_rule_command)
-        self.lineEdit_2.setGeometry(QtCore.QRect(480, 380, 405, 55))
-        self.lineEdit_2.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+        self.button_delite_command.setObjectName("button_delite_command")
+        """ввод данных"""
+        self.input_name_command = QtWidgets.QLineEdit(self.frame_rule_command)
+        self.input_name_command.setGeometry(QtCore.QRect(480, 380, 405, 55))
+        self.input_name_command.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
                                       "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                       "border-radius: 13px;\n"
                                       "font-size: 24px;\n"
                                       "line-height: 37px;\n"
                                       "\n"
                                       "color: rgba(255, 255, 255, 0.67);")
-        self.lineEdit_2.setObjectName("lineEdit_2")
-        self.pushButton_20 = QtWidgets.QPushButton(self.frame_rule_command)
-        self.pushButton_20.setGeometry(QtCore.QRect(890, 380, 46, 55))
-        self.pushButton_20.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+        self.input_name_command.setObjectName("input_name_command")
+        
+        self.push_add_command = QtWidgets.QPushButton(self.frame_rule_command)
+        self.push_add_command.setGeometry(QtCore.QRect(890, 380, 46, 55))
+        self.push_add_command.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
                                          "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                          "border-radius: 13px;\n"
                                          "font-size: 18px;\n"
                                          "line-height: 27px;\n"
                                          "\n"
                                          "color: #FFFFFF;")
-        self.pushButton_20.setText("")
+        self.push_add_command.setText("")
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap("material/image 32.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
-        self.pushButton_20.setIcon(icon3)
-        self.pushButton_20.setObjectName("pushButton_20")
+        self.push_add_command.setIcon(icon3)
+        self.push_add_command.setObjectName("push_add_command")
         self.frame_9 = QtWidgets.QFrame(self.frame_rule_command)
         self.frame_9.setGeometry(QtCore.QRect(510, 250, 348, 87))
         self.frame_9.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
@@ -293,14 +281,15 @@ class Ui_MainWindow(object):
         self.frame_9.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_9.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_9.setObjectName("frame_9")
-        self.label_5 = QtWidgets.QLabel(self.frame_9)
-        self.label_5.setGeometry(QtCore.QRect(10, 0, 331, 81))
-        self.label_5.setStyleSheet("background: rgba(23, 23, 23, 0);\n"
+        """лэйбел подсказка"""
+        self.label_help_site = QtWidgets.QLabel(self.frame_9)
+        self.label_help_site.setGeometry(QtCore.QRect(10, 0, 331, 81))
+        self.label_help_site.setStyleSheet("background: rgba(23, 23, 23, 0);\n"
                                    "font-size: 14px;\n"
                                    "line-height: 24px;\n"
                                    "\n"
                                    "color: #FFFFFF;")
-        self.label_5.setObjectName("label_5")
+        self.label_help_site.setObjectName("label_help_site")
         self.frame_10 = QtWidgets.QFrame(self.frame_rule_command)
         self.frame_10.setGeometry(QtCore.QRect(510, 130, 348, 87))
         self.frame_10.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
@@ -309,14 +298,15 @@ class Ui_MainWindow(object):
         self.frame_10.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_10.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_10.setObjectName("frame_10")
-        self.label_4 = QtWidgets.QLabel(self.frame_10)
-        self.label_4.setGeometry(QtCore.QRect(0, 0, 348, 91))
-        self.label_4.setStyleSheet("background: rgba(23, 23, 23, 0);\n"
+        """лэйбел подсказка"""
+        self.label_help_folder = QtWidgets.QLabel(self.frame_10)
+        self.label_help_folder.setGeometry(QtCore.QRect(0, 0, 348, 91))
+        self.label_help_folder.setStyleSheet("background: rgba(23, 23, 23, 0);\n"
                                    "font-size: 14px;\n"
                                    "line-height: 24px;\n"
                                    "\n"
                                    "color: #FFFFFF;")
-        self.label_4.setObjectName("label_4")
+        self.label_help_folder.setObjectName("label_help_folder")
         self.bread_button = QtWidgets.QPushButton(self.frame_rule_command)
         self.bread_button.setGeometry(QtCore.QRect(300, 100, 191, 131))
         self.bread_button.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
@@ -342,11 +332,11 @@ class Ui_MainWindow(object):
                                       "\n"
                                       "color: rgba(255, 255, 255, 0.67);")
         self.lineEdit_4.setObjectName("lineEdit_4")
-        self.label_8 = QtWidgets.QLabel(self.frame_rule_command)
-        self.label_8.setGeometry(QtCore.QRect(900, 100, 201, 251))
-        self.label_8.setText("")
-        self.label_8.setPixmap(QtGui.QPixmap("material/Без имени-1 2.png"))
-        self.label_8.setObjectName("label_8")
+        self.character_on_add_del_frame = QtWidgets.QLabel(self.frame_rule_command)
+        self.character_on_add_del_frame.setGeometry(QtCore.QRect(900, 100, 201, 251))
+        self.character_on_add_del_frame.setText("")
+        self.character_on_add_del_frame.setPixmap(QtGui.QPixmap("material/Без имени-1 2.png"))
+        self.character_on_add_del_frame.setObjectName("character_on_add_del_frame")
         self.rule_command_back_button = QtWidgets.QPushButton(self.frame_rule_command)
         self.rule_command_back_button.setGeometry(QtCore.QRect(950, 380, 81, 51))
         self.rule_command_back_button.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
@@ -429,29 +419,24 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
 
         # button
-        self.pushButton_3.setText(_translate("MainWindow", "setting"))
+        self.setting_button.setText(_translate("MainWindow", "setting"))
         self.rule_command_button.setText(_translate("MainWindow", "ruling command"))
-        self.pushButton_7.setText(_translate("MainWindow", "q&&a"))
+        self.q_a_button.setText(_translate("MainWindow", "q&&a"))
         # self.pushButton_17.setText(_translate("MainWindow", "youtube"))
         # self.pushButton_18.setText(_translate("MainWindow", "GitKraken"))
-        self.pushButton_19.setText(_translate("MainWindow", "delite"))
+        self.button_delite_command.setText(_translate("MainWindow", "delite"))
         self.pushButton_8.setText(_translate("MainWindow", "command 1"))
         self.pushButton_9.setText(_translate("MainWindow", " command 2"))
         self.rule_command_back_button.setText(_translate("MainWindow", "back"))
 
         # lineedit
-        self.lineEdit_2.setText(_translate("MainWindow", "enter name command"))
-        self.lineEdit_4.setText(_translate("MainWindow", "set site"))
+        self.input_name_command.setText(_translate("MainWindow", "enter name command"))
+        self.label_help_site.setText(_translate("MainWindow", "set site"))
 
         # label ru
-        self.label_3.setText(_translate("MainWindow", "          Семпай,надеюсь, ты меня не просто так позвал?"))
-        self.label_5.setText(_translate("MainWindow", "Если хочешь быстрый доступ к сайту то\n"
+        self.dialog_character.setText(_translate("MainWindow", "          Семпай,надеюсь, ты меня не просто так позвал?"))
+        self.label_help_site.setText(_translate("MainWindow", "Если хочешь быстрый доступ к сайту то\n"
                                                       " вставь ссылку"))
-        self.label_4.setText(_translate("MainWindow", "     Если хочешь добавить приложение\n"
+        self.label_help_folder.setText(_translate("MainWindow", "     Если хочешь добавить приложение\n"
                                                       "     в быстрый запуск то *кликни* на хлеб"))
         self.lineEdit_4.setText(_translate("MainWindow", "set site"))
-
-        # self.label_9.setText(_translate("MainWindow",
-        #                                 "\"C:GamesMight & Magic.Heroes 6.Gold Edition.v 2.1.1.0 + 4 DLCMight & Magic Heroes\n"
-        #                                 " VI.exe\" /offline \n"
-        #                                 ""))

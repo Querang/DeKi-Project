@@ -440,45 +440,48 @@ border-radius: 13px;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">
- QScrollBar:horizontal {
-	border: none;
-    background: rgb(23, 23, 23);
-	border-radius: 10px;
-	border-radius: 10px;
-    hight: 5px;
-    margin: 8px -20px 0px -30px;
-	
+       <string notr="true">QScrollBar:horizontal {
+  border-color: rgb(227, 227, 227);
+  border-width: 1px;
+  border-style: solid;
+  background-color: rgb(240, 240, 240);
+    height: 15px;
+    margin: 0px 21px 0 21px;
  }
 
-/*  HANDLE BAR VERTICAL */
-QScrollBar::handle:horizontal {	
-	background-color: rgba(255, 255, 255, 0.67);
-	max-height: 4px;
-	max-width: 5px;
-	border-radius: 10px;
-	border-radius: 10px;
+ QScrollBar::handle:horizontal {
+    background-color: rgb(200, 200, 200);
+    max-width: 5px;
+ }
+QScrollBar::add-line:horizontal {
+    border: 1px solid grey;
+  background-color: rgb(241, 241, 241);
+    height: 20px;
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+ }
 
+ QScrollBar::sub-line:horizontal {
+  border: 1px solid grey;
+    background-color: rgb(241, 241, 241);
+    height: 20px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+ }
+
+ QScrollBar:left-arrow:horizontal
+{
+  image: url(:/BarIcon/Icons/leftarrow.png);
 }
-/* BTN TOP - SCROLLBAR */
-QScrollBar::sub-line:horizontal {
-	border: none;
-	border-radius: 10px;
-	width:0 px;
-	border-top-left-radius: 7px;
-	border-top-right-radius: 7px;
-	subcontrol-position: left;
-	subcontrol-origin: margin;
+
+QScrollBar::right-arrow:horizontal 
+{
+  image: url(:/BarIcon/Icons/rightarrow.png);
 }
-/* RESET ARROW */
-QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal {
-	background: none;
-	border-radius: 10px;
-}
+
 QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
-	background: none;
-}
-</string>
+     background: none;
+}</string>
       </property>
       <property name="widgetResizable">
        <bool>true</bool>
@@ -489,7 +492,7 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
          <x>0</x>
          <y>0</y>
          <width>1218</width>
-         <height>54</height>
+         <height>56</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -893,6 +896,50 @@ box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
      <property name="text">
       <string>command 1</string>
      </property>
+    </widget>
+    <widget class="QScrollArea" name="scrollArea_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>260</y>
+       <width>261</width>
+       <height>151</height>
+      </rect>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents_3">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>259</width>
+        <height>149</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QFrame" name="frame_12">
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </widget>
   </widget>

@@ -37,21 +37,47 @@ def create_task(conn, task):
     return cur.lastrowid
 
 
-def select_last_task(conn):
-    """
-    Query tasks by priority
-    :param conn: the Connection object
-    :return:
-    """
+def get_paths_character(conn, name):
     cur = conn.cursor()
-    cur.execute("""SELECT * 
-                    FROM    tasks 
-                    WHERE   ID = (SELECT MAX(ID)  FROM tasks)""")
-    row = cur.fetchall()
-    #[()]
-    id = row[0][0]
+    cur.execute("SELECT * FROM character_path WHERE name=?",(name,))
+    rows = cur.fetchall()
+    row = None
+    for i in rows:
+        row = i
+    return row
+def update_global_name(conn,names):
+    cur = conn.cursor()
+    sql = ''' UPDATE global_setting
+                  SET view_character = ? ,
+                      name_character = ? ,
+                      name_user = ? ,
+                      language = ? ,
+                      behavior = ?
+                      '''
+    cur.execute(sql, names)
+    conn.commit()
 
-    return id
+def get_names_character(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT name FROM character_path ")
+    rows = cur.fetchall()
+    row = []
+    print(rows)
+    for i in rows:
+        row.append(i[0])
+    return row
+
+def get_global_name(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM global_setting")
+    rows = cur.fetchall()
+    row = None
+    print(rows)
+    for i in rows:
+        row=i
+
+    return row
+
 
 def select_all_command(conn):
     """
@@ -68,6 +94,7 @@ def select_all_command(conn):
         command.append(i[-1])
     return command
 
+
 def delete_task(conn, command):
     """
     Delete a task by task id
@@ -79,6 +106,7 @@ def delete_task(conn, command):
     cur = conn.cursor()
     cur.execute(sql, (command,))
     conn.commit()
+
 
 def select_task_by_command(conn, command):
     """
@@ -93,19 +121,12 @@ def select_task_by_command(conn, command):
     row = cur.fetchall()
     return row
 
-def main():
-    conn = create_connection("other_file/Neko.db")
-    sql_create_tasks_table = """CREATE TABLE IF NOT EXISTS tasks (
-                                        type text,
-                                        path_0 text ,
-                                        path_1 text ,
-                                        path_2 text ,
-                                        command text   
-                                    );"""
-    task = (1,"f",'www','www')
-    if conn is not None:
-        create_task(conn, sql_create_tasks_table)
 
+def main():
+    conn = create_connection("Neko.db")
+    names = ("Firo","Filorial","семпай","russian","waify")
+    with conn:
+        update_global_name(conn,names)
 
 
 if __name__ == '__main__':

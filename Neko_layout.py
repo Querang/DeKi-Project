@@ -30,11 +30,24 @@ class Ui_MainWindow(object):
         self.frame_main.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_main.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_main.setObjectName("frame")
+        self.character_name_label = QtWidgets.QLabel(self.frame_main)
+        self.character_name_label.setGeometry(QtCore.QRect(200, 240, 211, 81))
+        self.character_name_label.setStyleSheet("font-family: Roboto Mono;\n"
+                                 "font-style: normal;\n"
+                                 "font-weight: normal;\n"
+                                 "font-size: 64px;\n"
+                                 "line-height: 84px;\n"
+                                 "\n"
+                                 "color: #FFFFFF;\n"
+                                 "\n"
+                                 "")
+        self.character_name_label.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
+        self.character_name_label.setObjectName("character_name_label")
         """view character """
         self.character_label = QtWidgets.QLabel(self.frame_main)
         self.character_label.setGeometry(QtCore.QRect(360, -80, 721, 461))
         self.character_label.setText("")
-        self.character_label.setPixmap(QtGui.QPixmap("material/Без имени-1 2 (1).png"))
+
         self.character_label.setObjectName("character_label")
         """dialog character on main frame"""
         self.dialog_character = QtWidgets.QLabel(self.frame_main)
@@ -679,6 +692,7 @@ class Ui_MainWindow(object):
         self.button_character_l.setIcon(icon2)
         self.button_character_l.setObjectName("button_character_l")
         self.label_8 = QtWidgets.QLabel(self.setting_frame)
+        self.label_8.hide()
         self.label_8.setGeometry(QtCore.QRect(490, 240, 171, 31))
         self.label_8.setStyleSheet("font-family: Roboto Mono;\n"
                                    "font-style: normal;\n"

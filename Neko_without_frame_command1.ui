@@ -39,7 +39,7 @@
    </size>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QFrame" name="frame">
+   <widget class="QFrame" name="mainframe">
     <property name="geometry">
      <rect>
       <x>360</x>
@@ -54,7 +54,7 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="character_label">
      <property name="geometry">
       <rect>
        <x>360</x>
@@ -70,7 +70,7 @@
       <pixmap>material/Без имени-1 2 (1).png</pixmap>
      </property>
     </widget>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="dialog_character">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -92,7 +92,7 @@ border-radius: 13px;</string>
       <string>          Семпай,надеюсь, ты меня не просто так позвал?</string>
      </property>
     </widget>
-    <widget class="QFrame" name="frame_3">
+    <widget class="QFrame" name="setting_frame">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -137,7 +137,7 @@ border-radius: 13px;</string>
          <height>181</height>
         </rect>
        </property>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="setting_button">
         <property name="geometry">
          <rect>
           <x>40</x>
@@ -160,7 +160,7 @@ box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
          <string>setting</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_6">
+       <widget class="QPushButton" name="rule_command_button">
         <property name="geometry">
          <rect>
           <x>40</x>
@@ -183,7 +183,7 @@ box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
          <string>ruling command</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_7">
+       <widget class="QPushButton" name="q_a_button">
         <property name="geometry">
          <rect>
           <x>40</x>
@@ -206,7 +206,7 @@ box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
          <string>q&amp;&amp;a</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_11">
+       <widget class="QPushButton" name="teg_icon_button">
         <property name="enabled">
          <bool>true</bool>
         </property>
@@ -246,23 +246,7 @@ border-radius: 13px;</string>
       </widget>
      </widget>
     </widget>
-    <widget class="QFrame" name="frame_5">
-     <property name="geometry">
-      <rect>
-       <x>170</x>
-       <y>140</y>
-       <width>571</width>
-       <height>80</height>
-      </rect>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-    </widget>
-    <widget class="QFrame" name="frame_2">
+    <widget class="QFrame" name="frame_icon_other_frame">
      <property name="geometry">
       <rect>
        <x>580</x>
@@ -282,7 +266,7 @@ border-radius: 13px;</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="button_note">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -319,7 +303,7 @@ border-radius: 13px;</string>
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_4">
+     <widget class="QPushButton" name="like_command_button">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -356,7 +340,7 @@ border-radius: 13px;</string>
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_5">
+     <widget class="QPushButton" name="teg_button">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -492,7 +476,7 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
          <x>0</x>
          <y>0</y>
          <width>1218</width>
-         <height>56</height>
+         <height>54</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -541,7 +525,7 @@ color: #FFFFFF;</string>
       <string>delite</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_2">
+    <widget class="QLineEdit" name="input_name_command">
      <property name="geometry">
       <rect>
        <x>480</x>
@@ -563,7 +547,7 @@ color: rgba(255, 255, 255, 0.67);</string>
       <string>              enter name command </string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_20">
+    <widget class="QPushButton" name="push_add_command">
      <property name="geometry">
       <rect>
        <x>890</x>
@@ -610,7 +594,7 @@ border-radius: 13px;</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QLabel" name="label_5">
+     <widget class="QLabel" name="label_help_site">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -652,7 +636,7 @@ border-radius: 13px;</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QLabel" name="label_4">
+     <widget class="QLabel" name="label_help_folder">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -674,7 +658,7 @@ color: #FFFFFF;</string>
       </property>
      </widget>
     </widget>
-    <widget class="QPushButton" name="pushButton_21">
+    <widget class="QPushButton" name="bread_button">
      <property name="geometry">
       <rect>
        <x>300</x>
@@ -728,7 +712,7 @@ color: rgba(255, 255, 255, 0.67);</string>
       <string>    set site</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_8">
+    <widget class="QLabel" name="character_on_add_del_frame">
      <property name="geometry">
       <rect>
        <x>900</x>
@@ -744,7 +728,7 @@ color: rgba(255, 255, 255, 0.67);</string>
       <pixmap>material/Без имени-1 2.png</pixmap>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_27">
+    <widget class="QPushButton" name="rule_command_back_button">
      <property name="geometry">
       <rect>
        <x>950</x>
@@ -850,95 +834,51 @@ border-radius: 13px;</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_9">
-     <property name="geometry">
-      <rect>
-       <x>1250</x>
-       <y>170</y>
-       <width>151</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border-radius: 2px;
-font: 12pt &quot;MS Shell Dlg 2&quot;;
-color: rgba(255, 255, 255, 0.67);
-
-background: rgba(23, 23, 23, 0.31);
-border: 1px solid rgba(233, 233, 233, 0.22);
-box-sizing: border-box;
-box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
-     </property>
-     <property name="text">
-      <string> command 2</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_8">
-     <property name="geometry">
-      <rect>
-       <x>1260</x>
-       <y>110</y>
-       <width>151</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border-radius: 2px;
-font: 12pt &quot;MS Shell Dlg 2&quot;;
-color: rgba(255, 255, 255, 0.67);
-
-background: rgba(23, 23, 23, 0.31);
-border: 1px solid rgba(233, 233, 233, 0.22);
-box-sizing: border-box;
-box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
-     </property>
-     <property name="text">
-      <string>command 1</string>
-     </property>
-    </widget>
-    <widget class="QScrollArea" name="scrollArea_3">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>260</y>
-       <width>261</width>
-       <height>151</height>
-      </rect>
-     </property>
-     <property name="widgetResizable">
-      <bool>true</bool>
-     </property>
-     <widget class="QWidget" name="scrollAreaWidgetContents_3">
+     <widget class="QPushButton" name="pushButton_9">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>259</width>
-        <height>149</height>
+        <x>20</x>
+        <y>80</y>
+        <width>151</width>
+        <height>51</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QFrame" name="frame_12">
-         <property name="maximumSize">
-          <size>
-           <width>100</width>
-           <height>50</height>
-          </size>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <property name="styleSheet">
+       <string notr="true">border-radius: 2px;
+font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgba(255, 255, 255, 0.67);
+
+background: rgba(23, 23, 23, 0.31);
+border: 1px solid rgba(233, 233, 233, 0.22);
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
+      </property>
+      <property name="text">
+       <string> command 2</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_8">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>151</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-radius: 2px;
+font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgba(255, 255, 255, 0.67);
+
+background: rgba(23, 23, 23, 0.31);
+border: 1px solid rgba(233, 233, 233, 0.22);
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
+      </property>
+      <property name="text">
+       <string>command 1</string>
+      </property>
      </widget>
     </widget>
    </widget>

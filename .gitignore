@@ -2,3 +2,5 @@
 .idea/
 /other_file/
 __pycache__/Neko_without_frame_command.cpython-39.pyc
+
+__pycache__/Neko_layout.cpython-39.pyc

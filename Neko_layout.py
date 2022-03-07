@@ -131,8 +131,8 @@ class Ui_MainWindow(object):
         self.button_note.setEnabled(True)
         self.button_note.setGeometry(QtCore.QRect(14, 10, 61, 61))
         self.button_note.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                      "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                      "border-radius: 13px;")
+                                       "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                       "border-radius: 13px;")
         self.button_note.setText("")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("material/image 40.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -179,8 +179,8 @@ class Ui_MainWindow(object):
         self.frame_choice_del_button = QtWidgets.QFrame(self.frame_rule_command)
         self.frame_choice_del_button.setGeometry(QtCore.QRect(270, 480, 661, 81))
         self.frame_choice_del_button.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
-                                   "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                   "border-radius: 13px;")
+                                                   "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                                   "border-radius: 13px;")
         self.frame_choice_del_button.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_choice_del_button.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_choice_del_button.setObjectName("frame_choice_del_button")
@@ -236,38 +236,37 @@ class Ui_MainWindow(object):
         self.Layout.setAlignment(QtCore.Qt.AlignLeft)
         self.Layout.setObjectName("gridLayout")
 
-
         self.button_delite_command = QtWidgets.QPushButton(self.frame_rule_command)
         self.button_delite_command.setGeometry(QtCore.QRect(940, 480, 71, 61))
         self.button_delite_command.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
-                                         "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                         "border-radius: 13px;\n"
-                                         "font-size: 18px;\n"
-                                         "line-height: 27px;\n"
-                                         "\n"
-                                         "color: #FFFFFF;")
+                                                 "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                                 "border-radius: 13px;\n"
+                                                 "font-size: 18px;\n"
+                                                 "line-height: 27px;\n"
+                                                 "\n"
+                                                 "color: #FFFFFF;")
         self.button_delite_command.setObjectName("button_delite_command")
         """ввод данных"""
         self.input_name_command = QtWidgets.QLineEdit(self.frame_rule_command)
         self.input_name_command.setGeometry(QtCore.QRect(480, 380, 405, 55))
         self.input_name_command.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
-                                      "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                      "border-radius: 13px;\n"
-                                      "font-size: 24px;\n"
-                                      "line-height: 37px;\n"
-                                      "\n"
-                                      "color: rgba(255, 255, 255, 0.67);")
+                                              "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                              "border-radius: 13px;\n"
+                                              "font-size: 24px;\n"
+                                              "line-height: 37px;\n"
+                                              "\n"
+                                              "color: rgba(255, 255, 255, 0.67);")
         self.input_name_command.setObjectName("input_name_command")
-        
+
         self.push_add_command = QtWidgets.QPushButton(self.frame_rule_command)
         self.push_add_command.setGeometry(QtCore.QRect(890, 380, 46, 55))
         self.push_add_command.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
-                                         "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                         "border-radius: 13px;\n"
-                                         "font-size: 18px;\n"
-                                         "line-height: 27px;\n"
-                                         "\n"
-                                         "color: #FFFFFF;")
+                                            "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                            "border-radius: 13px;\n"
+                                            "font-size: 18px;\n"
+                                            "line-height: 27px;\n"
+                                            "\n"
+                                            "color: #FFFFFF;")
         self.push_add_command.setText("")
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap("material/image 32.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
@@ -285,10 +284,10 @@ class Ui_MainWindow(object):
         self.label_help_site = QtWidgets.QLabel(self.frame_9)
         self.label_help_site.setGeometry(QtCore.QRect(10, 0, 331, 81))
         self.label_help_site.setStyleSheet("background: rgba(23, 23, 23, 0);\n"
-                                   "font-size: 14px;\n"
-                                   "line-height: 24px;\n"
-                                   "\n"
-                                   "color: #FFFFFF;")
+                                           "font-size: 14px;\n"
+                                           "line-height: 24px;\n"
+                                           "\n"
+                                           "color: #FFFFFF;")
         self.label_help_site.setObjectName("label_help_site")
         self.frame_10 = QtWidgets.QFrame(self.frame_rule_command)
         self.frame_10.setGeometry(QtCore.QRect(510, 130, 348, 87))
@@ -302,10 +301,10 @@ class Ui_MainWindow(object):
         self.label_help_folder = QtWidgets.QLabel(self.frame_10)
         self.label_help_folder.setGeometry(QtCore.QRect(0, 0, 348, 91))
         self.label_help_folder.setStyleSheet("background: rgba(23, 23, 23, 0);\n"
-                                   "font-size: 14px;\n"
-                                   "line-height: 24px;\n"
-                                   "\n"
-                                   "color: #FFFFFF;")
+                                             "font-size: 14px;\n"
+                                             "line-height: 24px;\n"
+                                             "\n"
+                                             "color: #FFFFFF;")
         self.label_help_folder.setObjectName("label_help_folder")
         self.bread_button = QtWidgets.QPushButton(self.frame_rule_command)
         self.bread_button.setGeometry(QtCore.QRect(300, 100, 191, 131))
@@ -434,9 +433,10 @@ class Ui_MainWindow(object):
         self.label_help_site.setText(_translate("MainWindow", "set site"))
 
         # label ru
-        self.dialog_character.setText(_translate("MainWindow", "          Семпай,надеюсь, ты меня не просто так позвал?"))
+        self.dialog_character.setText(
+            _translate("MainWindow", "          Семпай,надеюсь, ты меня не просто так позвал?"))
         self.label_help_site.setText(_translate("MainWindow", "Если хочешь быстрый доступ к сайту то\n"
-                                                      " вставь ссылку"))
+                                                              " вставь ссылку"))
         self.label_help_folder.setText(_translate("MainWindow", "     Если хочешь добавить приложение\n"
-                                                      "     в быстрый запуск то *кликни* на хлеб"))
+                                                                "     в быстрый запуск то *кликни* на хлеб"))
         self.lineEdit_4.setText(_translate("MainWindow", "set site"))

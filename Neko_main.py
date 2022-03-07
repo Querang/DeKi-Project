@@ -1,6 +1,5 @@
 import sys
 import sqlite_Neko
-from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut
 from Neko_layout import Ui_MainWindow
@@ -10,7 +9,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        # screen size get
+        """screen size get"""
         screen = app.primaryScreen()
         size = screen.size()
 
@@ -20,18 +19,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
-        # add widget
+        """add widget"""
         self.grid = QtWidgets.QGridLayout(self.frame_11)
 
+        """hide/show frame"""
         self.frame_rule_command.hide()
         self.command_panel_frame.hide()
-        #self.setting_frame.hide()
+        # self.setting_frame.hide()
 
-        # hotkey
+        """hotkey"""
         self.shortcut = QShortcut(QKeySequence("Ctrl+W"), self)
         self.shortcut.activated.connect(self.hide_main_window)
 
-        # assign an action
+        """assign an action"""
         self.rule_command_button.clicked.connect(self.show_rule_command_frame)
         self.rule_command_back_button.clicked.connect(self.back_on_main_frame)
         self.like_command_button.clicked.connect(self.show_hide_like_command)
@@ -39,12 +39,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.bread_button.clicked.connect(self.get_directory)
         self.push_add_command.clicked.connect(self.add_date_in_Neko_bd)
         self.button_delite_command.clicked.connect(self.del_command)
-        # set variables
+        """set variables"""
         self.like_button_check = False
         self.teg_button_check = False
-        self.dirlist = []
-        self.link_site = ""
-        self.del_list = []
+        self.dirlist = []  # список получает пути, выбранные через проводник
+        self.link_site = ""  # получает название сайта
+        self.del_list = []  # выбранные команды для удаления попадают сюда
+
+    """fun in main frame"""
 
     def hide_main_window(self):
         self.showMinimized()
@@ -69,6 +71,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.setting_frame.show()
         self.teg_button_check = not self.teg_button_check
 
+    """fun in  frame add/del"""
+
     def back_on_main_frame(self):
         self.frame_main.show()
         self.frame_rule_command.hide()
@@ -78,7 +82,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.del_list = []
         self.clear_delite_bar()
 
-    # ADD FRAME FUN
+    """после выбора файла появляется label с его названием, функция очищает grid в котором он находится"""
+
     def clear_grid(self):
         while self.grid.count():
             item = self.grid.takeAt(0)
@@ -88,7 +93,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # i.e.:   aList.append(widget.someId)
             widget.deleteLater()
 
-    # выбор файлов для действия
+    """выбор файлов для действия"""
+
     def get_directory(self):
 
         folder = QtWidgets.QFileDialog.getExistingDirectory(None, "Выбрать папку", ".")
@@ -129,6 +135,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                     "color: #FFFFFF;")
                 self.grid.addWidget(label, x, y)
 
+    """добавить task в базу данных"""
+
     def add_date_in_Neko_bd(self):
         self.link_site = self.lineEdit_4.text()
         if (self.dirlist != []) and (self.link_site == "set site"):
@@ -160,14 +168,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.clear_delite_bar()
         self.show_update_item_in_area_delite_choice()
 
+    """обновляет кнопки, содержащие команды"""
 
     def show_update_item_in_area_delite_choice(self):
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             name = sqlite_Neko.select_all_command(conn)
             print(name)
-        for i,j in enumerate(name):
-            if len(name)>3:
+        for i, j in enumerate(name):
+            if len(name) > 3:
                 self.scrollArea_3.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
             else:
                 self.scrollArea_3.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
@@ -176,19 +185,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.pushButton.setMinimumSize(200, 52)
             self.pushButton.setMaximumSize(200, 52)
             self.pushButton.setStyleSheet("border-radius: 2px;\n"
-                                             "font: 12pt \"MS Shell Dlg 2\";\n"
-                                             "color: rgba(255, 255, 255, 0.67);\n"
-                                             "\n"
-                                             "background: rgba(23, 23, 23, 0.31);\n"
-                                             "border: 1px solid rgba(233, 233, 233, 0.22);\n"
-                                             "box-sizing: border-box;\n"
-                                             "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+                                          "font: 12pt \"MS Shell Dlg 2\";\n"
+                                          "color: rgba(255, 255, 255, 0.67);\n"
+                                          "\n"
+                                          "background: rgba(23, 23, 23, 0.31);\n"
+                                          "border: 1px solid rgba(233, 233, 233, 0.22);\n"
+                                          "box-sizing: border-box;\n"
+                                          "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
             self.pushButton.setText(f"{j}")
             self.pushButton.clicked.connect(lambda checked, button=self.pushButton: self.active_button(button))
-            self.Layout.addWidget(self.pushButton,0,i)
+            self.Layout.addWidget(self.pushButton, 0, i)
 
+    """делает кнопку активной при нажатии,добавляет команду в del_list"""
 
-    def active_button(self,pushButton):
+    def active_button(self, pushButton):
         pushButton.setStyleSheet("border-radius: 2px;\n"
                                  "font: 12pt \"MS Shell Dlg 2\";\n"
                                  "color: rgba(255, 255, 255, 0.67);\n"
@@ -201,7 +211,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.del_list.append(qq)
         print(self.del_list)
 
-
     def clear_delite_bar(self):
         while self.Layout.count():
             item = self.Layout.takeAt(0)
@@ -210,13 +219,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # save in a list to maintain order, you can do that here
             # i.e.:   aList.append(widget.someId)
             widget.deleteLater()
+
     def del_command(self):
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             for i in self.del_list:
-                sqlite_Neko.delete_task(conn,i)
+                sqlite_Neko.delete_task(conn, i)
         self.clear_delite_bar()
         self.show_update_item_in_area_delite_choice()
+
+    """fun setting frame"""
+
 
 app = QApplication(sys.argv)
 w = MainWindow()

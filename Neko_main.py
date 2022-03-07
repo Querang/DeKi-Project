@@ -13,8 +13,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         screen = app.primaryScreen()
         size = screen.size()
 
+
         self.setupUi(self)
-        self.setGeometry(0, size.height() // 8, size.width(), size.height())
+
 
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
@@ -25,6 +26,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """hide/show frame"""
         self.frame_rule_command.hide()
         self.command_panel_frame.hide()
+        self.teg_frame.hide()
+        self.frame_main.hide()
         # self.setting_frame.hide()
 
         """hotkey"""
@@ -35,18 +38,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.rule_command_button.clicked.connect(self.show_rule_command_frame)
         self.rule_command_back_button.clicked.connect(self.back_on_main_frame)
         self.like_command_button.clicked.connect(self.show_hide_like_command)
-        self.teg_button.clicked.connect(self.show_setting_frame)
+        self.teg_button.clicked.connect(self.show_teg_frame)
         self.bread_button.clicked.connect(self.get_directory)
         self.push_add_command.clicked.connect(self.add_date_in_Neko_bd)
         self.button_delite_command.clicked.connect(self.del_command)
+        self.setting_button.clicked.connect(self.show_setting_frame)
         """set variables"""
         self.like_button_check = False
         self.teg_button_check = False
+        self.setting_button_check = False
         self.dirlist = []  # список получает пути, выбранные через проводник
         self.link_site = ""  # получает название сайта
         self.del_list = []  # выбранные команды для удаления попадают сюда
 
     """fun in main frame"""
+    def show_setting_frame(self):
+        self.frame_main.hide()
+        self.setting_frame.show()
+        self.command_panel_frame.hide()
 
     def hide_main_window(self):
         self.showMinimized()
@@ -64,11 +73,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.command_panel_frame.show()
         self.like_button_check = not self.like_button_check
 
-    def show_setting_frame(self):
+    def show_teg_frame(self):
         if self.teg_button_check:
-            self.setting_frame.hide()
+            self.teg_frame.hide()
         else:
-            self.setting_frame.show()
+            self.teg_frame.show()
         self.teg_button_check = not self.teg_button_check
 
     """fun in  frame add/del"""

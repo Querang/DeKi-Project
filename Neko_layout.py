@@ -49,16 +49,16 @@ class Ui_MainWindow(object):
         self.dialog_character.setObjectName("label_3")
 
         """frame панели настроек - отображает кнопки: rule_command_button, q_a_button, setting_button """
-        self.setting_frame = QtWidgets.QFrame(self.frame_main)
-        self.setting_frame.setGeometry(QtCore.QRect(0, 80, 283, 179))
-        self.setting_frame.setStyleSheet("background: rgba(23, 23, 23, 0.83);\n"
+        self.teg_frame = QtWidgets.QFrame(self.frame_main)
+        self.teg_frame.setGeometry(QtCore.QRect(0, 80, 283, 179))
+        self.teg_frame.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
                                          "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                          "border-radius: 13px;")
-        self.setting_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.setting_frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.setting_frame.setObjectName("setting_frame")
-        """для прокрутки setting_frame """
-        self.scrollArea = QtWidgets.QScrollArea(self.setting_frame)
+        self.teg_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.teg_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.teg_frame.setObjectName("teg_frame")
+        """для прокрутки teg_frame """
+        self.scrollArea = QtWidgets.QScrollArea(self.teg_frame)
         self.scrollArea.setGeometry(QtCore.QRect(-1, -1, 281, 181))
         self.scrollArea.setStyleSheet("background: rgba(23, 23, 23, 0);\n"
                                       "border-radius: 13px;")
@@ -408,6 +408,288 @@ class Ui_MainWindow(object):
         self.pushButton_9.setObjectName("pushButton_9")
         self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
         MainWindow.setCentralWidget(self.centralwidget)
+        """setting frame"""
+        self.setting_frame = QtWidgets.QFrame(self.centralwidget)
+        self.setting_frame.setGeometry(QtCore.QRect(260, 139, 929, 445))
+        self.setting_frame.setStyleSheet("background: rgba(23, 23, 23, 0.6);\n"
+                                         "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.35);\n"
+                                         "border-radius: 13px;")
+        self.setting_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.setting_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.setting_frame.setObjectName("setting_frame")
+        self.label = QtWidgets.QLabel(self.setting_frame)
+        self.label.setGeometry(QtCore.QRect(20, 0, 71, 31))
+        self.label.setStyleSheet("font: 8pt \"Arial\";\n"
+                                 "font-style: normal;\n"
+                                 "font-weight: normal;\n"
+                                 "font-size: 14px;\n"
+                                 "line-height: 34px;\n"
+                                 "/* identical to box height */\n"
+                                 "background: rgba(23, 23, 23, 0.0);\n"
+                                 "\n"
+                                 "color: #FFFFFF;\n"
+                                 "")
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(self.setting_frame)
+        self.label_2.setGeometry(QtCore.QRect(10, 80, 403, 75))
+        self.label_2.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+                                   "font: 18pt \"Arial\";\n"
+                                   "border: 3px solid #575151;\n"
+                                   "box-sizing: border-box;\n"
+                                   "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                   "border-radius: 11px;\n"
+                                   "\n"
+                                   "font-weight: normal;\n"
+                                   "\n"
+                                   "line-height: 40px;\n"
+                                   "\n"
+                                   "color: #FFFFFF;\n"
+                                   "")
+        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_2.setObjectName("label_2")
+        self.label_3 = QtWidgets.QLabel(self.setting_frame)
+        self.label_3.setGeometry(QtCore.QRect(10, 310, 169, 55))
+        self.label_3.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+                                   "font: 18pt \"Arial\";\n"
+                                   "border: 3px solid #575151;\n"
+                                   "box-sizing: border-box;\n"
+                                   "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                   "border-radius: 13px;\n"
+                                   "\n"
+                                   "font-weight: normal;\n"
+                                   "\n"
+                                   "line-height: 40px;\n"
+                                   "\n"
+                                   "color: #FFFFFF;\n"
+                                   "")
+        self.label_3.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_3.setObjectName("label_3")
+        self.label_4 = QtWidgets.QLabel(self.setting_frame)
+        self.label_4.setGeometry(QtCore.QRect(10, 375, 169, 55))
+        self.label_4.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+                                   "font: 18pt \"Arial\";\n"
+                                   "border: 3px solid #575151;\n"
+                                   "box-sizing: border-box;\n"
+                                   "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                   "border-radius: 13px;\n"
+                                   "\n"
+                                   "font-weight: normal;\n"
+                                   "\n"
+                                   "line-height: 40px;\n"
+                                   "\n"
+                                   "color: #FFFFFF;\n"
+                                   "")
+        self.label_4.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_4.setObjectName("label_4")
+        self.label_5 = QtWidgets.QLabel(self.setting_frame)
+        self.label_5.setGeometry(QtCore.QRect(140, 160, 141, 31))
+        self.label_5.setStyleSheet("font-family: Roboto Mono;\n"
+                                   "font-style: normal;\n"
+                                   "font-weight: normal;\n"
+                                   "font-size: 14px;\n"
+                                   "line-height: 34px;\n"
+                                   "/* identical to box height */\n"
+                                   "background: rgba(23, 23, 23, 0.0);\n"
+                                   "\n"
+                                   "color: #FFFFFF;\n"
+                                   "")
+        self.label_5.setObjectName("label_5")
+        self.Nickname_2 = QtWidgets.QLineEdit(self.setting_frame)
+        self.Nickname_2.setGeometry(QtCore.QRect(100, 210, 226, 58))
+        self.Nickname_2.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+                                      "border: 3px solid #575151;\n"
+                                      "box-sizing: border-box;\n"
+                                      "font: 18pt \"Arial\";\n"
+                                      "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                      "border-radius: 8px;\n"
+                                      "font-weight: normal;\n"
+                                      "\n"
+                                      "line-height: 40px;\n"
+                                      "\n"
+                                      "color: #FFFFFF;")
+        self.Nickname_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.Nickname_2.setObjectName("Nickname_2")
+        self.label_6 = QtWidgets.QLabel(self.setting_frame)
+        self.label_6.setGeometry(QtCore.QRect(220, 310, 561, 55))
+        self.label_6.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+                                   "font: 18pt \"Arial\";\n"
+                                   "border: 3px solid #575151;\n"
+                                   "box-sizing: border-box;\n"
+                                   "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                   "border-radius: 13px;\n"
+                                   "\n"
+                                   "font-weight: normal;\n"
+                                   "\n"
+                                   "line-height: 40px;\n"
+                                   "\n"
+                                   "color: #FFFFFF;\n"
+                                   "")
+        self.label_6.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_6.setObjectName("label_6")
+        self.label_7 = QtWidgets.QLabel(self.setting_frame)
+        self.label_7.setGeometry(QtCore.QRect(220, 376, 561, 55))
+        self.label_7.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+                                   "font: 18pt \"Arial\";\n"
+                                   "border: 3px solid #575151;\n"
+                                   "box-sizing: border-box;\n"
+                                   "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                   "border-radius: 13px;\n"
+                                   "\n"
+                                   "font-weight: normal;\n"
+                                   "\n"
+                                   "line-height: 40px;\n"
+                                   "\n"
+                                   "color: #FFFFFF;\n"
+                                   "")
+        self.label_7.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_7.setObjectName("label_7")
+        self.character_set = QtWidgets.QLabel(self.setting_frame)
+        self.character_set.setGeometry(QtCore.QRect(470, 0, 167, 234))
+        self.character_set.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+                                         "font: 18pt \"Arial\";\n"
+                                         "\n"
+                                         "box-sizing: border-box;\n"
+                                         "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                         "border-radius: 13px;\n"
+                                         "\n"
+                                         "font-weight: normal;\n"
+                                         "\n"
+                                         "line-height: 40px;\n"
+                                         "\n"
+                                         "color: #FFFFFF;\n"
+                                         "")
+        self.character_set.setText("")
+        self.character_set.setPixmap(QtGui.QPixmap("material/Без имени-1 3.png"))
+        self.character_set.setAlignment(QtCore.Qt.AlignCenter)
+        self.character_set.setObjectName("character_set")
+        self.button_save = QtWidgets.QPushButton(self.setting_frame)
+        self.button_save.setGeometry(QtCore.QRect(800, 310, 106, 55))
+        self.button_save.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+                                       "border: 1px solid #B19696;\n"
+                                       "box-sizing: border-box;\n"
+                                       "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                       "border-radius: 13px;\n"
+                                       "font-size: 26px;\n"
+                                       "\n"
+                                       "\n"
+                                       "color: #FFFFFF;")
+        self.button_save.setObjectName("button_save")
+        self.pushButton_2 = QtWidgets.QPushButton(self.setting_frame)
+        self.pushButton_2.setGeometry(QtCore.QRect(800, 370, 106, 55))
+        self.pushButton_2.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+                                        "border: 1px solid #B19696;\n"
+                                        "box-sizing: border-box;\n"
+                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                        "border-radius: 13px;\n"
+                                        "font-size: 26px;\n"
+                                        "\n"
+                                        "\n"
+                                        "color: #FFFFFF;")
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.label_9 = QtWidgets.QLabel(self.setting_frame)
+        self.label_9.setGeometry(QtCore.QRect(720, 56, 171, 31))
+        self.label_9.setStyleSheet("font: 8pt \"Arial\";\n"
+                                   "font-style: normal;\n"
+                                   "font-weight: normal;\n"
+                                   "font-size: 14px;\n"
+                                   "line-height: 34px;\n"
+                                   "/* identical to box height */\n"
+                                   "background: rgba(23, 23, 23, 0.0);\n"
+                                   "\n"
+                                   "color: #FFFFFF;\n"
+                                   "")
+        self.label_9.setObjectName("label_9")
+        self.Nickname_1 = QtWidgets.QLineEdit(self.setting_frame)
+        self.Nickname_1.setGeometry(QtCore.QRect(690, 90, 226, 58))
+        self.Nickname_1.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+                                      "border: 3px solid #575151;\n"
+                                      "box-sizing: border-box;\n"
+                                      "font: 18pt \"Arial\";\n"
+                                      "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                      "border-radius: 8px;\n"
+                                      "font-weight: normal;\n"
+                                      "\n"
+                                      "line-height: 40px;\n"
+                                      "\n"
+                                      "color: #FFFFFF;")
+        self.Nickname_1.setAlignment(QtCore.Qt.AlignCenter)
+        self.Nickname_1.setObjectName("Nickname_1")
+        self.label_10 = QtWidgets.QLabel(self.setting_frame)
+        self.label_10.setGeometry(QtCore.QRect(820, 10, 71, 31))
+        self.label_10.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+                                    "font: 16pt \"Arial\";\n"
+                                    "box-sizing: border-box;\n"
+                                    "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                    "border-radius: 13px;\n"
+                                    "\n"
+                                    "font-weight: normal;\n"
+                                    "\n"
+                                    "line-height: 40px;\n"
+                                    "\n"
+                                    "color: #FFFFFF;\n"
+                                    "")
+        self.label_10.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_10.setObjectName("label_10")
+        self.pushButton_3 = QtWidgets.QPushButton(self.setting_frame)
+        self.pushButton_3.setGeometry(QtCore.QRect(890, 14, 31, 26))
+        self.pushButton_3.setStyleSheet("background: rgba(23, 23, 23, 0.0);")
+        self.pushButton_3.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("material/image 49.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_3.setIcon(icon)
+        self.pushButton_3.setObjectName("pushButton_3")
+        self.button_language_r = QtWidgets.QPushButton(self.setting_frame)
+        self.button_language_r.setGeometry(QtCore.QRect(740, 324, 31, 26))
+        self.button_language_r.setStyleSheet("background: rgba(23, 23, 23, 0.0);")
+        self.button_language_r.setText("")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("material/image 38.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.button_language_r.setIcon(icon1)
+        self.button_language_r.setObjectName("button_language_r")
+        self.button_behavior_r = QtWidgets.QPushButton(self.setting_frame)
+        self.button_behavior_r.setGeometry(QtCore.QRect(740, 390, 31, 26))
+        self.button_behavior_r.setStyleSheet("background: rgba(23, 23, 23, 0.0);")
+        self.button_behavior_r.setText("")
+        self.button_behavior_r.setIcon(icon1)
+        self.button_behavior_r.setObjectName("button_behavior_r")
+        self.button_language_l = QtWidgets.QPushButton(self.setting_frame)
+        self.button_language_l.setGeometry(QtCore.QRect(230, 324, 31, 26))
+        self.button_language_l.setStyleSheet("background: rgba(23, 23, 23, 0.0);")
+        self.button_language_l.setText("")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("material/image 52.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.button_language_l.setIcon(icon2)
+        self.button_language_l.setObjectName("button_language_l")
+        self.button_behavior_l = QtWidgets.QPushButton(self.setting_frame)
+        self.button_behavior_l.setGeometry(QtCore.QRect(230, 390, 31, 26))
+        self.button_behavior_l.setStyleSheet("background: rgba(23, 23, 23, 0.0);")
+        self.button_behavior_l.setText("")
+        self.button_behavior_l.setIcon(icon2)
+        self.button_behavior_l.setObjectName("button_behavior_l")
+        self.button_character_r = QtWidgets.QPushButton(self.setting_frame)
+        self.button_character_r.setGeometry(QtCore.QRect(640, 130, 31, 26))
+        self.button_character_r.setStyleSheet("background: rgba(23, 23, 23, 0.0);")
+        self.button_character_r.setText("")
+        self.button_character_r.setIcon(icon1)
+        self.button_character_r.setObjectName("button_character_r")
+        self.button_character_l = QtWidgets.QPushButton(self.setting_frame)
+        self.button_character_l.setGeometry(QtCore.QRect(450, 130, 31, 26))
+        self.button_character_l.setStyleSheet("background: rgba(23, 23, 23, 0.0);")
+        self.button_character_l.setText("")
+        self.button_character_l.setIcon(icon2)
+        self.button_character_l.setObjectName("button_character_l")
+        self.label_8 = QtWidgets.QLabel(self.setting_frame)
+        self.label_8.setGeometry(QtCore.QRect(490, 240, 171, 31))
+        self.label_8.setStyleSheet("font-family: Roboto Mono;\n"
+                                   "font-style: normal;\n"
+                                   "font-weight: normal;\n"
+                                   "font-size: 14px;\n"
+                                   "line-height: 34px;\n"
+                                   "/* identical to box height */\n"
+                                   "background: rgba(23, 23, 23, 0.0);\n"
+                                   "\n"
+                                   "color: #FFFFFF;\n"
+                                   "")
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -416,7 +698,22 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         # Window
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.label.setText(_translate("MainWindow", "setting"))
+        self.label_2.setText(_translate("MainWindow", "Вайфу это твой выбор"))
+        self.label_3.setText(_translate("MainWindow", "язык"))
+        self.label_4.setText(_translate("MainWindow", "характер"))
+        self.label_5.setText(_translate("MainWindow", "Укажите  свой  ник"))
+        self.Nickname_2.setText(_translate("MainWindow", "нике"))
+        self.label_6.setText(_translate("MainWindow", "русский"))
+        self.label_7.setText(_translate("MainWindow", "вайфу"))
+        self.button_save.setText(_translate("MainWindow", "save"))
+        self.pushButton_2.setText(_translate("MainWindow", "back"))
+        self.label_9.setText(_translate("MainWindow", "Укажите  ник  персонажа"))
+        self.Nickname_1.setText(_translate("MainWindow", "нике"))
+        self.label_10.setText(_translate("MainWindow", "page 1"))
+        self.label_8.setText(_translate("MainWindow", "И нисколько я не думаю\n"))
         # button
         self.setting_button.setText(_translate("MainWindow", "setting"))
         self.rule_command_button.setText(_translate("MainWindow", "ruling command"))

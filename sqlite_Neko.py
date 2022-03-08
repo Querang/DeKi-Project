@@ -14,14 +14,6 @@ def create_connection(db_file):
     return conn
 
 
-def crate_table(conn, create_table_sql):
-    try:
-        c = conn.cursor()
-        c.execute(create_table_sql)
-    except Error as e:
-        print(e)
-
-
 def create_task(conn, task):
     """
     Create a new project into the projects table
@@ -39,13 +31,15 @@ def create_task(conn, task):
 
 def get_paths_character(conn, name):
     cur = conn.cursor()
-    cur.execute("SELECT * FROM character_path WHERE name=?",(name,))
+    cur.execute("SELECT * FROM character_path WHERE name=?", (name,))
     rows = cur.fetchall()
     row = None
     for i in rows:
         row = i
     return row
-def update_global_name(conn,names):
+
+
+def update_global_name(conn, names):
     cur = conn.cursor()
     sql = ''' UPDATE global_setting
                   SET view_character = ? ,
@@ -57,6 +51,7 @@ def update_global_name(conn,names):
     cur.execute(sql, names)
     conn.commit()
 
+
 def get_names_character(conn):
     cur = conn.cursor()
     cur.execute("SELECT name FROM character_path ")
@@ -67,6 +62,7 @@ def get_names_character(conn):
         row.append(i[0])
     return row
 
+
 def get_global_name(conn):
     cur = conn.cursor()
     cur.execute("SELECT * FROM global_setting")
@@ -74,7 +70,7 @@ def get_global_name(conn):
     row = None
     print(rows)
     for i in rows:
-        row=i
+        row = i
 
     return row
 
@@ -124,9 +120,9 @@ def select_task_by_command(conn, command):
 
 def main():
     conn = create_connection("Neko.db")
-    names = ("Firo","Filorial","семпай","russian","waify")
+    names = ("Firo", "Filorial", "семпай", "russian", "waify")
     with conn:
-        update_global_name(conn,names)
+        update_global_name(conn, names)
 
 
 if __name__ == '__main__':

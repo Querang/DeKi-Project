@@ -33,14 +33,14 @@ class Ui_MainWindow(object):
         self.character_name_label = QtWidgets.QLabel(self.frame_main)
         self.character_name_label.setGeometry(QtCore.QRect(200, 240, 211, 81))
         self.character_name_label.setStyleSheet("font-family: Roboto Mono;\n"
-                                 "font-style: normal;\n"
-                                 "font-weight: normal;\n"
-                                 "font-size: 64px;\n"
-                                 "line-height: 84px;\n"
-                                 "\n"
-                                 "color: #FFFFFF;\n"
-                                 "\n"
-                                 "")
+                                                "font-style: normal;\n"
+                                                "font-weight: normal;\n"
+                                                "font-size: 64px;\n"
+                                                "line-height: 84px;\n"
+                                                "\n"
+                                                "color: #FFFFFF;\n"
+                                                "\n"
+                                                "")
         self.character_name_label.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.character_name_label.setObjectName("character_name_label")
         """view character """
@@ -65,8 +65,8 @@ class Ui_MainWindow(object):
         self.teg_frame = QtWidgets.QFrame(self.frame_main)
         self.teg_frame.setGeometry(QtCore.QRect(0, 80, 283, 179))
         self.teg_frame.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
-                                         "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                         "border-radius: 13px;")
+                                     "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                     "border-radius: 13px;")
         self.teg_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.teg_frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.teg_frame.setObjectName("teg_frame")
@@ -628,7 +628,7 @@ class Ui_MainWindow(object):
         self.Nickname_1.setAlignment(QtCore.Qt.AlignCenter)
         self.Nickname_1.setObjectName("Nickname_1")
         self.label_10 = QtWidgets.QLabel(self.setting_frame)
-        self.label_10.setGeometry(QtCore.QRect(820, 10, 71, 31))
+        self.label_10.setGeometry(QtCore.QRect(770, 10, 121, 31))
         self.label_10.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
                                     "font: 16pt \"Arial\";\n"
                                     "box-sizing: border-box;\n"
@@ -705,49 +705,83 @@ class Ui_MainWindow(object):
                                    "color: #FFFFFF;\n"
                                    "")
 
-        self.retranslateUi(MainWindow)
+        self.set_ru()
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        # Window
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "setting"))
-        self.label_2.setText(_translate("MainWindow", "Вайфу это твой выбор"))
-        self.label_3.setText(_translate("MainWindow", "язык"))
-        self.label_4.setText(_translate("MainWindow", "характер"))
-        self.label_5.setText(_translate("MainWindow", "Укажите  свой  ник"))
-        self.Nickname_2.setText(_translate("MainWindow", "нике"))
-        self.label_6.setText(_translate("MainWindow", "русский"))
-        self.label_7.setText(_translate("MainWindow", "вайфу"))
-        self.button_save.setText(_translate("MainWindow", "save"))
-        self.pushButton_2.setText(_translate("MainWindow", "back"))
-        self.label_9.setText(_translate("MainWindow", "Укажите  ник  персонажа"))
-        self.Nickname_1.setText(_translate("MainWindow", "нике"))
-        self.label_10.setText(_translate("MainWindow", "page 1"))
-        self.label_8.setText(_translate("MainWindow", "И нисколько я не думаю\n"))
+    def set_ru(self):
+        self.label.setText("настройки")
+        self.label_2.setText("Вайфу это твой выбор")
+        self.label_3.setText("язык")
+        self.label_4.setText("характер")
+        self.label_5.setText("Укажите  свой  ник")
+        self.Nickname_2.setText("нике")
+        self.label_6.setText("русский")
+        self.label_7.setText("вайфу")
+        self.button_save.setText("сохранить")
+        self.pushButton_2.setText("назад")
+        self.label_9.setText("Укажите  ник  персонажа")
+        self.Nickname_1.setText("нике")
+        self.label_10.setText("страница 1")
+        self.label_8.setText("И нисколько я не думаю\n")
         # button
-        self.setting_button.setText(_translate("MainWindow", "setting"))
-        self.rule_command_button.setText(_translate("MainWindow", "ruling command"))
-        self.q_a_button.setText(_translate("MainWindow", "q&&a"))
-        # self.pushButton_17.setText(_translate("MainWindow", "youtube"))
-        # self.pushButton_18.setText(_translate("MainWindow", "GitKraken"))
-        self.button_delite_command.setText(_translate("MainWindow", "delite"))
-        self.pushButton_8.setText(_translate("MainWindow", "command 1"))
-        self.pushButton_9.setText(_translate("MainWindow", " command 2"))
-        self.rule_command_back_button.setText(_translate("MainWindow", "back"))
+        self.setting_button.setText("настройки")
+        self.rule_command_button.setText("добавить команды")
+        self.q_a_button.setText("q&&a")
+        # self.pushButton_17.setText( "youtube"))
+        # self.pushButton_18.setText( "GitKraken"))
+        self.button_delite_command.setText("удалить")
+        self.pushButton_8.setText("command 1")
+        self.pushButton_9.setText(" command 2")
+        self.rule_command_back_button.setText("назад")
 
         # lineedit
-        self.input_name_command.setText(_translate("MainWindow", "enter name command"))
-        self.label_help_site.setText(_translate("MainWindow", "set site"))
+        self.input_name_command.setText("название команды")
+        self.label_help_site.setText("укажи сайт")
 
         # label ru
         self.dialog_character.setText(
-            _translate("MainWindow", "          Семпай,надеюсь, ты меня не просто так позвал?"))
-        self.label_help_site.setText(_translate("MainWindow", "Если хочешь быстрый доступ к сайту то\n"
-                                                              " вставь ссылку"))
-        self.label_help_folder.setText(_translate("MainWindow", "     Если хочешь добавить приложение\n"
-                                                                "     в быстрый запуск то *кликни* на хлеб"))
-        self.lineEdit_4.setText(_translate("MainWindow", "set site"))
+            "          Семпай,надеюсь, ты меня не просто так позвал?")
+        self.label_help_site.setText("Если хочешь быстрый доступ к сайту то\n"
+                                     " вставь ссылку")
+        self.label_help_folder.setText("     Если хочешь добавить приложение\n"
+                                       "     в быстрый запуск то *кликни* на хлеб")
+        self.lineEdit_4.setText("укажи сайт")
+
+    def set_en(self):
+        self.label.setText("settings")
+        self.label_2.setText("Waifu is your choice")
+        self.label_3.setText("language")
+        self.label_4.setText("character")
+        self.label_5.setText("Enter your nickname")
+        self.Nickname_2.setText("nickname")
+        self.label_6.setText("Russian")
+        self.label_7.setText("waifu")
+        self.button_save.setText("save")
+        self.pushButton_2.setText("back")
+        self.label_9.setText("Specify character nickname")
+        self.Nickname_1.setText("nickname")
+        self.label_10.setText("page 1")
+        self.label_8.setText("And I don't think at all\n")
+        # button
+        self.setting_button.setText("settings")
+        self.rule_command_button.setText("add commands")
+        self.q_a_button.setText("q&&a")
+        # self.pushButton_17.setText( "youtube"))
+        # self.pushButton_18.setText( "GitKraken"))
+        self.button_delite_command.setText("delete")
+        self.pushButton_8.setText("command 1")
+        self.pushButton_9.setText(" command 2")
+        self.rule_command_back_button.setText("back")
+
+        # lineedit
+        self.input_name_command.setText("command name")
+        self.label_help_site.setText("specify site")
+
+        # label en
+        self.dialog_character.setText(
+            "Senpai, I hope you called me for a reason?")
+        self.label_help_site.setText("If you want quick access to the site then\n"
+                                     "insert link")
+        self.label_help_folder.setText("If you want to add an application\n"
+                                       "In quick launch, then *click* on the bread")
+        self.lineEdit_4.setText("specify website")

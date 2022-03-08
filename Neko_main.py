@@ -46,6 +46,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_character_l.clicked.connect(self.Next_character)
         self.button_save.clicked.connect(self.save_global_setting)
         self.pushButton_2.clicked.connect(self.set_back_on_main)
+        self.button_language_r.clicked.connect(self.Next_language)
+        self.button_language_l.clicked.connect(self.Next_language)
         """set variables"""
         self.like_button_check = False
         self.teg_button_check = False
@@ -53,10 +55,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.dirlist = []  # список получает пути, выбранные через проводник
         self.link_site = ""  # получает название сайта
         self.del_list = []  # выбранные команды для удаления попадают сюда
-
+        self.language_list = ["russian", "english"]
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
-            self.names_character_list = sqlite_Neko.get_names_character(conn)  # получить имена всех доступных персонажей
+            self.names_character_list = sqlite_Neko.get_names_character(
+                conn)  # получить имена всех доступных персонажей
             self.view_character, self.name_character, self.name_user, self.language, self.behavior = sqlite_Neko.get_global_name(
                 conn)
             self.current_paths_character = sqlite_Neko.get_paths_character(conn, self.view_character)
@@ -64,31 +67,46 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """set name"""
 
     """fun setting frame"""
+
     def set_back_on_main(self):
         self.setting_frame.hide()
         self.frame_main.show()
+
     def save_global_setting(self):
         conn = sqlite_Neko.create_connection("Neko.db")
         get_user_name = self.Nickname_2.text()
+        if get_user_name not in ["нике", "nickname"]:
+            self.name_user = get_user_name
         get_character_name = self.Nickname_1.text()
-
-        self.name_character = get_character_name
+        if get_character_name not in ["нике", "nickname"]:
+            self.name_character = get_character_name
         self.name_user = get_user_name
-        print(get_user_name,self.name_user)
+        print(get_user_name, self.name_user)
         with conn:
-            sqlite_Neko.update_global_name(conn,(self.view_character, self.name_character, self.name_user, self.language, self.behavior))
+            sqlite_Neko.update_global_name(conn, (
+                self.view_character, self.name_character, self.name_user, self.language, self.behavior))
         self.set_name_in_widget()
-    def Next_character(self):
-        re = self.names_character_list.index(self.view_character)
-        print(re)
-        re += 1
-        if re > len(self.names_character_list) - 1:
-            re = 0
-        self.view_character = self.names_character_list[re]
 
+    def Next_language(self):
+        re_index = self.language_list.index(self.language)
+        re_index += 1
+        if re_index == len(self.language_list):
+            re_index = 0
+        self.language = self.language_list[re_index]
+        if self.language == "russian":
+            self.set_ru()
+        elif self.language == "english":
+            self.set_en()
+
+    def Next_character(self):
+        re_index = self.names_character_list.index(self.view_character)
+        print(re_index)
+        re_index += 1
+        if re_index > len(self.names_character_list) - 1:
+            re_index = 0
+        self.view_character = self.names_character_list[re_index]
         print(self.view_character)
         self.update_paths()
-
 
     def update_paths(self):
         conn = sqlite_Neko.create_connection("Neko.db")
@@ -100,7 +118,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def set_name_in_widget(self):
         self.dialog_character.setText(f"          {self.name_user},надеюсь, ты меня не просто так позвал?")
-        self.character_name_label.setText(self.view_character)
+        self.character_name_label.setText(self.name_character)
         self.character_label.setPixmap(QtGui.QPixmap(self.current_paths_character[1]))
         self.character_on_add_del_frame.setPixmap(QtGui.QPixmap(self.current_paths_character[2]))
         self.character_set.setPixmap(QtGui.QPixmap(self.current_paths_character[3]))
@@ -203,7 +221,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def add_date_in_Neko_bd(self):
         self.link_site = self.lineEdit_4.text()
-        if (self.dirlist != []) and (self.link_site == "set site"):
+        if (self.dirlist != []) and (self.link_site in ["set site", "укажи сайт"]):
             conn = sqlite_Neko.create_connection("Neko.db")
             command = self.input_name_command.text()
             file = []
@@ -219,7 +237,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dirlist = []
                 self.clear_grid()
                 self.input_name_command.setText("access")
-        elif (self.dirlist == []) and (self.link_site != "set site"):
+        elif (self.dirlist == []) and (self.link_site not in ["set site", "укажи сайт"]):
             conn = sqlite_Neko.create_connection("Neko.db")
             command = self.input_name_command.text()
             with conn:

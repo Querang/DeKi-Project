@@ -15,7 +15,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         size = screen.size()
 
         self.setupUi(self)
-
+        self.setGeometry(0, 0, size.width(), size.height())
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
@@ -26,7 +26,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.frame_rule_command.hide()
         self.command_panel_frame.hide()
         self.teg_frame.hide()
-
+        self.main_note_frame.hide()
         self.setting_frame.hide()
 
         """hotkey"""
@@ -48,6 +48,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushButton_2.clicked.connect(self.set_back_on_main)
         self.button_language_r.clicked.connect(self.Next_language)
         self.button_language_l.clicked.connect(self.Next_language)
+        self.button_note.clicked.connect(self.show_note_frame)
+        self.back_from_note_button.clicked.connect(self.return_to_main)
         """set variables"""
         self.like_button_check = False
         self.teg_button_check = False
@@ -64,7 +66,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 conn)
             self.current_paths_character = sqlite_Neko.get_paths_character(conn, self.view_character)
             self.set_name_in_widget()
-        """set name"""
+
+    """fun Note frame"""
+
+    def show_note_frame(self):
+        self.frame_main.hide()
+        self.main_note_frame.show()
+
+    def return_to_main(self):
+        self.main_note_frame.hide()
+        self.frame_main.show()
 
     """fun setting frame"""
 
@@ -164,9 +175,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.del_list = []
         self.clear_delite_bar()
 
-    """после выбора файла появляется label с его названием, функция очищает grid в котором он находится"""
-
     def clear_grid(self):
+        """после выбора файла появляется label с его названием, функция очищает grid в котором он находится"""
         while self.grid.count():
             item = self.grid.takeAt(0)
             widget = item.widget()
@@ -175,10 +185,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # i.e.:   aList.append(widget.someId)
             widget.deleteLater()
 
-    """выбор файлов для действия"""
-
     def get_directory(self):
-
+        """выбор файлов для действия"""
         folder = QtWidgets.QFileDialog.getExistingDirectory(None, "Выбрать папку", ".")
         print(folder)
         self.dirlist.append(folder)
@@ -217,9 +225,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                     "color: #FFFFFF;")
                 self.grid.addWidget(label, x, y)
 
-    """добавить task в базу данных"""
-
     def add_date_in_Neko_bd(self):
+        """добавить task в базу данных"""
         self.link_site = self.lineEdit_4.text()
         if (self.dirlist != []) and (self.link_site in ["set site", "укажи сайт"]):
             conn = sqlite_Neko.create_connection("Neko.db")
@@ -250,9 +257,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.clear_delite_bar()
         self.show_update_item_in_area_delite_choice()
 
-    """обновляет кнопки, содержащие команды"""
-
     def show_update_item_in_area_delite_choice(self):
+        """обновляет кнопки, содержащие команды"""
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             name = sqlite_Neko.select_all_command(conn)
@@ -278,9 +284,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.pushButton.clicked.connect(lambda checked, button=self.pushButton: self.active_button(button))
             self.Layout.addWidget(self.pushButton, 0, i)
 
-    """делает кнопку активной при нажатии,добавляет команду в del_list"""
-
     def active_button(self, pushButton):
+        """делает кнопку активной при нажатии,добавляет команду в del_list"""
         pushButton.setStyleSheet("border-radius: 2px;\n"
                                  "font: 12pt \"MS Shell Dlg 2\";\n"
                                  "color: rgba(255, 255, 255, 0.67);\n"

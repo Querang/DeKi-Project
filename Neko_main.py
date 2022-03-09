@@ -7,6 +7,8 @@ from Neko_layout import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
+
+
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
@@ -26,7 +28,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.frame_rule_command.hide()
         self.command_panel_frame.hide()
         self.teg_frame.hide()
-        self.main_note_frame.hide()
+        # self.main_note_frame.hide()
         self.setting_frame.hide()
 
         """hotkey"""
@@ -48,8 +50,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushButton_2.clicked.connect(self.set_back_on_main)
         self.button_language_r.clicked.connect(self.Next_language)
         self.button_language_l.clicked.connect(self.Next_language)
-        self.button_note.clicked.connect(self.show_note_frame)
-        self.back_from_note_button.clicked.connect(self.return_to_main)
+        # self.button_note.clicked.connect(self.show_note_frame)
+        # self.back_from_note_button.clicked.connect(self.return_to_main)
+        # self.button_add_note.clicked.connect(self.add_note)
         """set variables"""
         self.like_button_check = False
         self.teg_button_check = False
@@ -68,14 +71,80 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.set_name_in_widget()
 
     """fun Note frame"""
+    # def add_note(self):
+    #     self.clear_gri()
+    #     count = 6
+    #     list_note = []
+    #     """есть кнопка, она вызывает фрейм с ineedit
+    #     в этом lineedit отображается текст привязанный к положению этой кнопки
+    #     текст на кнопке связан с ее положением
+    #     сайв на фрейме с эдитом сохраняет запись по положению"""
+    #     for i in range(count):
+    #         list_note.append((i,0))
+    #         list_note.append((i,1))
+    #     print(list_note[:count])
+    #     co = 0
+    #     for i in list_note[:count]:
+    #         print(i)
+    #         l,k = i
+    #         print(l,k)
+    #
+    #         self.pushButton_note = QtWidgets.QPushButton()
+    #         self.pushButton_note.setMinimumSize(QtCore.QSize(148, 161))
+    #         self.pushButton_note.setMaximumSize(QtCore.QSize(148, 161))
+    #         self.pushButton_note.setStyleSheet("background: rgba(23, 23, 23, 0.76);\n"
+    #                                         "border: 1px solid #917C7C;\n"
+    #                                         "box-sizing: border-box;\n"
+    #                                         "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+    #                                         "border-radius: 24px;\n"
+    #                                         "font-family: Roboto Mono;\n"
+    #                                         "font-style: normal;\n"
+    #                                         "font-weight: normal;\n"
+    #                                         "font-size: 14px;\n"
+    #                                         "line-height: 24px;\n"
+    #                                         "vertical-align: top; \n"
+    #                                         "text-align: Top left;\n"
+    #                                         "padding: 10px 10px 20px 10px;\n"
+    #                                         "color: #FFFFFF;")
+    #         self.pushButton_note.setText(f"{co}")
+    #         self.gridLayout_note.addWidget(self.pushButton_note, l, k)
+    #         co+=1
 
-    def show_note_frame(self):
-        self.frame_main.hide()
-        self.main_note_frame.show()
-
-    def return_to_main(self):
-        self.main_note_frame.hide()
-        self.frame_main.show()
+    """ далее устанавливаем каждому setObject name  отсылаемся по нему"""
+    "установить глобальное значение стола заметок заметок"
+    "переменная под текущую кнопку"
+    # def edit_note(self,object_name):
+    #     self.Note_frame_2.show()
+    #     conn = sqlite_Neko.create_connection("Neko.db")
+    #     with conn:
+    #         note_frome_bd = sqlite_Neko.note_button_up(conn,self.work_table,object_name)
+    #         self.note_edit.setText(note_frome_bd)
+    #
+    # def save_note(self):
+    #     conn = sqlite_Neko.create_connection("Neko.db")
+    #     with conn:
+    #         text = self.note_edit.text()
+    #         sqlite_Neko.save_note_sq(conn,self.current_note_button,text)
+    #
+    # def close_edit_note(self):
+    #     self.Note_frame_2.hide()
+    #
+    #
+    # def clear_gri(self):
+    #     while self.gridLayout_note.count():
+    #         item = self.gridLayout_note.takeAt(0)
+    #         widget = item.widget()
+    #         # if widget has some id attributes you need to
+    #         # save in a list to maintain order, you can do that here
+    #         # i.e.:   aList.append(widget.someId)
+    #         widget.deleteLater()
+    # def show_note_frame(self):
+    #     self.frame_main.hide()
+    #     self.main_note_frame.show()
+    #
+    # def return_to_main(self):
+    #     self.main_note_frame.hide()
+    #     self.frame_main.show()
 
     """fun setting frame"""
 

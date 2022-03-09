@@ -705,462 +705,461 @@ class Ui_MainWindow(object):
                                    "color: #FFFFFF;\n"
                                    "")
         """ note frame"""
-        self.main_note_frame = QtWidgets.QFrame(self.centralwidget)
-        self.main_note_frame.setGeometry(QtCore.QRect(40, 50, 1601, 711))
-        self.main_note_frame.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                           "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                           "border-radius: 13px;")
-        self.main_note_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.main_note_frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.main_note_frame.setObjectName("main_note_frame")
-        self.note_menu_frame = QtWidgets.QFrame(self.main_note_frame)
-        self.note_menu_frame.setGeometry(QtCore.QRect(10, 10, 151, 221))
-        self.note_menu_frame.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
-                                           "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                           "border-radius: 13px;")
-        self.note_menu_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.note_menu_frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.note_menu_frame.setObjectName("note_menu_frame")
-        self.character_s = QtWidgets.QLabel(self.note_menu_frame)
-        self.character_s.setGeometry(QtCore.QRect(0, 30, 92, 90))
-        self.character_s.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                       "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                       "border-radius: 13px;")
-        self.character_s.setText("")
-        self.character_s.setPixmap(QtGui.QPixmap("material/Neko/Neko_s.png"))
-        self.character_s.setScaledContents(True)
-        self.character_s.setObjectName("character_s")
-        self.button_note_1 = QtWidgets.QPushButton(self.note_menu_frame)
-        self.button_note_1.setEnabled(True)
-        self.button_note_1.setGeometry(QtCore.QRect(90, 10, 61, 61))
-        self.button_note_1.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                         "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                         "border-radius: 13px;")
-        self.button_note_1.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("material/image 50.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.button_note_1.setIcon(icon)
-        self.button_note_1.setIconSize(QtCore.QSize(50, 50))
-        self.button_note_1.setAutoDefault(False)
-        self.button_note_1.setDefault(False)
-        self.button_note_1.setObjectName("button_note_1")
-        self.code_button = QtWidgets.QPushButton(self.note_menu_frame)
-        self.code_button.setEnabled(True)
-        self.code_button.setGeometry(QtCore.QRect(90, 110, 61, 61))
-        self.code_button.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                       "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                       "border-radius: 13px;")
-        self.code_button.setText("")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("material/image 62.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.code_button.setIcon(icon1)
-        self.code_button.setIconSize(QtCore.QSize(50, 50))
-        self.code_button.setAutoDefault(False)
-        self.code_button.setDefault(False)
-        self.code_button.setObjectName("code_button")
-        self.list_deal_button = QtWidgets.QPushButton(self.note_menu_frame)
-        self.list_deal_button.setEnabled(True)
-        self.list_deal_button.setGeometry(QtCore.QRect(90, 60, 61, 61))
-        self.list_deal_button.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                            "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                            "border-radius: 13px;")
-        self.list_deal_button.setText("")
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("material/image 63.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.list_deal_button.setIcon(icon2)
-        self.list_deal_button.setIconSize(QtCore.QSize(50, 50))
-        self.list_deal_button.setAutoDefault(False)
-        self.list_deal_button.setDefault(False)
-        self.list_deal_button.setObjectName("list_deal_button")
-        self.back_from_note_button = QtWidgets.QPushButton(self.note_menu_frame)
-        self.back_from_note_button.setGeometry(QtCore.QRect(16, 170, 121, 41))
-        self.back_from_note_button.setStyleSheet("background: rgba(23, 23, 23, 0.2);\n"
-                                                 "border: 1px solid #B19696;\n"
-                                                 "box-sizing: border-box;\n"
-                                                 "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                                 "border-radius: 13px;\n"
-                                                 "font-size: 26px;\n"
-                                                 "\n"
-                                                 "\n"
-                                                 "color: #FFFFFF;")
-        self.back_from_note_button.setObjectName("back_from_note_button")
-        self.Note_frame = QtWidgets.QFrame(self.main_note_frame)
-        self.Note_frame.setGeometry(QtCore.QRect(170, 10, 334, 663))
-        self.Note_frame.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
-                                      "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                      "border-radius: 13px;")
-        self.Note_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.Note_frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.Note_frame.setObjectName("Note_frame")
-        self.scrollArea_2 = QtWidgets.QScrollArea(self.Note_frame)
-        self.scrollArea_2.setGeometry(QtCore.QRect(10, 70, 311, 581))
-        self.scrollArea_2.setAutoFillBackground(False)
-        self.scrollArea_2.setStyleSheet("\n"
-                                        "QScrollBar:horizontal {\n"
-                                        "  border-color: rgb(227, 227, 227);\n"
-                                        "  border-width: 1px;\n"
-                                        "  border-style: solid;\n"
-                                        "  background-color: rgb(240, 240, 240);\n"
-                                        "    height: 15px;\n"
-                                        "    margin: 0px 21px 0 21px;\n"
-                                        " }\n"
-                                        "\n"
-                                        " QScrollBar::handle:horizontal {\n"
-                                        "    background-color: rgb(200, 200, 200);\n"
-                                        "    max-width: 5px;\n"
-                                        " }\n"
-                                        "QScrollBar::add-line:horizontal {\n"
-                                        "    border: 1px solid grey;\n"
-                                        "  background-color: rgb(241, 241, 241);\n"
-                                        "    height: 20px;\n"
-                                        "    subcontrol-position: right;\n"
-                                        "    subcontrol-origin: margin;\n"
-                                        " }\n"
-                                        "\n"
-                                        " QScrollBar::sub-line:horizontal {\n"
-                                        "  border: 1px solid grey;\n"
-                                        "    background-color: rgb(241, 241, 241);\n"
-                                        "    height: 20px;\n"
-                                        "    subcontrol-position: left;\n"
-                                        "    subcontrol-origin: margin;\n"
-                                        " }\n"
-                                        "\n"
-                                        " QScrollBar:left-arrow:horizontal\n"
-                                        "{\n"
-                                        "  image: url(:/BarIcon/Icons/leftarrow.png);\n"
-                                        "}\n"
-                                        "\n"
-                                        "QScrollBar::right-arrow:horizontal \n"
-                                        "{\n"
-                                        "  image: url(:/BarIcon/Icons/rightarrow.png);\n"
-                                        "}\n"
-                                        "\n"
-                                        "QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
-                                        "     background: none;\n"
-                                        "}\n"
-                                        "QScrollArea {\n"
-                                        "background: rgba(23, 23, 23, 0.0);\n"
-                                        "}")
-        self.scrollArea_2.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.scrollArea_2.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.scrollArea_2.setWidgetResizable(True)
-        self.scrollArea_2.setObjectName("scrollArea_2")
-        self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 311, 581))
-        self.scrollAreaWidgetContents_2.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                                      "")
-        self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
-        self.gridLayout = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_2)
-        self.gridLayout.setObjectName("gridLayout")
-        self.pushButton_4 = QtWidgets.QPushButton(self.scrollAreaWidgetContents_2)
-        self.pushButton_4.setMaximumSize(QtCore.QSize(143, 35))
-        self.pushButton_4.setStyleSheet("background: rgba(23, 23, 23, 0.76);\n"
-                                        "border: 1px solid #907C7C;\n"
-                                        "box-sizing: border-box;\n"
-                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                        "border-radius: 12px;\n"
-                                        "\n"
-                                        "\n"
-                                        "color: #FFFFFF;")
-        self.pushButton_4.setObjectName("pushButton_4")
-        self.gridLayout.addWidget(self.pushButton_4, 0, 1, 1, 1)
-        self.pushButton_3 = QtWidgets.QPushButton(self.scrollAreaWidgetContents_2)
-        self.pushButton_3.setMinimumSize(QtCore.QSize(148, 161))
-        self.pushButton_3.setMaximumSize(QtCore.QSize(148, 161))
-        self.pushButton_3.setStyleSheet("background: rgba(23, 23, 23, 0.76);\n"
-                                        "border: 1px solid #917C7C;\n"
-                                        "box-sizing: border-box;\n"
-                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                        "border-radius: 24px;\n"
-                                        "font-family: Roboto Mono;\n"
-                                        "font-style: normal;\n"
-                                        "font-weight: normal;\n"
-                                        "font-size: 14px;\n"
-                                        "line-height: 24px;\n"
-                                        "vertical-align: top; \n"
-                                        "text-align: Top left;\n"
-                                        "padding: 10px 10px 20px 10px;\n"
-                                        "color: #FFFFFF;")
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.gridLayout.addWidget(self.pushButton_3, 0, 0, 1, 1)
-        self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
-        self.lineEdit = QtWidgets.QLineEdit(self.Note_frame)
-        self.lineEdit.setGeometry(QtCore.QRect(10, 36, 304, 27))
-        self.lineEdit.setStyleSheet("background: rgba(40, 40, 40, 0.5);\n"
-                                    "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                    "border-radius: 13px;\n"
-                                    "font-family: Titillium Web;\n"
-                                    "font-style: normal;\n"
-                                    "font-weight: normal;\n"
-                                    "font-size: 12px;\n"
-                                    "line-height: 18px;\n"
-                                    "\n"
-                                    "color: rgba(255, 255, 255, 0.67);\n"
-                                    "\n"
-                                    "opacity: 0.7;")
-        self.lineEdit.setObjectName("lineEdit")
-        self.label_note_2 = QtWidgets.QLabel(self.Note_frame)
-        self.label_note_2.setGeometry(QtCore.QRect(30, 0, 131, 31))
-        self.label_note_2.setStyleSheet("font: 8pt \"Arial\";\n"
-                                        "font-style: normal;\n"
-                                        "font-weight: normal;\n"
-                                        "font-size: 20px;\n"
-                                        "line-height: 34px;\n"
-                                        "/* identical to box height */\n"
-                                        "background: rgba(33, 24, 24, 0.0);\n"
-                                        "\n"
-                                        "color: #FFFFFF;\n"
-                                        "")
-        self.label_note_2.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
-        self.label_note_2.setObjectName("label_note_2")
-        self.note_save_button_2 = QtWidgets.QPushButton(self.Note_frame)
-        self.note_save_button_2.setEnabled(True)
-        self.note_save_button_2.setGeometry(QtCore.QRect(160, 2, 31, 31))
-        self.note_save_button_2.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                              "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                              "border-radius: 13px;")
-        self.note_save_button_2.setText("")
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("material/image 36.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.note_save_button_2.setIcon(icon3)
-        self.note_save_button_2.setIconSize(QtCore.QSize(40, 50))
-        self.note_save_button_2.setAutoDefault(False)
-        self.note_save_button_2.setDefault(False)
-        self.note_save_button_2.setObjectName("note_save_button_2")
-        self.list_deal_frame = QtWidgets.QFrame(self.main_note_frame)
-        self.list_deal_frame.setGeometry(QtCore.QRect(520, 10, 669, 316))
-        self.list_deal_frame.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
-                                           "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                           "border-radius: 13px;")
-        self.list_deal_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.list_deal_frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.list_deal_frame.setObjectName("list_deal_frame")
-        self.label_list_deal = QtWidgets.QLabel(self.list_deal_frame)
-        self.label_list_deal.setGeometry(QtCore.QRect(270, 0, 131, 31))
-        self.label_list_deal.setStyleSheet("font-family: Roboto Mono;\n"
-                                           "font-style: normal;\n"
-                                           "font-weight: normal;\n"
-                                           "font-size: 24px;\n"
-                                           "line-height: 32px;\n"
-                                           "\n"
-                                           "color: #FFFFFF;\n"
-                                           "/* identical to box height */\n"
-                                           "background: rgba(33, 24, 24, 0.0);\n"
-                                           "\n"
-                                           "color: #FFFFFF;\n"
-                                           "")
-        self.label_list_deal.setObjectName("label_list_deal")
-        self.code_frame_2 = QtWidgets.QFrame(self.main_note_frame)
-        self.code_frame_2.setGeometry(QtCore.QRect(520, 340, 671, 99))
-        self.code_frame_2.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
-                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                        "border-radius: 13px;")
-        self.code_frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.code_frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.code_frame_2.setObjectName("code_frame_2")
-        self.pushButton = QtWidgets.QPushButton(self.code_frame_2)
-        self.pushButton.setGeometry(QtCore.QRect(60, 10, 521, 71))
-        self.pushButton.setStyleSheet("font: 8pt \"Arial\";\n"
-                                      "font-style: normal;\n"
-                                      "font-weight: normal;\n"
-                                      "font-size: 22px;\n"
-                                      "line-height: 34px;\n"
-                                      "/* identical to box height */\n"
-                                      "background: rgba(33, 24, 24, 0.0);\n"
-                                      "\n"
-                                      "color: #FFFFFF;\n"
-                                      "")
-        self.pushButton.setObjectName("pushButton")
-        self.Note_frame_2 = QtWidgets.QFrame(self.main_note_frame)
-        self.Note_frame_2.setGeometry(QtCore.QRect(170, 10, 331, 661))
-        self.Note_frame_2.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
-                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                        "border-radius: 13px;")
-        self.Note_frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.Note_frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.Note_frame_2.setObjectName("Note_frame_2")
-        self.Note_frame_2.hide()
-        self.note_edit = QtWidgets.QLineEdit(self.Note_frame_2)
-        self.note_edit.setGeometry(QtCore.QRect(10, 40, 311, 611))
-        self.note_edit.setStyleSheet("background: rgba(23, 23, 23, 0.76);\n"
-                                     "border: 1px solid #917C7C;\n"
-                                     "box-sizing: border-box;\n"
-                                     "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                     "border-radius: 24px;\n"
-                                     "font-family: Roboto Mono;\n"
-                                     "font-style: normal;\n"
-                                     "font-weight: normal;\n"
-                                     "font-size: 18px;\n"
-                                     "line-height: 24px;\n"
-                                     "text-align: Top left;\n"
-                                     "color: #FFFFFF;")
-        self.note_edit.setText("")
-        self.note_edit.setObjectName("note_edit")
-        self.note_save_button = QtWidgets.QPushButton(self.Note_frame_2)
-        self.note_save_button.setEnabled(True)
-        self.note_save_button.setGeometry(QtCore.QRect(510, 3, 31, 31))
-        self.note_save_button.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                            "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                            "border-radius: 13px;")
-        self.note_save_button.setText("")
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("material/image 61.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.note_save_button.setIcon(icon4)
-        self.note_save_button.setIconSize(QtCore.QSize(40, 50))
-        self.note_save_button.setAutoDefault(False)
-        self.note_save_button.setDefault(False)
-        self.note_save_button.setObjectName("note_save_button")
-        self.note_close_button = QtWidgets.QPushButton(self.Note_frame_2)
-        self.note_close_button.setEnabled(True)
-        self.note_close_button.setGeometry(QtCore.QRect(540, 10, 31, 21))
-        self.note_close_button.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                             "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                             "border-radius: 13px;")
-        self.note_close_button.setText("")
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap("material/Х.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.note_close_button.setIcon(icon5)
-        self.note_close_button.setIconSize(QtCore.QSize(50, 50))
-        self.note_close_button.setAutoDefault(False)
-        self.note_close_button.setDefault(False)
-        self.note_close_button.setObjectName("note_close_button")
-        self.label_note_3 = QtWidgets.QLabel(self.Note_frame_2)
-        self.label_note_3.setGeometry(QtCore.QRect(60, 0, 131, 31))
-        self.label_note_3.setStyleSheet("font: 8pt \"Arial\";\n"
-                                        "font-style: normal;\n"
-                                        "font-weight: normal;\n"
-                                        "font-size: 20px;\n"
-                                        "line-height: 34px;\n"
-                                        "/* identical to box height */\n"
-                                        "background: rgba(33, 24, 24, 0.0);\n"
-                                        "\n"
-                                        "color: #FFFFFF;\n"
-                                        "")
-        self.label_note_3.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
-        self.label_note_3.setObjectName("label_note_3")
-        self.folder_note_frame = QtWidgets.QFrame(self.main_note_frame)
-        self.folder_note_frame.setGeometry(QtCore.QRect(210, 40, 245, 245))
-        self.folder_note_frame.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
-                                             "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                             "border-radius: 13px;")
-        self.folder_note_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.folder_note_frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.folder_note_frame.setObjectName("folder_note_frame")
-        self.folder_note_frame.hide()
-        self.scrollArea_3 = QtWidgets.QScrollArea(self.folder_note_frame)
-        self.scrollArea_3.setGeometry(QtCore.QRect(0, 10, 241, 221))
-        self.scrollArea_3.setAutoFillBackground(False)
-        self.scrollArea_3.setStyleSheet("\n"
-                                        "QScrollBar:horizontal {\n"
-                                        "  border-color: rgb(227, 227, 227);\n"
-                                        "  border-width: 1px;\n"
-                                        "  border-style: solid;\n"
-                                        "  background-color: rgb(240, 240, 240);\n"
-                                        "    height: 15px;\n"
-                                        "    margin: 0px 21px 0 21px;\n"
-                                        " }\n"
-                                        "\n"
-                                        " QScrollBar::handle:horizontal {\n"
-                                        "    background-color: rgb(200, 200, 200);\n"
-                                        "    max-width: 5px;\n"
-                                        " }\n"
-                                        "QScrollBar::add-line:horizontal {\n"
-                                        "    border: 1px solid grey;\n"
-                                        "  background-color: rgb(241, 241, 241);\n"
-                                        "    height: 20px;\n"
-                                        "    subcontrol-position: right;\n"
-                                        "    subcontrol-origin: margin;\n"
-                                        " }\n"
-                                        "\n"
-                                        " QScrollBar::sub-line:horizontal {\n"
-                                        "  border: 1px solid grey;\n"
-                                        "    background-color: rgb(241, 241, 241);\n"
-                                        "    height: 20px;\n"
-                                        "    subcontrol-position: left;\n"
-                                        "    subcontrol-origin: margin;\n"
-                                        " }\n"
-                                        "\n"
-                                        " QScrollBar:left-arrow:horizontal\n"
-                                        "{\n"
-                                        "  image: url(:/BarIcon/Icons/leftarrow.png);\n"
-                                        "}\n"
-                                        "\n"
-                                        "QScrollBar::right-arrow:horizontal \n"
-                                        "{\n"
-                                        "  image: url(:/BarIcon/Icons/rightarrow.png);\n"
-                                        "}\n"
-                                        "\n"
-                                        "QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
-                                        "     background: none;\n"
-                                        "}\n"
-                                        "QScrollArea {\n"
-                                        "background: rgba(23, 23, 23, 0.0);\n"
-                                        "}")
-        self.scrollArea_3.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.scrollArea_3.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.scrollArea_3.setWidgetResizable(True)
-        self.scrollArea_3.setObjectName("scrollArea_3")
-        self.scrollAreaWidgetContents_4 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_4.setGeometry(QtCore.QRect(0, 0, 245, 221))
-        self.scrollAreaWidgetContents_4.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                                      "")
-        self.scrollAreaWidgetContents_4.setObjectName("scrollAreaWidgetContents_4")
-        self.gridLayout_3 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_4)
-        self.gridLayout_3.setObjectName("gridLayout_3")
-        self.back_from_note_button_2 = QtWidgets.QPushButton(self.scrollAreaWidgetContents_4)
-        self.back_from_note_button_2.setMinimumSize(QtCore.QSize(227, 29))
-        self.back_from_note_button_2.setMaximumSize(QtCore.QSize(227, 29))
-        self.back_from_note_button_2.setStyleSheet("background: rgba(26, 26, 26, 0.9);\n"
-                                                   "border: 1px solid #534949;\n"
-                                                   "box-sizing: border-box;\n"
-                                                   "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                                   "border-radius: 1px;\n"
-                                                   "font-family: Roboto Mono;\n"
-                                                   "font-style: normal;\n"
-                                                   "font-weight: normal;\n"
-                                                   "font-size: 14px;\n"
-                                                   "line-height: 18px;\n"
-                                                   "padding: 0 0 0 5px;\n"
-                                                   "text-align:  left;\n"
-                                                   "color: #FFFFFF;")
-        self.back_from_note_button_2.setObjectName("back_from_note_button_2")
-        self.gridLayout_3.addWidget(self.back_from_note_button_2, 0, 0, 1, 1)
-        self.back_from_note_button_4 = QtWidgets.QPushButton(self.scrollAreaWidgetContents_4)
-        self.back_from_note_button_4.setMinimumSize(QtCore.QSize(227, 29))
-        self.back_from_note_button_4.setMaximumSize(QtCore.QSize(227, 29))
-        self.back_from_note_button_4.setStyleSheet("background: rgba(26, 26, 26, 0.9);\n"
-                                                   "border: 1px solid #534949;\n"
-                                                   "box-sizing: border-box;\n"
-                                                   "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                                   "border-radius: 1px;\n"
-                                                   "font-family: Roboto Mono;\n"
-                                                   "font-style: normal;\n"
-                                                   "font-weight: normal;\n"
-                                                   "font-size: 14px;\n"
-                                                   "line-height: 18px;\n"
-                                                   "padding: 0 0 0 5px;\n"
-                                                   "text-align:  left;\n"
-                                                   "color: #FFFFFF;")
-        self.back_from_note_button_4.setObjectName("back_from_note_button_4")
-        self.gridLayout_3.addWidget(self.back_from_note_button_4, 1, 0, 1, 1)
-        self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_4)
+        # self.main_note_frame = QtWidgets.QFrame(self.centralwidget)
+        # self.main_note_frame.setGeometry(QtCore.QRect(40, 50, 1601, 711))
+        # self.main_note_frame.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+        #                                    "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                                    "border-radius: 13px;")
+        # self.main_note_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        # self.main_note_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        # self.main_note_frame.setObjectName("main_note_frame")
+        # self.note_menu_frame = QtWidgets.QFrame(self.main_note_frame)
+        # self.note_menu_frame.setGeometry(QtCore.QRect(10, 10, 151, 221))
+        # self.note_menu_frame.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+        #                                    "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                                    "border-radius: 13px;")
+        # self.note_menu_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        # self.note_menu_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        # self.note_menu_frame.setObjectName("note_menu_frame")
+        # self.character_s = QtWidgets.QLabel(self.note_menu_frame)
+        # self.character_s.setGeometry(QtCore.QRect(0, 30, 92, 90))
+        # self.character_s.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+        #                                "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                                "border-radius: 13px;")
+        # self.character_s.setText("")
+        # self.character_s.setPixmap(QtGui.QPixmap("material/Neko/Neko_s.png"))
+        # self.character_s.setScaledContents(True)
+        # self.character_s.setObjectName("character_s")
+        # self.button_note_1 = QtWidgets.QPushButton(self.note_menu_frame)
+        # self.button_note_1.setEnabled(True)
+        # self.button_note_1.setGeometry(QtCore.QRect(90, 10, 61, 61))
+        # self.button_note_1.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+        #                                  "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                                  "border-radius: 13px;")
+        # self.button_note_1.setText("")
+        # icon = QtGui.QIcon()
+        # icon.addPixmap(QtGui.QPixmap("material/image 50.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        # self.button_note_1.setIcon(icon)
+        # self.button_note_1.setIconSize(QtCore.QSize(50, 50))
+        # self.button_note_1.setAutoDefault(False)
+        # self.button_note_1.setDefault(False)
+        # self.button_note_1.setObjectName("button_note_1")
+        # self.code_button = QtWidgets.QPushButton(self.note_menu_frame)
+        # self.code_button.setEnabled(True)
+        # self.code_button.setGeometry(QtCore.QRect(90, 110, 61, 61))
+        # self.code_button.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+        #                                "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                                "border-radius: 13px;")
+        # self.code_button.setText("")
+        # icon1 = QtGui.QIcon()
+        # icon1.addPixmap(QtGui.QPixmap("material/image 62.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        # self.code_button.setIcon(icon1)
+        # self.code_button.setIconSize(QtCore.QSize(50, 50))
+        # self.code_button.setAutoDefault(False)
+        # self.code_button.setDefault(False)
+        # self.code_button.setObjectName("code_button")
+        # self.list_deal_button = QtWidgets.QPushButton(self.note_menu_frame)
+        # self.list_deal_button.setEnabled(True)
+        # self.list_deal_button.setGeometry(QtCore.QRect(90, 60, 61, 61))
+        # self.list_deal_button.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+        #                                     "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                                     "border-radius: 13px;")
+        # self.list_deal_button.setText("")
+        # icon2 = QtGui.QIcon()
+        # icon2.addPixmap(QtGui.QPixmap("material/image 63.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        # self.list_deal_button.setIcon(icon2)
+        # self.list_deal_button.setIconSize(QtCore.QSize(50, 50))
+        # self.list_deal_button.setAutoDefault(False)
+        # self.list_deal_button.setDefault(False)
+        # self.list_deal_button.setObjectName("list_deal_button")
+        # self.back_from_note_button = QtWidgets.QPushButton(self.note_menu_frame)
+        # self.back_from_note_button.setGeometry(QtCore.QRect(16, 170, 121, 41))
+        # self.back_from_note_button.setStyleSheet("background: rgba(23, 23, 23, 0.2);\n"
+        #                                          "border: 1px solid #B19696;\n"
+        #                                          "box-sizing: border-box;\n"
+        #                                          "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                                          "border-radius: 13px;\n"
+        #                                          "font-size: 26px;\n"
+        #                                          "\n"
+        #                                          "\n"
+        #                                          "color: #FFFFFF;")
+        # self.back_from_note_button.setObjectName("back_from_note_button")
+        # self.Note_frame = QtWidgets.QFrame(self.main_note_frame)
+        # self.Note_frame.setGeometry(QtCore.QRect(170, 10, 334, 663))
+        # self.Note_frame.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+        #                               "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                               "border-radius: 13px;")
+        # self.Note_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        # self.Note_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        # self.Note_frame.setObjectName("Note_frame")
+        # self.scrollArea_2_note = QtWidgets.QScrollArea(self.Note_frame)
+        # self.scrollArea_2_note.setGeometry(QtCore.QRect(10, 70, 311, 581))
+        # self.scrollArea_2_note.setAutoFillBackground(False)
+        # self.scrollArea_2_note.setStyleSheet("\n"
+        #                                 "QScrollBar:horizontal {\n"
+        #                                 "  border-color: rgb(227, 227, 227);\n"
+        #                                 "  border-width: 1px;\n"
+        #                                 "  border-style: solid;\n"
+        #                                 "  background-color: rgb(240, 240, 240);\n"
+        #                                 "    height: 15px;\n"
+        #                                 "    margin: 0px 21px 0 21px;\n"
+        #                                 " }\n"
+        #                                 "\n"
+        #                                 " QScrollBar::handle:horizontal {\n"
+        #                                 "    background-color: rgb(200, 200, 200);\n"
+        #                                 "    max-width: 5px;\n"
+        #                                 " }\n"
+        #                                 "QScrollBar::add-line:horizontal {\n"
+        #                                 "    border: 1px solid grey;\n"
+        #                                 "  background-color: rgb(241, 241, 241);\n"
+        #                                 "    height: 20px;\n"
+        #                                 "    subcontrol-position: right;\n"
+        #                                 "    subcontrol-origin: margin;\n"
+        #                                 " }\n"
+        #                                 "\n"
+        #                                 " QScrollBar::sub-line:horizontal {\n"
+        #                                 "  border: 1px solid grey;\n"
+        #                                 "    background-color: rgb(241, 241, 241);\n"
+        #                                 "    height: 20px;\n"
+        #                                 "    subcontrol-position: left;\n"
+        #                                 "    subcontrol-origin: margin;\n"
+        #                                 " }\n"
+        #                                 "\n"
+        #                                 " QScrollBar:left-arrow:horizontal\n"
+        #                                 "{\n"
+        #                                 "  image: url(:/BarIcon/Icons/leftarrow.png);\n"
+        #                                 "}\n"
+        #                                 "\n"
+        #                                 "QScrollBar::right-arrow:horizontal \n"
+        #                                 "{\n"
+        #                                 "  image: url(:/BarIcon/Icons/rightarrow.png);\n"
+        #                                 "}\n"
+        #                                 "\n"
+        #                                 "QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
+        #                                 "     background: none;\n"
+        #                                 "}\n"
+        #                                 "QScrollArea {\n"
+        #                                 "background: rgba(23, 23, 23, 0.0);\n"
+        #                                 "}")
+        # self.scrollArea_2_note.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        # self.scrollArea_2_note.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        # self.scrollArea_2_note.setWidgetResizable(True)
+        # self.scrollArea_2_note.setObjectName("scrollArea_2")
+        # self.scrollAreaWidgetContents_2_notet = QtWidgets.QWidget()
+        # self.scrollAreaWidgetContents_2_notet.setGeometry(QtCore.QRect(0, 0, 311, 581))
+        # self.scrollAreaWidgetContents_2_notet.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+        #                                               "")
+        # self.scrollAreaWidgetContents_2_notet.setObjectName("scrollAreaWidgetContents_2_notet")
+        # self.gridLayout_note = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_2_notet)
+        # self.gridLayout_note.setObjectName("gridLayout_note")
+        # self.button_add_note = QtWidgets.QPushButton(self.scrollAreaWidgetContents_2_notet)
+        # self.button_add_note.setMaximumSize(QtCore.QSize(143, 35))
+        # self.button_add_note.setStyleSheet("background: rgba(23, 23, 23, 0.76);\n"
+        #                                 "border: 1px solid #907C7C;\n"
+        #                                 "box-sizing: border-box;\n"
+        #                                 "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                                 "border-radius: 12px;\n"
+        #                                 "\n"
+        #                                 "\n"
+        #                                 "color: #FFFFFF;")
+        # self.button_add_note.setObjectName("button_add_note")
+        # self.gridLayout_note.setAlignment(QtCore.Qt.AlignTop)
+        # self.gridLayout_note.addWidget(self.button_add_note, 0, 0)
+        # # self.pushButton_3 = QtWidgets.QPushButton(self.scrollAreaWidgetContents_2_notet)
+        # # self.pushButton_3.setMinimumSize(QtCore.QSize(148, 161))
+        # # self.pushButton_3.setMaximumSize(QtCore.QSize(148, 161))
+        # # self.pushButton_3.setStyleSheet("background: rgba(23, 23, 23, 0.76);\n"
+        # #                                 "border: 1px solid #917C7C;\n"
+        # #                                 "box-sizing: border-box;\n"
+        # #                                 "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        # #                                 "border-radius: 24px;\n"
+        # #                                 "font-family: Roboto Mono;\n"
+        # #                                 "font-style: normal;\n"
+        # #                                 "font-weight: normal;\n"
+        # #                                 "font-size: 14px;\n"
+        # #                                 "line-height: 24px;\n"
+        # #                                 "vertical-align: top; \n"
+        # #                                 "text-align: Top left;\n"
+        # #                                 "padding: 10px 10px 20px 10px;\n"
+        # #                                 "color: #FFFFFF;")
+        # # self.pushButton_3.setObjectName("pushButton_3")
+        # # self.gridLayout_note.addWidget(self.pushButton_3, 0, 0, 1, 1)
+        # self.scrollArea_2_note.setWidget(self.scrollAreaWidgetContents_2_notet)
+        # self.lineEdit = QtWidgets.QLineEdit(self.Note_frame)
+        # self.lineEdit.setGeometry(QtCore.QRect(10, 36, 304, 27))
+        # self.lineEdit.setStyleSheet("background: rgba(40, 40, 40, 0.5);\n"
+        #                             "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                             "border-radius: 13px;\n"
+        #                             "font-family: Titillium Web;\n"
+        #                             "font-style: normal;\n"
+        #                             "font-weight: normal;\n"
+        #                             "font-size: 12px;\n"
+        #                             "line-height: 18px;\n"
+        #                             "\n"
+        #                             "color: rgba(255, 255, 255, 0.67);\n"
+        #                             "\n"
+        #                             "opacity: 0.7;")
+        # self.lineEdit.setObjectName("lineEdit")
+        # self.label_note_2 = QtWidgets.QLabel(self.Note_frame)
+        # self.label_note_2.setGeometry(QtCore.QRect(30, 0, 131, 31))
+        # self.label_note_2.setStyleSheet("font: 8pt \"Arial\";\n"
+        #                                 "font-style: normal;\n"
+        #                                 "font-weight: normal;\n"
+        #                                 "font-size: 20px;\n"
+        #                                 "line-height: 34px;\n"
+        #                                 "/* identical to box height */\n"
+        #                                 "background: rgba(33, 24, 24, 0.0);\n"
+        #                                 "\n"
+        #                                 "color: #FFFFFF;\n"
+        #                                 "")
+        # self.label_note_2.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
+        # self.label_note_2.setObjectName("label_note_2")
+        # self.note_save_button_2 = QtWidgets.QPushButton(self.Note_frame)
+        # self.note_save_button_2.setEnabled(True)
+        # self.note_save_button_2.setGeometry(QtCore.QRect(160, 2, 31, 31))
+        # self.note_save_button_2.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+        #                                       "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                                       "border-radius: 13px;")
+        # self.note_save_button_2.setText("")
+        # icon3 = QtGui.QIcon()
+        # icon3.addPixmap(QtGui.QPixmap("material/image 36.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        # self.note_save_button_2.setIcon(icon3)
+        # self.note_save_button_2.setIconSize(QtCore.QSize(40, 50))
+        # self.note_save_button_2.setAutoDefault(False)
+        # self.note_save_button_2.setDefault(False)
+        # self.note_save_button_2.setObjectName("note_save_button_2")
+        # self.list_deal_frame = QtWidgets.QFrame(self.main_note_frame)
+        # self.list_deal_frame.setGeometry(QtCore.QRect(520, 10, 669, 316))
+        # self.list_deal_frame.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+        #                                    "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                                    "border-radius: 13px;")
+        # self.list_deal_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        # self.list_deal_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        # self.list_deal_frame.setObjectName("list_deal_frame")
+        # self.label_list_deal = QtWidgets.QLabel(self.list_deal_frame)
+        # self.label_list_deal.setGeometry(QtCore.QRect(270, 0, 131, 31))
+        # self.label_list_deal.setStyleSheet("font-family: Roboto Mono;\n"
+        #                                    "font-style: normal;\n"
+        #                                    "font-weight: normal;\n"
+        #                                    "font-size: 24px;\n"
+        #                                    "line-height: 32px;\n"
+        #                                    "\n"
+        #                                    "color: #FFFFFF;\n"
+        #                                    "/* identical to box height */\n"
+        #                                    "background: rgba(33, 24, 24, 0.0);\n"
+        #                                    "\n"
+        #                                    "color: #FFFFFF;\n"
+        #                                    "")
+        # self.label_list_deal.setObjectName("label_list_deal")
+        # self.code_frame_2 = QtWidgets.QFrame(self.main_note_frame)
+        # self.code_frame_2.setGeometry(QtCore.QRect(520, 340, 671, 99))
+        # self.code_frame_2.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+        #                                 "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                                 "border-radius: 13px;")
+        # self.code_frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        # self.code_frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        # self.code_frame_2.setObjectName("code_frame_2")
+        # self.pushButton = QtWidgets.QPushButton(self.code_frame_2)
+        # self.pushButton.setGeometry(QtCore.QRect(60, 10, 521, 71))
+        # self.pushButton.setStyleSheet("font: 8pt \"Arial\";\n"
+        #                               "font-style: normal;\n"
+        #                               "font-weight: normal;\n"
+        #                               "font-size: 22px;\n"
+        #                               "line-height: 34px;\n"
+        #                               "/* identical to box height */\n"
+        #                               "background: rgba(33, 24, 24, 0.0);\n"
+        #                               "\n"
+        #                               "color: #FFFFFF;\n"
+        #                               "")
+        # self.pushButton.setObjectName("pushButton")
+        # self.Note_frame_2 = QtWidgets.QFrame(self.main_note_frame)
+        # self.Note_frame_2.setGeometry(QtCore.QRect(170, 10, 331, 661))
+        # self.Note_frame_2.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+        #                                 "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                                 "border-radius: 13px;")
+        # self.Note_frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        # self.Note_frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        # self.Note_frame_2.setObjectName("Note_frame_2")
+        # self.Note_frame_2.hide()
+        # self.note_edit = QtWidgets.QLineEdit(self.Note_frame_2)
+        # self.note_edit.setGeometry(QtCore.QRect(10, 40, 311, 611))
+        # self.note_edit.setStyleSheet("background: rgba(23, 23, 23, 0.76);\n"
+        #                              "border: 1px solid #917C7C;\n"
+        #                              "box-sizing: border-box;\n"
+        #                              "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                              "border-radius: 24px;\n"
+        #                              "font-family: Roboto Mono;\n"
+        #                              "font-style: normal;\n"
+        #                              "font-weight: normal;\n"
+        #                              "font-size: 18px;\n"
+        #                              "line-height: 24px;\n"
+        #                              "text-align: Top left;\n"
+        #                              "color: #FFFFFF;")
+        # self.note_edit.setText("")
+        # self.note_edit.setObjectName("note_edit")
+        # self.note_save_button = QtWidgets.QPushButton(self.Note_frame_2)
+        # self.note_save_button.setEnabled(True)
+        # self.note_save_button.setGeometry(QtCore.QRect(510, 3, 31, 31))
+        # self.note_save_button.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+        #                                     "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                                     "border-radius: 13px;")
+        # self.note_save_button.setText("")
+        # icon4 = QtGui.QIcon()
+        # icon4.addPixmap(QtGui.QPixmap("material/image 61.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        # self.note_save_button.setIcon(icon4)
+        # self.note_save_button.setIconSize(QtCore.QSize(40, 50))
+        # self.note_save_button.setAutoDefault(False)
+        # self.note_save_button.setDefault(False)
+        # self.note_save_button.setObjectName("note_save_button")
+        # self.note_close_button = QtWidgets.QPushButton(self.Note_frame_2)
+        # self.note_close_button.setEnabled(True)
+        # self.note_close_button.setGeometry(QtCore.QRect(540, 10, 31, 21))
+        # self.note_close_button.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+        #                                      "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                                      "border-radius: 13px;")
+        # self.note_close_button.setText("")
+        # icon5 = QtGui.QIcon()
+        # icon5.addPixmap(QtGui.QPixmap("material/Х.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        # self.note_close_button.setIcon(icon5)
+        # self.note_close_button.setIconSize(QtCore.QSize(50, 50))
+        # self.note_close_button.setAutoDefault(False)
+        # self.note_close_button.setDefault(False)
+        # self.note_close_button.setObjectName("note_close_button")
+        # self.label_note_3 = QtWidgets.QLabel(self.Note_frame_2)
+        # self.label_note_3.setGeometry(QtCore.QRect(60, 0, 131, 31))
+        # self.label_note_3.setStyleSheet("font: 8pt \"Arial\";\n"
+        #                                 "font-style: normal;\n"
+        #                                 "font-weight: normal;\n"
+        #                                 "font-size: 20px;\n"
+        #                                 "line-height: 34px;\n"
+        #                                 "/* identical to box height */\n"
+        #                                 "background: rgba(33, 24, 24, 0.0);\n"
+        #                                 "\n"
+        #                                 "color: #FFFFFF;\n"
+        #                                 "")
+        # self.label_note_3.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
+        # self.label_note_3.setObjectName("label_note_3")
+        # self.folder_note_frame = QtWidgets.QFrame(self.main_note_frame)
+        # self.folder_note_frame.setGeometry(QtCore.QRect(210, 40, 245, 245))
+        # self.folder_note_frame.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+        #                                      "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                                      "border-radius: 13px;")
+        # self.folder_note_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        # self.folder_note_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        # self.folder_note_frame.setObjectName("folder_note_frame")
+        # self.folder_note_frame.hide()
+        # self.scrollArea_3_note = QtWidgets.QScrollArea(self.folder_note_frame)
+        # self.scrollArea_3_note.setGeometry(QtCore.QRect(0, 10, 241, 221))
+        # self.scrollArea_3_note.setAutoFillBackground(False)
+        # self.scrollArea_3_note.setStyleSheet("\n"
+        #                                 "QScrollBar:horizontal {\n"
+        #                                 "  border-color: rgb(227, 227, 227);\n"
+        #                                 "  border-width: 1px;\n"
+        #                                 "  border-style: solid;\n"
+        #                                 "  background-color: rgb(240, 240, 240);\n"
+        #                                 "    height: 15px;\n"
+        #                                 "    margin: 0px 21px 0 21px;\n"
+        #                                 " }\n"
+        #                                 "\n"
+        #                                 " QScrollBar::handle:horizontal {\n"
+        #                                 "    background-color: rgb(200, 200, 200);\n"
+        #                                 "    max-width: 5px;\n"
+        #                                 " }\n"
+        #                                 "QScrollBar::add-line:horizontal {\n"
+        #                                 "    border: 1px solid grey;\n"
+        #                                 "  background-color: rgb(241, 241, 241);\n"
+        #                                 "    height: 20px;\n"
+        #                                 "    subcontrol-position: right;\n"
+        #                                 "    subcontrol-origin: margin;\n"
+        #                                 " }\n"
+        #                                 "\n"
+        #                                 " QScrollBar::sub-line:horizontal {\n"
+        #                                 "  border: 1px solid grey;\n"
+        #                                 "    background-color: rgb(241, 241, 241);\n"
+        #                                 "    height: 20px;\n"
+        #                                 "    subcontrol-position: left;\n"
+        #                                 "    subcontrol-origin: margin;\n"
+        #                                 " }\n"
+        #                                 "\n"
+        #                                 " QScrollBar:left-arrow:horizontal\n"
+        #                                 "{\n"
+        #                                 "  image: url(:/BarIcon/Icons/leftarrow.png);\n"
+        #                                 "}\n"
+        #                                 "\n"
+        #                                 "QScrollBar::right-arrow:horizontal \n"
+        #                                 "{\n"
+        #                                 "  image: url(:/BarIcon/Icons/rightarrow.png);\n"
+        #                                 "}\n"
+        #                                 "\n"
+        #                                 "QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
+        #                                 "     background: none;\n"
+        #                                 "}\n"
+        #                                 "QScrollArea {\n"
+        #                                 "background: rgba(23, 23, 23, 0.0);\n"
+        #                                 "}")
+        # self.scrollArea_3_note.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        # self.scrollArea_3_note.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        # self.scrollArea_3_note.setWidgetResizable(True)
+        # self.scrollArea_3_note.setObjectName("scrollArea_3_note")
+        # self.scrollAreaWidgetContents_4 = QtWidgets.QWidget()
+        # self.scrollAreaWidgetContents_4.setGeometry(QtCore.QRect(0, 0, 245, 221))
+        # self.scrollAreaWidgetContents_4.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+        #                                               "")
+        # self.scrollAreaWidgetContents_4.setObjectName("scrollAreaWidgetContents_4")
+        # self.gridLayout_3 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_4)
+        # self.gridLayout_3.setObjectName("gridLayout_3")
+        # self.back_from_note_button_2 = QtWidgets.QPushButton(self.scrollAreaWidgetContents_4)
+        # self.back_from_note_button_2.setMinimumSize(QtCore.QSize(227, 29))
+        # self.back_from_note_button_2.setMaximumSize(QtCore.QSize(227, 29))
+        # self.back_from_note_button_2.setStyleSheet("background: rgba(26, 26, 26, 0.9);\n"
+        #                                            "border: 1px solid #534949;\n"
+        #                                            "box-sizing: border-box;\n"
+        #                                            "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                                            "border-radius: 1px;\n"
+        #                                            "font-family: Roboto Mono;\n"
+        #                                            "font-style: normal;\n"
+        #                                            "font-weight: normal;\n"
+        #                                            "font-size: 14px;\n"
+        #                                            "line-height: 18px;\n"
+        #                                            "padding: 0 0 0 5px;\n"
+        #                                            "text-align:  left;\n"
+        #                                            "color: #FFFFFF;")
+        # self.back_from_note_button_2.setObjectName("back_from_note_button_2")
+        # self.gridLayout_3.addWidget(self.back_from_note_button_2, 0, 0, 1, 1)
+        # self.back_from_note_button_4 = QtWidgets.QPushButton(self.scrollAreaWidgetContents_4)
+        # self.back_from_note_button_4.setMinimumSize(QtCore.QSize(227, 29))
+        # self.back_from_note_button_4.setMaximumSize(QtCore.QSize(227, 29))
+        # self.back_from_note_button_4.setStyleSheet("background: rgba(26, 26, 26, 0.9);\n"
+        #                                            "border: 1px solid #534949;\n"
+        #                                            "box-sizing: border-box;\n"
+        #                                            "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+        #                                            "border-radius: 1px;\n"
+        #                                            "font-family: Roboto Mono;\n"
+        #                                            "font-style: normal;\n"
+        #                                            "font-weight: normal;\n"
+        #                                            "font-size: 14px;\n"
+        #                                            "line-height: 18px;\n"
+        #                                            "padding: 0 0 0 5px;\n"
+        #                                            "text-align:  left;\n"
+        #                                            "color: #FFFFFF;")
+        # self.back_from_note_button_4.setObjectName("back_from_note_button_4")
+        # self.gridLayout_3.addWidget(self.back_from_note_button_4, 1, 0, 1, 1)
+        # self.scrollArea_3_note.setWidget(self.scrollAreaWidgetContents_4)
         self.set_ru()
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def set_ru(self):
         """note frame"""
-        self.back_from_note_button.setText("back")
-        self.pushButton_4.setText("add")
-        self.pushButton_3.setText("Фантастический мир с обращённым в красавицу мужчиной и…\n"
-                                  "Fantasy Bishoujo Juniku Ojisan to\n"
-                                  "")
-        self.lineEdit.setText("поиск")
-        self.label_note_2.setText("Note")
-        self.label_list_deal.setText("Список дел")
-        self.pushButton.setText("#code    - - -- ------------------ click ------------- - - -")
-        self.label_note_3.setText("Note")
-        self.back_from_note_button_2.setText("Note (1)")
-        self.back_from_note_button_4.setText("add")
+        # self.back_from_note_button.setText("back")
+        # self.button_add_note.setText("add")
+        #
+        # self.lineEdit.setText("поиск")
+        # self.label_note_2.setText("Note")
+        # self.label_list_deal.setText("Список дел")
+        # self.pushButton.setText("#code    - - -- ------------------ click ------------- - - -")
+        # self.label_note_3.setText("Note")
+        # self.back_from_note_button_2.setText("Note (1)")
+        # self.back_from_note_button_4.setText("add")
         "setting frame"
         self.label.setText("настройки")
         self.label_2.setText("Вайфу это твой выбор")

@@ -234,7 +234,7 @@ border-radius: 13px;</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QScrollArea" name="scrollArea_2">
+     <widget class="QScrollArea" name="scrollArea_2_note">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -479,7 +479,7 @@ border-radius: 13px;</string>
        <x>520</x>
        <y>10</y>
        <width>669</width>
-       <height>215</height>
+       <height>316</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -525,7 +525,7 @@ color: #FFFFFF;
      <property name="geometry">
       <rect>
        <x>520</x>
-       <y>240</y>
+       <y>340</y>
        <width>671</width>
        <height>99</height>
       </rect>
@@ -564,156 +564,6 @@ color: #FFFFFF;
       </property>
       <property name="text">
        <string>#code    - - -- ------------------ click ------------- - - -</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QFrame" name="Note_frame_2">
-     <property name="geometry">
-      <rect>
-       <x>170</x>
-       <y>10</y>
-       <width>331</width>
-       <height>661</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background: rgba(23, 23, 23, 0.9);
-box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 13px;</string>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <widget class="QLineEdit" name="note_edit">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>40</y>
-        <width>311</width>
-        <height>611</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background: rgba(23, 23, 23, 0.76);
-border: 1px solid #917C7C;
-box-sizing: border-box;
-box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 24px;
-font-family: Roboto Mono;
-font-style: normal;
-font-weight: normal;
-font-size: 18px;
-line-height: 24px;
-text-align: Top left;
-color: #FFFFFF;</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="note_save_button">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>510</x>
-        <y>3</y>
-        <width>31</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background: rgba(23, 23, 23, 0.0);
-box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 13px;</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>../material/image 61.png</normaloff>../material/image 61.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>40</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="autoDefault">
-       <bool>false</bool>
-      </property>
-      <property name="default">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="note_close_button">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>540</x>
-        <y>10</y>
-        <width>31</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background: rgba(23, 23, 23, 0.0);
-box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 13px;</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>../material/Х.png</normaloff>../material/Х.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>50</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="autoDefault">
-       <bool>false</bool>
-      </property>
-      <property name="default">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_note_3">
-      <property name="geometry">
-       <rect>
-        <x>60</x>
-        <y>0</y>
-        <width>131</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 8pt &quot;Arial&quot;;
-font-style: normal;
-font-weight: normal;
-font-size: 20px;
-line-height: 34px;
-/* identical to box height */
-background: rgba(33, 24, 24, 0.0);
-
-color: #FFFFFF;
-</string>
-      </property>
-      <property name="text">
-       <string>Note</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
     </widget>
@@ -891,6 +741,156 @@ color: #FFFFFF;</string>
        </layout>
       </widget>
      </widget>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="Note_frame_2">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>10</y>
+      <width>331</width>
+      <height>661</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLineEdit" name="note_edit">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>311</width>
+       <height>611</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: rgba(23, 23, 23, 0.76);
+border: 1px solid #917C7C;
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 24px;
+font-family: Roboto Mono;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 24px;
+text-align: Top left;
+color: #FFFFFF;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="note_save_button">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>3</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../material/image 61.png</normaloff>../material/image 61.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>40</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="autoDefault">
+      <bool>false</bool>
+     </property>
+     <property name="default">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="note_close_button">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>540</x>
+       <y>10</y>
+       <width>31</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../material/Х.png</normaloff>../material/Х.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>50</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="autoDefault">
+      <bool>false</bool>
+     </property>
+     <property name="default">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_note_3">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>0</y>
+       <width>131</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 8pt &quot;Arial&quot;;
+font-style: normal;
+font-weight: normal;
+font-size: 20px;
+line-height: 34px;
+/* identical to box height */
+background: rgba(33, 24, 24, 0.0);
+
+color: #FFFFFF;
+</string>
+     </property>
+     <property name="text">
+      <string>Note</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
     </widget>
    </widget>
   </widget>

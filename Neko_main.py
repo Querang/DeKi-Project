@@ -1,11 +1,9 @@
-import random
 import sys
 import sqlite_Neko
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut
 from Neko_layout import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 
 
@@ -28,8 +26,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.frame_rule_command.hide()
         self.command_panel_frame.hide()
         self.teg_frame.hide()
-        # self.main_note_frame.hide()
+        self.main_note_frame.hide()
         self.setting_frame.hide()
+        self.Note_frame_2.hide()
 
         """hotkey"""
         self.shortcut = QShortcut(QKeySequence("Ctrl+W"), self)
@@ -50,9 +49,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushButton_2.clicked.connect(self.set_back_on_main)
         self.button_language_r.clicked.connect(self.Next_language)
         self.button_language_l.clicked.connect(self.Next_language)
-        # self.button_note.clicked.connect(self.show_note_frame)
-        # self.back_from_note_button.clicked.connect(self.return_to_main)
-        # self.button_add_note.clicked.connect(self.add_note)
+        self.button_note.clicked.connect(self.show_note_frame)
+        self.back_from_note_button.clicked.connect(self.return_to_main)
+        self.note_close_button.clicked.connect(self.close_edit_note)
+        self.note_save_button.clicked.connect(self.save_note)
+        self.button_add_note.clicked.connect(self.create_new_note)
+        self.note_del_button.clicked.connect(self.del_note)
         """set variables"""
         self.like_button_check = False
         self.teg_button_check = False
@@ -65,86 +67,110 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         with conn:
             self.names_character_list = sqlite_Neko.get_names_character(
                 conn)  # получить имена всех доступных персонажей
-            self.view_character, self.name_character, self.name_user, self.language, self.behavior = sqlite_Neko.get_global_name(
+            self.view_character, self.name_character, self.name_user, self.language, self.behavior, self.work_table = sqlite_Neko.get_global_name(
                 conn)
             self.current_paths_character = sqlite_Neko.get_paths_character(conn, self.view_character)
             self.set_name_in_widget()
+        """note variable"""
+        self.current_note_button = None
 
     """fun Note frame"""
-    # def add_note(self):
-    #     self.clear_gri()
-    #     count = 6
-    #     list_note = []
-    #     """есть кнопка, она вызывает фрейм с ineedit
-    #     в этом lineedit отображается текст привязанный к положению этой кнопки
-    #     текст на кнопке связан с ее положением
-    #     сайв на фрейме с эдитом сохраняет запись по положению"""
-    #     for i in range(count):
-    #         list_note.append((i,0))
-    #         list_note.append((i,1))
-    #     print(list_note[:count])
-    #     co = 0
-    #     for i in list_note[:count]:
-    #         print(i)
-    #         l,k = i
-    #         print(l,k)
-    #
-    #         self.pushButton_note = QtWidgets.QPushButton()
-    #         self.pushButton_note.setMinimumSize(QtCore.QSize(148, 161))
-    #         self.pushButton_note.setMaximumSize(QtCore.QSize(148, 161))
-    #         self.pushButton_note.setStyleSheet("background: rgba(23, 23, 23, 0.76);\n"
-    #                                         "border: 1px solid #917C7C;\n"
-    #                                         "box-sizing: border-box;\n"
-    #                                         "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-    #                                         "border-radius: 24px;\n"
-    #                                         "font-family: Roboto Mono;\n"
-    #                                         "font-style: normal;\n"
-    #                                         "font-weight: normal;\n"
-    #                                         "font-size: 14px;\n"
-    #                                         "line-height: 24px;\n"
-    #                                         "vertical-align: top; \n"
-    #                                         "text-align: Top left;\n"
-    #                                         "padding: 10px 10px 20px 10px;\n"
-    #                                         "color: #FFFFFF;")
-    #         self.pushButton_note.setText(f"{co}")
-    #         self.gridLayout_note.addWidget(self.pushButton_note, l, k)
-    #         co+=1
+    def del_note(self):
+        conn = sqlite_Neko.create_connection("Neko.db")
+        with conn:
+            sqlite_Neko.delete_note(conn,self.work_table,self.current_note_button)
+            sqlite_Neko.reset_button_note(conn,self.work_table,self.current_note_button)
+            self.Note_frame_2.hide()
+            self.generate_note()
 
-    """ далее устанавливаем каждому setObject name  отсылаемся по нему"""
-    "установить глобальное значение стола заметок заметок"
-    "переменная под текущую кнопку"
-    # def edit_note(self,object_name):
-    #     self.Note_frame_2.show()
-    #     conn = sqlite_Neko.create_connection("Neko.db")
-    #     with conn:
-    #         note_frome_bd = sqlite_Neko.note_button_up(conn,self.work_table,object_name)
-    #         self.note_edit.setText(note_frome_bd)
-    #
-    # def save_note(self):
-    #     conn = sqlite_Neko.create_connection("Neko.db")
-    #     with conn:
-    #         text = self.note_edit.text()
-    #         sqlite_Neko.save_note_sq(conn,self.current_note_button,text)
-    #
-    # def close_edit_note(self):
-    #     self.Note_frame_2.hide()
-    #
-    #
-    # def clear_gri(self):
-    #     while self.gridLayout_note.count():
-    #         item = self.gridLayout_note.takeAt(0)
-    #         widget = item.widget()
-    #         # if widget has some id attributes you need to
-    #         # save in a list to maintain order, you can do that here
-    #         # i.e.:   aList.append(widget.someId)
-    #         widget.deleteLater()
-    # def show_note_frame(self):
-    #     self.frame_main.hide()
-    #     self.main_note_frame.show()
-    #
-    # def return_to_main(self):
-    #     self.main_note_frame.hide()
-    #     self.frame_main.show()
+
+    def generate_note(self):
+        self.clear_note()
+        conn = sqlite_Neko.create_connection("Neko.db")
+        list_coordinate = []
+        with conn:
+            (list_all_note, list_objiect_name) = sqlite_Neko.get_note_list(conn, self.work_table)
+        for i in range(len(list_all_note)):
+            list_coordinate.append((i, 0))
+            list_coordinate.append((i, 1))
+        print(list_all_note, list_objiect_name)
+        count = 0
+        for i in list_coordinate[:len(list_all_note)]:
+            x, y = i
+
+
+
+            self.pushButton_note = QtWidgets.QPushButton()
+            self.pushButton_note.setMinimumSize(QtCore.QSize(148, 161))
+            self.pushButton_note.setMaximumSize(QtCore.QSize(148, 161))
+            self.pushButton_note.setStyleSheet("background: rgba(23, 23, 23, 0.76);\n"
+                                               "border: 1px solid #ABABAB;\n"
+                                               "box-sizing: border-box;\n"
+                                               "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                               "border-radius: 24px;\n"
+                                               "font-family: Roboto Mono;\n"
+                                               "font-style: normal;\n"
+                                               "font-weight: normal;\n"
+                                               "font-size: 14px;\n"
+                                               "line-height: 24px;\n"
+                                               "vertical-align: top; \n"
+                                               "text-align: Top left;\n"
+                                               "padding: 10px 10px 20px 10px;\n"
+                                               "color: #FFFFFF;")
+            self.pushButton_note.setText(f"{list_all_note[count]}")
+            self.pushButton_note.setObjectName(f"{count}")
+            self.pushButton_note.clicked.connect(lambda checked, button=self.pushButton_note: self.edit_note(button))
+            self.gridLayout_note.addWidget(self.pushButton_note, x, y)
+            count += 1
+
+    def edit_note(self, button):
+        conn = sqlite_Neko.create_connection("Neko.db")
+        with conn:
+            self.Note_frame_2.show()
+            print(self.work_table, button.objectName())
+            note_frome_bd = sqlite_Neko.note_button_up(conn, self.work_table, button.objectName())
+            print(note_frome_bd)
+            self.current_note_button = button.objectName()
+            self.note_edit.setText(note_frome_bd[0])
+
+    def save_note(self):
+        conn = sqlite_Neko.create_connection("Neko.db")
+        with conn:
+            text = self.note_edit.toPlainText()
+            sqlite_Neko.save_note_sq(conn, (
+            self.work_table, self.current_note_button, text, self.work_table, self.current_note_button))
+
+
+    def close_edit_note(self):
+        self.Note_frame_2.hide()
+        self.generate_note()
+
+    def create_new_note(self):
+        conn = sqlite_Neko.create_connection("Neko.db")
+        with conn:
+            (list_all_note, list_object_name) = sqlite_Neko.get_note_list(conn, self.work_table)
+            print((self.work_table, f"{len(list_object_name) + 1}", ""))
+            sqlite_Neko.create_note(conn, (self.work_table, str(len(list_object_name)), "Firo"))
+            self.generate_note()
+
+    def clear_note(self):
+        while self.gridLayout_note.count():
+            item = self.gridLayout_note.takeAt(0)
+            widget = item.widget()
+            # if widget has some id attributes you need to
+            # save in a list to maintain order, you can do that here
+            # i.e.:   aList.append(widget.someId)
+            widget.deleteLater()
+
+    def show_note_frame(self):
+        self.frame_main.hide()
+        self.main_note_frame.show()
+        self.generate_note()
+        self.button_add_note.setText(f"{self.name_character} want add")
+
+    def return_to_main(self):
+        self.main_note_frame.hide()
+        self.frame_main.show()
 
     """fun setting frame"""
 
@@ -164,7 +190,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print(get_user_name, self.name_user)
         with conn:
             sqlite_Neko.update_global_name(conn, (
-                self.view_character, self.name_character, self.name_user, self.language, self.behavior))
+                self.view_character, self.name_character, self.name_user, self.language, self.behavior,
+                self.work_table))
         self.set_name_in_widget()
 
     def Next_language(self):
@@ -220,6 +247,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.show_update_item_in_area_delite_choice()
 
     def show_hide_like_command(self):
+        print(self.rule_command_button.objectName())
         if self.like_button_check:
             self.command_panel_frame.hide()
         else:

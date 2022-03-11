@@ -6,7 +6,6 @@ from Neko_layout import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
@@ -59,7 +58,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.like_button_check = False
         self.teg_button_check = False
         self.setting_button_check = False
-        self.dirlist = []  # список получает пути, выбранные через проводник
+        self.directory_list = []  # список получает пути, выбранные через проводник
         self.link_site = ""  # получает название сайта
         self.del_list = []  # выбранные команды для удаления попадают сюда
         self.language_list = ["russian", "english"]
@@ -75,31 +74,39 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.current_note_button = None
 
     """fun Note frame"""
-    def del_note(self):
+
+    def del_note(self, ):
+        """
+           removes the entry from the database that matches work_table, current_note_button
+           param conn: database connection
+           """
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
-            sqlite_Neko.delete_note(conn,self.work_table,self.current_note_button)
-            sqlite_Neko.reset_button_note(conn,self.work_table,self.current_note_button)
+            sqlite_Neko.delete_note(conn, self.work_table, self.current_note_button)
+            sqlite_Neko.reset_button_note(conn, self.work_table, self.current_note_button)
             self.Note_frame_2.hide()
             self.generate_note()
 
-
     def generate_note(self):
-        self.clear_note()
+        """
+          adds 2 column entries to gridLayout_note
+           param conn: database connection
+           param list_all_note: list of all signatures received from Neko.db
+           param pushButton_note: a button that displays the text of the note, when clicked, it switches to editing, the function edit_note()
+           param gridLayout_note: grid widget in main_note_frame
+           """
+        self.clear_note(self.gridLayout_note)
         conn = sqlite_Neko.create_connection("Neko.db")
         list_coordinate = []
         with conn:
-            (list_all_note, list_objiect_name) = sqlite_Neko.get_note_list(conn, self.work_table)
+            list_all_note = sqlite_Neko.get_note_list(conn, self.work_table)[0]
         for i in range(len(list_all_note)):
             list_coordinate.append((i, 0))
             list_coordinate.append((i, 1))
-        print(list_all_note, list_objiect_name)
+        print(list_all_note)
         count = 0
         for i in list_coordinate[:len(list_all_note)]:
             x, y = i
-
-
-
             self.pushButton_note = QtWidgets.QPushButton()
             self.pushButton_note.setMinimumSize(QtCore.QSize(148, 161))
             self.pushButton_note.setMaximumSize(QtCore.QSize(148, 161))
@@ -124,28 +131,37 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             count += 1
 
     def edit_note(self, button):
+        """
+           shows Note_frame_2 which allows text editing
+           param conn:
+           param current_note_button: marks the ordinal index of the button
+           param note_edit: QTextEdit widget
+
+           """
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             self.Note_frame_2.show()
             print(self.work_table, button.objectName())
-            note_frome_bd = sqlite_Neko.note_button_up(conn, self.work_table, button.objectName())
-            print(note_frome_bd)
+            note_from_bd = sqlite_Neko.note_button_up(conn, self.work_table, button.objectName())
+            print(note_from_bd)
             self.current_note_button = button.objectName()
-            self.note_edit.setText(note_frome_bd[0])
+            self.note_edit.setText(note_from_bd[0])
 
     def save_note(self):
+        """saves the updated note_edit entry from Note_frame_2"""
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             text = self.note_edit.toPlainText()
             sqlite_Neko.save_note_sq(conn, (
-            self.work_table, self.current_note_button, text, self.work_table, self.current_note_button))
-
+                self.work_table, self.current_note_button, text, self.work_table, self.current_note_button))
 
     def close_edit_note(self):
+        """close Note_frame_2"""
         self.Note_frame_2.hide()
         self.generate_note()
 
     def create_new_note(self):
+        """generates a new entry at the end of the database"""
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             (list_all_note, list_object_name) = sqlite_Neko.get_note_list(conn, self.work_table)
@@ -153,13 +169,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             sqlite_Neko.create_note(conn, (self.work_table, str(len(list_object_name)), "Firo"))
             self.generate_note()
 
-    def clear_note(self):
-        while self.gridLayout_note.count():
-            item = self.gridLayout_note.takeAt(0)
+    def clear_note(self, gridLayout):
+        """
+           Clears the resulting layout from elements
+           param gridLayout_note: layout для очистки от элементов
+           """
+        while gridLayout.count():
+            item = gridLayout.takeAt(0)
             widget = item.widget()
-            # if widget has some id attributes you need to
-            # save in a list to maintain order, you can do that here
-            # i.e.:   aList.append(widget.someId)
             widget.deleteLater()
 
     def show_note_frame(self):
@@ -179,6 +196,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.frame_main.show()
 
     def save_global_setting(self):
+        """ stores global settings in database  """
         conn = sqlite_Neko.create_connection("Neko.db")
         get_user_name = self.Nickname_2.text()
         if get_user_name not in ["нике", "nickname"]:
@@ -195,27 +213,35 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.set_name_in_widget()
 
     def Next_language(self):
-        re_index = self.language_list.index(self.language)
-        re_index += 1
-        if re_index == len(self.language_list):
-            re_index = 0
-        self.language = self.language_list[re_index]
+        """allows you to change the language in the settings
+           param language_index: needed to determine the current language
+           """
+        language_index = self.language_list.index(self.language)
+        language_index += 1
+        if language_index == len(self.language_list):
+            language_index = 0
+        self.language = self.language_list[language_index]
         if self.language == "russian":
             self.set_ru()
         elif self.language == "english":
             self.set_en()
 
     def Next_character(self):
-        re_index = self.names_character_list.index(self.view_character)
-        print(re_index)
-        re_index += 1
-        if re_index > len(self.names_character_list) - 1:
-            re_index = 0
-        self.view_character = self.names_character_list[re_index]
+        """allows you to change the character in the settings
+          param language_index: needed to determine the current character
+          """
+        character_index = self.names_character_list.index(self.view_character)
+        print(character_index)
+        character_index += 1
+        if character_index > len(self.names_character_list) - 1:
+            character_index = 0
+        self.view_character = self.names_character_list[character_index]
         print(self.view_character)
         self.update_paths()
 
     def update_paths(self):
+        """associated with Next_character, according to the selected character, changes the paths to the pictures of the corresponding
+         character, all frames use 4 different images of one character, stored in database """
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             self.current_paths_character = sqlite_Neko.get_paths_character(conn, self.view_character)
@@ -224,11 +250,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.character_set.setPixmap(QtGui.QPixmap(self.current_paths_character[3]))
 
     def set_name_in_widget(self):
+        """ follows after save_global_setting(), applies resulting changes to unique variables
+        self.view_character, self.name_character, self.name_user, self.language, self.behavior, self.work_table"""
         self.dialog_character.setText(f"          {self.name_user},надеюсь, ты меня не просто так позвал?")
         self.character_name_label.setText(self.name_character)
         self.character_label.setPixmap(QtGui.QPixmap(self.current_paths_character[1]))
         self.character_on_add_del_frame.setPixmap(QtGui.QPixmap(self.current_paths_character[2]))
         self.character_set.setPixmap(QtGui.QPixmap(self.current_paths_character[3]))
+        self.character_s.setPixmap(QtGui.QPixmap(self.current_paths_character[4]))
 
     """fun in main frame"""
 
@@ -267,31 +296,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.frame_main.show()
         self.frame_rule_command.hide()
         self.command_panel_frame.show()
-        self.dirlist = []
-        self.clear_grid()
+        self.directory_list = []
+        self.clear_note(self.grid)
         self.del_list = []
-        self.clear_delite_bar()
+        self.clear_note(self.delite_bar)
 
-    def clear_grid(self):
-        """после выбора файла появляется label с его названием, функция очищает grid в котором он находится"""
-        while self.grid.count():
-            item = self.grid.takeAt(0)
-            widget = item.widget()
-            # if widget has some id attributes you need to
-            # save in a list to maintain order, you can do that here
-            # i.e.:   aList.append(widget.someId)
-            widget.deleteLater()
+
 
     def get_directory(self):
-        """выбор файлов для действия"""
+        """select files for action"""
         folder = QtWidgets.QFileDialog.getExistingDirectory(None, "Выбрать папку", ".")
         print(folder)
-        self.dirlist.append(folder)
-        print(self.dirlist)
+        self.directory_list.append(folder)
+        print(self.directory_list)
         for i in range(4):
             column = [[0, 0], [0, 1], [1, 0], [1, 1], ]
             x, y = column[i]
-            if i < len(self.dirlist):
+            if i < len(self.directory_list):
                 label = QtWidgets.QLabel()
                 label.setGeometry(QtCore.QRect(0, 0, 121, 151))
                 label.setMaximumSize(121, 151)
@@ -303,13 +324,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                     "line-height: 27px;\n"
                                     "\n"
                                     "color: #FFFFFF;")
-                if len(self.dirlist[i]) > 20:
-                    ne = self.dirlist[i][:20] + "\n" + self.dirlist[i][20:40:] + "\n" + self.dirlist[i][40:60:] + "\n" + \
-                         self.dirlist[i][60::]
+                if len(self.directory_list[i]) > 20:
+                    ne = self.directory_list[i][:20] + "\n" + self.directory_list[i][20:40:] + "\n" + self.directory_list[i][40:60:] + "\n" + \
+                         self.directory_list[i][60::]
                 label.setText(ne)
                 self.grid.addWidget(label, x, y)
-
-
             else:
                 label = QtWidgets.QLabel()
                 label.setGeometry(QtCore.QRect(0, 0, 121, 151))
@@ -323,25 +342,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.grid.addWidget(label, x, y)
 
     def add_date_in_Neko_bd(self):
-        """добавить task в базу данных"""
+        """add command to database"""
         self.link_site = self.lineEdit_4.text()
-        if (self.dirlist != []) and (self.link_site in ["set site", "укажи сайт"]):
+        if (self.directory_list != []) and (self.link_site in ["set site", "укажи сайт"]):
             conn = sqlite_Neko.create_connection("Neko.db")
             command = self.input_name_command.text()
             file = []
             with conn:
                 for i in range(4):
-                    if i < len(self.dirlist):
-                        file.append(self.dirlist[i])
+                    if i < len(self.directory_list):
+                        file.append(self.directory_list[i])
                     else:
                         file.append("")
 
                 task = ("f", file[0], file[1], file[2], file[3], "", command)
                 sqlite_Neko.create_task(conn, task)
-                self.dirlist = []
-                self.clear_grid()
+                self.directory_list = []
+                self.clear_note(self.grid)
                 self.input_name_command.setText("access")
-        elif (self.dirlist == []) and (self.link_site not in ["set site", "укажи сайт"]):
+        elif (self.directory_list == []) and (self.link_site not in ["set site", "укажи сайт"]):
             conn = sqlite_Neko.create_connection("Neko.db")
             command = self.input_name_command.text()
             with conn:
@@ -351,11 +370,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         else:
             self.input_name_command.setText("fail")
-        self.clear_delite_bar()
+        self.clear_note(self.delite_bar)
         self.show_update_item_in_area_delite_choice()
 
     def show_update_item_in_area_delite_choice(self):
-        """обновляет кнопки, содержащие команды"""
+        """updates buttons containing commands"""
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             name = sqlite_Neko.select_all_command(conn)
@@ -379,10 +398,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                           "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
             self.pushButton.setText(f"{j}")
             self.pushButton.clicked.connect(lambda checked, button=self.pushButton: self.active_button(button))
-            self.Layout.addWidget(self.pushButton, 0, i)
+            self.delite_bar.addWidget(self.pushButton, 0, i)
 
     def active_button(self, pushButton):
-        """делает кнопку активной при нажатии,добавляет команду в del_list"""
+        """makes the button active when pressed, adds a command to del_list"""
         pushButton.setStyleSheet("border-radius: 2px;\n"
                                  "font: 12pt \"MS Shell Dlg 2\";\n"
                                  "color: rgba(255, 255, 255, 0.67);\n"
@@ -395,21 +414,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.del_list.append(qq)
         print(self.del_list)
 
-    def clear_delite_bar(self):
-        while self.Layout.count():
-            item = self.Layout.takeAt(0)
-            widget = item.widget()
-            # if widget has some id attributes you need to
-            # save in a list to maintain order, you can do that here
-            # i.e.:   aList.append(widget.someId)
-            widget.deleteLater()
-
     def del_command(self):
+        """delite command from database with name from del_list"""
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             for i in self.del_list:
                 sqlite_Neko.delete_task(conn, i)
-        self.clear_delite_bar()
+        self.clear_note(self.delite_bar)
         self.show_update_item_in_area_delite_choice()
 
 

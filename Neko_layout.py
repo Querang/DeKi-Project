@@ -245,9 +245,9 @@ class Ui_MainWindow(object):
         self.scrollAreaWidgetContents_3.setStyleSheet("background: rgba(23, 23, 23, 0.0);")
         self.scrollAreaWidgetContents_3.setObjectName("scrollAreaWidgetContents_2")
         self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_3)
-        self.Layout = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_3)
-        self.Layout.setAlignment(QtCore.Qt.AlignLeft)
-        self.Layout.setObjectName("gridLayout")
+        self.delite_bar = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_3)
+        self.delite_bar.setAlignment(QtCore.Qt.AlignLeft)
+        self.delite_bar.setObjectName("gridLayout")
 
         self.button_delite_command = QtWidgets.QPushButton(self.frame_rule_command)
         self.button_delite_command.setGeometry(QtCore.QRect(940, 480, 71, 61))
@@ -364,20 +364,6 @@ class Ui_MainWindow(object):
         self.frame_11.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_11.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_11.setObjectName("frame_11")
-
-        # сетка для отображения выбранных файлов
-        # self.grid = QtWidgets.QGridLayout(self.frame_11)
-        # self.label_9 = QtWidgets.QLabel(self.frame_11)
-        # self.label_9.setGeometry(QtCore.QRect(170, 10, 121, 151))
-        # self.label_9.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
-        #                            "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-        #                            "border-radius: 13px;\n"
-        #                            "font-size: 12px;\n"
-        #                            "line-height: 27px;\n"
-        #                            "\n"
-        #                            "color: #FFFFFF;")
-        # self.label_9.setObjectName("")
-        # self.label_9.hide()
 
         self.command_panel_frame = QtWidgets.QFrame(self.centralwidget)
         self.command_panel_frame.setGeometry(QtCore.QRect(1050, 60, 171, 491))
@@ -727,8 +713,8 @@ class Ui_MainWindow(object):
                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                        "border-radius: 13px;")
         self.character_s.setText("")
-        self.character_s.setPixmap(QtGui.QPixmap("material/Neko/Neko_s.png"))
-        self.character_s.setScaledContents(True)
+
+        self.character_s.setScaledContents(False)
         self.character_s.setObjectName("character_s")
         self.button_note_1 = QtWidgets.QPushButton(self.note_menu_frame)
         self.button_note_1.setEnabled(True)
@@ -869,25 +855,6 @@ class Ui_MainWindow(object):
         self.gridLayout_note.setObjectName("gridLayout_note")
 
         self.gridLayout_note.setAlignment(QtCore.Qt.AlignTop)
-        # self.pushButton_3 = QtWidgets.QPushButton(self.scrollAreaWidgetContents_2_notet)
-        # self.pushButton_3.setMinimumSize(QtCore.QSize(148, 161))
-        # self.pushButton_3.setMaximumSize(QtCore.QSize(148, 161))
-        # self.pushButton_3.setStyleSheet("background: rgba(23, 23, 23, 0.76);\n"
-        #                                 "border: 1px solid #917C7C;\n"
-        #                                 "box-sizing: border-box;\n"
-        #                                 "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-        #                                 "border-radius: 24px;\n"
-        #                                 "font-family: Roboto Mono;\n"
-        #                                 "font-style: normal;\n"
-        #                                 "font-weight: normal;\n"
-        #                                 "font-size: 14px;\n"
-        #                                 "line-height: 24px;\n"
-        #                                 "vertical-align: top; \n"
-        #                                 "text-align: Top left;\n"
-        #                                 "padding: 10px 10px 20px 10px;\n"
-        #                                 "color: #FFFFFF;")
-        # self.pushButton_3.setObjectName("pushButton_3")
-        # self.gridLayout_note.addWidget(self.pushButton_3, 0, 0, 1, 1)
         self.scrollArea_2_note.setWidget(self.scrollAreaWidgetContents_2_notet)
         self.lineEdit = QtWidgets.QLineEdit(self.Note_frame)
         self.lineEdit.setGeometry(QtCore.QRect(10, 36, 304, 27))
@@ -932,50 +899,8 @@ class Ui_MainWindow(object):
         self.note_save_button_2.setAutoDefault(False)
         self.note_save_button_2.setDefault(False)
         self.note_save_button_2.setObjectName("note_save_button_2")
-        self.list_deal_frame = QtWidgets.QFrame(self.main_note_frame)
-        self.list_deal_frame.setGeometry(QtCore.QRect(520, 10, 669, 316))
-        self.list_deal_frame.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
-                                           "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                           "border-radius: 13px;")
-        self.list_deal_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.list_deal_frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.list_deal_frame.setObjectName("list_deal_frame")
-        self.label_list_deal = QtWidgets.QLabel(self.list_deal_frame)
-        self.label_list_deal.setGeometry(QtCore.QRect(270, 0, 131, 31))
-        self.label_list_deal.setStyleSheet("font-family: Roboto Mono;\n"
-                                           "font-style: normal;\n"
-                                           "font-weight: normal;\n"
-                                           "font-size: 24px;\n"
-                                           "line-height: 32px;\n"
-                                           "\n"
-                                           "color: #FFFFFF;\n"
-                                           "/* identical to box height */\n"
-                                           "background: rgba(33, 24, 24, 0.0);\n"
-                                           "\n"
-                                           "color: #FFFFFF;\n"
-                                           "")
-        self.label_list_deal.setObjectName("label_list_deal")
-        self.code_frame_2 = QtWidgets.QFrame(self.main_note_frame)
-        self.code_frame_2.setGeometry(QtCore.QRect(520, 340, 671, 99))
-        self.code_frame_2.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
-                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                        "border-radius: 13px;")
-        self.code_frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.code_frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.code_frame_2.setObjectName("code_frame_2")
-        self.pushButton = QtWidgets.QPushButton(self.code_frame_2)
-        self.pushButton.setGeometry(QtCore.QRect(60, 10, 521, 71))
-        self.pushButton.setStyleSheet("font: 8pt \"Arial\";\n"
-                                      "font-style: normal;\n"
-                                      "font-weight: normal;\n"
-                                      "font-size: 22px;\n"
-                                      "line-height: 34px;\n"
-                                      "/* identical to box height */\n"
-                                      "background: rgba(33, 24, 24, 0.0);\n"
-                                      "\n"
-                                      "color: #FFFFFF;\n"
-                                      "")
-        self.pushButton.setObjectName("pushButton")
+
+
         self.Note_frame_2 = QtWidgets.QFrame(self.main_note_frame)
         self.Note_frame_2.setGeometry(QtCore.QRect(170, 10, 331, 661))
         self.Note_frame_2.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
@@ -1175,8 +1100,8 @@ class Ui_MainWindow(object):
 
         self.lineEdit.setText("поиск")
         self.label_note_2.setText("Note")
-        self.label_list_deal.setText("Список дел")
-        self.pushButton.setText("#code    - - -- ------------------ click ------------- - - -")
+
+
         self.label_note_3.setText("Note")
         self.back_from_note_button_2.setText("Note (1)")
         self.back_from_note_button_4.setText("add")

@@ -1,6 +1,6 @@
 import sys
 import sqlite_Neko
-from PyQt5.QtGui import QKeySequence
+from PyQt5.QtGui import QKeySequence, QWheelEvent
 from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut
 from Neko_layout import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -28,7 +28,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.main_note_frame.hide()
         self.setting_frame.hide()
         self.Note_frame_2.hide()
-
+        self.frame_main.hide()
+        # self.main_min_frame.hide()
         """hotkey"""
         self.shortcut = QShortcut(QKeySequence("Ctrl+W"), self)
         self.shortcut.activated.connect(self.hide_main_window)
@@ -54,7 +55,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.note_save_button.clicked.connect(self.save_note)
         self.button_add_note.clicked.connect(self.create_new_note)
         self.note_del_button.clicked.connect(self.del_note)
+        self.wrap_button.clicked.connect(self.hide_main_window)
+        self.like_command_button_min.clicked.connect(self.show_hide_like_command)
+        self.teg_button_min.clicked.connect(self.show_teg_frame)
+        self.button_note_min.clicked.connect(self.show_note_frame)
         """set variables"""
+        self.scroll_px = 0
+        self.button_bar = [0,1,2,3]
         self.like_button_check = False
         self.teg_button_check = False
         self.setting_button_check = False
@@ -72,7 +79,98 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.set_name_in_widget()
         """note variable"""
         self.current_note_button = None
+    """fun min frame"""
+    @staticmethod
+    def shift(lst, steps):
+        if steps < 0:
+            steps = abs(steps)
+            for i in range(steps):
+                lst.append(lst.pop(0))
+        else:
+            for i in range(steps):
+                lst.insert(0, lst.pop())
 
+    def wheelEvent(self, event: QWheelEvent):
+        adj = int(event.angleDelta().y()) // 120
+
+        self.scroll_px = self.scroll_px + adj
+        if self.scroll_px < 0:
+            print(self.scroll_px)
+            self.clear_note(self.gridLayout_min)
+            print("hi")
+            self.button_note_min = QtWidgets.QPushButton()
+            self.button_note_min.setEnabled(True)
+            self.button_note_min.setMinimumSize(QtCore.QSize(50, 50))
+            self.button_note_min.setMaximumSize(QtCore.QSize(50, 50))
+            self.button_note_min.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+                                               "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                               "border-radius: 13px;")
+            self.button_note_min.setText("")
+            icon = QtGui.QIcon()
+            icon.addPixmap(QtGui.QPixmap("material/image 50.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            self.button_note_min.setIcon(icon)
+            self.button_note_min.setIconSize(QtCore.QSize(50, 50))
+            self.button_note_min.setAutoDefault(False)
+            self.button_note_min.setDefault(False)
+            self.button_note_min.setObjectName("button_note_min")
+            self.like_command_button_min = QtWidgets.QPushButton()
+            self.like_command_button_min.setEnabled(True)
+            self.like_command_button_min.setMaximumSize(QtCore.QSize(50, 50))
+            self.like_command_button_min.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+                                                       "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                                       "border-radius: 13px;")
+            self.like_command_button_min.setText("")
+            icon1 = QtGui.QIcon()
+            icon1.addPixmap(QtGui.QPixmap("material/image 41.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            self.like_command_button_min.setIcon(icon1)
+            self.like_command_button_min.setMinimumSize(QtCore.QSize(50, 50))
+            self.like_command_button_min.setIconSize(QtCore.QSize(50, 50))
+            self.like_command_button_min.setAutoDefault(False)
+            self.like_command_button_min.setDefault(False)
+            self.like_command_button_min.setObjectName("like_command_button_min")
+            self.teg_button_min = QtWidgets.QPushButton()
+            self.teg_button_min.setEnabled(True)
+            self.teg_button_min.setMinimumSize(QtCore.QSize(50, 50))
+            self.teg_button_min.setMaximumSize(QtCore.QSize(50, 50))
+            self.teg_button_min.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+                                              "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                              "border-radius: 13px;")
+            self.teg_button_min.setText("")
+            icon2 = QtGui.QIcon()
+            icon2.addPixmap(QtGui.QPixmap("material/image 42.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            self.teg_button_min.setIcon(icon2)
+            self.teg_button_min.setIconSize(QtCore.QSize(50, 50))
+            self.teg_button_min.setAutoDefault(False)
+            self.teg_button_min.setDefault(False)
+            self.teg_button_min.setObjectName("teg_button_min")
+            self.code_button = QtWidgets.QPushButton()
+            self.code_button.setEnabled(True)
+            self.code_button.setGeometry(QtCore.QRect(90, 110, 61, 61))
+            self.code_button.setMinimumSize(QtCore.QSize(50, 50))
+            self.code_button.setMaximumSize(QtCore.QSize(50, 50))
+            self.code_button.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+                                           "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                           "border-radius: 13px;")
+            self.code_button.setText("")
+            icon1 = QtGui.QIcon()
+            icon1.addPixmap(QtGui.QPixmap("material/image 62.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            self.code_button.setIcon(icon1)
+            self.code_button.setIconSize(QtCore.QSize(50, 50))
+            self.code_button.setAutoDefault(False)
+            self.code_button.setDefault(False)
+            self.code_button.setObjectName("code_button")
+            self.like_command_button_min.clicked.connect(self.show_hide_like_command)
+            self.teg_button_min.clicked.connect(self.show_teg_frame)
+            self.button_note_min.clicked.connect(self.show_note_frame)
+            print("hi")
+            self.shift(self.button_bar,1)
+
+            self.gridLayout_min.addWidget(self.like_command_button_min, 0, self.button_bar[0], 1, 1)
+            self.gridLayout_min.addWidget(self.button_note_min, 0, self.button_bar[1], 1, 1)
+            self.gridLayout_min.addWidget(self.teg_button_min, 0, self.button_bar[2], 1, 1)
+            self.gridLayout_min.addWidget(self.code_button, 0, self.button_bar[3], 1, 1)
+
+        self.scroll_px = 0
     """fun Note frame"""
 
     def del_note(self, ):

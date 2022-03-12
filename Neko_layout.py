@@ -24,6 +24,176 @@ class Ui_MainWindow(object):
         MainWindow.setIconSize(QtCore.QSize(50, 50))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        """min main frame"""
+        self.main_min_frame = QtWidgets.QFrame(self.centralwidget)
+        self.main_min_frame.setGeometry(QtCore.QRect(380, 200, 481, 281))
+        self.main_min_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.main_min_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.main_min_frame.setObjectName("main_min_frame")
+        self.main_min_button_panel = QtWidgets.QFrame(self.main_min_frame)
+        self.main_min_button_panel.setGeometry(QtCore.QRect(30, 60, 350, 142))
+        self.main_min_button_panel.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+                                                 "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                                 "border-radius: 13px;")
+        self.main_min_button_panel.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.main_min_button_panel.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.main_min_button_panel.setObjectName("main_min_button_panel")
+        self.character_s_min = QtWidgets.QLabel(self.main_min_button_panel)
+        self.character_s_min.setEnabled(True)
+        self.character_s_min.setGeometry(QtCore.QRect(240, 20, 92, 90))
+        self.character_s_min.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+                                           "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                           "border-radius: 13px;")
+        self.character_s_min.setText("")
+        self.character_s_min.setPixmap(QtGui.QPixmap("material/Neko/Neko_s.png"))
+        self.character_s_min.setScaledContents(True)
+        self.character_s_min.setObjectName("character_s_min")
+        self.time_label = QtWidgets.QLabel(self.main_min_button_panel)
+        self.time_label.setGeometry(QtCore.QRect(10, 10, 71, 21))
+        self.time_label.setStyleSheet("font-family: Roboto Mono;\n"
+                                      "font-style: normal;\n"
+                                      "font-weight: normal;\n"
+                                      "font-size: 24px;\n"
+                                      "line-height: 32px;\n"
+                                      "\n"
+                                      "font-family: Roboto;\n"
+                                      "font-style: normal;\n"
+                                      "font-weight: normal;\n"
+                                      "font-size: 24px;\n"
+                                      "line-height: 28px;\n"
+                                      "\n"
+                                      "color: rgba(255, 215, 215, 0.7);")
+        self.time_label.setObjectName("time_label")
+        self.scrollArea_min = QtWidgets.QScrollArea(self.main_min_button_panel)
+        self.scrollArea_min.setGeometry(QtCore.QRect(30, 40, 175, 71))
+        self.scrollArea_min.setStyleSheet("QScrollBar:horizontal {\n"
+                                        "  border-color: rgb(227, 227, 227);\n"
+                                        "  border-width: 1px;\n"
+                                        "  border-style: solid;\n"
+                                        "  background-color: rgb(240, 240, 240);\n"
+                                        "    height: 15px;\n"
+                                        "    margin: 0px 21px 0 21px;\n"
+                                        " }\n"
+                                        "\n"
+                                        " QScrollBar::handle:horizontal {\n"
+                                        "    background-color: rgb(200, 200, 200);\n"
+                                        "    max-width: 5px;\n"
+                                        " }\n"
+                                        "QScrollBar::add-line:horizontal {\n"
+                                        "    border: 1px solid grey;\n"
+                                        "  background-color: rgb(241, 241, 241);\n"
+                                        "    height: 20px;\n"
+                                        "    subcontrol-position: right;\n"
+                                        "    subcontrol-origin: margin;\n"
+                                        " }\n"
+                                        "\n"
+                                        " QScrollBar::sub-line:horizontal {\n"
+                                        "  border: 1px solid grey;\n"
+                                        "    background-color: rgb(241, 241, 241);\n"
+                                        "    height: 20px;\n"
+                                        "    subcontrol-position: left;\n"
+                                        "    subcontrol-origin: margin;\n"
+                                        " }\n"
+                                        "\n"
+                                        " QScrollBar:left-arrow:horizontal\n"
+                                        "{\n"
+                                        "  image: url(:/BarIcon/Icons/leftarrow.png);\n"
+                                        "}\n"
+                                        "\n"
+                                        "QScrollBar::right-arrow:horizontal \n"
+                                        "{\n"
+                                        "  image: url(:/BarIcon/Icons/rightarrow.png);\n"
+                                        "}\n"
+                                        "\n"
+                                        "QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
+                                        "     background: none;\n"
+                                        "}")
+        self.scrollArea_min.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.scrollArea_min.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.scrollArea_min.setWidgetResizable(True)
+        self.scrollArea_min.setObjectName("scrollArea_min")
+        self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 211, 71))
+        self.scrollAreaWidgetContents_2.setStyleSheet("background: rgba(23, 23, 23, 0.0);")
+        self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
+        self.gridLayout_min = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_2)
+        self.gridLayout_min.setObjectName("gridLayout_min")
+        self.button_note_min = QtWidgets.QPushButton(self.scrollAreaWidgetContents_2)
+        self.button_note_min.setEnabled(True)
+        self.button_note_min.setMinimumSize(QtCore.QSize(50, 50))
+        self.button_note_min.setMaximumSize(QtCore.QSize(50, 50))
+        self.button_note_min.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+                                           "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                           "border-radius: 13px;")
+        self.button_note_min.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("material/image 50.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.button_note_min.setIcon(icon)
+        self.button_note_min.setIconSize(QtCore.QSize(50, 50))
+        self.button_note_min.setAutoDefault(False)
+        self.button_note_min.setDefault(False)
+        self.button_note_min.setObjectName("button_note_min")
+        self.gridLayout_min.addWidget(self.button_note_min, 1, 0, 1, 1)
+        self.like_command_button_min = QtWidgets.QPushButton(self.scrollAreaWidgetContents_2)
+        self.like_command_button_min.setEnabled(True)
+        self.like_command_button_min.setMinimumSize(QtCore.QSize(50, 50))
+        self.like_command_button_min.setMaximumSize(QtCore.QSize(50, 50))
+        self.like_command_button_min.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+                                                   "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                                   "border-radius: 13px;")
+        self.like_command_button_min.setText("")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("material/image 41.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.like_command_button_min.setIcon(icon1)
+        self.like_command_button_min.setIconSize(QtCore.QSize(50, 50))
+        self.like_command_button_min.setAutoDefault(False)
+        self.like_command_button_min.setDefault(False)
+        self.like_command_button_min.setObjectName("like_command_button_min")
+        self.gridLayout_min.addWidget(self.like_command_button_min, 1, 1, 1, 1)
+        self.teg_button_min = QtWidgets.QPushButton(self.scrollAreaWidgetContents_2)
+        self.teg_button_min.setEnabled(True)
+        self.teg_button_min.setMinimumSize(QtCore.QSize(50, 50))
+        self.teg_button_min.setMaximumSize(QtCore.QSize(50, 50))
+        self.teg_button_min.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+                                          "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                          "border-radius: 13px;")
+        self.teg_button_min.setText("")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("material/image 42.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.teg_button_min.setIcon(icon2)
+        self.teg_button_min.setIconSize(QtCore.QSize(50, 50))
+        self.teg_button_min.setAutoDefault(False)
+        self.teg_button_min.setDefault(False)
+        self.teg_button_min.setObjectName("teg_button_min")
+        self.gridLayout_min.addWidget(self.teg_button_min, 1, 2, 1, 1)
+        self.scrollArea_min.setWidget(self.scrollAreaWidgetContents_2)
+        self.wrap_button = QtWidgets.QPushButton(self.main_min_frame)
+        self.wrap_button.setGeometry(QtCore.QRect(30, 210, 344, 48))
+        self.wrap_button.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+                                       "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                       "border-radius: 13px;\n"
+                                       "font-size: 18px;\n"
+                                       "line-height: 27px;\n"
+                                       "\n"
+                                       "color: #FFFFFF;")
+        self.wrap_button.setObjectName("wrap_button")
+        self.label_dialog_min_frame = QtWidgets.QLabel(self.main_min_frame)
+        self.label_dialog_min_frame.setGeometry(QtCore.QRect(390, 70, 83, 73))
+        self.label_dialog_min_frame.setStyleSheet("background: rgba(23, 23, 23, 0.8main_min_frame);\n"
+                                                  "border: 1px solid rgba(167, 167, 167, 0.8);\n"
+                                                  "\n"
+                                                  "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                                  "border-radius: 13px;\n"
+                                                  "font-family: Titillium Web;\n"
+                                                  "font-style: normal;\n"
+                                                  "font-weight: normal;\n"
+                                                  "font-size: 12px;\n"
+                                                  "line-height: 27px;\n"
+                                                  "text-align: center;\n"
+                                                  "padding: 0 0 0 13px;\n"
+                                                  "color: #FFFFFF;")
+        self.label_dialog_min_frame.setObjectName("label_dialog_min_frame")
+
         """main frame"""
         self.frame_main = QtWidgets.QFrame(self.centralwidget)
         self.frame_main.setGeometry(QtCore.QRect(360, 139, 731, 471))
@@ -237,7 +407,7 @@ class Ui_MainWindow(object):
                                         "}\n"
                                         "")
         self.scrollArea_3.setWidgetResizable(True)
-        self.scrollArea_3.setObjectName("scrollArea_2")
+        self.scrollArea_3.setObjectName("scrollArea_min")
         self.scrollArea_3.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.scrollArea_3.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.scrollAreaWidgetContents_3 = QtWidgets.QWidget()
@@ -246,6 +416,7 @@ class Ui_MainWindow(object):
         self.scrollAreaWidgetContents_3.setObjectName("scrollAreaWidgetContents_2")
         self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_3)
         self.delite_bar = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_3)
+        self.gridLayout_min.setAlignment(QtCore.Qt.AlignLeft)
         self.delite_bar.setAlignment(QtCore.Qt.AlignLeft)
         self.delite_bar.setObjectName("gridLayout")
 
@@ -1094,6 +1265,10 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def set_ru(self):
+        """main min frame"""
+        self.time_label.setText("18:42")
+        self.wrap_button.setText("wrap")
+        self.label_dialog_min_frame.setText("Рада вас\n видеть\n хозяин")
         """note frame"""
         self.back_from_note_button.setText("back")
 

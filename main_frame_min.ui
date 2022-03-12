@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1700</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="main_min_frame">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>200</y>
+      <width>481</width>
+      <height>281</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QFrame" name="main_min_button_panel">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>60</y>
+       <width>350</width>
+       <height>142</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLabel" name="character_s_min">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>20</y>
+        <width>92</width>
+        <height>90</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../material/Neko/Neko_s.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="time_label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font-family: Roboto Mono;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 32px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 28px;
+
+color: rgba(255, 215, 215, 0.7);</string>
+      </property>
+      <property name="text">
+       <string>18:42</string>
+      </property>
+     </widget>
+     <widget class="QScrollArea" name="scrollArea_2">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>211</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QScrollBar:horizontal {
+  border-color: rgb(227, 227, 227);
+  border-width: 1px;
+  border-style: solid;
+  background-color: rgb(240, 240, 240);
+    height: 15px;
+    margin: 0px 21px 0 21px;
+ }
+
+ QScrollBar::handle:horizontal {
+    background-color: rgb(200, 200, 200);
+    max-width: 5px;
+ }
+QScrollBar::add-line:horizontal {
+    border: 1px solid grey;
+  background-color: rgb(241, 241, 241);
+    height: 20px;
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+ }
+
+ QScrollBar::sub-line:horizontal {
+  border: 1px solid grey;
+    background-color: rgb(241, 241, 241);
+    height: 20px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+ }
+
+ QScrollBar:left-arrow:horizontal
+{
+  image: url(:/BarIcon/Icons/leftarrow.png);
+}
+
+QScrollBar::right-arrow:horizontal 
+{
+  image: url(:/BarIcon/Icons/rightarrow.png);
+}
+
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+     background: none;
+}</string>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>211</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: rgba(23, 23, 23, 0.0);</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="1" column="0">
+         <widget class="QPushButton" name="button_note_min">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../material/image 50.png</normaloff>../material/image 50.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="default">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="like_command_button_min">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../material/image 41.png</normaloff>../material/image 41.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="default">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="teg_button_min">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../material/image 42.png</normaloff>../material/image 42.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="default">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QPushButton" name="wrap_button">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>210</y>
+       <width>344</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+font-size: 18px;
+line-height: 27px;
+
+color: #FFFFFF;</string>
+     </property>
+     <property name="text">
+      <string>wrap</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_dialog_min_frame">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>70</y>
+       <width>83</width>
+       <height>73</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: #2B2525;
+border: 2px solid #A7A7A7;
+
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+font-family: Titillium Web;
+font-style: normal;
+font-weight: normal;
+font-size: 12px;
+line-height: 27px;
+text-align: center;
+padding: 0 0 0 13px;
+color: #FFFFFF;</string>
+     </property>
+     <property name="text">
+      <string>Рада вас
+ видеть
+ хозяин</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>1100</x>
+      <y>530</y>
+      <width>201</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_min"/>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1700</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

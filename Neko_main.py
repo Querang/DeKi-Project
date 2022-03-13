@@ -28,8 +28,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.main_note_frame.hide()
         self.setting_frame.hide()
         self.Note_frame_2.hide()
-        self.frame_main.hide()
-        # self.main_min_frame.hide()
+        # self.frame_main.hide()
+        self.main_min_frame.hide()
+        self.setting_page_2.hide()
         """hotkey"""
         self.shortcut = QShortcut(QKeySequence("Ctrl+W"), self)
         self.shortcut.activated.connect(self.hide_main_window)
@@ -59,9 +60,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.like_command_button_min.clicked.connect(self.show_hide_like_command)
         self.teg_button_min.clicked.connect(self.show_teg_frame)
         self.button_note_min.clicked.connect(self.show_note_frame)
+        self.setting_button_on_page_2.clicked.connect(self.set_on_page_2)
+        self.button_on_1_page.clicked.connect(self.set_on_page_1)
+        self.button_window_r_2.clicked.connect(self.Next_main_window_size)
+        self.button_window_l_2.clicked.connect(self.Next_main_window_size)
         """set variables"""
         self.scroll_px = 0
         self.button_bar = [0,1,2,3]
+        self.main_window_size = False
+        self.next_main_frame = False
         self.like_button_check = False
         self.teg_button_check = False
         self.setting_button_check = False
@@ -73,12 +80,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         with conn:
             self.names_character_list = sqlite_Neko.get_names_character(
                 conn)  # получить имена всех доступных персонажей
-            self.view_character, self.name_character, self.name_user, self.language, self.behavior, self.work_table = sqlite_Neko.get_global_name(
+            self.view_character, self.name_character, self.name_user, self.language, self.behavior, self.work_table,self.main_window_size = sqlite_Neko.get_global_name(
                 conn)
             self.current_paths_character = sqlite_Neko.get_paths_character(conn, self.view_character)
             self.set_name_in_widget()
         """note variable"""
         self.current_note_button = None
+        """check main window"""
+        if self.main_window_size == "min":
+            self.flag_main_min_frame = True
+            self.frame_main.hide()
+            self.main_min_frame.show()
+        self.label_normal_window_page_2.setText(self.main_window_size)
     """fun min frame"""
     @staticmethod
     def shift(lst, steps):
@@ -94,10 +107,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         adj = int(event.angleDelta().y()) // 120
 
         self.scroll_px = self.scroll_px + adj
-        if self.scroll_px < 0:
-            print(self.scroll_px)
+        if self.scroll_px != 0:
             self.clear_note(self.gridLayout_min)
-            print("hi")
             self.button_note_min = QtWidgets.QPushButton()
             self.button_note_min.setEnabled(True)
             self.button_note_min.setMinimumSize(QtCore.QSize(50, 50))
@@ -162,9 +173,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.like_command_button_min.clicked.connect(self.show_hide_like_command)
             self.teg_button_min.clicked.connect(self.show_teg_frame)
             self.button_note_min.clicked.connect(self.show_note_frame)
-            print("hi")
             self.shift(self.button_bar,1)
-
             self.gridLayout_min.addWidget(self.like_command_button_min, 0, self.button_bar[0], 1, 1)
             self.gridLayout_min.addWidget(self.button_note_min, 0, self.button_bar[1], 1, 1)
             self.gridLayout_min.addWidget(self.teg_button_min, 0, self.button_bar[2], 1, 1)
@@ -284,14 +293,29 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_add_note.setText(f"{self.name_character} want add")
 
     def return_to_main(self):
-        self.main_note_frame.hide()
-        self.frame_main.show()
+        if self.flag_main_min_frame:
+            self.main_note_frame.hide()
+        else:
+            self.main_note_frame.hide()
+            self.frame_main.show()
 
     """fun setting frame"""
+    def set_on_page_2(self):
+        self.setting_frame.hide()
+        self.setting_page_2.show()
+
+    def set_on_page_1(self):
+        self.setting_frame.show()
+        self.setting_page_2.hide()
 
     def set_back_on_main(self):
-        self.setting_frame.hide()
-        self.frame_main.show()
+        if self.flag_main_min_frame:
+            self.setting_frame.hide()
+            self.main_min_frame.show()
+
+        else:
+            self.setting_frame.hide()
+            self.frame_main.show()
 
     def save_global_setting(self):
         """ stores global settings in database  """
@@ -302,14 +326,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         get_character_name = self.Nickname_1.text()
         if get_character_name not in ["нике", "nickname"]:
             self.name_character = get_character_name
-        self.name_user = get_user_name
+        if self.main_window_size == "min":
+            self.frame_main.hide()
+            self.flag_main_min_frame = True
+            self.main_min_frame.show()
+        else :
+            self.flag_main_min_frame = False
+            self.frame_main.show()
+            self.main_min_frame.hide()
         print(get_user_name, self.name_user)
         with conn:
             sqlite_Neko.update_global_name(conn, (
                 self.view_character, self.name_character, self.name_user, self.language, self.behavior,
-                self.work_table))
+                self.work_table,self.main_window_size))
         self.set_name_in_widget()
-
+    def Next_main_window_size(self):
+        self.next_main_frame = not self.next_main_frame
+        if self.next_main_frame:
+            self.main_window_size = "min"
+        else:
+            self.main_window_size = "normal"
+        self.label_normal_window_page_2.setText(self.main_window_size)
     def Next_language(self):
         """allows you to change the language in the settings
            param language_index: needed to determine the current language
@@ -382,6 +419,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.like_button_check = not self.like_button_check
 
     def show_teg_frame(self):
+
+
         if self.teg_button_check:
             self.teg_frame.hide()
         else:

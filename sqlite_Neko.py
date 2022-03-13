@@ -95,7 +95,8 @@ def update_global_name(conn, names):
                       name_user = ? ,
                       language = ? ,
                       behavior = ? ,
-                      work_table_note = ?
+                      work_table_note = ? ,
+                      main_window_size = ?
                       '''
     cur.execute(sql, names)
     conn.commit()

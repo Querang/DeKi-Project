@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         """min main frame"""
         self.main_min_frame = QtWidgets.QFrame(self.centralwidget)
-        self.main_min_frame.setGeometry(QtCore.QRect(380, 200, 481, 281))
+        self.main_min_frame.setGeometry(QtCore.QRect(580, 200, 481, 281))
         self.main_min_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.main_min_frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.main_min_frame.setObjectName("main_min_frame")
@@ -179,7 +179,7 @@ class Ui_MainWindow(object):
         self.wrap_button.setObjectName("wrap_button")
         self.label_dialog_min_frame = QtWidgets.QLabel(self.main_min_frame)
         self.label_dialog_min_frame.setGeometry(QtCore.QRect(390, 70, 83, 73))
-        self.label_dialog_min_frame.setStyleSheet("background: rgba(23, 23, 23, 0.8main_min_frame);\n"
+        self.label_dialog_min_frame.setStyleSheet("background: rgba(23, 23, 23, 0.8);\n"
                                                   "border: 1px solid rgba(167, 167, 167, 0.8);\n"
                                                   "\n"
                                                   "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
@@ -232,8 +232,8 @@ class Ui_MainWindow(object):
         self.dialog_character.setObjectName("label_3")
 
         """frame панели настроек - отображает кнопки: rule_command_button, q_a_button, setting_button """
-        self.teg_frame = QtWidgets.QFrame(self.frame_main)
-        self.teg_frame.setGeometry(QtCore.QRect(0, 80, 283, 179))
+        self.teg_frame = QtWidgets.QFrame(self.centralwidget)
+        self.teg_frame.setGeometry(QtCore.QRect(300, 200, 283, 179))
         self.teg_frame.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
                                      "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                      "border-radius: 13px;")
@@ -579,6 +579,100 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
         MainWindow.setCentralWidget(self.centralwidget)
         """setting frame"""
+        self.setting_page_2 = QtWidgets.QFrame(self.centralwidget)
+        self.setting_page_2.setGeometry(QtCore.QRect(260, 139, 929, 445))
+        self.setting_page_2.setStyleSheet("background: rgba(33, 24, 24, 0.6);\n"
+                                          "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.35);\n"
+                                          "border-radius: 13px;")
+        self.setting_page_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.setting_page_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.setting_page_2.setObjectName("setting_page_2")
+        self.label_setting_page_2 = QtWidgets.QLabel(self.setting_page_2)
+        self.label_setting_page_2.setGeometry(QtCore.QRect(20, 0, 71, 31))
+        self.label_setting_page_2.setStyleSheet("font: 8pt \"Arial\";\n"
+                                                "font-style: normal;\n"
+                                                "font-weight: normal;\n"
+                                                "font-size: 14px;\n"
+                                                "line-height: 34px;\n"
+                                                "/* identical to box height */\n"
+                                                "background: rgba(33, 24, 24, 0.0);\n"
+                                                "\n"
+                                                "color: #FFFFFF;\n"
+                                                "")
+        self.label_setting_page_2.setObjectName("label_setting_page_2")
+        self.label_window_page_2 = QtWidgets.QLabel(self.setting_page_2)
+        self.label_window_page_2.setGeometry(QtCore.QRect(10, 56, 169, 55))
+        self.label_window_page_2.setStyleSheet("background: rgba(33, 24, 24, 0.7);\n"
+                                               "font: 18pt \"Arial\";\n"
+                                               "border: 3px solid #575151;\n"
+                                               "box-sizing: border-box;\n"
+                                               "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                               "border-radius: 13px;\n"
+                                               "\n"
+                                               "font-weight: normal;\n"
+                                               "\n"
+                                               "line-height: 40px;\n"
+                                               "\n"
+                                               "color: #FFFFFF;\n"
+                                               "")
+        self.label_window_page_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_window_page_2.setObjectName("label_window_page_2")
+        self.label_normal_window_page_2 = QtWidgets.QLabel(self.setting_page_2)
+        self.label_normal_window_page_2.setGeometry(QtCore.QRect(220, 56, 561, 55))
+        self.label_normal_window_page_2.setStyleSheet("background: rgba(33, 24, 24, 0.7);\n"
+                                                      "font: 18pt \"Arial\";\n"
+                                                      "border: 3px solid #575151;\n"
+                                                      "box-sizing: border-box;\n"
+                                                      "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                                      "border-radius: 13px;\n"
+                                                      "\n"
+                                                      "font-weight: normal;\n"
+                                                      "\n"
+                                                      "line-height: 40px;\n"
+                                                      "\n"
+                                                      "color: #FFFFFF;\n"
+                                                      "")
+        self.label_normal_window_page_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_normal_window_page_2.setObjectName("label_normal_window_page_2")
+        self.label_page_2 = QtWidgets.QLabel(self.setting_page_2)
+        self.label_page_2.setGeometry(QtCore.QRect(786, 10, 91, 31))
+        self.label_page_2.setStyleSheet("background: rgba(33, 24, 24, 0.0);\n"
+                                        "font: 16pt \"Arial\";\n"
+                                        "box-sizing: border-box;\n"
+                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                        "border-radius: 13px;\n"
+                                        "\n"
+                                        "font-weight: normal;\n"
+                                        "\n"
+                                        "line-height: 40px;\n"
+                                        "\n"
+                                        "color: #FFFFFF;\n"
+                                        "")
+        self.label_page_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_page_2.setObjectName("label_page_2")
+        self.button_window_r_2 = QtWidgets.QPushButton(self.setting_page_2)
+        self.button_window_r_2.setGeometry(QtCore.QRect(740, 70, 31, 26))
+        self.button_window_r_2.setStyleSheet("background: rgba(33, 24, 24, 0.0);")
+        self.button_window_r_2.setText("")
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap("material/image 38.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.button_window_r_2.setIcon(icon3)
+        self.button_window_r_2.setObjectName("button_window_r_2")
+        self.button_window_l_2 = QtWidgets.QPushButton(self.setting_page_2)
+        self.button_window_l_2.setGeometry(QtCore.QRect(230, 70, 31, 26))
+        self.button_window_l_2.setStyleSheet("background: rgba(33, 24, 24, 0.0);")
+        self.button_window_l_2.setText("")
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap("material/image 52.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.button_window_l_2.setIcon(icon4)
+        self.button_window_l_2.setObjectName("button_window_l_2")
+        self.button_on_1_page = QtWidgets.QPushButton(self.setting_page_2)
+        self.button_on_1_page.setGeometry(QtCore.QRect(761, 13, 31, 26))
+        self.button_on_1_page.setStyleSheet("background: rgba(33, 24, 24, 0.0);")
+        self.button_on_1_page.setText("")
+        self.button_on_1_page.setIcon(icon4)
+        self.button_on_1_page.setObjectName("button_on_1_page")
+
         self.setting_frame = QtWidgets.QFrame(self.centralwidget)
         self.setting_frame.setGeometry(QtCore.QRect(260, 139, 929, 445))
         self.setting_frame.setStyleSheet("background: rgba(23, 23, 23, 0.6);\n"
@@ -800,14 +894,14 @@ class Ui_MainWindow(object):
                                     "")
         self.label_10.setAlignment(QtCore.Qt.AlignCenter)
         self.label_10.setObjectName("label_10")
-        self.pushButton_3 = QtWidgets.QPushButton(self.setting_frame)
-        self.pushButton_3.setGeometry(QtCore.QRect(890, 14, 31, 26))
-        self.pushButton_3.setStyleSheet("background: rgba(23, 23, 23, 0.0);")
-        self.pushButton_3.setText("")
+        self.setting_button_on_page_2 = QtWidgets.QPushButton(self.setting_frame)
+        self.setting_button_on_page_2.setGeometry(QtCore.QRect(890, 14, 31, 26))
+        self.setting_button_on_page_2.setStyleSheet("background: rgba(23, 23, 23, 0.0);")
+        self.setting_button_on_page_2.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("material/image 49.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton_3.setIcon(icon)
-        self.pushButton_3.setObjectName("pushButton_3")
+        self.setting_button_on_page_2.setIcon(icon)
+        self.setting_button_on_page_2.setObjectName("setting_button_on_page_2")
         self.button_language_r = QtWidgets.QPushButton(self.setting_frame)
         self.button_language_r.setGeometry(QtCore.QRect(740, 324, 31, 26))
         self.button_language_r.setStyleSheet("background: rgba(23, 23, 23, 0.0);")
@@ -1281,6 +1375,10 @@ class Ui_MainWindow(object):
         self.back_from_note_button_2.setText("Note (1)")
         self.back_from_note_button_4.setText("add")
         "setting frame"
+        self.label_setting_page_2.setText("setting")
+        self.label_window_page_2.setText("main window")
+        self.label_normal_window_page_2.setText("Normal size")
+        self.label_page_2.setText("page 2")
         self.label.setText("настройки")
         self.label_2.setText("Вайфу это твой выбор")
         self.label_3.setText("язык")

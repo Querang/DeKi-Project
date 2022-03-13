@@ -601,6 +601,204 @@ color: #FFFFFF;
      </property>
     </widget>
    </widget>
+   <widget class="QFrame" name="setting_page_2">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>60</y>
+      <width>929</width>
+      <height>445</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: rgba(33, 24, 24, 0.6);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.35);
+border-radius: 13px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="label_setting_page_2">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>0</y>
+       <width>71</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 8pt &quot;Arial&quot;;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 34px;
+/* identical to box height */
+background: rgba(33, 24, 24, 0.0);
+
+color: #FFFFFF;
+</string>
+     </property>
+     <property name="text">
+      <string>setting</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_window_page_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>56</y>
+       <width>169</width>
+       <height>55</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: rgba(33, 24, 24, 0.7);
+font: 18pt &quot;Arial&quot;;
+border: 3px solid #575151;
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+
+font-weight: normal;
+
+line-height: 40px;
+
+color: #FFFFFF;
+</string>
+     </property>
+     <property name="text">
+      <string>main window</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_normal_window_page_2">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>56</y>
+       <width>561</width>
+       <height>55</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: rgba(33, 24, 24, 0.7);
+font: 18pt &quot;Arial&quot;;
+border: 3px solid #575151;
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+
+font-weight: normal;
+
+line-height: 40px;
+
+color: #FFFFFF;
+</string>
+     </property>
+     <property name="text">
+      <string>Normal size</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_page_2">
+     <property name="geometry">
+      <rect>
+       <x>786</x>
+       <y>10</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: rgba(33, 24, 24, 0.0);
+font: 16pt &quot;Arial&quot;;
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+
+font-weight: normal;
+
+line-height: 40px;
+
+color: #FFFFFF;
+</string>
+     </property>
+     <property name="text">
+      <string>page 2</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="button_window_r_2">
+     <property name="geometry">
+      <rect>
+       <x>740</x>
+       <y>70</y>
+       <width>31</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: rgba(33, 24, 24, 0.0);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../material/image 38.png</normaloff>../material/image 38.png</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="button_window_l_2">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>70</y>
+       <width>31</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: rgba(33, 24, 24, 0.0);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../material/image 52.png</normaloff>../material/image 52.png</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="button_on_1_page">
+     <property name="geometry">
+      <rect>
+       <x>761</x>
+       <y>13</y>
+       <width>31</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: rgba(33, 24, 24, 0.0);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../material/image 52.png</normaloff>../material/image 52.png</iconset>
+     </property>
+    </widget>
+   </widget>
   </widget>
  </widget>
  <resources/>

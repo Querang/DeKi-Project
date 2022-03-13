@@ -293,7 +293,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_add_note.setText(f"{self.name_character} want add")
 
     def return_to_main(self):
-        if self.flag_main_min_frame:
+        if self.main_window_size == "min":
             self.main_note_frame.hide()
         else:
             self.main_note_frame.hide()
@@ -309,7 +309,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setting_page_2.hide()
 
     def set_back_on_main(self):
-        if self.flag_main_min_frame:
+        if self.main_window_size == "min":
             self.setting_frame.hide()
             self.main_min_frame.show()
 

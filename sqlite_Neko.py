@@ -153,6 +153,7 @@ def delete_task(conn, command):
     cur.execute(sql, (command,))
     conn.commit()
 
+
 def reset_button_note(conn, work_table,current_button):
     cur = conn.cursor()
     cur.execute("SELECT note FROM note WHERE work_table =? ", (work_table,))
@@ -190,8 +191,6 @@ def delete_note(conn, work_table,current_button):
     conn.commit()
 
 
-
-
 def select_task_by_command(conn, command):
     """
     Query tasks by priority
@@ -204,6 +203,45 @@ def select_task_by_command(conn, command):
 
     row = cur.fetchall()
     return row
+
+
+def select_type_of_commands(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM tasks")
+
+    rows = cur.fetchall()
+    types = []
+    for i in rows:
+        types.append(i[0])
+    return types
+
+
+def select_files_of_commands(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM tasks")
+
+    rows = cur.fetchall()
+    file_commands = []
+    for i in rows:
+        ways = []
+        ways.append(i[1])
+        ways.append(i[2])
+        ways.append(i[3])
+        ways.append(i[4])
+        ways = tuple(ways)
+        file_commands.append(ways)
+    return file_commands
+
+
+def select_sites_of_command(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM tasks")
+
+    rows = cur.fetchall()
+    sites = []
+    for i in rows:
+        sites.append(i[5])
+    return sites
 
 
 def main():

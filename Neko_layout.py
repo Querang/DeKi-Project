@@ -544,39 +544,17 @@ class Ui_MainWindow(object):
         self.command_panel_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.command_panel_frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.command_panel_frame.setObjectName("command_panel_frame")
-
-        self.scrollArea_2 = QtWidgets.QScrollArea(self.command_panel_frame)
-        self.scrollArea_2.setGeometry(QtCore.QRect(-1, -1, 281, 461))
-        self.scrollArea_2.setStyleSheet("background: rgba(23, 23, 23, 0);\n"
-                                        "border-radius: 13px;")
-        self.scrollArea_2.setWidgetResizable(True)
-        self.scrollArea_2.setObjectName("scrollArea_2")
-        self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 281, 461))
-        self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
-        self.pushButton_8 = QtWidgets.QPushButton(self.scrollAreaWidgetContents_2)
-        self.pushButton_8.setGeometry(QtCore.QRect(10, 21, 151, 51))
-        self.pushButton_8.setStyleSheet("border-radius: 2px;\n"
-                                        "font: 12pt \"MS Shell Dlg 2\";\n"
-                                        "color: rgba(255, 255, 255, 0.67);\n"
-                                        "\n"
-                                        "background: rgba(23, 23, 23, 0.31);\n"
-                                        "border: 1px solid rgba(233, 233, 233, 0.22);\n"
-                                        "box-sizing: border-box;\n"
-                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
-        self.pushButton_8.setObjectName("pushButton_8")
-        self.pushButton_9 = QtWidgets.QPushButton(self.scrollAreaWidgetContents_2)
-        self.pushButton_9.setGeometry(QtCore.QRect(10, 90, 151, 51))
-        self.pushButton_9.setStyleSheet("border-radius: 2px;\n"
-                                        "font: 12pt \"MS Shell Dlg 2\";\n"
-                                        "color: rgba(255, 255, 255, 0.67);\n"
-                                        "\n"
-                                        "background: rgba(23, 23, 23, 0.31);\n"
-                                        "border: 1px solid rgba(233, 233, 233, 0.22);\n"
-                                        "box-sizing: border-box;\n"
-                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
-        self.pushButton_9.setObjectName("pushButton_9")
-        self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
+        self.scrollArea_9 = QtWidgets.QScrollArea(self.command_panel_frame)
+        self.scrollArea_9.setGeometry(QtCore.QRect(10, 16, 151, 461))
+        self.scrollArea_9.setWidgetResizable(True)
+        self.scrollArea_9.setObjectName("scrollArea_9")
+        self.scrollAreaWidgetContents_9 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_9.setGeometry(QtCore.QRect(0, 0, 151, 461))
+        self.scrollAreaWidgetContents_9.setObjectName("scrollAreaWidgetContents_9")
+        self.gridLayout_9 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_9)
+        self.gridLayout_9.setObjectName("gridLayout_9")
+        self.scrollArea_9.setWidget(self.scrollAreaWidgetContents_9)
+        self.gridLayout_9.setAlignment(QtCore.Qt.AlignLeft)
         MainWindow.setCentralWidget(self.centralwidget)
         """setting frame"""
         self.setting_page_2 = QtWidgets.QFrame(self.centralwidget)
@@ -1400,8 +1378,6 @@ class Ui_MainWindow(object):
         self.q_a_button.setText("q&&a")
         """other"""
         self.button_delite_command.setText("удалить")
-        self.pushButton_8.setText("command 1")
-        self.pushButton_9.setText(" command 2")
         self.rule_command_back_button.setText("назад")
 
         # lineedit
@@ -1439,8 +1415,6 @@ class Ui_MainWindow(object):
         # self.pushButton_17.setText( "youtube"))
         # self.pushButton_18.setText( "GitKraken"))
         self.button_delite_command.setText("delete")
-        self.pushButton_8.setText("command 1")
-        self.pushButton_9.setText(" command 2")
         self.rule_command_back_button.setText("back")
 
         # lineedit

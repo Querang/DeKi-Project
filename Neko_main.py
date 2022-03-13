@@ -1,4 +1,7 @@
 import sys
+import os.path
+import sys
+import webbrowser
 import sqlite_Neko
 from PyQt5.QtGui import QKeySequence, QWheelEvent
 from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut
@@ -340,6 +343,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.view_character, self.name_character, self.name_user, self.language, self.behavior,
                 self.work_table,self.main_window_size))
         self.set_name_in_widget()
+
     def Next_main_window_size(self):
         self.next_main_frame = not self.next_main_frame
         if self.next_main_frame:
@@ -347,6 +351,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             self.main_window_size = "normal"
         self.label_normal_window_page_2.setText(self.main_window_size)
+
     def Next_language(self):
         """allows you to change the language in the settings
            param language_index: needed to determine the current language
@@ -416,6 +421,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.command_panel_frame.hide()
         else:
             self.command_panel_frame.show()
+            self.command_panel_frame_button_update()
         self.like_button_check = not self.like_button_check
 
     def show_teg_frame(self):
@@ -432,7 +438,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def back_on_main_frame(self):
         self.frame_main.show()
         self.frame_rule_command.hide()
-        self.command_panel_frame.show()
         self.directory_list = []
         self.clear_note(self.grid)
         self.del_list = []
@@ -537,6 +542,60 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.pushButton.clicked.connect(lambda checked, button=self.pushButton: self.active_button(button))
             self.delite_bar.addWidget(self.pushButton, 0, i)
 
+    def command_panel_frame_button_update(self):
+        """обновляет кнопки, содержащие команды для выполнения"""
+        conn = sqlite_Neko.create_connection("Neko.db")
+        with conn:
+            name = sqlite_Neko.select_all_command(conn)
+            print(name)
+        for i, j in enumerate(name):
+            self.scrollArea_9.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+            self.pushButton = QtWidgets.QPushButton()
+            self.pushButton.setGeometry(QtCore.QRect(11, 11, 129, 429))
+            self.pushButton.setMinimumSize(125, 52)
+            self.pushButton.setMaximumSize(125, 52)
+            self.pushButton.setStyleSheet("border-radius: 2px;\n"
+                                          "font: 12pt \"MS Shell Dlg 2\";\n"
+                                          "color: rgba(255, 255, 255, 0.67);\n"
+                                          "\n"
+                                          "background: rgba(23, 23, 23, 0.31);\n"
+                                          "border: 1px solid rgba(233, 233, 233, 0.22);\n"
+                                          "box-sizing: border-box;\n"
+                                          "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+            self.pushButton.setText(f"{j}")
+            self.pushButton.clicked.connect(lambda checked, button=self.pushButton: self.active_command_button(button))
+            self.gridLayout_9.addWidget(self.pushButton, i, 0)
+
+    def active_command_button(self, pushButton):
+        """считывает название кнопки, выполняет команду"""
+        conn = sqlite_Neko.create_connection("Neko.db")
+        with conn:
+            button_name = pushButton.text()
+            sql_command_name = sqlite_Neko.select_all_command(conn)
+            sql_command_type = sqlite_Neko.select_type_of_commands(conn)
+            sql_command_files = sqlite_Neko.select_files_of_commands(conn)
+            sql_command_site = sqlite_Neko.select_sites_of_command(conn)
+            index = sql_command_name.index(button_name)
+            command_type = sql_command_type[index]
+            if command_type == 's':
+                if sql_command_site[index].find("https://"):
+                    webbrowser.open_new_tab(str(sql_command_site[index]))
+                else:
+                    webbrowser.open_new_tab("https://" + str(sql_command_site[index]))
+            elif command_type == 'f':
+                for i in sql_command_files[index]:
+                    print(sql_command_files[index])
+                    if os.path.exists(i) is True:
+                        os.system(f"start {i}")
+                    elif os.path.exists(i) is False:
+                        if i == "":
+                            pass
+                        else:
+                            self.del_list.append(button_name)
+                            self.del_command()
+                            self.clear_note(self.gridLayout_9)
+                            self.command_panel_frame_button_update()
+
     def active_button(self, pushButton):
         """makes the button active when pressed, adds a command to del_list"""
         pushButton.setStyleSheet("border-radius: 2px;\n"
@@ -558,6 +617,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             for i in self.del_list:
                 sqlite_Neko.delete_task(conn, i)
         self.clear_note(self.delite_bar)
+        self.clear_note(self.gridLayout_9)
         self.show_update_item_in_area_delite_choice()
 
 

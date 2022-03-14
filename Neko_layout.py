@@ -40,17 +40,18 @@ class Ui_MainWindow(object):
         self.main_min_button_panel.setObjectName("main_min_button_panel")
         self.character_s_min = QtWidgets.QLabel(self.main_min_button_panel)
         self.character_s_min.setEnabled(True)
-        self.character_s_min.setGeometry(QtCore.QRect(240, 20, 92, 90))
+        self.character_s_min.setGeometry(QtCore.QRect(240, 20, 92, 110))
         self.character_s_min.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
                                            "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                            "border-radius: 13px;")
         self.character_s_min.setText("")
         self.character_s_min.setPixmap(QtGui.QPixmap("material/Neko/Neko_s.png"))
-        self.character_s_min.setScaledContents(True)
+        self.character_s_min.setScaledContents(False)
         self.character_s_min.setObjectName("character_s_min")
         self.time_label = QtWidgets.QLabel(self.main_min_button_panel)
         self.time_label.setGeometry(QtCore.QRect(10, 10, 71, 21))
-        self.time_label.setStyleSheet("font-family: Roboto Mono;\n"
+        self.time_label.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+                                      "font-family: Roboto Mono;\n"
                                       "font-style: normal;\n"
                                       "font-weight: normal;\n"
                                       "font-size: 24px;\n"
@@ -67,47 +68,51 @@ class Ui_MainWindow(object):
         self.scrollArea_min = QtWidgets.QScrollArea(self.main_min_button_panel)
         self.scrollArea_min.setGeometry(QtCore.QRect(30, 40, 175, 71))
         self.scrollArea_min.setStyleSheet("QScrollBar:horizontal {\n"
-                                        "  border-color: rgb(227, 227, 227);\n"
-                                        "  border-width: 1px;\n"
-                                        "  border-style: solid;\n"
-                                        "  background-color: rgb(240, 240, 240);\n"
-                                        "    height: 15px;\n"
-                                        "    margin: 0px 21px 0 21px;\n"
-                                        " }\n"
-                                        "\n"
-                                        " QScrollBar::handle:horizontal {\n"
-                                        "    background-color: rgb(200, 200, 200);\n"
-                                        "    max-width: 5px;\n"
-                                        " }\n"
-                                        "QScrollBar::add-line:horizontal {\n"
-                                        "    border: 1px solid grey;\n"
-                                        "  background-color: rgb(241, 241, 241);\n"
-                                        "    height: 20px;\n"
-                                        "    subcontrol-position: right;\n"
-                                        "    subcontrol-origin: margin;\n"
-                                        " }\n"
-                                        "\n"
-                                        " QScrollBar::sub-line:horizontal {\n"
-                                        "  border: 1px solid grey;\n"
-                                        "    background-color: rgb(241, 241, 241);\n"
-                                        "    height: 20px;\n"
-                                        "    subcontrol-position: left;\n"
-                                        "    subcontrol-origin: margin;\n"
-                                        " }\n"
-                                        "\n"
-                                        " QScrollBar:left-arrow:horizontal\n"
-                                        "{\n"
-                                        "  image: url(:/BarIcon/Icons/leftarrow.png);\n"
-                                        "}\n"
-                                        "\n"
-                                        "QScrollBar::right-arrow:horizontal \n"
-                                        "{\n"
-                                        "  image: url(:/BarIcon/Icons/rightarrow.png);\n"
-                                        "}\n"
-                                        "\n"
-                                        "QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
-                                        "     background: none;\n"
-                                        "}")
+                                          "  border-color: rgb(227, 227, 227);\n"
+                                          "  border-width: 1px;\n"
+                                          "  border-style: solid;\n"
+                                          "  background-color: rgb(240, 240, 240);\n"
+                                          "    height: 15px;\n"
+                                          "    margin: 0px 21px 0 21px;\n"
+                                          " }\n"
+                                          "\n"
+                                          " QScrollBar::handle:horizontal {\n"
+                                          "    background-color: rgb(200, 200, 200);\n"
+                                          "    max-width: 5px;\n"
+                                          " }\n"
+                                          "QScrollBar::add-line:horizontal {\n"
+                                          "    border: 1px solid grey;\n"
+                                          "  background-color: rgb(241, 241, 241);\n"
+                                          "    height: 20px;\n"
+                                          "    subcontrol-position: right;\n"
+                                          "    subcontrol-origin: margin;\n"
+                                          " }\n"
+                                          "\n"
+                                          " QScrollBar::sub-line:horizontal {\n"
+                                          "  border: 1px solid grey;\n"
+                                          "    background-color: rgb(241, 241, 241);\n"
+                                          "    height: 20px;\n"
+                                          "    subcontrol-position: left;\n"
+                                          "    subcontrol-origin: margin;\n"
+                                          " }\n"
+                                          "\n"
+                                          " QScrollBar:left-arrow:horizontal\n"
+                                          "{\n"
+                                          "  image: url(:/BarIcon/Icons/leftarrow.png);\n"
+                                          "}\n"
+                                          "\n"
+                                          "QScrollBar::right-arrow:horizontal \n"
+                                          "{\n"
+                                          "  image: url(:/BarIcon/Icons/rightarrow.png);\n"
+                                          "}\n"
+                                          "\n"
+                                          "QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
+                                          "     background: none;\n"
+                                          "}"
+                                          "QScrollArea {\n"
+                                          "background: rgba(23, 23, 23, 0.0);\n"
+                                          "}"
+                                          )
         self.scrollArea_min.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.scrollArea_min.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.scrollArea_min.setWidgetResizable(True)
@@ -537,7 +542,7 @@ class Ui_MainWindow(object):
         self.frame_11.setObjectName("frame_11")
 
         self.command_panel_frame = QtWidgets.QFrame(self.centralwidget)
-        self.command_panel_frame.setGeometry(QtCore.QRect(1050, 60, 171, 491))
+        self.command_panel_frame.setGeometry(QtCore.QRect(1070, 60, 161, 491))
         self.command_panel_frame.setStyleSheet("background: rgba(23, 23, 23, 0.83);\n"
                                                "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                                "border-radius: 13px;")
@@ -545,16 +550,17 @@ class Ui_MainWindow(object):
         self.command_panel_frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.command_panel_frame.setObjectName("command_panel_frame")
         self.scrollArea_9 = QtWidgets.QScrollArea(self.command_panel_frame)
-        self.scrollArea_9.setGeometry(QtCore.QRect(10, 16, 151, 461))
+        self.scrollArea_9.setGeometry(QtCore.QRect(0, 16, 161, 461))
         self.scrollArea_9.setWidgetResizable(True)
         self.scrollArea_9.setObjectName("scrollArea_9")
         self.scrollAreaWidgetContents_9 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_9.setGeometry(QtCore.QRect(0, 0, 151, 461))
+        self.scrollAreaWidgetContents_9.setGeometry(QtCore.QRect(0, 0, 161, 461))
         self.scrollAreaWidgetContents_9.setObjectName("scrollAreaWidgetContents_9")
         self.gridLayout_9 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_9)
         self.gridLayout_9.setObjectName("gridLayout_9")
         self.scrollArea_9.setWidget(self.scrollAreaWidgetContents_9)
-        self.gridLayout_9.setAlignment(QtCore.Qt.AlignLeft)
+        self.gridLayout_9.setAlignment(QtCore.Qt.AlignTop)
+        self.scrollArea_9.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         MainWindow.setCentralWidget(self.centralwidget)
         """setting frame"""
         self.setting_page_2 = QtWidgets.QFrame(self.centralwidget)
@@ -935,7 +941,7 @@ class Ui_MainWindow(object):
                                    "")
         """ note frame"""
         self.main_note_frame = QtWidgets.QFrame(self.centralwidget)
-        self.main_note_frame.setGeometry(QtCore.QRect(40, 50, 1601, 711))
+        self.main_note_frame.setGeometry(QtCore.QRect(40, 50, 600, 711))
         self.main_note_frame.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
                                            "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                            "border-radius: 13px;")
@@ -1025,66 +1031,63 @@ class Ui_MainWindow(object):
 
         self.button_add_note.setGeometry(QtCore.QRect(240, 0, 90, 31))
 
-
         self.button_add_note.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                           
+
                                            "box-sizing: border-box;\n"
-                                           
+
                                            "border-radius: 13px;\n"
                                            "font-family: Roboto Mono;\n"
                                            "color: #FFFFFF;")
-
-
 
         self.scrollArea_2_note = QtWidgets.QScrollArea(self.Note_frame)
         self.scrollArea_2_note.setGeometry(QtCore.QRect(10, 70, 311, 581))
         self.scrollArea_2_note.setAutoFillBackground(False)
         self.scrollArea_2_note.setStyleSheet("\n"
-                                        "QScrollBar:horizontal {\n"
-                                        "  border-color: rgb(227, 227, 227);\n"
-                                        "  border-width: 1px;\n"
-                                        "  border-style: solid;\n"
-                                        "  background-color: rgb(240, 240, 240);\n"
-                                        "    height: 15px;\n"
-                                        "    margin: 0px 21px 0 21px;\n"
-                                        " }\n"
-                                        "\n"
-                                        " QScrollBar::handle:horizontal {\n"
-                                        "    background-color: rgb(200, 200, 200);\n"
-                                        "    max-width: 5px;\n"
-                                        " }\n"
-                                        "QScrollBar::add-line:horizontal {\n"
-                                        "    border: 1px solid grey;\n"
-                                        "  background-color: rgb(241, 241, 241);\n"
-                                        "    height: 20px;\n"
-                                        "    subcontrol-position: right;\n"
-                                        "    subcontrol-origin: margin;\n"
-                                        " }\n"
-                                        "\n"
-                                        " QScrollBar::sub-line:horizontal {\n"
-                                        "  border: 1px solid grey;\n"
-                                        "    background-color: rgb(241, 241, 241);\n"
-                                        "    height: 20px;\n"
-                                        "    subcontrol-position: left;\n"
-                                        "    subcontrol-origin: margin;\n"
-                                        " }\n"
-                                        "\n"
-                                        " QScrollBar:left-arrow:horizontal\n"
-                                        "{\n"
-                                        "  image: url(:/BarIcon/Icons/leftarrow.png);\n"
-                                        "}\n"
-                                        "\n"
-                                        "QScrollBar::right-arrow:horizontal \n"
-                                        "{\n"
-                                        "  image: url(:/BarIcon/Icons/rightarrow.png);\n"
-                                        "}\n"
-                                        "\n"
-                                        "QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
-                                        "     background: none;\n"
-                                        "}\n"
-                                        "QScrollArea {\n"
-                                        "background: rgba(23, 23, 23, 0.0);\n"
-                                        "}")
+                                             "QScrollBar:horizontal {\n"
+                                             "  border-color: rgb(227, 227, 227);\n"
+                                             "  border-width: 1px;\n"
+                                             "  border-style: solid;\n"
+                                             "  background-color: rgb(240, 240, 240);\n"
+                                             "    height: 15px;\n"
+                                             "    margin: 0px 21px 0 21px;\n"
+                                             " }\n"
+                                             "\n"
+                                             " QScrollBar::handle:horizontal {\n"
+                                             "    background-color: rgb(200, 200, 200);\n"
+                                             "    max-width: 5px;\n"
+                                             " }\n"
+                                             "QScrollBar::add-line:horizontal {\n"
+                                             "    border: 1px solid grey;\n"
+                                             "  background-color: rgb(241, 241, 241);\n"
+                                             "    height: 20px;\n"
+                                             "    subcontrol-position: right;\n"
+                                             "    subcontrol-origin: margin;\n"
+                                             " }\n"
+                                             "\n"
+                                             " QScrollBar::sub-line:horizontal {\n"
+                                             "  border: 1px solid grey;\n"
+                                             "    background-color: rgb(241, 241, 241);\n"
+                                             "    height: 20px;\n"
+                                             "    subcontrol-position: left;\n"
+                                             "    subcontrol-origin: margin;\n"
+                                             " }\n"
+                                             "\n"
+                                             " QScrollBar:left-arrow:horizontal\n"
+                                             "{\n"
+                                             "  image: url(:/BarIcon/Icons/leftarrow.png);\n"
+                                             "}\n"
+                                             "\n"
+                                             "QScrollBar::right-arrow:horizontal \n"
+                                             "{\n"
+                                             "  image: url(:/BarIcon/Icons/rightarrow.png);\n"
+                                             "}\n"
+                                             "\n"
+                                             "QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
+                                             "     background: none;\n"
+                                             "}\n"
+                                             "QScrollArea {\n"
+                                             "background: rgba(23, 23, 23, 0.0);\n"
+                                             "}")
         self.scrollArea_2_note.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.scrollArea_2_note.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.scrollArea_2_note.setWidgetResizable(True)
@@ -1092,7 +1095,7 @@ class Ui_MainWindow(object):
         self.scrollAreaWidgetContents_2_notet = QtWidgets.QWidget()
         self.scrollAreaWidgetContents_2_notet.setGeometry(QtCore.QRect(0, 0, 311, 581))
         self.scrollAreaWidgetContents_2_notet.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                                      "")
+                                                            "")
         self.scrollAreaWidgetContents_2_notet.setObjectName("scrollAreaWidgetContents_2_notet")
         self.gridLayout_note = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_2_notet)
         self.gridLayout_note.setObjectName("gridLayout_note")
@@ -1142,7 +1145,6 @@ class Ui_MainWindow(object):
         self.note_save_button_2.setAutoDefault(False)
         self.note_save_button_2.setDefault(False)
         self.note_save_button_2.setObjectName("note_save_button_2")
-
 
         self.Note_frame_2 = QtWidgets.QFrame(self.main_note_frame)
         self.Note_frame_2.setGeometry(QtCore.QRect(170, 10, 331, 661))
@@ -1203,8 +1205,8 @@ class Ui_MainWindow(object):
         self.note_del_button.setEnabled(True)
         self.note_del_button.setGeometry(QtCore.QRect(230, 590, 71, 50))
         self.note_del_button.setStyleSheet("background: rgba(113, 113, 113, 0.5);\n"
-                                             "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                             "border-radius: 13px;")
+                                           "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                           "border-radius: 13px;")
         self.note_del_button.setText("")
         icon5 = QtGui.QIcon()
         icon5.addPixmap(QtGui.QPixmap("material/Х.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -1240,51 +1242,51 @@ class Ui_MainWindow(object):
         self.scrollArea_3_note.setGeometry(QtCore.QRect(0, 10, 241, 221))
         self.scrollArea_3_note.setAutoFillBackground(False)
         self.scrollArea_3_note.setStyleSheet("\n"
-                                        "QScrollBar:horizontal {\n"
-                                        "  border-color: rgb(227, 227, 227);\n"
-                                        "  border-width: 1px;\n"
-                                        "  border-style: solid;\n"
-                                        "  background-color: rgb(240, 240, 240);\n"
-                                        "    height: 15px;\n"
-                                        "    margin: 0px 21px 0 21px;\n"
-                                        " }\n"
-                                        "\n"
-                                        " QScrollBar::handle:horizontal {\n"
-                                        "    background-color: rgb(200, 200, 200);\n"
-                                        "    max-width: 5px;\n"
-                                        " }\n"
-                                        "QScrollBar::add-line:horizontal {\n"
-                                        "    border: 1px solid grey;\n"
-                                        "  background-color: rgb(241, 241, 241);\n"
-                                        "    height: 20px;\n"
-                                        "    subcontrol-position: right;\n"
-                                        "    subcontrol-origin: margin;\n"
-                                        " }\n"
-                                        "\n"
-                                        " QScrollBar::sub-line:horizontal {\n"
-                                        "  border: 1px solid grey;\n"
-                                        "    background-color: rgb(241, 241, 241);\n"
-                                        "    height: 20px;\n"
-                                        "    subcontrol-position: left;\n"
-                                        "    subcontrol-origin: margin;\n"
-                                        " }\n"
-                                        "\n"
-                                        " QScrollBar:left-arrow:horizontal\n"
-                                        "{\n"
-                                        "  image: url(:/BarIcon/Icons/leftarrow.png);\n"
-                                        "}\n"
-                                        "\n"
-                                        "QScrollBar::right-arrow:horizontal \n"
-                                        "{\n"
-                                        "  image: url(:/BarIcon/Icons/rightarrow.png);\n"
-                                        "}\n"
-                                        "\n"
-                                        "QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
-                                        "     background: none;\n"
-                                        "}\n"
-                                        "QScrollArea {\n"
-                                        "background: rgba(23, 23, 23, 0.0);\n"
-                                        "}")
+                                             "QScrollBar:horizontal {\n"
+                                             "  border-color: rgb(227, 227, 227);\n"
+                                             "  border-width: 1px;\n"
+                                             "  border-style: solid;\n"
+                                             "  background-color: rgb(240, 240, 240);\n"
+                                             "    height: 15px;\n"
+                                             "    margin: 0px 21px 0 21px;\n"
+                                             " }\n"
+                                             "\n"
+                                             " QScrollBar::handle:horizontal {\n"
+                                             "    background-color: rgb(200, 200, 200);\n"
+                                             "    max-width: 5px;\n"
+                                             " }\n"
+                                             "QScrollBar::add-line:horizontal {\n"
+                                             "    border: 1px solid grey;\n"
+                                             "  background-color: rgb(241, 241, 241);\n"
+                                             "    height: 20px;\n"
+                                             "    subcontrol-position: right;\n"
+                                             "    subcontrol-origin: margin;\n"
+                                             " }\n"
+                                             "\n"
+                                             " QScrollBar::sub-line:horizontal {\n"
+                                             "  border: 1px solid grey;\n"
+                                             "    background-color: rgb(241, 241, 241);\n"
+                                             "    height: 20px;\n"
+                                             "    subcontrol-position: left;\n"
+                                             "    subcontrol-origin: margin;\n"
+                                             " }\n"
+                                             "\n"
+                                             " QScrollBar:left-arrow:horizontal\n"
+                                             "{\n"
+                                             "  image: url(:/BarIcon/Icons/leftarrow.png);\n"
+                                             "}\n"
+                                             "\n"
+                                             "QScrollBar::right-arrow:horizontal \n"
+                                             "{\n"
+                                             "  image: url(:/BarIcon/Icons/rightarrow.png);\n"
+                                             "}\n"
+                                             "\n"
+                                             "QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
+                                             "     background: none;\n"
+                                             "}\n"
+                                             "QScrollArea {\n"
+                                             "background: rgba(23, 23, 23, 0.0);\n"
+                                             "}")
         self.scrollArea_3_note.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.scrollArea_3_note.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.scrollArea_3_note.setWidgetResizable(True)
@@ -1344,10 +1346,8 @@ class Ui_MainWindow(object):
         """note frame"""
         self.back_from_note_button.setText("back")
 
-
         self.lineEdit.setText("поиск")
         self.label_note_2.setText("Note")
-
 
         self.label_note_3.setText("Note")
         self.back_from_note_button_2.setText("Note (1)")

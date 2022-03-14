@@ -1,3 +1,4 @@
+import subprocess
 import sys
 import os.path
 import sys
@@ -220,7 +221,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.pushButton_note = QtWidgets.QPushButton()
             self.pushButton_note.setMinimumSize(QtCore.QSize(148, 161))
             self.pushButton_note.setMaximumSize(QtCore.QSize(148, 161))
-            self.pushButton_note.setStyleSheet("background: rgba(23, 23, 23, 0.76);\n"
+            self.pushButton_note.setStyleSheet("background: rgba(23, 23, 23, 0.5);\n"
                                                "border: 1px solid #ABABAB;\n"
                                                "box-sizing: border-box;\n"
                                                "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
@@ -388,6 +389,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.character_label.setPixmap(QtGui.QPixmap(self.current_paths_character[1]))
             self.character_on_add_del_frame.setPixmap(QtGui.QPixmap(self.current_paths_character[2]))
             self.character_set.setPixmap(QtGui.QPixmap(self.current_paths_character[3]))
+            self.character_s.setPixmap(QtGui.QPixmap(self.current_paths_character[4]))
+            self.character_s_min.setPixmap(QtGui.QPixmap(self.current_paths_character[4]))
 
     def set_name_in_widget(self):
         """ follows after save_global_setting(), applies resulting changes to unique variables
@@ -398,11 +401,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.character_on_add_del_frame.setPixmap(QtGui.QPixmap(self.current_paths_character[2]))
         self.character_set.setPixmap(QtGui.QPixmap(self.current_paths_character[3]))
         self.character_s.setPixmap(QtGui.QPixmap(self.current_paths_character[4]))
+        self.character_s_min.setPixmap(QtGui.QPixmap(self.current_paths_character[4]))
 
     """fun in main frame"""
 
     def show_setting_frame(self):
-        self.frame_main.hide()
+        if self.main_window_size == "min":
+            self.teg_frame.hide()
+            self.frame_rule_command.hide()
+            self.main_min_frame.hide()
+        else:
+            self.teg_frame.hide()
+            self.frame_rule_command.hide()
+            self.frame_main.hide()
         self.setting_frame.show()
         self.command_panel_frame.hide()
 
@@ -410,9 +421,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.showMinimized()
 
     def show_rule_command_frame(self):
-        self.frame_main.hide()
+        if self.main_window_size == "min":
+            self.frame_rule_command.hide()
+            self.main_min_frame.hide()
+        else:
+            self.frame_rule_command.hide()
+            self.frame_main.show()
         self.frame_rule_command.show()
-        self.command_panel_frame.hide()
+        self.teg_frame.hide()
         self.show_update_item_in_area_delite_choice()
 
     def show_hide_like_command(self):
@@ -436,7 +452,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     """fun in  frame add/del"""
 
     def back_on_main_frame(self):
-        self.frame_main.show()
+        if self.main_window_size == "min":
+            self.main_min_frame.show()
+        else:
+            self.frame_main.show()
         self.frame_rule_command.hide()
         self.directory_list = []
         self.clear_note(self.grid)
@@ -447,7 +466,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def get_directory(self):
         """select files for action"""
-        folder = QtWidgets.QFileDialog.getExistingDirectory(None, "Выбрать папку", ".")
+        folder =QtWidgets.QFileDialog.getOpenFileName(self, "Выберите файл", "/")[0]
         print(folder)
         self.directory_list.append(folder)
         print(self.directory_list)
@@ -551,9 +570,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         for i, j in enumerate(name):
             self.scrollArea_9.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
             self.pushButton = QtWidgets.QPushButton()
-            self.pushButton.setGeometry(QtCore.QRect(11, 11, 129, 429))
-            self.pushButton.setMinimumSize(125, 52)
-            self.pushButton.setMaximumSize(125, 52)
+            self.pushButton.setMinimumSize(140, 52)
+            self.pushButton.setMaximumSize(140, 52)
             self.pushButton.setStyleSheet("border-radius: 2px;\n"
                                           "font: 12pt \"MS Shell Dlg 2\";\n"
                                           "color: rgba(255, 255, 255, 0.67);\n"
@@ -586,7 +604,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 for i in sql_command_files[index]:
                     print(sql_command_files[index])
                     if os.path.exists(i) is True:
-                        os.system(f"start {i}")
+                        subprocess.call(('cmd', '/c', 'start', '', i))
                     elif os.path.exists(i) is False:
                         if i == "":
                             pass

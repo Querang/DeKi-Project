@@ -426,7 +426,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.main_min_frame.hide()
         else:
             self.frame_rule_command.hide()
-            self.frame_main.show()
+            self.frame_main.hide()
         self.frame_rule_command.show()
         self.teg_frame.hide()
         self.show_update_item_in_area_delite_choice()

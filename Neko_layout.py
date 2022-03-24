@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Neko_without_frame_command.ui'
+# Form implementation generated from reading ui_file 'Neko_without_frame_command.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #

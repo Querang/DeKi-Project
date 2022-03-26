@@ -159,4 +159,17 @@ class Ui_MainFrame(object):
         self.remain_button.setObjectName("remain_button")
         self.gridLayout.addWidget(self.remain_button, 2, 0, 1, 1)
         self.icon_buttons_area.setWidget(self.icon_buttons_area_container)
+        """add variable"""
+        self.teg_list_frame.hide()
+        self.tag_button_flag = False
+        """button connect"""
+        self.tag_button.clicked.connect(self.tag_button_switch)
+
         return self.page_main_frame
+
+    def tag_button_switch(self):
+        if self.tag_button_flag:
+            self.teg_list_frame.hide()
+        else:
+            self.teg_list_frame.show()
+        self.tag_button_flag = not self.tag_button_flag

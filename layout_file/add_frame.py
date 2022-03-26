@@ -1,4 +1,12 @@
+import os
+import subprocess
+import webbrowser
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+import sqlite_Neko
+
+
 class Ui_AddFrame(object):
     def setup_add_frame(self):
         self.page_add_frame = QtWidgets.QWidget()
@@ -388,8 +396,9 @@ class Ui_AddFrame(object):
         self.delite_area_container.setGeometry(QtCore.QRect(0, 0, 411, 51))
         self.delite_area_container.setStyleSheet("background: rgba(23, 23, 23, 0.0);")
         self.delite_area_container.setObjectName("delite_area_container")
-        self.gridLayout_2 = QtWidgets.QGridLayout(self.delite_area_container)
-        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.delite_bar_grid = QtWidgets.QGridLayout(self.delite_area_container)
+        self.delite_bar_grid.setObjectName("delite_bar_grid")
+        self.delite_bar_grid.setAlignment(QtCore.Qt.AlignLeft)
         self.delite_area.setWidget(self.delite_area_container)
         self.label_about_delite = QtWidgets.QTextBrowser(self.del_bar_frame)
         self.label_about_delite.setGeometry(QtCore.QRect(10, 80, 171, 41))
@@ -445,5 +454,160 @@ class Ui_AddFrame(object):
         self.label_info_2.hide()
         self.label_info_3.hide()
         self.label_about_delite.hide()
-        self.del_bar_frame.hide()
+        # self.del_bar_frame.hide()
+
+
+
+        """add variable"""
         return self.page_add_1
+
+    def clear_note(self, gridLayout):
+        """
+           Clears the resulting layout from elements
+           param gridLayout_note: layout для очистки от элементов
+           """
+        while gridLayout.count():
+            item = gridLayout.takeAt(0)
+            widget = item.widget()
+            widget.deleteLater()
+
+    def get_directory(self):
+        """select files for action"""
+        folder = QtWidgets.QFileDialog.getOpenFileName(self, "Выберите файл", "/")[0]
+        print(folder)
+        self.directory_list.append(folder)
+
+    def add_date_in_Neko_bd(self):
+        """add command to database"""
+        self.link_site = self.lineedit_site.text()
+        if (self.directory_list != []) and (self.link_site in ["set site", "укажи сайт"]):
+            conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+            command = self.lineedit_command.text()
+            file = []
+            with conn:
+                for i in range(4):
+                    if i < len(self.directory_list):
+                        file.append(self.directory_list[i])
+                    else:
+                        file.append("")
+
+                task = ("f", file[0], file[1], file[2], file[3], "", command)
+                sqlite_Neko.create_task(conn, task)
+                self.directory_list = []
+                self.clear_note(self.delite_bar_grid)
+                self.lineedit_command.setText("access")
+        elif (self.directory_list == []) and (self.link_site not in ["set site", "укажи сайт"]):
+            conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+            command = self.lineedit_command.text()
+            with conn:
+                task = ("s", "", "", "", "", self.link_site, command)
+                sqlite_Neko.create_task(conn, task)
+                self.lineedit_command.setText("access")
+
+        else:
+            self.lineedit_command.setText("fail")
+        self.clear_note(self.delite_bar_grid)
+        self.show_update_item_in_area_delite_choice()
+
+    def show_update_item_in_area_delite_choice(self):
+        """updates buttons containing commands"""
+
+        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        with conn:
+            name = sqlite_Neko.select_all_command(conn)
+            print(name)
+        for i, j in enumerate(name):
+            if len(name) > 3:
+                self.delite_area.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+            else:
+                self.delite_area.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+            self.pushButton = QtWidgets.QPushButton()
+            self.pushButton.setMinimumSize(112, 19)
+            self.pushButton.setMaximumSize(112, 19)
+            self.pushButton.setStyleSheet("border-radius: 2px;\n"
+                                          "font: 12pt \"MS Shell Dlg 2\";\n"
+                                          "color: rgba(255, 255, 255, 0.67);\n"
+                                          "\n"
+                                          "background: rgba(23, 23, 23, 0.31);\n"
+                                          "border: 1px solid rgba(233, 233, 233, 0.22);\n"
+                                          "box-sizing: border-box;\n"
+                                          "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+            self.pushButton.setText(f"{j}")
+            self.pushButton.clicked.connect(lambda checked, button=self.pushButton: self.active_button(button))
+            self.delite_bar_grid.addWidget(self.pushButton, 0, i)
+
+
+    # def command_panel_frame_button_update(self):
+    #     """обновляет кнопки, содержащие команды для выполнения"""
+    #     conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+    #     with conn:
+    #         name = sqlite_Neko.select_all_command(conn)
+    #         print(name)
+    #     for i, j in enumerate(name):
+    #         self.scrollArea_9.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+    #         self.pushButton = QtWidgets.QPushButton()
+    #         self.pushButton.setMinimumSize(140, 52)
+    #         self.pushButton.setMaximumSize(140, 52)
+    #         self.pushButton.setStyleSheet("border-radius: 2px;\n"
+    #                                       "font: 12pt \"MS Shell Dlg 2\";\n"
+    #                                       "color: rgba(255, 255, 255, 0.67);\n"
+    #                                       "\n"
+    #                                       "background: rgba(23, 23, 23, 0.31);\n"
+    #                                       "border: 1px solid rgba(233, 233, 233, 0.22);\n"
+    #                                       "box-sizing: border-box;\n"
+    #                                       "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+    #         self.pushButton.setText(f"{j}")
+    #         self.pushButton.clicked.connect(lambda checked, button=self.pushButton: self.active_command_button(button))
+    #         self.gridLayout_9.addWidget(self.pushButton, i, 0)
+
+    def active_command_button(self, pushButton):
+        """считывает название кнопки, выполняет команду"""
+        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        with conn:
+            button_name = pushButton.text()
+            sql_command_name = sqlite_Neko.select_all_command(conn)
+            sql_command_type = sqlite_Neko.select_type_of_commands(conn)
+            sql_command_files = sqlite_Neko.select_files_of_commands(conn)
+            sql_command_site = sqlite_Neko.select_sites_of_command(conn)
+            index = sql_command_name.index(button_name)
+            command_type = sql_command_type[index]
+            if command_type == 's':
+                if sql_command_site[index].find("https://"):
+                    webbrowser.open_new_tab(str(sql_command_site[index]))
+                else:
+                    webbrowser.open_new_tab("https://" + str(sql_command_site[index]))
+            elif command_type == 'f':
+                for i in sql_command_files[index]:
+                    print(sql_command_files[index])
+                    if os.path.exists(i) is True:
+                        subprocess.call(('cmd', '/c', 'start', '', i))
+                    elif os.path.exists(i) is False:
+                        if i == "":
+                            pass
+                        else:
+                            self.del_list.append(button_name)
+                            self.del_command()
+
+
+    def active_button(self, pushButton):
+        """makes the button active when pressed, adds a command to del_list"""
+        pushButton.setStyleSheet("border-radius: 2px;\n"
+                                 "font: 12pt \"MS Shell Dlg 2\";\n"
+                                 "color: rgba(255, 255, 255, 0.67);\n"
+                                 "\n"
+                                 "background: rgba(74, 65, 65, 0.31);\n"
+                                 "border: 1px solid rgba(233, 233, 233, 0.22);\n"
+                                 "box-sizing: border-box;\n"
+                                 "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+        qq = pushButton.text()
+        self.del_list.append(qq)
+        print(self.del_list)
+
+    def del_command(self):
+        """delite command from database with name from del_list"""
+        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        with conn:
+            for i in self.del_list:
+                sqlite_Neko.delete_task(conn, i)
+        self.clear_note(self.delite_bar_grid)
+        self.show_update_item_in_area_delite_choice()

@@ -8,11 +8,12 @@ from layout_file.setting_frame import Ui_SettingFrame
 from layout_file.main_min_frame import Ui_MainMinFrame
 from PyQt5.QtGui import QKeySequence, QWheelEvent
 from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut
-from layout_file.layout_rebuild import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class MainWindow(QMainWindow):
+class MainWindow(QMainWindow,Ui_MainFrame,Ui_AddFrame,Ui_SettingFrame):
     def __init__(self):
+        self.directory_list = []
+        self.del_list = []
         super().__init__()
         MainWindow.setObjectName(self,"MainWindow")
         MainWindow.resize(self,1366, 767)
@@ -30,7 +31,20 @@ class MainWindow(QMainWindow):
         self.stackedWidget_sourse.addWidget(Ui_AddFrame.setup_add_frame(self))
         self.stackedWidget_sourse.addWidget(Ui_SettingFrame.setup_settinf_frame(self))
         self.stackedWidget_sourse.addWidget(Ui_MainMinFrame.setup_main_min_frame(self))
-        self.tag_button.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(1))
+        self.stackedWidget_sourse.setCurrentIndex(1)
+        """button connect"""
+        self.rule_button.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(1))
+        self.setting_button.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(2))
+        self.back_from_add_button.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(0))
+        self.back_fome_setting_button.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(0))
+        self.next_on_page_2_button.clicked.connect(lambda: self.stackedWidget_setting_page.setCurrentIndex(0))
+        self.button_on_1_page.clicked.connect(lambda: self.stackedWidget_setting_page.setCurrentIndex(1))
+        self.bread_button_2.clicked.connect(self.get_directory)
+        self.save_command_button.clicked.connect(self.add_date_in_Neko_bd)
+        self.delite_button.clicked.connect(self.del_command)
+        self.show_update_item_in_area_delite_choice()
+
+
 
         MainWindow.setCentralWidget(self,self.centralwidget)
         self.retranslateUi(MainWindow)

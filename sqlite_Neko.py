@@ -245,7 +245,7 @@ def select_sites_of_command(conn):
 
 
 def main():
-    conn = create_connection("Neko.db")
+    conn = create_connection("layout_file/Neko.db")
     names = ("Firo", "Filorial", "семпай", "russian", "waify")
     with conn:
         note_button_up(conn,"Note","2")

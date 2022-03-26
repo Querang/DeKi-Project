@@ -441,8 +441,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.like_button_check = not self.like_button_check
 
     def show_teg_frame(self):
-
-
         if self.teg_button_check:
             self.teg_frame.hide()
         else:
@@ -462,11 +460,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.del_list = []
         self.clear_note(self.delite_bar)
 
-
-
     def get_directory(self):
         """select files for action"""
-        folder =QtWidgets.QFileDialog.getOpenFileName(self, "Выберите файл", "/")[0]
+        folder = QtWidgets.QFileDialog.getOpenFileName(self, "Выберите файл", "/")[0]
         print(folder)
         self.directory_list.append(folder)
         print(self.directory_list)

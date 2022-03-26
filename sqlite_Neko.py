@@ -65,6 +65,8 @@ def note_button_up(conn,current_folder,object_name):
     row = rows[0]
     print(row)
     return row
+
+
 def save_note_sq(conn,note):
     cur = conn.cursor()
     sql = ''' UPDATE note
@@ -76,6 +78,7 @@ def save_note_sq(conn,note):
                           '''
     cur.execute(sql, note)
     conn.commit()
+
 
 def get_paths_character(conn, name):
     cur = conn.cursor()

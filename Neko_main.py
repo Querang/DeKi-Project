@@ -45,10 +45,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """hotkey"""
         self.shortcut = QShortcut(QKeySequence("Ctrl+W"), self)
         self.shortcut.activated.connect(self.hide_main_window)
-        if keyboard.is_pressed('v'):
-            self.voice_input()
-        else:
-            pass
+        self.shortcut = QShortcut(QKeySequence("v"), self)
+        self.shortcut.activated.connect(self.voice_helper)
+
 
         """assign an action"""
         self.rule_command_button.clicked.connect(self.show_rule_command_frame)
@@ -808,14 +807,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 print("Command not found")
 
-        def voice_helper():
-            voice_input = self.record_and_recognize_audio()
-            os.remove("microphone-results.wav")
-            print(voice_input)
-            voice_input = voice_input.split(" ")
-            command = voice_input[0]
-            command_options = [str(input_part) for input_part in voice_input[1:len(voice_input)]]
-            self.execute_command_with_name(command, command_options)
+    def voice_helper(self):
+        voice_input = self.record_and_recognize_audio()
+        os.remove("microphone-results.wav")
+        print(voice_input)
+        voice_input = voice_input.split(" ")
+        command = voice_input[0]
+        command_options = [str(input_part) for input_part in voice_input[1:len(voice_input)]]
+        self.execute_command_with_name(command, command_options)
 
 
 if __name__ == "__main__":

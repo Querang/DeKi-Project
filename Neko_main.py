@@ -633,11 +633,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             sql_command_name = sqlite_Neko.select_all_command(conn)
-            sql_command_type = sqlite_Neko.select_type_of_commands(conn)
-            sql_command_files = sqlite_Neko.select_files_of_commands(conn)
-            sql_command_site = sqlite_Neko.select_sites_of_command(conn)
-            if button_name in sql_command_name:
-                index = sql_command_name.index(button_name)
+            if str(button_name[0]) in sql_command_name:
+                sql_command_type = sqlite_Neko.select_type_of_commands(conn)
+                sql_command_files = sqlite_Neko.select_files_of_commands(conn)
+                sql_command_site = sqlite_Neko.select_sites_of_command(conn)
+                index = sql_command_name.index(str(button_name[0]))
                 command_type = sql_command_type[index]
                 if command_type == 's':
                     if sql_command_site[index].find("https://"):
@@ -692,7 +692,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ttsEngine.say(str(text_to_speech))
         ttsEngine.runAndWait()
 
-# Часть с голосовым помощником
     def record_and_recognize_audio(self, *args: tuple):
         """
         Запись и распознавание аудио
@@ -739,6 +738,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # открытие ссылки на поисковик в браузере
         url = "https://google.com/search?q=" + search_term
         webbrowser.get().open(url)
+        self.play_voice_assistant_speech(f"Вот что было найдено по запросу {search_term}")
 
     def search_for_video_on_youtube(self, *args: tuple):
         """
@@ -757,26 +757,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         :param args: фраза поискового запроса
         """
         if not args[0]: return
-
         search_term = " ".join(args[0])
-
-        wiki = wikipediaapi.Wikipedia("ru-RU")
-
-        wiki_page = wiki.page(search_term)
-        try:
-            if wiki_page.exists():
-                self.play_voice_assistant_speech(f"Вот что было найдено по запросу {search_term} на Википедии")
-                webbrowser.get().open(wiki_page.fullurl)
-                self.play_voice_assistant_speech(wiki_page.summary.split(".")[:2])
-            else:
-                # открытие ссылки на поисковик в браузере в случае, если на Wikipedia не удалось найти ничего по запросу
-                self.play_voice_assistant_speech(f"{search_term} не найдена на Википедии. Вот в гугл")
-                url = "https://google.com/search?q=" + search_term
-                webbrowser.get().open(url)
-        except:
-            self.play_voice_assistant_speech("Проблема с доступом")
-            traceback.print_exc()
-            return
+        url = "https://ru.wikipedia.org/wiki/" + search_term
+        webbrowser.get().open(url)
+        self.play_voice_assistant_speech(f"Вот что было найдено по запросу {search_term}")
 
     def play_greetings(self, *args: tuple):
         """

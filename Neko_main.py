@@ -10,6 +10,7 @@ import pyttsx3
 import speech_recognition
 import webbrowser
 import wikipediaapi
+import keyboard
 from PyQt5.QtGui import QKeySequence, QWheelEvent
 from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut
 from Neko_layout import Ui_MainWindow
@@ -44,6 +45,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """hotkey"""
         self.shortcut = QShortcut(QKeySequence("Ctrl+W"), self)
         self.shortcut.activated.connect(self.hide_main_window)
+        if keyboard.is_pressed('v'):
+            self.voice_input()
+        else:
+            pass
 
         """assign an action"""
         self.rule_command_button.clicked.connect(self.show_rule_command_frame)
@@ -87,11 +92,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.del_list = []  # выбранные команды для удаления попадают сюда
         self.language_list = ["russian", "english"]
         self.commands = {
-            ("hello", "hi", "morning", "привет"): self.play_greetings,
-            ("bye", "goodbye", "quit", "exit", "stop", "пока"): self.play_farewell_and_quit,
-            ("search", "google", "find", "найди"): self.search_for_term_on_google,
-            ("video", "youtube", "watch", "видео"): self.search_for_video_on_youtube,
-            ("wikipedia", "definition", "about", "определение", "википедия"): self.search_for_definition_on_wikipedia,
+            ("здравствуй", "привет"): self.play_greetings,
+            ("до встречи", "пока"): self.play_farewell_and_quit,
+            ("гугл", "найди"): self.search_for_term_on_google,
+            ("ютуб", "видео"): self.search_for_video_on_youtube,
+            ("википедия", "вики"): self.search_for_definition_on_wikipedia,
             ("команда", "выполнить"): self.active_command_voice,
         }
         conn = sqlite_Neko.create_connection("Neko.db")
@@ -654,7 +659,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                 self.clear_note(self.gridLayout_9)
                                 self.command_panel_frame_button_update()
             else:
-                self.play_voice_assistant_speech("Неn такой папки")
+                self.play_voice_assistant_speech("Нет такой команды")
 
     def active_button(self, pushButton):
         """makes the button active when pressed, adds a command to del_list"""
@@ -802,6 +807,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.commands[key](*args)
             else:
                 print("Command not found")
+
+        def voice_helper():
+            voice_input = self.record_and_recognize_audio()
+            os.remove("microphone-results.wav")
+            print(voice_input)
+            voice_input = voice_input.split(" ")
+            command = voice_input[0]
+            command_options = [str(input_part) for input_part in voice_input[1:len(voice_input)]]
+            self.execute_command_with_name(command, command_options)
 
 
 if __name__ == "__main__":

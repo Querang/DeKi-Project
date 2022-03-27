@@ -92,11 +92,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.language_list = ["russian", "english"]
         self.commands = {
             ("здравствуй", "привет"): self.play_greetings,
-            ("до встречи", "пока"): self.play_farewell_and_quit,
-            ("гугл", "найди"): self.search_for_term_on_google,
-            ("ютуб", "видео"): self.search_for_video_on_youtube,
-            ("википедия", "вики"): self.search_for_definition_on_wikipedia,
-            ("команда", "выполнить"): self.active_command_voice,
+            ("до встречи", "пока", "закончить работу"): self.play_farewell_and_quit,
+            ("гугл", "найди", "google", "поиск"): self.search_for_term_on_google,
+            ("ютуб", "видео", "youtube"): self.search_for_video_on_youtube,
+            ("википедия", "вики", "wikipedia"): self.search_for_definition_on_wikipedia,
+            ("команда", "выполнить команду"): self.active_command_voice,
         }
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
@@ -633,11 +633,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             sql_command_name = sqlite_Neko.select_all_command(conn)
-            if str(button_name[0]) in sql_command_name:
+            main_button_name = str()
+            for i in range(len(button_name)):
+                if i < len(button_name) - 1:
+                    main_button_name = main_button_name + str(button_name[i]) + ' '
+                elif i == len(button_name) - 1:
+                    main_button_name = main_button_name + str(button_name[i])
+            if str(main_button_name) in sql_command_name:
                 sql_command_type = sqlite_Neko.select_type_of_commands(conn)
                 sql_command_files = sqlite_Neko.select_files_of_commands(conn)
                 sql_command_site = sqlite_Neko.select_sites_of_command(conn)
-                index = sql_command_name.index(str(button_name[0]))
+                index = sql_command_name.index(str(main_button_name))
                 command_type = sql_command_type[index]
                 if command_type == 's':
                     if sql_command_site[index].find("https://"):
@@ -704,7 +710,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             try:
                 print("Listening...")
-                audio = recognizer.listen(microphone, 25, 25)
+                audio = recognizer.listen(microphone, 5, 5)
 
                 with open("microphone-results.wav", "wb") as file:
                     file.write(audio.get_wav_data())
@@ -721,8 +727,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             except speech_recognition.UnknownValueError:
                 pass
 
-            # в случае проблем с доступом в Интернет происходит попытка
-            # использовать offline-распознавание через Vosk
             except speech_recognition.RequestError:
                 print("Trying to use offline recognition...")
         return recognized_data
@@ -804,7 +808,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 if __name__ == "__main__":
     ttsEngine = pyttsx3.init()
     rate = ttsEngine.getProperty('rate')
-    ttsEngine.setProperty('rate', 140)
+    ttsEngine.setProperty('rate', 200)
     volume = ttsEngine.getProperty('volume')
     ttsEngine.setProperty('volume', 3)
     voices = ttsEngine.getProperty('voices')

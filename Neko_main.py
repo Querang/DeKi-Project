@@ -80,7 +80,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.link_site = ""  # получает название сайта
         self.del_list = []  # выбранные команды для удаления попадают сюда
         self.language_list = ["russian", "english"]
-        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             self.names_character_list = sqlite_Neko.get_names_character(
                 conn)  # получить имена всех доступных персонажей
@@ -191,7 +191,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
            removes the entry from the database that matches work_table, current_note_button
            param conn: database connection
            """
-        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             sqlite_Neko.delete_note(conn, self.work_table, self.current_note_button)
             sqlite_Neko.reset_button_note(conn, self.work_table, self.current_note_button)
@@ -207,7 +207,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
            param gridLayout_note: grid widget in main_note_frame
            """
         self.clear_note(self.gridLayout_note)
-        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        conn = sqlite_Neko.create_connection("Neko.db")
         list_coordinate = []
         with conn:
             list_all_note = sqlite_Neko.get_note_list(conn, self.work_table)[0]
@@ -249,7 +249,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
            param note_edit: QTextEdit widget
 
            """
-        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             self.Note_frame_2.show()
             print(self.work_table, button.objectName())
@@ -260,7 +260,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def save_note(self):
         """saves the updated note_edit entry from Note_frame_2"""
-        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             text = self.note_edit.toPlainText()
             sqlite_Neko.save_note_sq(conn, (
@@ -273,7 +273,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def create_new_note(self):
         """generates a new entry at the end of the database"""
-        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             (list_all_note, list_object_name) = sqlite_Neko.get_note_list(conn, self.work_table)
             print((self.work_table, f"{len(list_object_name) + 1}", ""))
@@ -323,7 +323,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def save_global_setting(self):
         """ stores global settings in database  """
-        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        conn = sqlite_Neko.create_connection("Neko.db")
         get_user_name = self.Nickname_2.text()
         if get_user_name not in ["нике", "nickname"]:
             self.name_user = get_user_name
@@ -383,7 +383,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def update_paths(self):
         """associated with Next_character, according to the selected character, changes the paths to the pictures of the corresponding
          character, all frames use 4 different images of one character, stored in database """
-        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             self.current_paths_character = sqlite_Neko.get_paths_character(conn, self.view_character)
             self.character_label.setPixmap(QtGui.QPixmap(self.current_paths_character[1]))
@@ -506,7 +506,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """add command to database"""
         self.link_site = self.lineEdit_4.text()
         if (self.directory_list != []) and (self.link_site in ["set site", "укажи сайт"]):
-            conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+            conn = sqlite_Neko.create_connection("Neko.db")
             command = self.input_name_command.text()
             file = []
             with conn:
@@ -522,7 +522,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.clear_note(self.grid)
                 self.input_name_command.setText("access")
         elif (self.directory_list == []) and (self.link_site not in ["set site", "укажи сайт"]):
-            conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+            conn = sqlite_Neko.create_connection("Neko.db")
             command = self.input_name_command.text()
             with conn:
                 task = ("s", "", "", "", "", self.link_site, command)
@@ -536,7 +536,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def show_update_item_in_area_delite_choice(self):
         """updates buttons containing commands"""
-        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             name = sqlite_Neko.select_all_command(conn)
             print(name)
@@ -563,7 +563,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def command_panel_frame_button_update(self):
         """обновляет кнопки, содержащие команды для выполнения"""
-        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             name = sqlite_Neko.select_all_command(conn)
             print(name)
@@ -586,7 +586,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def active_command_button(self, pushButton):
         """считывает название кнопки, выполняет команду"""
-        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             button_name = pushButton.text()
             sql_command_name = sqlite_Neko.select_all_command(conn)
@@ -630,7 +630,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def del_command(self):
         """delite command from database with name from del_list"""
-        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             for i in self.del_list:
                 sqlite_Neko.delete_task(conn, i)

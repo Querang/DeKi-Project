@@ -1,11 +1,8 @@
 import os
 import subprocess
 import webbrowser
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 import sqlite_Neko
-
 
 class Ui_AddFrame(object):
     def setup_add_frame(self):
@@ -454,12 +451,19 @@ class Ui_AddFrame(object):
         self.label_info_2.hide()
         self.label_info_3.hide()
         self.label_about_delite.hide()
-        # self.del_bar_frame.hide()
-
-
+        self.del_bar_frame.hide()
+        self.trash_can_button_flag = False
+        self.trash_can_button.clicked.connect(self.delite_command_switch)
 
         """add variable"""
         return self.page_add_1
+
+    def delite_command_switch(self):
+        if self.trash_can_button_flag:
+            self.del_bar_frame.hide()
+        else:
+            self.del_bar_frame.show()
+        self.trash_can_button_flag = not self.trash_can_button_flag
 
     def clear_note(self, gridLayout):
         """
@@ -481,7 +485,7 @@ class Ui_AddFrame(object):
         """add command to database"""
         self.link_site = self.lineedit_site.text()
         if (self.directory_list != []) and (self.link_site in ["set site", "укажи сайт"]):
-            conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+            conn = sqlite_Neko.create_connection("Neko.db")
             command = self.lineedit_command.text()
             file = []
             with conn:
@@ -497,7 +501,7 @@ class Ui_AddFrame(object):
                 self.clear_note(self.delite_bar_grid)
                 self.lineedit_command.setText("access")
         elif (self.directory_list == []) and (self.link_site not in ["set site", "укажи сайт"]):
-            conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+            conn = sqlite_Neko.create_connection("Neko.db")
             command = self.lineedit_command.text()
             with conn:
                 task = ("s", "", "", "", "", self.link_site, command)
@@ -512,7 +516,7 @@ class Ui_AddFrame(object):
     def show_update_item_in_area_delite_choice(self):
         """updates buttons containing commands"""
 
-        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             name = sqlite_Neko.select_all_command(conn)
             print(name)
@@ -536,10 +540,9 @@ class Ui_AddFrame(object):
             self.pushButton.clicked.connect(lambda checked, button=self.pushButton: self.active_button(button))
             self.delite_bar_grid.addWidget(self.pushButton, 0, i)
 
-
     # def command_panel_frame_button_update(self):
     #     """обновляет кнопки, содержащие команды для выполнения"""
-    #     conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+    #     conn = sqlite_Neko.create_connection("Neko.db")
     #     with conn:
     #         name = sqlite_Neko.select_all_command(conn)
     #         print(name)
@@ -562,7 +565,7 @@ class Ui_AddFrame(object):
 
     def active_command_button(self, pushButton):
         """считывает название кнопки, выполняет команду"""
-        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             button_name = pushButton.text()
             sql_command_name = sqlite_Neko.select_all_command(conn)
@@ -588,7 +591,6 @@ class Ui_AddFrame(object):
                             self.del_list.append(button_name)
                             self.del_command()
 
-
     def active_button(self, pushButton):
         """makes the button active when pressed, adds a command to del_list"""
         pushButton.setStyleSheet("border-radius: 2px;\n"
@@ -605,7 +607,7 @@ class Ui_AddFrame(object):
 
     def del_command(self):
         """delite command from database with name from del_list"""
-        conn = sqlite_Neko.create_connection("layout_file/Neko.db")
+        conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             for i in self.del_list:
                 sqlite_Neko.delete_task(conn, i)

@@ -95,7 +95,6 @@ def update_global_name(conn, names):
                       name_user = ? ,
                       language = ? ,
                       behavior = ? ,
-                      work_table_note = ? ,
                       main_window_size = ?
                       '''
     cur.execute(sql, names)
@@ -245,7 +244,7 @@ def select_sites_of_command(conn):
 
 
 def main():
-    conn = create_connection("layout_file/Neko.db")
+    conn = create_connection("Neko.db")
     names = ("Firo", "Filorial", "семпай", "russian", "waify")
     with conn:
         note_button_up(conn,"Note","2")

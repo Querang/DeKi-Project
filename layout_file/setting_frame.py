@@ -1,6 +1,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+import sqlite_Neko
+
+
 class Ui_SettingFrame(object):
+
     def setup_settinf_frame(self):
+
         self.setting_page = QtWidgets.QWidget()
         self.setting_page.setObjectName("setting_page")
         self.stackedWidget_setting_page = QtWidgets.QStackedWidget(self.setting_page)
@@ -371,4 +377,36 @@ class Ui_SettingFrame(object):
         self.button_character_l.setObjectName("button_character_l")
         self.stackedWidget_setting_page.addWidget(self.setting_page_1)
         self.stackedWidget_setting_page.setCurrentIndex(1)
+        """set button"""
+        self.button_save.clicked.connect(self.save_global_setting)
         return self.setting_page
+
+
+
+    def Next_main_window_size(self):
+        self.next_main_frame = not self.next_main_frame
+        if self.next_main_frame:
+            self.main_window_size = "min"
+        else:
+            self.main_window_size = "normal"
+        self.label_normal_window_page_2.setText(self.main_window_size)
+
+    # def Next_language(self):
+    #     """allows you to change the language in the settings
+    #        param language_index: needed to determine the current language
+    #        """
+    #     language_index = self.language_list.index(self.language)
+    #     language_index += 1
+    #     if language_index == len(self.language_list):
+    #         language_index = 0
+    #     self.language = self.language_list[language_index]
+    #     if self.language == "russian":
+    #         self.set_ru()
+    #     elif self.language == "english":
+    #         self.set_en()
+
+
+
+
+
+

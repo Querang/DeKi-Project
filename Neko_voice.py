@@ -9,6 +9,7 @@ import wave
 import os
 import traceback
 import random
+import sqlite_Neko
 
 ttsEngine = pyttsx3.init()
 rate = ttsEngine.getProperty('rate')

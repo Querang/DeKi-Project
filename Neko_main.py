@@ -4,6 +4,12 @@ import os.path
 import sys
 import webbrowser
 import sqlite_Neko
+import traceback
+import random
+import pyttsx3
+import speech_recognition
+import webbrowser
+import wikipediaapi
 from PyQt5.QtGui import QKeySequence, QWheelEvent
 from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut
 from Neko_layout import Ui_MainWindow
@@ -70,7 +76,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_window_l_2.clicked.connect(self.Next_main_window_size)
         """set variables"""
         self.scroll_px = 0
-        self.button_bar = [0,1,2,3]
+        self.button_bar = [0, 1, 2, 3]
         self.main_window_size = False
         self.next_main_frame = False
         self.like_button_check = False
@@ -80,11 +86,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.link_site = ""  # получает название сайта
         self.del_list = []  # выбранные команды для удаления попадают сюда
         self.language_list = ["russian", "english"]
+        self.commands = {
+            ("hello", "hi", "morning", "привет"): self.play_greetings,
+            ("bye", "goodbye", "quit", "exit", "stop", "пока"): self.play_farewell_and_quit,
+            ("search", "google", "find", "найди"): self.search_for_term_on_google,
+            ("video", "youtube", "watch", "видео"): self.search_for_video_on_youtube,
+            ("wikipedia", "definition", "about", "определение", "википедия"): self.search_for_definition_on_wikipedia,
+            ("команда", "выполнить"): self.active_command_voice,
+        }
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             self.names_character_list = sqlite_Neko.get_names_character(
                 conn)  # получить имена всех доступных персонажей
-            self.view_character, self.name_character, self.name_user, self.language, self.behavior, self.work_table,self.main_window_size = sqlite_Neko.get_global_name(
+            self.view_character, self.name_character, self.name_user, self.language, self.behavior, self.work_table, self.main_window_size = sqlite_Neko.get_global_name(
                 conn)
             self.current_paths_character = sqlite_Neko.get_paths_character(conn, self.view_character)
             self.set_name_in_widget()
@@ -610,6 +624,38 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.clear_note(self.gridLayout_9)
                             self.command_panel_frame_button_update()
 
+    def active_command_voice(self, button_name):
+        """считывает название кнопки, выполняет команду"""
+        conn = sqlite_Neko.create_connection("Neko.db")
+        with conn:
+            sql_command_name = sqlite_Neko.select_all_command(conn)
+            sql_command_type = sqlite_Neko.select_type_of_commands(conn)
+            sql_command_files = sqlite_Neko.select_files_of_commands(conn)
+            sql_command_site = sqlite_Neko.select_sites_of_command(conn)
+            if button_name in sql_command_name:
+                index = sql_command_name.index(button_name)
+                command_type = sql_command_type[index]
+                if command_type == 's':
+                    if sql_command_site[index].find("https://"):
+                        webbrowser.open_new_tab(str(sql_command_site[index]))
+                    else:
+                        webbrowser.open_new_tab("https://" + str(sql_command_site[index]))
+                elif command_type == 'f':
+                    for i in sql_command_files[index]:
+                        print(sql_command_files[index])
+                        if os.path.exists(i) is True:
+                            subprocess.call(('cmd', '/c', 'start', '', i))
+                        elif os.path.exists(i) is False:
+                            if i == "":
+                                pass
+                            else:
+                                self.del_list.append(button_name)
+                                self.del_command()
+                                self.clear_note(self.gridLayout_9)
+                                self.command_panel_frame_button_update()
+            else:
+                self.play_voice_assistant_speech("Неn такой папки")
+
     def active_button(self, pushButton):
         """makes the button active when pressed, adds a command to del_list"""
         pushButton.setStyleSheet("border-radius: 2px;\n"
@@ -634,8 +680,142 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.clear_note(self.gridLayout_9)
         self.show_update_item_in_area_delite_choice()
 
+    def play_voice_assistant_speech(self, text_to_speech):
+        """
+        Проигрывание речи ответов голосового ассистента (без сохранения аудио)
+        :param text_to_speech: текст, который нужно преобразовать в речь
+        """
+        ttsEngine.say(str(text_to_speech))
+        ttsEngine.runAndWait()
 
-app = QApplication(sys.argv)
-w = MainWindow()
-w.show()
-app.exec_()
+# Часть с голосовым помощником
+    def record_and_recognize_audio(self, *args: tuple):
+        """
+        Запись и распознавание аудио
+        """
+        with microphone:
+            recognized_data = ""
+
+            # регулирование уровня окружающего шума
+            recognizer.adjust_for_ambient_noise(microphone, duration=2)
+
+            try:
+                print("Listening...")
+                audio = recognizer.listen(microphone, 25, 25)
+
+                with open("microphone-results.wav", "wb") as file:
+                    file.write(audio.get_wav_data())
+
+            except speech_recognition.WaitTimeoutError:
+                print("Can you check if your microphone is on, please?")
+                return
+
+            # использование online-распознавания через Google
+            try:
+                print("Started recognition...")
+                recognized_data = recognizer.recognize_google(audio, language="ru").lower()
+
+            except speech_recognition.UnknownValueError:
+                pass
+
+            # в случае проблем с доступом в Интернет происходит попытка
+            # использовать offline-распознавание через Vosk
+            except speech_recognition.RequestError:
+                print("Trying to use offline recognition...")
+        return recognized_data
+
+    def search_for_term_on_google(self, *args: tuple):
+        """
+        Поиск в Google с автоматическим открытием ссылок (на список результатов и на сами результаты, если возможно)
+        :param args: фраза поискового запроса
+        """
+        if not args[0]: return
+        search_term = " ".join(args[0])
+
+        # открытие ссылки на поисковик в браузере
+        url = "https://google.com/search?q=" + search_term
+        webbrowser.get().open(url)
+
+    def search_for_video_on_youtube(self, *args: tuple):
+        """
+        Поиск видео на YouTube с автоматическим открытием ссылки на список результатов
+        :param args: фраза поискового запроса
+        """
+        if not args[0]: return
+        search_term = " ".join(args[0])
+        url = "https://www.youtube.com/results?search_query=" + search_term
+        webbrowser.get().open(url)
+        self.play_voice_assistant_speech(f"Вот что было найдено по запросу {search_term}")
+
+    def search_for_definition_on_wikipedia(self, *args: tuple):
+        """
+        Поиск в Wikipedia определения с последующим озвучиванием результатов и открытием ссылок
+        :param args: фраза поискового запроса
+        """
+        if not args[0]: return
+
+        search_term = " ".join(args[0])
+
+        wiki = wikipediaapi.Wikipedia("ru-RU")
+
+        wiki_page = wiki.page(search_term)
+        try:
+            if wiki_page.exists():
+                self.play_voice_assistant_speech(f"Вот что было найдено по запросу {search_term} на Википедии")
+                webbrowser.get().open(wiki_page.fullurl)
+                self.play_voice_assistant_speech(wiki_page.summary.split(".")[:2])
+            else:
+                # открытие ссылки на поисковик в браузере в случае, если на Wikipedia не удалось найти ничего по запросу
+                self.play_voice_assistant_speech(f"{search_term} не найдена на Википедии. Вот в гугл")
+                url = "https://google.com/search?q=" + search_term
+                webbrowser.get().open(url)
+        except:
+            self.play_voice_assistant_speech("Проблема с доступом")
+            traceback.print_exc()
+            return
+
+    def play_greetings(self, *args: tuple):
+        """
+        Проигрывание случайной приветственной речи
+        """
+        greetings = ["Привет", "Здравствуй"]
+        self.play_voice_assistant_speech(greetings[random.randint(0, len(greetings)-1)])
+
+    def play_farewell_and_quit(self, *args: tuple):
+        """
+        Проигрывание прощательной речи и выход
+        """
+        farewells = ["Пока", "До новых встреч"]
+        self.play_voice_assistant_speech(farewells[random.randint(0, len(farewells) - 1)])
+        ttsEngine.stop()
+        quit()
+
+    def execute_command_with_name(self, command_name: str, *args: list):
+        """
+        Выполнение заданной пользователем команды и аргументами
+        :param command_name: название команды
+        :param args: аргументы, которые будут переданы в метод
+        :return:
+        """
+        for key in self.commands.keys():
+            if command_name in key:
+                self.commands[key](*args)
+            else:
+                print("Command not found")
+
+
+if __name__ == "__main__":
+    ttsEngine = pyttsx3.init()
+    rate = ttsEngine.getProperty('rate')
+    ttsEngine.setProperty('rate', 140)
+    volume = ttsEngine.getProperty('volume')
+    ttsEngine.setProperty('volume', 3)
+    voices = ttsEngine.getProperty('voices')
+    ttsEngine.setProperty('voice', 'ru')
+    ttsEngine.setProperty('voice', 'Anna')
+    recognizer = speech_recognition.Recognizer()
+    microphone = speech_recognition.Microphone()
+    app = QApplication(sys.argv)
+    w = MainWindow()
+    w.show()
+    app.exec_()

@@ -27,7 +27,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="page_main_frame">
      <widget class="QFrame" name="mainframe">
@@ -58,7 +58,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>../../Neko_project/DeKi-Project/material/Firo/Firo_setting.png</pixmap>
+        <pixmap>../material/Firo/Firo_setting.png</pixmap>
        </property>
       </widget>
       <widget class="QLabel" name="dialog_character">
@@ -667,7 +667,7 @@ border-radius: 13px;</string>
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap>../../Neko_project/DeKi-Project/material/Firo/Firo_s.png</pixmap>
+         <pixmap>../material/Firo/Firo_s.png</pixmap>
         </property>
        </widget>
        <widget class="QTextBrowser" name="label_add_2">
@@ -974,7 +974,7 @@ border-radius: 13px;</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../Neko_project/DeKi-Project/material/image 74.png</normaloff>../../Neko_project/DeKi-Project/material/image 74.png</iconset>
+          <normaloff>../material/image 74.png</normaloff>../material/image 74.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -1112,7 +1112,7 @@ color: #FFFFFF;</string>
          <enum>Qt::AutoText</enum>
         </property>
         <property name="pixmap">
-         <pixmap>../../Neko_project/DeKi-Project/material/Component 3 (1).png</pixmap>
+         <pixmap>../material/Component 3 (2).png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -1356,7 +1356,7 @@ color: #FFFFFF;</string>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="setting_page_3">
        <widget class="QFrame" name="setting_page_2">
@@ -1841,7 +1841,7 @@ color: #FFFFFF;
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>../../Neko_project/DeKi-Project/material/Firo/Firo_setting.png</pixmap>
+          <pixmap>../material/Firo/Firo_setting.png</pixmap>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -2180,7 +2180,7 @@ border-radius: 13px;</string>
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap>../../Neko_project/DeKi-Project/material/Neko/Neko_s.png</pixmap>
+         <pixmap>../material/Neko/Neko_s.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -2406,6 +2406,123 @@ color: #FFFFFF;</string>
  видеть
  хозяин</string>
        </property>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="teg_list_frame_2">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>280</y>
+        <width>251</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgba(23, 23, 23, 0.83);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QScrollArea" name="teg_area_2">
+       <property name="geometry">
+        <rect>
+         <x>-20</x>
+         <y>-10</y>
+         <width>281</width>
+         <height>181</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: rgba(23, 23, 23, 0);
+border-radius: 13px;</string>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="teg_area_container_3">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>281</width>
+          <height>181</height>
+         </rect>
+        </property>
+        <widget class="QPushButton" name="setting_button_min">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>30</y>
+           <width>200</width>
+           <height>32</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius: 2px;
+font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgba(255, 255, 255, 0.67);
+
+background: rgba(23, 23, 23, 0.31);
+border: 1px solid rgba(233, 233, 233, 0.22);
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
+         </property>
+         <property name="text">
+          <string>setting</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="rule_button_min">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>80</y>
+           <width>200</width>
+           <height>32</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius: 2px;
+font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgba(255, 255, 255, 0.67);
+
+background: rgba(23, 23, 23, 0.31);
+border: 1px solid rgba(233, 233, 233, 0.22);
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
+         </property>
+         <property name="text">
+          <string>ruling command</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="q_a_button_3">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>130</y>
+           <width>200</width>
+           <height>32</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius: 2px;
+font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgba(255, 255, 255, 0.67);
+
+background: rgba(23, 23, 23, 0.31);
+border: 1px solid rgba(233, 233, 233, 0.22);
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
+         </property>
+         <property name="text">
+          <string>q&amp;&amp;a</string>
+         </property>
+        </widget>
+       </widget>
       </widget>
      </widget>
     </widget>

@@ -1,7 +1,19 @@
 import sqlite3
 from sqlite3 import Error
 
+import yaml
 
+"""yaml"""
+def read_config(file_path):
+    with open(file_path, "r") as f:
+        return yaml.safe_load(f)
+
+
+def write_config(file_path, config_dict):
+    with open(file_path, "w") as f:
+        yaml.dump(config_dict, f, default_flow_style=False)
+
+"""sqlite"""
 def create_connection(db_file):
     """ create a database connection to a SQLite database """
 

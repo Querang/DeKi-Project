@@ -28,21 +28,6 @@ def create_task(conn, task):
     conn.commit()
     return cur.lastrowid
 
-def get_note_list(conn,current_folder):
-    cur = conn.cursor()
-    cur.execute("SELECT object_name FROM note WHERE work_table =? ", (current_folder,))
-    rows = cur.fetchall()
-    list_objiect_name = []
-    for i in rows:
-        list_objiect_name.append(i[0])
-    cur = conn.cursor()
-    cur.execute("SELECT note FROM note WHERE work_table =? ", (current_folder,))
-    rows = cur.fetchall()
-    list_all_note = []
-    for i in rows:
-        list_all_note.append(i[0])
-
-    return (list_all_note,list_objiect_name)
 
 def create_note(conn, notet):
     """
@@ -58,24 +43,6 @@ def create_note(conn, notet):
     conn.commit()
 
 
-def note_button_up(conn,current_folder,object_name):
-    cur = conn.cursor()
-    cur.execute("SELECT note FROM note WHERE work_table =? and object_name = ? ", (current_folder,object_name))
-    rows = cur.fetchall()
-    row = rows[0]
-    print(row)
-    return row
-def save_note_sq(conn,note):
-    cur = conn.cursor()
-    sql = ''' UPDATE note
-                      SET work_table = ? ,
-                          object_name = ? ,
-                          note = ? 
-                      WHERE work_table = ? and
-                            object_name = ?    
-                          '''
-    cur.execute(sql, note)
-    conn.commit()
 
 def get_paths_character(conn, name):
     cur = conn.cursor()
@@ -153,43 +120,6 @@ def delete_task(conn, command):
     conn.commit()
 
 
-def reset_button_note(conn, work_table,current_button):
-    cur = conn.cursor()
-    cur.execute("SELECT note FROM note WHERE work_table =? ", (work_table,))
-    rows = cur.fetchall()
-    list_all_note = []
-    for i in rows:
-        list_all_note.append(i[0])
-    print(list_all_note)
-    print(current_button)
-    current_button = int(current_button)
-    for i in range(len(list_all_note) - current_button):
-        note = (work_table, f"{current_button}", list_all_note[current_button], work_table, f"{current_button + 1}")
-        print(note, "qq")
-        sql1 = ''' UPDATE note
-                                  SET work_table = ? ,
-                                      object_name = ? ,
-                                      note = ? 
-                                  WHERE work_table = ? and
-                                      object_name = ? 
-                                      '''
-        current_button += 1
-        cur.execute(sql1, note)
-
-
-def delete_note(conn, work_table,current_button):
-    """
-    Delete a task by task id
-    :param conn:  Connection to the SQLite database
-    :param command: id of the task
-    :return:
-    """
-    cur = conn.cursor()
-    sql = 'DELETE FROM note WHERE work_table=? and object_name=?'
-    cur.execute(sql, (work_table,current_button))
-    conn.commit()
-
-
 def select_task_by_command(conn, command):
     """
     Query tasks by priority
@@ -243,12 +173,6 @@ def select_sites_of_command(conn):
     return sites
 
 
-def main():
-    conn = create_connection("Neko.db")
-    names = ("Firo", "Filorial", "семпай", "russian", "waify")
-    with conn:
-        note_button_up(conn,"Note","2")
-
 
 if __name__ == '__main__':
-    main()
+    pass

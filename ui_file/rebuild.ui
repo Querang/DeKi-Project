@@ -27,7 +27,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="page_main_frame">
      <widget class="QFrame" name="mainframe">
@@ -1108,11 +1108,17 @@ color: #FFFFFF;</string>
         <property name="text">
          <string/>
         </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
         <property name="pixmap">
          <pixmap>../../Neko_project/DeKi-Project/material/Component 3 (1).png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
         <property name="wordWrap">
          <bool>false</bool>

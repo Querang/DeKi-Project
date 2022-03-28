@@ -30,7 +30,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame):
         """hotkey"""
         self.shortcut = QShortcut(QKeySequence("Ctrl+W"), self)
         self.shortcut.activated.connect(self.hide_main_window)
-
+        """ body """
         self.stackedWidget_sourse = QtWidgets.QStackedWidget(self.centralwidget)
         self.stackedWidget_sourse.setGeometry(QtCore.QRect(9, -1, 1311, 761))
         self.stackedWidget_sourse.setStyleSheet("")
@@ -59,11 +59,14 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame):
             self.stackedWidget_sourse.setCurrentIndex(3)
         else:
             self.stackedWidget_sourse.setCurrentIndex(0)
+        self.update_paths()
         self.button_character_r.clicked.connect(self.Next_character)
         MainWindow.setCentralWidget(self, self.centralwidget)
         self.retranslateUi(MainWindow)
         self.button_window_r_2.clicked.connect(self.Next_main_window_size)
-    """ setting """
+
+    """ setting fun """
+
     def Next_main_window_size(self):
         self.next_main_frame = False
         self.next_main_frame = not self.next_main_frame
@@ -72,8 +75,10 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame):
         else:
             self.main_window_size = "normal"
         self.label_normal_window_page_2.setText(self.main_window_size)
+
     def hide_main_window(self):
         self.showMinimized()
+
     def Next_character(self):
         """allows you to change the character in the settings
           param language_index: needed to determine the current character
@@ -86,6 +91,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame):
         self.view_character = self.names_character_list[character_index]
         print(self.view_character)
         self.update_paths()
+
     def save_global_setting(self):
         """ stores global settings in database  """
         conn = sqlite_Neko.create_connection("Neko.db")
@@ -99,10 +105,31 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame):
         with conn:
             sqlite_Neko.update_global_name(conn, (
                 self.view_character, self.name_character, self.name_user, self.language, self.behavior,
-               self.main_window_size))
+                self.main_window_size))
         self.set_name_in_widget()
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(self, "MainWindow")
+
+    def update_paths(self):
+        """associated with Next_character, according to the selected character, changes the paths to the pictures of the corresponding
+         character, all frames use 4 different images of one character, stored in database """
+        conn = sqlite_Neko.create_connection("Neko.db")
+        with conn:
+            self.current_paths_character = sqlite_Neko.get_paths_character(conn, self.view_character)
+            self.character_label.setPixmap(QtGui.QPixmap(self.current_paths_character[1]))
+            self.character_add_label.setPixmap(QtGui.QPixmap(self.current_paths_character[2]))
+            self.character_set.setPixmap(QtGui.QPixmap(self.current_paths_character[3]))
+            self.character_s_min.setPixmap(QtGui.QPixmap(self.current_paths_character[4]))
+
+    def set_name_in_widget(self):
+        """ follows after save_global_setting(), applies resulting changes to unique variables
+        self.view_character, self.name_character, self.name_user, self.language, self.behavior, self.work_table"""
+        self.dialog_character.setText(f"          {self.name_user},надеюсь, ты меня не просто так позвал?")
+        print(self.current_paths_character)
+        self.character_label.setPixmap(QtGui.QPixmap(self.current_paths_character[1]))
+        self.character_add_label.setPixmap(QtGui.QPixmap(self.current_paths_character[4]))
+        self.character_set.setPixmap(QtGui.QPixmap(self.current_paths_character[2]))
+        self.character_s_min.setPixmap(QtGui.QPixmap(self.current_paths_character[4]))
+
+    def retranslateUi(self):
         self.dialog_character.setText("Семпай, надеюсь, ты меня не просто так позвал?")
         self.setting_button.setText("setting")
         self.rule_button.setText("ruling command")
@@ -210,25 +237,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame):
         self.label_dialog_min_frame.setText("Рада вас\n"
                                             " видеть\n"
                                             " хозяин")
-    def update_paths(self):
-        """associated with Next_character, according to the selected character, changes the paths to the pictures of the corresponding
-         character, all frames use 4 different images of one character, stored in database """
-        print("awd")
-        conn = sqlite_Neko.create_connection("Neko.db")
-        with conn:
-            self.current_paths_character = sqlite_Neko.get_paths_character(conn, self.view_character)
-            self.character_label.setPixmap(QtGui.QPixmap(self.current_paths_character[1]))
-            self.character_add_label.setPixmap(QtGui.QPixmap(self.current_paths_character[2]))
-            self.character_set.setPixmap(QtGui.QPixmap(self.current_paths_character[3]))
-            self.character_s_min.setPixmap(QtGui.QPixmap(self.current_paths_character[4]))
-    def set_name_in_widget(self):
-        """ follows after save_global_setting(), applies resulting changes to unique variables
-        self.view_character, self.name_character, self.name_user, self.language, self.behavior, self.work_table"""
-        self.dialog_character.setText(f"          {self.name_user},надеюсь, ты меня не просто так позвал?")
-        self.character_label.setPixmap(QtGui.QPixmap(self.current_paths_character[1]))
-        self.character_add_label.setPixmap(QtGui.QPixmap(self.current_paths_character[2]))
-        self.character_set.setPixmap(QtGui.QPixmap(self.current_paths_character[3]))
-        self.character_s_min.setPixmap(QtGui.QPixmap(self.current_paths_character[4]))
+
 
 app = QApplication(sys.argv)
 w = MainWindow()

@@ -1,16 +1,14 @@
 import subprocess
-import sys
 import os.path
 import sys
-import webbrowser
 import sqlite_Neko
-import traceback
 import random
 import pyttsx3
 import speech_recognition
 import webbrowser
-import wikipediaapi
-import keyboard
+import wave
+import json
+from vosk import Model, KaldiRecognizer
 from PyQt5.QtGui import QKeySequence, QWheelEvent
 from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut
 from Neko_layout import Ui_MainWindow
@@ -91,17 +89,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.del_list = []  # выбранные команды для удаления попадают сюда
         self.language_list = ["russian", "english"]
         self.commands = {
-            ("здравствуй", "привет"): self.play_greetings,
-            ("до встречи", "пока", "закончить работу"): self.play_farewell_and_quit,
-            ("гугл", "найди", "google", "поиск"): self.search_for_term_on_google,
-            ("ютуб", "видео", "youtube"): self.search_for_video_on_youtube,
-            ("википедия", "вики", "wikipedia"): self.search_for_definition_on_wikipedia,
-            ("команда", "выполнить команду"): self.active_command_voice,
-        }
+            (f"здравствуй", f"привет"): self.play_greetings,
+            (f"до встречи", f"пока", f"закончить работу", f"завершение", f"на этом всё"): self.play_farewell_and_quit,
+            (f"гугл", f"найди", f"google", f"поиск", f"открой гугл", f"открыть гугл", f"найти в гугл",
+             f"найти", f"найти в гугле", f"найти в google",
+             f"загугли", f"загуглить", f"поискать", f"ищем"): self.search_for_term_on_google,
+            (f"ютуб", f"видео", f"youtube", f"на ютубе", f"найти видео", f"искать видео", f"искать на ютуб",
+             f"искать на youtube", f"в ютубе"): self.search_for_video_on_youtube,
+            (f"википедия", f"вики", f"wikipedia", f"энциклопедия", f"расскажи о", f"википедии", f"в википедии",
+             f"википедию", f"открой википедию"): self.search_for_definition_on_wikipedia,
+            (f"команда", f"выполнить команду"): self.active_command_voice,
+            (f"смени язык", f"change language", f"смена", f"сменить язык", f"изменить язык",
+             f"измени язык"): self.Next_language
+}
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
-            self.names_character_list = sqlite_Neko.get_names_character(
-                conn)  # получить имена всех доступных персонажей
+            self.names_character_list = sqlite_Neko.get_names_character(conn)  # получить имена всех доступных персонажей
             self.view_character, self.name_character, self.name_user, self.language, self.behavior, self.work_table, self.main_window_size = sqlite_Neko.get_global_name(
                 conn)
             self.current_paths_character = sqlite_Neko.get_paths_character(conn, self.view_character)
@@ -695,6 +698,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         Проигрывание речи ответов голосового ассистента (без сохранения аудио)
         :param text_to_speech: текст, который нужно преобразовать в речь
         """
+        ttsEngine = pyttsx3.init()
+        rate = ttsEngine.getProperty('rate')
+        ttsEngine.setProperty('rate', 200)
+        volume = ttsEngine.getProperty('volume')
+        ttsEngine.setProperty('volume', 3)
+        conn = sqlite_Neko.create_connection("Neko.db")
+        with conn:
+            language = sqlite_Neko.get_language(conn)
+            if language == "russian":
+                ttsEngine.setProperty('voice', 'ru')
+                ttsEngine.setProperty('voice', 'Anna')
+            elif language == "english":
+                ttsEngine.setProperty('voice', 'en')
+                ttsEngine.setProperty('voice', 'Kendra')
         ttsEngine.say(str(text_to_speech))
         ttsEngine.runAndWait()
 
@@ -722,13 +739,42 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # использование online-распознавания через Google
             try:
                 print("Started recognition...")
-                recognized_data = recognizer.recognize_google(audio, language="ru").lower()
+                conn = sqlite_Neko.create_connection("Neko.db")
+                with conn:
+                    language = sqlite_Neko.get_language(conn)
+                    if language == "russian":
+                        recognized_data = recognizer.recognize_google(audio, language="ru").lower()
+                    elif language == "english":
+                        recognized_data = recognizer.recognize_google(audio, language="en").lower()
 
             except speech_recognition.UnknownValueError:
                 pass
 
             except speech_recognition.RequestError:
                 print("Trying to use offline recognition...")
+                recognized_data = self.use_offline_recognition()
+                print(recognized_data)
+        return recognized_data
+
+    def use_offline_recognition(self):
+        recognized_data = ""
+        try:
+            if not os.path.exists("vosk-model-small-ru-0.22"):
+                print("Please download the model from:\n"
+                      "https://alphacephei.com/vosk/models and unpack as 'model' in the current folder.")
+                exit(1)
+
+            wave_audio_file = wave.open("microphone-results.wav", "rb")
+            model = Model("vosk-model-small-ru-0.22")
+            offline_recognizer = KaldiRecognizer(model, wave_audio_file.getframerate())
+            data = wave_audio_file.readframes(wave_audio_file.getnframes())
+            if data:
+                if offline_recognizer.AcceptWaveform(data):
+                    recognized_data = offline_recognizer.Result()
+                    recognized_data = json.loads(recognized_data)
+                    recognized_data = recognized_data["text"]
+        except:
+            print("Sorry, speech service is unavailable. Try again later")
         return recognized_data
 
     def search_for_term_on_google(self, *args: tuple):
@@ -782,6 +828,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ttsEngine.stop()
         quit()
 
+    def change_language(self, *args: tuple):
+        language_index = self.language_list.index(self.language)
+        language_index += 1
+        if language_index == len(self.language_list):
+            language_index = 0
+        self.language = self.language_list[language_index]
+        if self.language == "english":
+            self.set_ru()
+        elif self.language == "russian":
+            self.set_en()
+        print("Язык сменен")
+
     def execute_command_with_name(self, command_name: str, *args: list):
         """
         Выполнение заданной пользователем команды и аргументами
@@ -795,6 +853,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 print("Command not found")
 
+
     def voice_helper(self):
         voice_input = self.record_and_recognize_audio()
         os.remove("microphone-results.wav")
@@ -807,13 +866,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 if __name__ == "__main__":
     ttsEngine = pyttsx3.init()
-    rate = ttsEngine.getProperty('rate')
-    ttsEngine.setProperty('rate', 200)
-    volume = ttsEngine.getProperty('volume')
-    ttsEngine.setProperty('volume', 3)
-    voices = ttsEngine.getProperty('voices')
-    ttsEngine.setProperty('voice', 'ru')
-    ttsEngine.setProperty('voice', 'Anna')
     recognizer = speech_recognition.Recognizer()
     microphone = speech_recognition.Microphone()
     app = QApplication(sys.argv)

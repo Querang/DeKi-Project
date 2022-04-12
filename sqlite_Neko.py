@@ -181,7 +181,7 @@ def reset_button_note(conn, work_table,current_button):
         cur.execute(sql1, note)
 
 
-def delete_note(conn, work_table,current_button):
+def delete_note(conn, work_table, current_button):
     """
     Delete a task by task id
     :param conn:  Connection to the SQLite database
@@ -245,6 +245,30 @@ def select_sites_of_command(conn):
     for i in rows:
         sites.append(i[5])
     return sites
+
+
+def get_language(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT language FROM global_setting")
+    rows = cur.fetchall()
+    return rows[0][0]
+
+
+def get_name(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT name_character FROM global_setting")
+    rows = cur.fetchall()
+    return rows[0][0]
+
+
+def change_language(conn):
+    cur = conn.cursor
+    language = get_language(conn)
+    if language == "english":
+        cur.execute("UPDATE global_setting SET language = russian WHERE rowid = 1")
+    if language == "russian":
+        cur.execute("UPDATE global_setting SET language = english WHERE rowid = 1")
+    conn.commit()
 
 
 def main():

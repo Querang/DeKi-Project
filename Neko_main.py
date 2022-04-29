@@ -8,6 +8,7 @@ import speech_recognition
 import webbrowser
 import wave
 import json
+import keyboard
 from vosk import Model, KaldiRecognizer
 from PyQt5.QtGui import QKeySequence, QWheelEvent
 from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut
@@ -40,6 +41,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # self.frame_main.hide()
         self.main_min_frame.hide()
         self.setting_page_2.hide()
+        self.setting_page_3.hide()
+        self.notification_panel.hide()
         """hotkey"""
         self.shortcut = QShortcut(QKeySequence("Ctrl+W"), self)
         self.shortcut.activated.connect(self.hide_main_window)
@@ -48,6 +51,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
         """assign an action"""
+        self.close_not_button.clicked.connect(self.close_notification)
+        self.button_on_2_page.clicked.connect(self.set_on_page_2)
+        self.button_on_3_page.clicked.connect(self.set_on_page_3)
         self.rule_command_button.clicked.connect(self.show_rule_command_frame)
         self.rule_command_back_button.clicked.connect(self.back_on_main_frame)
         self.like_command_button.clicked.connect(self.show_hide_like_command)
@@ -74,6 +80,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_note_min.clicked.connect(self.show_note_frame)
         self.setting_button_on_page_2.clicked.connect(self.set_on_page_2)
         self.button_on_1_page.clicked.connect(self.set_on_page_1)
+        self.microphone_select.activated[str].connect(self.onActivated)
         self.button_window_r_2.clicked.connect(self.Next_main_window_size)
         self.button_window_l_2.clicked.connect(self.Next_main_window_size)
         """set variables"""
@@ -88,8 +95,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.link_site = ""  # получает название сайта
         self.del_list = []  # выбранные команды для удаления попадают сюда
         self.language_list = ["russian", "english"]
+        self.microphone_search()
         self.commands = {
-            (f"здравствуй", f"привет"): self.play_greetings,
+            (f"здравствуй", f"привет", f"hello"): self.play_greetings,
             (f"до встречи", f"пока", f"закончить работу", f"завершение", f"на этом всё"): self.play_farewell_and_quit,
             (f"гугл", f"найди", f"google", f"поиск", f"открой гугл", f"открыть гугл", f"найти в гугл",
              f"найти", f"найти в гугле", f"найти в google",
@@ -99,9 +107,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             (f"википедия", f"вики", f"wikipedia", f"энциклопедия", f"расскажи о", f"википедии", f"в википедии",
              f"википедию", f"открой википедию"): self.search_for_definition_on_wikipedia,
             (f"команда", f"выполнить команду"): self.active_command_voice,
-            (f"смени язык", f"change language", f"смена", f"сменить язык", f"изменить язык",
-             f"измени язык"): self.Next_language
+            (f"копируй", f"копируйте", f"скопируй", f"копирую"): self.copy_data,
+            (f"вставить", f"вставь"): self.input_copied_data,
+            (f"помоги", f"диспетчер", f"помощник"): self.dispatcher
 }
+
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             self.names_character_list = sqlite_Neko.get_names_character(conn)  # получить имена всех доступных персонажей
@@ -327,7 +337,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     """fun setting frame"""
     def set_on_page_2(self):
         self.setting_frame.hide()
+        self.setting_page_3.hide()
         self.setting_page_2.show()
+
+    def set_on_page_3(self):
+        self.setting_page_2.hide()
+        self.setting_page_3.show()
 
     def set_on_page_1(self):
         self.setting_frame.show()
@@ -438,6 +453,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setting_frame.show()
         self.command_panel_frame.hide()
 
+
     def hide_main_window(self):
         self.showMinimized()
 
@@ -467,6 +483,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             self.teg_frame.show()
         self.teg_button_check = not self.teg_button_check
+
+    def close_notification(self):
+        self.notification_panel.hide()
 
     """fun in  frame add/del"""
 
@@ -816,8 +835,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """
         Проигрывание случайной приветственной речи
         """
-        greetings = ["Привет", "Здравствуй"]
-        self.play_voice_assistant_speech(greetings[random.randint(0, len(greetings)-1)])
+        self.label_with_text.setText("Привет!")
+        self.notification_panel.show()
 
     def play_farewell_and_quit(self, *args: tuple):
         """
@@ -828,17 +847,39 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ttsEngine.stop()
         quit()
 
-    def change_language(self, *args: tuple):
-        language_index = self.language_list.index(self.language)
-        language_index += 1
-        if language_index == len(self.language_list):
-            language_index = 0
-        self.language = self.language_list[language_index]
-        if self.language == "english":
-            self.set_ru()
-        elif self.language == "russian":
-            self.set_en()
-        print("Язык сменен")
+    def copy_data(self, *args: tuple):
+        keyboard.press("ctrl")
+        keyboard.press("c")
+        keyboard.release("c")
+        keyboard.release("ctrl")
+
+    def input_copied_data(self, *args: tuple):
+        keyboard.press("ctrl")
+        keyboard.press("v")
+        keyboard.release("ctrl")
+        keyboard.release("v")
+
+    def dispatcher(self, *args: tuple):
+        keyboard.press("ctrl")
+        keyboard.press("shift")
+        keyboard.press("esc")
+        keyboard.release("ctrl")
+        keyboard.release("shift")
+        keyboard.release("esc")
+
+    def onActivated(self, text):
+        print(self.microphone_select.)
+
+
+    def microphone_search(self):
+        name_list = []
+        index_list = []
+        for index, name in enumerate(speech_recognition.Microphone.list_microphone_names()):
+            name_list.append(name)
+            index_list.append(index)
+            self.microphone_select.addItem(name)
+        print(name_list)
+
 
     def execute_command_with_name(self, command_name: str, *args: list):
         """

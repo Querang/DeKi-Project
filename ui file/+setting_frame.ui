@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1060</width>
-    <height>681</height>
+    <width>1430</width>
+    <height>1219</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -711,7 +711,7 @@ color: #FFFFFF;
     <widget class="QLabel" name="label_page_2">
      <property name="geometry">
       <rect>
-       <x>786</x>
+       <x>780</x>
        <y>10</y>
        <width>91</width>
        <height>31</height>
@@ -781,8 +781,8 @@ color: #FFFFFF;
     <widget class="QPushButton" name="button_on_1_page">
      <property name="geometry">
       <rect>
-       <x>761</x>
-       <y>13</y>
+       <x>750</x>
+       <y>10</y>
        <width>31</width>
        <height>26</height>
       </rect>
@@ -796,6 +796,26 @@ color: #FFFFFF;
      <property name="icon">
       <iconset>
        <normaloff>../material/image 52.png</normaloff>../material/image 52.png</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="button_on_3_page">
+     <property name="geometry">
+      <rect>
+       <x>870</x>
+       <y>10</y>
+       <width>31</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: rgba(33, 24, 24, 0.0);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../material/image 38.png</normaloff>../material/image 38.png</iconset>
      </property>
     </widget>
    </widget>

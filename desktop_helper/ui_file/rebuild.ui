@@ -1,0 +1,2791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1366</width>
+    <height>767</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QStackedWidget" name="stackedWidget_sourse">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>-1</y>
+      <width>1311</width>
+      <height>761</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 1px solid #ADADAD;</string>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="page_main_frame">
+     <widget class="QFrame" name="mainframe">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>80</y>
+        <width>911</width>
+        <height>571</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="character_label">
+       <property name="geometry">
+        <rect>
+         <x>370</x>
+         <y>210</y>
+         <width>171</width>
+         <height>241</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>../material/Firo/Firo_setting.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="dialog_character">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>430</y>
+         <width>451</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font-size: 18px;
+line-height: 40px;
+
+color: #FFFFFF;
+background: rgba(23, 23, 23, 0.85);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+       </property>
+       <property name="text">
+        <string>Семпай, надеюсь, ты меня не просто так позвал?</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QFrame" name="teg_list_frame">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>250</y>
+         <width>251</width>
+         <height>161</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: rgba(23, 23, 23, 0.83);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QScrollArea" name="teg_area">
+        <property name="geometry">
+         <rect>
+          <x>-20</x>
+          <y>-10</y>
+          <width>281</width>
+          <height>181</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0);
+border-radius: 13px;</string>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="teg_area_container">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>279</width>
+           <height>179</height>
+          </rect>
+         </property>
+         <widget class="QPushButton" name="setting_button">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>30</y>
+            <width>200</width>
+            <height>32</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 2px;
+font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgba(255, 255, 255, 0.67);
+
+background: rgba(23, 23, 23, 0.31);
+border: 1px solid rgba(233, 233, 233, 0.22);
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
+          </property>
+          <property name="text">
+           <string>setting</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="rule_button">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>80</y>
+            <width>200</width>
+            <height>32</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 2px;
+font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgba(255, 255, 255, 0.67);
+
+background: rgba(23, 23, 23, 0.31);
+border: 1px solid rgba(233, 233, 233, 0.22);
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
+          </property>
+          <property name="text">
+           <string>ruling command</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="q_a_button">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>130</y>
+            <width>200</width>
+            <height>32</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 2px;
+font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgba(255, 255, 255, 0.67);
+
+background: rgba(23, 23, 23, 0.31);
+border: 1px solid rgba(233, 233, 233, 0.22);
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
+          </property>
+          <property name="text">
+           <string>q&amp;&amp;a</string>
+          </property>
+         </widget>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QFrame" name="frame_icon_other_frame">
+       <property name="geometry">
+        <rect>
+         <x>550</x>
+         <y>180</y>
+         <width>81</width>
+         <height>291</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: rgba(23, 23, 23, 0.83);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QScrollArea" name="icon_buttons_area">
+        <property name="geometry">
+         <rect>
+          <x>4</x>
+          <y>9</y>
+          <width>72</width>
+          <height>281</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.0);
+</string>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="icon_buttons_area_container">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>74</width>
+           <height>279</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="3" column="0">
+           <widget class="QPushButton" name="tag_button">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>../../Neko_project/DeKi-Project/material/image 42.png</normaloff>../../Neko_project/DeKi-Project/material/image 42.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
+            <property name="default">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QPushButton" name="button_note">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>../../Neko_project/DeKi-Project/material/image 50.png</normaloff>../../Neko_project/DeKi-Project/material/image 50.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
+            <property name="default">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="command_list_button">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>../../Neko_project/DeKi-Project/material/image 41.png</normaloff>../../Neko_project/DeKi-Project/material/image 41.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
+            <property name="default">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QPushButton" name="remain_button">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>../../Neko_project/DeKi-Project/material/image 63.png</normaloff>../../Neko_project/DeKi-Project/material/image 63.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
+            <property name="default">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_add_frame">
+     <widget class="QStackedWidget" name="stacked_add_frame">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>10</y>
+        <width>1281</width>
+        <height>734</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="page_add_1">
+       <widget class="QLineEdit" name="lineedit_command">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>450</y>
+          <width>286</width>
+          <height>44</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 12px;
+font-size: 20px;
+line-height: 37px;
+
+color: rgba(255, 255, 255, 0.67);</string>
+        </property>
+        <property name="text">
+         <string>enter name command...</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="label_add_1">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>10</y>
+          <width>271</width>
+          <height>40</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(233, 209, 209, 0.3);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 6px;
+font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 20px;
+
+color: #FFFFFF;</string>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Titillium Web'; font-size:13px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Фиро: позволь помочь тебе с составлением команд&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="label_add_4">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>230</y>
+          <width>201</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(233, 209, 209, 0.3);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 6px;
+font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 20px;
+
+color: #FFFFFF;</string>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Titillium Web'; font-size:13px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Фиро: так можно указать сайт!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="save_command_button">
+        <property name="geometry">
+         <rect>
+          <x>250</x>
+          <y>500</y>
+          <width>226</width>
+          <height>37</height>
+         </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 12px;
+font-size: 20px;
+line-height: 37px;
+
+color: rgba(255, 255, 255, 0.67);</string>
+        </property>
+        <property name="text">
+         <string>save</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../Neko_project/DeKi-Project/material/image 32.png</normaloff>../../Neko_project/DeKi-Project/material/image 32.png</iconset>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_add_click_1">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>90</y>
+          <width>61</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 6px;
+font: 8pt &quot;Arial&quot;;
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+padding: 0 0 0 5px;
+color: #FFFFFF;</string>
+        </property>
+        <property name="text">
+         <string>*клик*</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_29">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>10</y>
+          <width>172</width>
+          <height>137</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 6px;</string>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="label_add_7">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>410</y>
+          <width>31</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(233, 209, 209, 0.3);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 6px;
+font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 20px;
+
+color: #FFFFFF;</string>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Titillium Web'; font-size:13px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;...&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineedit_site">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>280</y>
+          <width>261</width>
+          <height>34</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 12px;
+font-size: 20px;
+line-height: 37px;
+
+color: rgba(255, 255, 255, 0.67);</string>
+        </property>
+        <property name="text">
+         <string>set site...</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="label_add_6">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>370</y>
+          <width>141</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(233, 209, 209, 0.3);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 6px;
+font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 20px;
+
+color: #FFFFFF;</string>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Titillium Web'; font-size:13px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;команде название.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="character_add_label">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>0</y>
+          <width>121</width>
+          <height>151</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap>../material/Firo/Firo_s.png</pixmap>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="label_add_2">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>60</y>
+          <width>251</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(233, 209, 209, 0.3);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 6px;
+font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 20px;
+
+color: #FFFFFF;</string>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Titillium Web'; font-size:13px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Фиро: так можно выбрать файлы &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="label_add_5">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>330</y>
+          <width>261</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(233, 209, 209, 0.3);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 6px;
+font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 20px;
+
+color: #FFFFFF;</string>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Titillium Web'; font-size:13px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Фиро: выбери что-то одно, затем укажи &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_add_click_3">
+        <property name="geometry">
+         <rect>
+          <x>1195</x>
+          <y>506</y>
+          <width>61</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 6px;
+font: 8pt &quot;Arial&quot;;
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+padding: 0 0 0 5px;
+color: #FFFFFF;</string>
+        </property>
+        <property name="text">
+         <string>*клик*</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="back_from_add_button">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>200</y>
+          <width>171</width>
+          <height>38</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+font-size: 14px;
+line-height: 27px;
+
+color: #FFFFFF;</string>
+        </property>
+        <property name="text">
+         <string>back</string>
+        </property>
+       </widget>
+       <widget class="QFrame" name="background_bread_button">
+        <property name="geometry">
+         <rect>
+          <x>240</x>
+          <y>140</y>
+          <width>261</width>
+          <height>77</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 12px;</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QPushButton" name="bread_button_2">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>-10</y>
+           <width>137</width>
+           <height>79</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+font-size: 18px;
+line-height: 27px;
+
+color: #FFFFFF;</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../Neko_project/DeKi-Project/material/image 43.png</normaloff>../../Neko_project/DeKi-Project/material/image 43.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>155</width>
+           <height>99</height>
+          </size>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_add_click_2">
+         <property name="geometry">
+          <rect>
+           <x>130</x>
+           <y>30</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 6px;
+font: 8pt &quot;Arial&quot;;
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+padding: 0 0 0 5px;
+color: #FFFFFF;</string>
+         </property>
+         <property name="text">
+          <string>*клик*</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="file_button">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>190</x>
+           <y>10</y>
+           <width>56</width>
+           <height>52</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../Neko_project/DeKi-Project/material/image 75.png</normaloff>../../Neko_project/DeKi-Project/material/image 75.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="default">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QLabel" name="label_add_click_4">
+        <property name="geometry">
+         <rect>
+          <x>1195</x>
+          <y>636</y>
+          <width>61</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 6px;
+font: 8pt &quot;Arial&quot;;
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+padding: 0 0 0 5px;
+color: #FFFFFF;</string>
+        </property>
+        <property name="text">
+         <string>*клик*</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="card_board_box_button">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>1170</x>
+          <y>430</y>
+          <width>102</width>
+          <height>106</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(33, 24, 24, 0.6);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../Neko_project/DeKi-Project/material/image 78.png</normaloff>../../Neko_project/DeKi-Project/material/image 78.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="info_button">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>40</y>
+          <width>56</width>
+          <height>52</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../material/image 74.png</normaloff>../material/image 74.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="label_add_8">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>152</y>
+          <width>171</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 6px;
+font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+padding: 0 0 0 5px;
+color: #FFFFFF;</string>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Titillium Web'; font-size:12px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12px;&quot;&gt;Фиро выполнит ваше поручение!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="label_add_3">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>100</y>
+          <width>131</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(233, 209, 209, 0.3);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 6px;
+font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 20px;
+
+color: #FFFFFF;</string>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Titillium Web'; font-size:13px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;или приложения!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="trash_can_button">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>1170</x>
+          <y>560</y>
+          <width>102</width>
+          <height>106</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(33, 24, 24, 0.6);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../Neko_project/DeKi-Project/material/image 80.png</normaloff>../../Neko_project/DeKi-Project/material/image 80.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="background_message">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>-1</y>
+          <width>303</width>
+          <height>550</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+font-size: 12px;
+line-height: 27px;
+
+color: #FFFFFF;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="pixmap">
+         <pixmap>../material/Component 3 (2).png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="label_info_2">
+        <property name="geometry">
+         <rect>
+          <x>530</x>
+          <y>260</y>
+          <width>311</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 6px;
+font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+padding: 0 0 0 5px;
+color: #FFFFFF;</string>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Titillium Web'; font-size:12px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Если хочешь быстрый доступ к сайту то вставь ссылку&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="label_add_13">
+        <property name="geometry">
+         <rect>
+          <x>530</x>
+          <y>150</y>
+          <width>311</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 6px;
+font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+padding: 0 0 0 5px;
+color: #FFFFFF;</string>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Titillium Web'; font-size:12px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Если хочешь добавить приложение в быстрый запуск то *кликни* на хлеб&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="label_info_3">
+        <property name="geometry">
+         <rect>
+          <x>930</x>
+          <y>380</y>
+          <width>211</width>
+          <height>151</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 6px;
+font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+padding: 0 0 0 5px;
+color: #FFFFFF;</string>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Titillium Web'; font-size:12px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Полагаю, у тебя есть приложения, которыми ты почти не пользуешься, но *вдруг понадобятся*, предлагаю хранить их под рукой&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QFrame" name="del_bar_frame">
+        <property name="geometry">
+         <rect>
+          <x>659</x>
+          <y>540</y>
+          <width>501</width>
+          <height>141</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QScrollArea" name="delite_area">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>411</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="delite_area_container">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>409</width>
+            <height>49</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background: rgba(23, 23, 23, 0.0);</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_2"/>
+         </widget>
+        </widget>
+        <widget class="QTextBrowser" name="label_about_delite">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>80</y>
+           <width>171</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 6px;
+font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+padding: 0 0 0 5px;
+color: #FFFFFF;</string>
+         </property>
+         <property name="html">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Titillium Web'; font-size:12px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12px;&quot;&gt;кликни на те,которые хочешь удалить&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="delite_button">
+         <property name="geometry">
+          <rect>
+           <x>430</x>
+           <y>20</y>
+           <width>70</width>
+           <height>34</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+font-size: 13px;
+line-height: 27px;
+
+color: #FFFFFF;</string>
+         </property>
+         <property name="text">
+          <string>delite</string>
+         </property>
+        </widget>
+       </widget>
+       <zorder>del_bar_frame</zorder>
+       <zorder>label_29</zorder>
+       <zorder>background_message</zorder>
+       <zorder>card_board_box_button</zorder>
+       <zorder>trash_can_button</zorder>
+       <zorder>lineedit_command</zorder>
+       <zorder>label_add_1</zorder>
+       <zorder>label_add_4</zorder>
+       <zorder>save_command_button</zorder>
+       <zorder>label_add_click_1</zorder>
+       <zorder>label_add_7</zorder>
+       <zorder>lineedit_site</zorder>
+       <zorder>label_add_6</zorder>
+       <zorder>character_add_label</zorder>
+       <zorder>label_add_2</zorder>
+       <zorder>label_add_5</zorder>
+       <zorder>label_add_click_3</zorder>
+       <zorder>back_from_add_button</zorder>
+       <zorder>background_bread_button</zorder>
+       <zorder>label_add_click_4</zorder>
+       <zorder>info_button</zorder>
+       <zorder>label_add_8</zorder>
+       <zorder>label_add_3</zorder>
+       <zorder>label_info_2</zorder>
+       <zorder>label_add_13</zorder>
+       <zorder>label_info_3</zorder>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="setting_page">
+     <widget class="QStackedWidget" name="stackedWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>100</y>
+        <width>981</width>
+        <height>481</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="setting_page_3">
+       <widget class="QFrame" name="setting_page_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>929</width>
+          <height>445</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.8);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.35);
+border-radius: 13px;</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QLabel" name="label_setting_page_2">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>0</y>
+           <width>71</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 8pt &quot;Arial&quot;;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 34px;
+/* identical to box height */
+background: rgba(33, 24, 24, 0.0);
+
+color: #FFFFFF;
+</string>
+         </property>
+         <property name="text">
+          <string>setting</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_window_page_2">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>56</y>
+           <width>169</width>
+           <height>55</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.8);
+font: 18pt &quot;Arial&quot;;
+border: 3px solid #575151;
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+
+font-weight: normal;
+
+line-height: 40px;
+
+color: #FFFFFF;
+</string>
+         </property>
+         <property name="text">
+          <string>main window</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_normal_window_page_2">
+         <property name="geometry">
+          <rect>
+           <x>220</x>
+           <y>56</y>
+           <width>561</width>
+           <height>55</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.8);
+font: 18pt &quot;Arial&quot;;
+border: 3px solid #575151;
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+
+font-weight: normal;
+
+line-height: 40px;
+
+color: #FFFFFF;
+</string>
+         </property>
+         <property name="text">
+          <string>Normal size</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_page_2">
+         <property name="geometry">
+          <rect>
+           <x>786</x>
+           <y>10</y>
+           <width>91</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(33, 24, 24, 0.0);
+font: 16pt &quot;Arial&quot;;
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+
+font-weight: normal;
+
+line-height: 40px;
+
+color: #FFFFFF;
+</string>
+         </property>
+         <property name="text">
+          <string>page 2</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="button_window_r_2">
+         <property name="geometry">
+          <rect>
+           <x>740</x>
+           <y>70</y>
+           <width>31</width>
+           <height>26</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(33, 24, 24, 0.0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../Neko_project/DeKi-Project/material/image 38.png</normaloff>../../Neko_project/DeKi-Project/material/image 38.png</iconset>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="button_window_l_2">
+         <property name="geometry">
+          <rect>
+           <x>230</x>
+           <y>70</y>
+           <width>31</width>
+           <height>26</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(33, 24, 24, 0.0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../Neko_project/DeKi-Project/material/image 52.png</normaloff>../../Neko_project/DeKi-Project/material/image 52.png</iconset>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="button_on_1_page">
+         <property name="geometry">
+          <rect>
+           <x>761</x>
+           <y>13</y>
+           <width>31</width>
+           <height>26</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(33, 24, 24, 0.0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../Neko_project/DeKi-Project/material/image 52.png</normaloff>../../Neko_project/DeKi-Project/material/image 52.png</iconset>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="page">
+       <widget class="QFrame" name="frame">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>70</y>
+          <width>862</width>
+          <height>257</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: #171717;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QLabel" name="label">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>5</y>
+           <width>181</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height */
+
+
+color: rgba(255, 255, 255, 0.8);
+background: rgba(5, 5, 5, 0.0);</string>
+         </property>
+         <property name="text">
+          <string>setting google calendar</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_2">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>50</y>
+           <width>161</width>
+           <height>39</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 37px;
+/* identical to box height */
+
+
+color: rgba(255, 255, 255, 0.8);
+background: rgba(5, 5, 5, 0.0);</string>
+         </property>
+         <property name="text">
+          <string>Name json file</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_3">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>110</y>
+           <width>151</width>
+           <height>39</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 37px;
+/* identical to box height */
+
+
+color: rgba(255, 255, 255, 0.8);
+background: rgba(5, 5, 5, 0.0);</string>
+         </property>
+         <property name="text">
+          <string>Calendar ID</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_4">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>200</y>
+           <width>151</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 24px;
+/* identical to box height */
+
+
+color: rgba(255, 255, 255, 0.8);
+background: rgba(5, 5, 5, 0.0);</string>
+         </property>
+         <property name="text">
+          <string>It work?  - True</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton">
+         <property name="geometry">
+          <rect>
+           <x>280</x>
+           <y>210</y>
+           <width>251</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 37px;
+
+color: rgba(255, 255, 255, 0.7);</string>
+         </property>
+         <property name="text">
+          <string>---- click for help ---</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>50</y>
+           <width>328</width>
+           <height>39</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(233, 209, 209, 0.3);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 9px;
+font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 37px;
+
+color: rgba(255, 255, 255, 0.67);
+</string>
+         </property>
+         <property name="text">
+          <string>Neko write...</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lineEdit_2">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>110</y>
+           <width>328</width>
+           <height>39</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(233, 209, 209, 0.3);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 9px;
+font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 37px;
+
+color: rgba(255, 255, 255, 0.67);
+</string>
+         </property>
+         <property name="text">
+          <string>Neko write...</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="geometry">
+          <rect>
+           <x>670</x>
+           <y>40</y>
+           <width>167</width>
+           <height>128</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(233, 209, 212, 0.2);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 11px;
+font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 37px;
+text-align: center;
+
+color: rgba(255, 255, 255, 0.67);</string>
+         </property>
+         <property name="text">
+          <string>
+drag json file here
+</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="geometry">
+          <rect>
+           <x>750</x>
+           <y>202</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font-family: 'Titillium Web';
+font-style: normal;
+font-weight: 400;
+font-size: 32px;
+line-height: 37px;
+
+color: rgba(255, 255, 255, 0.7);</string>
+         </property>
+         <property name="text">
+          <string>back</string>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="setting_page_1">
+       <widget class="QFrame" name="page_setting_1">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>929</width>
+          <height>445</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.8);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.35);
+border-radius: 13px;</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QLabel" name="label_setting">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>0</y>
+           <width>71</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 8pt &quot;Arial&quot;;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 34px;
+/* identical to box height */
+background: rgba(33, 24, 24, 0.0);
+
+color: #FFFFFF;
+</string>
+         </property>
+         <property name="text">
+          <string>setting</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_setting_1">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>80</y>
+           <width>403</width>
+           <height>75</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.8);
+font: 18pt &quot;Arial&quot;;
+border: 3px solid #575151;
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 11px;
+
+font-weight: normal;
+
+line-height: 40px;
+
+color: #FFFFFF;
+</string>
+         </property>
+         <property name="text">
+          <string>Вайфу это твой выбор</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_setting_4">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>310</y>
+           <width>169</width>
+           <height>55</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.8);
+font: 18pt &quot;Arial&quot;;
+border: 3px solid #575151;
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+
+font-weight: normal;
+
+line-height: 40px;
+
+color: #FFFFFF;
+</string>
+         </property>
+         <property name="text">
+          <string>язык</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_setting_5">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>375</y>
+           <width>169</width>
+           <height>55</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.8);
+font: 18pt &quot;Arial&quot;;
+border: 3px solid #575151;
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+
+font-weight: normal;
+
+line-height: 40px;
+
+color: #FFFFFF;
+</string>
+         </property>
+         <property name="text">
+          <string>характер</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_setting_2">
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>160</y>
+           <width>141</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font-family: Roboto Mono;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 34px;
+/* identical to box height */
+background: rgba(33, 24, 24, 0.0);
+
+color: #FFFFFF;
+</string>
+         </property>
+         <property name="text">
+          <string>Укажите  свой  ник</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="Nickname_2">
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>210</y>
+           <width>226</width>
+           <height>58</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.8);
+border: 3px solid #575151;
+box-sizing: border-box;
+font: 18pt &quot;Arial&quot;;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 8px;
+font-weight: normal;
+
+line-height: 40px;
+
+color: #FFFFFF;</string>
+         </property>
+         <property name="text">
+          <string>нике</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_setting_6">
+         <property name="geometry">
+          <rect>
+           <x>220</x>
+           <y>310</y>
+           <width>561</width>
+           <height>55</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.8);
+font: 18pt &quot;Arial&quot;;
+border: 3px solid #575151;
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+
+font-weight: normal;
+
+line-height: 40px;
+
+color: #FFFFFF;
+</string>
+         </property>
+         <property name="text">
+          <string>русский</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_setting_7">
+         <property name="geometry">
+          <rect>
+           <x>220</x>
+           <y>376</y>
+           <width>561</width>
+           <height>55</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.8);
+font: 18pt &quot;Arial&quot;;
+border: 3px solid #575151;
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+
+font-weight: normal;
+
+line-height: 40px;
+
+color: #FFFFFF;
+</string>
+         </property>
+         <property name="text">
+          <string>вайфу</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="character_set">
+         <property name="geometry">
+          <rect>
+           <x>470</x>
+           <y>0</y>
+           <width>167</width>
+           <height>234</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(33, 24, 24, 0.0);
+font: 18pt &quot;Arial&quot;;
+
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+
+font-weight: normal;
+
+line-height: 40px;
+
+color: #FFFFFF;
+</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>../material/Firo/Firo_setting.png</pixmap>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="button_save">
+         <property name="geometry">
+          <rect>
+           <x>800</x>
+           <y>310</y>
+           <width>106</width>
+           <height>55</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.8);
+border: 1px solid #B19696;
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+font-size: 26px;
+
+
+color: #FFFFFF;</string>
+         </property>
+         <property name="text">
+          <string>save</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="back_fome_setting_button">
+         <property name="geometry">
+          <rect>
+           <x>800</x>
+           <y>370</y>
+           <width>106</width>
+           <height>55</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.8);
+border: 1px solid #B19696;
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+font-size: 26px;
+
+
+color: #FFFFFF;</string>
+         </property>
+         <property name="text">
+          <string>back</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_setting_8">
+         <property name="geometry">
+          <rect>
+           <x>720</x>
+           <y>56</y>
+           <width>171</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 8pt &quot;Arial&quot;;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 34px;
+/* identical to box height */
+background: rgba(33, 24, 24, 0.0);
+
+color: #FFFFFF;
+</string>
+         </property>
+         <property name="text">
+          <string>Укажите  ник  персонажа</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="Nickname_1">
+         <property name="geometry">
+          <rect>
+           <x>690</x>
+           <y>90</y>
+           <width>226</width>
+           <height>58</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.8);
+border: 3px solid #575151;
+box-sizing: border-box;
+font: 18pt &quot;Arial&quot;;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 8px;
+font-weight: normal;
+
+line-height: 40px;
+
+color: #FFFFFF;</string>
+         </property>
+         <property name="text">
+          <string>нике</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_10">
+         <property name="geometry">
+          <rect>
+           <x>770</x>
+           <y>10</y>
+           <width>121</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(33, 24, 24, 0.0);
+font: 16pt &quot;Arial&quot;;
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+
+font-weight: normal;
+
+line-height: 40px;
+
+color: #FFFFFF;
+</string>
+         </property>
+         <property name="text">
+          <string>page 1</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="next_on_page_2_button">
+         <property name="geometry">
+          <rect>
+           <x>890</x>
+           <y>14</y>
+           <width>31</width>
+           <height>26</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(33, 24, 24, 0.0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../Neko_project/DeKi-Project/material/image 38.png</normaloff>../../Neko_project/DeKi-Project/material/image 38.png</iconset>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="button_language_r">
+         <property name="geometry">
+          <rect>
+           <x>740</x>
+           <y>324</y>
+           <width>31</width>
+           <height>26</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(33, 24, 24, 0.0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../Neko_project/DeKi-Project/material/image 38.png</normaloff>../../Neko_project/DeKi-Project/material/image 38.png</iconset>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="button_behavior_r">
+         <property name="geometry">
+          <rect>
+           <x>740</x>
+           <y>390</y>
+           <width>31</width>
+           <height>26</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(33, 24, 24, 0.0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../Neko_project/DeKi-Project/material/image 38.png</normaloff>../../Neko_project/DeKi-Project/material/image 38.png</iconset>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="button_language_l">
+         <property name="geometry">
+          <rect>
+           <x>230</x>
+           <y>324</y>
+           <width>31</width>
+           <height>26</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(33, 24, 24, 0.0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../Neko_project/DeKi-Project/material/image 52.png</normaloff>../../Neko_project/DeKi-Project/material/image 52.png</iconset>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="button_behavior_l">
+         <property name="geometry">
+          <rect>
+           <x>230</x>
+           <y>390</y>
+           <width>31</width>
+           <height>26</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(33, 24, 24, 0.0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../Neko_project/DeKi-Project/material/image 52.png</normaloff>../../Neko_project/DeKi-Project/material/image 52.png</iconset>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="button_character_r">
+         <property name="geometry">
+          <rect>
+           <x>640</x>
+           <y>130</y>
+           <width>31</width>
+           <height>26</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(33, 24, 24, 0.0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../Neko_project/DeKi-Project/material/image 38.png</normaloff>../../Neko_project/DeKi-Project/material/image 38.png</iconset>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="button_character_l">
+         <property name="geometry">
+          <rect>
+           <x>450</x>
+           <y>130</y>
+           <width>31</width>
+           <height>26</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(33, 24, 24, 0.0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../Neko_project/DeKi-Project/material/image 52.png</normaloff>../../Neko_project/DeKi-Project/material/image 52.png</iconset>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_main_min">
+     <widget class="QFrame" name="main_min_frame">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>230</y>
+        <width>481</width>
+        <height>281</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QFrame" name="main_min_button_panel">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>60</y>
+         <width>350</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QLabel" name="character_s_min">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>240</x>
+          <y>10</y>
+          <width>92</width>
+          <height>90</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap>../material/Neko/Neko_s.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QScrollArea" name="area_min_main">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>211</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="area_min_main_container">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>209</width>
+           <height>69</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgba(23, 23, 23, 0.0);</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="1" column="0">
+           <widget class="QPushButton" name="button_note_min">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>../../Neko_project/DeKi-Project/material/image 50.png</normaloff>../../Neko_project/DeKi-Project/material/image 50.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
+            <property name="default">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="like_command_button_min">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>../../Neko_project/DeKi-Project/material/image 41.png</normaloff>../../Neko_project/DeKi-Project/material/image 41.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
+            <property name="default">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QPushButton" name="teg_button_min">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background: rgba(23, 23, 23, 0.0);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>../../Neko_project/DeKi-Project/material/image 42.png</normaloff>../../Neko_project/DeKi-Project/material/image 42.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
+            <property name="default">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QPushButton" name="wrap_button">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>180</y>
+         <width>344</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: rgba(23, 23, 23, 0.9);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+font-size: 18px;
+line-height: 27px;
+
+color: #FFFFFF;</string>
+       </property>
+       <property name="text">
+        <string>wrap</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_dialog_min_frame">
+       <property name="geometry">
+        <rect>
+         <x>390</x>
+         <y>70</y>
+         <width>83</width>
+         <height>73</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: rgba(23, 23, 23, 0.9);
+border: 2px solid #A7A7A7;
+
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;
+font-family: Titillium Web;
+font-style: normal;
+font-weight: normal;
+font-size: 12px;
+line-height: 27px;
+text-align: center;
+padding: 0 0 0 13px;
+color: #FFFFFF;</string>
+       </property>
+       <property name="text">
+        <string>Рада вас
+ видеть
+ хозяин</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="teg_list_frame_2">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>280</y>
+        <width>251</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgba(23, 23, 23, 0.83);
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 13px;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QScrollArea" name="teg_area_2">
+       <property name="geometry">
+        <rect>
+         <x>-20</x>
+         <y>-10</y>
+         <width>281</width>
+         <height>181</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: rgba(23, 23, 23, 0);
+border-radius: 13px;</string>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="teg_area_container_3">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>279</width>
+          <height>179</height>
+         </rect>
+        </property>
+        <widget class="QPushButton" name="setting_button_min">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>30</y>
+           <width>200</width>
+           <height>32</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius: 2px;
+font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgba(255, 255, 255, 0.67);
+
+background: rgba(23, 23, 23, 0.31);
+border: 1px solid rgba(233, 233, 233, 0.22);
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
+         </property>
+         <property name="text">
+          <string>setting</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="rule_button_min">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>80</y>
+           <width>200</width>
+           <height>32</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius: 2px;
+font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgba(255, 255, 255, 0.67);
+
+background: rgba(23, 23, 23, 0.31);
+border: 1px solid rgba(233, 233, 233, 0.22);
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
+         </property>
+         <property name="text">
+          <string>ruling command</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="q_a_button_min">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>130</y>
+           <width>200</width>
+           <height>32</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius: 2px;
+font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgba(255, 255, 255, 0.67);
+
+background: rgba(23, 23, 23, 0.31);
+border: 1px solid rgba(233, 233, 233, 0.22);
+box-sizing: border-box;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);</string>
+         </property>
+         <property name="text">
+          <string>q&amp;&amp;a</string>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

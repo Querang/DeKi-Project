@@ -17,7 +17,7 @@
    <string notr="true">background: #181818;
 border: 1px solid #646464;</string>
   </property>
-  <widget class="QTextBrowser" name="textBrowser_3">
+  <widget class="QTextBrowser" name="descr">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -58,7 +58,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Roboto Mono'; font-size:11pt; font-weight:296;&quot;&gt;mark:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="sorted_by_time">
+  <widget class="QComboBox" name="teg_choice">
    <property name="geometry">
     <rect>
      <x>70</x>
@@ -86,7 +86,7 @@ color: rgba(255, 255, 255, 0.8);
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QComboBox" name="sorted_by_time_2">
+  <widget class="QComboBox" name="action_choice">
    <property name="geometry">
     <rect>
      <x>70</x>
@@ -114,7 +114,7 @@ color: rgba(255, 255, 255, 0.8);
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="find_line">
+  <widget class="QLineEdit" name="sait_line">
    <property name="geometry">
     <rect>
      <x>70</x>
@@ -145,7 +145,7 @@ color: rgba(255, 255, 255, 0.8);
     <string notr="true">your sait</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="find_line_2">
+  <widget class="QLineEdit" name="mark_line">
    <property name="geometry">
     <rect>
      <x>70</x>
@@ -176,7 +176,7 @@ color: rgba(255, 255, 255, 0.8);
     <string notr="true">maybe you want marked this?</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="sorted_by_time_3">
+  <widget class="QComboBox" name="element_choice">
    <property name="geometry">
     <rect>
      <x>320</x>
@@ -204,7 +204,7 @@ color: rgba(255, 255, 255, 0.8);
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QPushButton" name="button_back">
+  <widget class="QPushButton" name="continue_button">
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -230,7 +230,7 @@ color: rgba(255, 255, 255, 1.0)
     <string>continue</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="button_back_2">
+  <widget class="QPushButton" name="button_close">
    <property name="geometry">
     <rect>
      <x>490</x>
@@ -256,7 +256,7 @@ color: rgba(255, 255, 255, 1.0)
     <string>X</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="find_line_3">
+  <widget class="QLineEdit" name="value_line">
    <property name="geometry">
     <rect>
      <x>250</x>

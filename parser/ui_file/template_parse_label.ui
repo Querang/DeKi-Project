@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QGroupBox" name="groupBox">
+  <widget class="QGroupBox" name="parser_label">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -40,7 +40,7 @@
    <property name="title">
     <string/>
    </property>
-   <widget class="QFrame" name="frame_2">
+   <widget class="QFrame" name="parser_label_sub">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -58,7 +58,7 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="icon_mark">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -74,13 +74,13 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap>../material/mark_icon/bell.png</pixmap>
+      <pixmap>../../../../DeKi-Project/parser/material/mark_icon/bell.png</pixmap>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="textBrowser">
+    <widget class="QTextBrowser" name="sait_text">
      <property name="geometry">
       <rect>
        <x>60</x>
@@ -114,7 +114,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;https://www.figma.com&lt;br /&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="textBrowser_2">
+    <widget class="QTextBrowser" name="element_text">
      <property name="geometry">
       <rect>
        <x>60</x>
@@ -167,7 +167,7 @@ background: rgba(199, 199, 199, 0.0);</string>
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>../material/pause_1.png</normaloff>../material/pause_1.png</iconset>
+       <normaloff>../../../../DeKi-Project/parser/material/pause_1.png</normaloff>../../../../DeKi-Project/parser/material/pause_1.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -176,7 +176,7 @@ background: rgba(199, 199, 199, 0.0);</string>
       </size>
      </property>
     </widget>
-    <widget class="QPushButton" name="pause_2">
+    <widget class="QPushButton" name="status_icon">
      <property name="geometry">
       <rect>
        <x>330</x>
@@ -194,7 +194,7 @@ background: rgba(199, 199, 199, 0.0);</string>
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>../material/good_connect_ver_2.png</normaloff>../material/good_connect_ver_2.png</iconset>
+       <normaloff>../../../../DeKi-Project/parser/material/good_connect_ver_2.png</normaloff>../../../../DeKi-Project/parser/material/good_connect_ver_2.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -203,7 +203,7 @@ background: rgba(199, 199, 199, 0.0);</string>
       </size>
      </property>
     </widget>
-    <widget class="QPushButton" name="pause_3">
+    <widget class="QPushButton" name="extend">
      <property name="geometry">
       <rect>
        <x>360</x>
@@ -221,7 +221,7 @@ background: rgba(199, 199, 199, 0.0);</string>
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>../material/tree_point.png</normaloff>../material/tree_point.png</iconset>
+       <normaloff>../../../../DeKi-Project/parser/material/tree_point.png</normaloff>../../../../DeKi-Project/parser/material/tree_point.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -231,7 +231,7 @@ background: rgba(199, 199, 199, 0.0);</string>
      </property>
     </widget>
    </widget>
-   <widget class="QFrame" name="frame_3">
+   <widget class="QFrame" name="briefly_info_frame">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -250,7 +250,7 @@ border: 1px solid #646464;</string>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QTextBrowser" name="textBrowser_3">
+    <widget class="QTextBrowser" name="briefly_info">
      <property name="geometry">
       <rect>
        <x>10</x>

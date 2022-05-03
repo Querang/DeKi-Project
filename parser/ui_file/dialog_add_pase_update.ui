@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>517</width>
+    <height>363</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QFrame" name="frame_site_1">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>511</width>
+     <height>55</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: #181818;
+border: 1px solid #646464;
+box-sizing: border-box;
+border-radius: 4px;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QLabel" name="site_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>9</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 8pt &quot;NSimSun&quot;;;
+font-weight: 200;
+font-size: 18px;
+line-height: 10px;
+text-decoration-line: underline;
+background: rgba(44, 40, 40, 0.0);
+color: rgba(255, 255, 255, 0.8);
+
+border: 0.5px solid rgba(167, 167, 167, 0.0);</string>
+    </property>
+    <property name="text">
+     <string>Site:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="site_line">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>16</y>
+      <width>341</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: #2B2B2B;
+border-radius: 4px;
+font-family: 'Roboto Mono';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 18px;
+
+color: rgba(255, 255, 255, 0.8);
+</string>
+    </property>
+    <property name="inputMask">
+     <string/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string notr="true">your sait</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_close">
+    <property name="geometry">
+     <rect>
+      <x>484</x>
+      <y>1</y>
+      <width>21</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+font-family: 'Roboto Mono';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 18px;
+border: 0px solid #646464;
+color: rgba(255, 255, 255, 0.8);background: rgba(23, 23, 23, 0.0);}
+QPushButton:hover{
+color: rgba(255, 255, 255, 1.0)
+}</string>
+    </property>
+    <property name="text">
+     <string>X</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QFrame" name="frame_element_2">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>56</y>
+     <width>511</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: #181818;
+border: 1px solid #646464;
+box-sizing: border-box;
+border-radius: 4px;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QLabel" name="tag_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>5</y>
+      <width>61</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 8pt &quot;NSimSun&quot;;;
+font-weight: 200;
+font-size: 18px;
+line-height: 10px;
+text-decoration-line: underline;
+background: rgba(44, 40, 40, 0.0);
+color: rgba(255, 255, 255, 0.8);
+
+border: 0.5px solid rgba(167, 167, 167, 0.0);</string>
+    </property>
+    <property name="text">
+     <string>Tag:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="element_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>76</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 8pt &quot;NSimSun&quot;;;
+font-weight: 200;
+font-size: 18px;
+line-height: 10px;
+text-decoration-line: underline;
+background: rgba(44, 40, 40, 0.0);
+color: rgba(255, 255, 255, 0.8);
+
+border: 0.5px solid rgba(167, 167, 167, 0.0);</string>
+    </property>
+    <property name="text">
+     <string>Element:</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="tag_choice">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>10</y>
+      <width>241</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: #2B2B2B;
+border-radius: 4px;
+font-family: 'Roboto Mono';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 18px;
+
+color: rgba(255, 255, 255, 0.8);
+</string>
+    </property>
+    <property name="duplicatesEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="element_choice_2">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>82</y>
+      <width>241</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: #2B2B2B;
+border-radius: 4px;
+font-family: 'Roboto Mono';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 18px;
+
+color: rgba(255, 255, 255, 0.8);
+</string>
+    </property>
+    <property name="duplicatesEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="class_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>61</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 8pt &quot;NSimSun&quot;;;
+font-weight: 200;
+font-size: 18px;
+line-height: 10px;
+text-decoration-line: underline;
+background: rgba(44, 40, 40, 0.0);
+color: rgba(255, 255, 255, 0.8);
+
+border: 0.5px solid rgba(167, 167, 167, 0.0);</string>
+    </property>
+    <property name="text">
+     <string>class:</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="class_choice">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>45</y>
+      <width>151</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: #2B2B2B;
+border-radius: 4px;
+font-family: 'Roboto Mono';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 18px;
+
+color: rgba(255, 255, 255, 0.8);
+</string>
+    </property>
+    <property name="duplicatesEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="id_label">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>40</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 8pt &quot;NSimSun&quot;;;
+font-weight: 200;
+font-size: 18px;
+line-height: 10px;
+text-decoration-line: underline;
+background: rgba(44, 40, 40, 0.0);
+color: rgba(255, 255, 255, 0.8);
+
+border: 0.5px solid rgba(167, 167, 167, 0.0);</string>
+    </property>
+    <property name="text">
+     <string>id:</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="id_choice">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>45</y>
+      <width>161</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: #2B2B2B;
+border-radius: 4px;
+font-family: 'Roboto Mono';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 18px;
+
+color: rgba(255, 255, 255, 0.8);
+</string>
+    </property>
+    <property name="duplicatesEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_lock_1">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>511</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QTextBrowser" name="descr">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>40</y>
+       <width>211</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 8pt &quot;NSimSun&quot;;;
+font-weight: 200;
+font-size: 13px;
+line-height: 10px;
+text-decoration-line: underline;
+background: rgba(44, 40, 40, 0.0);
+color: rgba(255, 255, 255, 0.8);
+
+border: 0.5px solid rgba(167, 167, 167, 0.0);</string>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="html">
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'NSimSun'; font-size:13px; font-weight:200; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:13px;&quot;&gt;The seal is unlocked if you fill in the item above.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lock_label">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>30</y>
+       <width>51</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+background: rgba(44, 40, 40, 0.0);
+
+
+border: 0.5px solid rgba(167, 167, 167, 0.0);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap>../../../../DeKi-Project/parser/material/lock_icon.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QFrame" name="frame_action_3">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>178</y>
+     <width>511</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: #181818;
+border: 1px solid #646464;
+box-sizing: border-box;
+border-radius: 4px;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 8pt &quot;NSimSun&quot;;;
+font-weight: 200;
+font-size: 18px;
+line-height: 10px;
+text-decoration-line: underline;
+background: rgba(44, 40, 40, 0.0);
+color: rgba(255, 255, 255, 0.8);
+
+border: 0.5px solid rgba(167, 167, 167, 0.0);</string>
+    </property>
+    <property name="text">
+     <string>Action:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 8pt &quot;NSimSun&quot;;;
+font-weight: 200;
+font-size: 18px;
+line-height: 10px;
+text-decoration-line: underline;
+background: rgba(44, 40, 40, 0.0);
+color: rgba(255, 255, 255, 0.8);
+
+border: 0.5px solid rgba(167, 167, 167, 0.0);</string>
+    </property>
+    <property name="text">
+     <string>Mark:</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="action_choice">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>17</y>
+      <width>171</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: #2B2B2B;
+border-radius: 4px;
+font-family: 'Roboto Mono';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 18px;
+
+color: rgba(255, 255, 255, 0.8);
+</string>
+    </property>
+    <property name="duplicatesEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="value_line">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>17</y>
+      <width>191</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: #2B2B2B;
+border-radius: 4px;
+font-family: 'Roboto Mono';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 18px;
+
+color: rgba(255, 255, 255, 0.8);
+</string>
+    </property>
+    <property name="inputMask">
+     <string/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string notr="true">input value</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_lock_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>511</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QTextBrowser" name="descr_2">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>20</y>
+       <width>211</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 8pt &quot;NSimSun&quot;;;
+font-weight: 200;
+font-size: 13px;
+line-height: 10px;
+text-decoration-line: underline;
+background: rgba(44, 40, 40, 0.0);
+color: rgba(255, 255, 255, 0.8);
+
+border: 0.5px solid rgba(167, 167, 167, 0.0);</string>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="html">
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'NSimSun'; font-size:13px; font-weight:200; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:13px;&quot;&gt;The seal is unlocked if you fill in the item above.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lock_label_1">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>10</y>
+       <width>51</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+background: rgba(44, 40, 40, 0.0);
+
+
+border: 0.5px solid rgba(167, 167, 167, 0.0);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap>../../../../DeKi-Project/parser/material/lock_icon.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>259</y>
+     <width>511</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+font: 8pt &quot;NSimSun&quot;;
+font-style: normal;
+font-weight: 300;
+font-size: 18px;
+line-height: 32px;
+
+color: #FFFFFF;background: #181818;
+border: 1px solid #646464;
+box-sizing: border-box;
+border-radius: 4px;</string>
+   </property>
+   <property name="text">
+    <string>-- serfing --</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

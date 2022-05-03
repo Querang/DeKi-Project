@@ -9,12 +9,15 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import Firo_parse_sqlite
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(452, 682)
+        config_name = Firo_parse_sqlite.read_config("parser_config.yaml")
+        MainWindow.move(config_name["window_position_x"], config_name["window_position_y"])
         MainWindow.setStyleSheet("background: #282828;")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -23,15 +26,15 @@ class Ui_MainWindow(object):
         self.serfing_button.setMinimumSize(QtCore.QSize(452, 53))
         self.serfing_button.setMaximumSize(QtCore.QSize(452, 53))
         self.serfing_button.setStyleSheet("\n"
-"font: 8pt \"NSimSun\";\n"
-"font-style: normal;\n"
-"font-weight: 300;\n"
-"font-size: 24px;\n"
-"line-height: 32px;\n"
-"\n"
-"color: #FFFFFF;\n"
-"\n"
-"background: #101010;")
+                                          "font: 8pt \"NSimSun\";\n"
+                                          "font-style: normal;\n"
+                                          "font-weight: 300;\n"
+                                          "font-size: 24px;\n"
+                                          "line-height: 32px;\n"
+                                          "\n"
+                                          "color: #FFFFFF;\n"
+                                          "\n"
+                                          "background: #101010;")
         self.serfing_button.setObjectName("serfing_button")
         self.sub_top_frame = QtWidgets.QFrame(self.centralwidget)
         self.sub_top_frame.setGeometry(QtCore.QRect(0, 25, 452, 86))
@@ -44,15 +47,15 @@ class Ui_MainWindow(object):
         self.find_line = QtWidgets.QLineEdit(self.sub_top_frame)
         self.find_line.setGeometry(QtCore.QRect(10, 45, 420, 29))
         self.find_line.setStyleSheet("background: #2B2B2B;\n"
-"border-radius: 4px;\n"
-"font-family: \'Roboto Mono\';\n"
-"font-style: normal;\n"
-"font-weight: 400;\n"
-"font-size: 14px;\n"
-"line-height: 18px;\n"
-"\n"
-"color: rgba(255, 255, 255, 0.8);\n"
-"")
+                                     "border-radius: 4px;\n"
+                                     "font-family: \'Roboto Mono\';\n"
+                                     "font-style: normal;\n"
+                                     "font-weight: 400;\n"
+                                     "font-size: 14px;\n"
+                                     "line-height: 18px;\n"
+                                     "\n"
+                                     "color: rgba(255, 255, 255, 0.8);\n"
+                                     "")
         self.find_line.setInputMask("")
         self.find_line.setText("")
         self.find_line.setPlaceholderText(" type to search")
@@ -60,39 +63,39 @@ class Ui_MainWindow(object):
         self.sorted_by_mark = QtWidgets.QComboBox(self.sub_top_frame)
         self.sorted_by_mark.setGeometry(QtCore.QRect(10, 10, 206, 29))
         self.sorted_by_mark.setStyleSheet("background: #2B2B2B;\n"
-"border-radius: 2px;\n"
-"font-family: \'Roboto Mono\';\n"
-"font-style: normal;\n"
-"font-weight: 400;\n"
-"font-size: 14px;\n"
-"line-height: 18px;\n"
-"\n"
-"color: rgba(255, 255, 255, 0.8);\n"
-"")
+                                          "border-radius: 2px;\n"
+                                          "font-family: \'Roboto Mono\';\n"
+                                          "font-style: normal;\n"
+                                          "font-weight: 400;\n"
+                                          "font-size: 14px;\n"
+                                          "line-height: 18px;\n"
+                                          "\n"
+                                          "color: rgba(255, 255, 255, 0.8);\n"
+                                          "")
         self.sorted_by_mark.setDuplicatesEnabled(False)
         self.sorted_by_mark.setFrame(True)
         self.sorted_by_mark.setObjectName("sorted_by_mark")
         self.sorted_by_time = QtWidgets.QComboBox(self.sub_top_frame)
         self.sorted_by_time.setGeometry(QtCore.QRect(223, 10, 206, 29))
         self.sorted_by_time.setStyleSheet("background: #2B2B2B;\n"
-"border-radius: 2px;\n"
-"font-family: \'Roboto Mono\';\n"
-"font-style: normal;\n"
-"font-weight: 400;\n"
-"font-size: 14px;\n"
-"line-height: 18px;\n"
-"\n"
-"color: rgba(255, 255, 255, 0.8);\n"
-"")
+                                          "border-radius: 2px;\n"
+                                          "font-family: \'Roboto Mono\';\n"
+                                          "font-style: normal;\n"
+                                          "font-weight: 400;\n"
+                                          "font-size: 14px;\n"
+                                          "line-height: 18px;\n"
+                                          "\n"
+                                          "color: rgba(255, 255, 255, 0.8);\n"
+                                          "")
         self.sorted_by_time.setDuplicatesEnabled(False)
         self.sorted_by_time.setFrame(True)
         self.sorted_by_time.setObjectName("sorted_by_time")
         self.button_clear_find = QtWidgets.QPushButton(self.sub_top_frame)
         self.button_clear_find.setGeometry(QtCore.QRect(393, 43, 31, 31))
         self.button_clear_find.setStyleSheet("color: rgba(255, 255, 255, 0.8);\n"
-"background: rgba(199, 199, 199, 0.0);\n"
-"font-size: 18px;\n"
-"border-top:0px solid rgb(46, 46, 46);")
+                                             "background: rgba(199, 199, 199, 0.0);\n"
+                                             "font-size: 18px;\n"
+                                             "border-top:0px solid rgb(46, 46, 46);")
         self.button_clear_find.setObjectName("button_clear_find")
         self.topbar = QtWidgets.QFrame(self.centralwidget)
         self.topbar.setGeometry(QtCore.QRect(0, 0, 452, 25))
@@ -105,38 +108,39 @@ class Ui_MainWindow(object):
         self.button_X = QtWidgets.QPushButton(self.topbar)
         self.button_X.setGeometry(QtCore.QRect(419, 2, 31, 23))
         self.button_X.setStyleSheet("color: #FFFFFF;\n"
-"background: rgba(199, 199, 199, 0.0);")
+                                    "background: rgba(199, 199, 199, 0.0);")
         self.button_X.setObjectName("button_X")
         self.button_swap_2 = QtWidgets.QPushButton(self.topbar)
         self.button_swap_2.setGeometry(QtCore.QRect(400, 2, 21, 23))
         self.button_swap_2.setStyleSheet("color: #FFFFFF;\n"
-"background: rgba(199, 199, 199, 0.0);")
+                                         "background: rgba(199, 199, 199, 0.0);")
         self.button_swap_2.setObjectName("button_swap_2")
         self.button_setting = QtWidgets.QPushButton(self.topbar)
         self.button_setting.setGeometry(QtCore.QRect(360, 2, 21, 23))
         self.button_setting.setStyleSheet("color: #FFFFFF;\n"
-"background: rgba(199, 199, 199, 0.0);")
+                                          "background: rgba(199, 199, 199, 0.0);")
         self.button_setting.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../../../../DeKi-Project/library/lib_material/gear.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("../../../../DeKi-Project/library/lib_material/gear.png"), QtGui.QIcon.Normal,
+                       QtGui.QIcon.Off)
         self.button_setting.setIcon(icon)
         self.button_setting.setObjectName("button_setting")
         self.tutorial_button = QtWidgets.QPushButton(self.topbar)
         self.tutorial_button.setGeometry(QtCore.QRect(380, 2, 21, 23))
         self.tutorial_button.setStyleSheet("color: #FFFFFF;\n"
-"background: rgba(199, 199, 199, 0.0);")
+                                           "background: rgba(199, 199, 199, 0.0);")
         self.tutorial_button.setObjectName("tutorial_button")
         self.name_app = QtWidgets.QTextBrowser(self.topbar)
         self.name_app.setGeometry(QtCore.QRect(0, 0, 221, 21))
         self.name_app.setStyleSheet("font-family: \'Roboto Mono\';\n"
-"font-style: normal;\n"
-"font-weight: 300;\n"
-"font-size: 13px;\n"
-"line-height: 17px;\n"
-"text-decoration-line: underline;\n"
-"background: rgba(44, 40, 40, 0.0);\n"
-"color: rgba(255, 255, 255, 0.8);\n"
-"border: 0.5px solid rgba(167, 167, 167, 0.0);")
+                                    "font-style: normal;\n"
+                                    "font-weight: 300;\n"
+                                    "font-size: 13px;\n"
+                                    "line-height: 17px;\n"
+                                    "text-decoration-line: underline;\n"
+                                    "background: rgba(44, 40, 40, 0.0);\n"
+                                    "color: rgba(255, 255, 255, 0.8);\n"
+                                    "border: 0.5px solid rgba(167, 167, 167, 0.0);")
         self.name_app.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.name_app.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.name_app.setObjectName("name_app")
@@ -153,7 +157,7 @@ class Ui_MainWindow(object):
         self.area_for_item.setMinimumSize(QtCore.QSize(416, 300))
         self.area_for_item.setMaximumSize(QtCore.QSize(416, 501))
         self.area_for_item.setStyleSheet("background: rgba(44, 40, 40, 0.0);\n"
-"border: 0.5px solid rgba(167, 167, 167, 0.0);")
+                                         "border: 0.5px solid rgba(167, 167, 167, 0.0);")
         self.area_for_item.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.area_for_item.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.area_for_item.setWidgetResizable(True)
@@ -181,10 +185,10 @@ class Ui_MainWindow(object):
         self.button_X.setText(_translate("MainWindow", "X"))
         self.button_swap_2.setText(_translate("MainWindow", "—"))
         self.tutorial_button.setText(_translate("MainWindow", "?"))
-        self.name_app.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Roboto Mono\'; font-size:13px; font-weight:296; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">Firo\'s parser</span></p></body></html>"))
+        self.name_app.setHtml(_translate("MainWindow",
+                                         "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                         "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                         "p, li { white-space: pre-wrap; }\n"
+                                         "</style></head><body style=\" font-family:\'Roboto Mono\'; font-size:13px; font-weight:296; font-style:normal;\">\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">Firo\'s parser</span></p></body></html>"))
         self.scroll_label.setText(_translate("MainWindow", "TextLabel"))
-

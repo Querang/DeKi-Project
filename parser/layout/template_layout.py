@@ -9,6 +9,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+# from parser.parser_function import check_website
+from bs4 import BeautifulSoup
+import requests
 
 
 class GenerateParseLabel(QtWidgets.QGroupBox):
@@ -31,7 +34,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
         self.icon_mark.setGeometry(QtCore.QRect(0, 0, 51, 51))
         self.icon_mark.setStyleSheet("background: rgba(44, 40, 40, 0.0);")
         self.icon_mark.setText("")
-        self.icon_mark.setPixmap(QtGui.QPixmap("../material/mark_icon/bell.png"))
+        self.icon_mark.setPixmap(QtGui.QPixmap("../parser/material/mark_icon/bell.png"))
         self.icon_mark.setAlignment(QtCore.Qt.AlignCenter)
         self.icon_mark.setObjectName("icon_mark")
         self.site_text = QtWidgets.QTextBrowser(self.parser_label_sub)
@@ -69,7 +72,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
                                  "background: rgba(199, 199, 199, 0.0);")
         self.pause.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../../../../DeKi-Project/parser/material/pause_1.png"), QtGui.QIcon.Normal,
+        icon.addPixmap(QtGui.QPixmap("../parser/material/pause_1.png"), QtGui.QIcon.Normal,
                        QtGui.QIcon.Off)
         self.pause.setIcon(icon)
         self.pause.setIconSize(QtCore.QSize(14, 10))
@@ -80,7 +83,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
                                        "background: rgba(199, 199, 199, 0.0);")
         self.status_icon.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("../../../../DeKi-Project/parser/material/good_connect_ver_2.png"),
+        icon1.addPixmap(QtGui.QPixmap("../parser/material/good_connect_ver_2.png"),
                         QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.status_icon.setIcon(icon1)
         self.status_icon.setIconSize(QtCore.QSize(16, 20))
@@ -91,7 +94,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
                                   "background: rgba(199, 199, 199, 0.0);")
         self.extend.setText("")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("../../../../DeKi-Project/parser/material/tree_point.png"), QtGui.QIcon.Normal,
+        icon2.addPixmap(QtGui.QPixmap("../parser/material/tree_point.png"), QtGui.QIcon.Normal,
                         QtGui.QIcon.Off)
         self.extend.setIcon(icon2)
         self.extend.setIconSize(QtCore.QSize(20, 20))
@@ -149,26 +152,68 @@ class Dialog_get_date(QtWidgets.QDialog):
     def __init__(self, position):
         super(Dialog_get_date, self).__init__()
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.position_x, self.position_y = position
-        self.setGeometry(QtCore.QRect(self.position_x + 550, self.position_y + 300, 517, 190))
-        self.setStyleSheet("background: #181818;\n"
-                           "border: 1px solid #646464;")
-        self.descr = QtWidgets.QTextBrowser(self)
-        self.descr.setGeometry(QtCore.QRect(10, 20, 431, 161))
-        self.descr.setStyleSheet("font: 8pt \"NSimSun\";;\n"
-                                 "font-weight: 200;\n"
-                                 "font-size: 13px;\n"
-                                 "line-height: 10px;\n"
-                                 "text-decoration-line: underline;\n"
-                                 "background: rgba(44, 40, 40, 0.0);\n"
-                                 "color: rgba(255, 255, 255, 0.8);\n"
-                                 "\n"
-                                 "border: 0.5px solid rgba(167, 167, 167, 0.0);")
-        self.descr.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.descr.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.descr.setObjectName("descr")
-        self.tag_choice = QtWidgets.QComboBox(self)
-        self.tag_choice.setGeometry(QtCore.QRect(70, 61, 151, 20))
+        self.setGeometry(QtCore.QRect(self.position_x + 550, self.position_y + 300, 517, 363))
+        self.frame_site_1 = QtWidgets.QFrame(self)
+        self.frame_site_1.setGeometry(QtCore.QRect(0, 0, 511, 55))
+        self.frame_site_1.setStyleSheet("background: #181818;\n"
+                                        "border: 1px solid #646464;\n"
+                                        "box-sizing: border-box;\n"
+                                        "border-radius: 4px;")
+        self.frame_site_1.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_site_1.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_site_1.setObjectName("frame_site_1")
+        self.site_label = Dialog_add_label(self.frame_site_1)
+        self.site_label.setGeometry(QtCore.QRect(10, 9, 51, 31))
+        self.site_label.setObjectName("site_label")
+        self.site_line = QtWidgets.QLineEdit(self.frame_site_1)
+        self.site_line.setGeometry(QtCore.QRect(80, 16, 341, 21))
+        self.site_line.setStyleSheet("background: #2B2B2B;\n"
+                                     "border-radius: 4px;\n"
+                                     "font-family: \'Roboto Mono\';\n"
+                                     "font-style: normal;\n"
+                                     "font-weight: 400;\n"
+                                     "font-size: 14px;\n"
+                                     "line-height: 18px;\n"
+                                     "\n"
+                                     "color: rgba(255, 255, 255, 0.8);\n"
+                                     "")
+        self.site_line.setInputMask("")
+        self.site_line.setText("")
+        self.site_line.setPlaceholderText("your sait")
+        self.site_line.setObjectName("site_line")
+        self.button_close = QtWidgets.QPushButton(self.frame_site_1)
+        self.button_close.setGeometry(QtCore.QRect(484, 1, 21, 23))
+        self.button_close.setStyleSheet("QPushButton {\n"
+                                        "font-family: \'Roboto Mono\';\n"
+                                        "font-style: normal;\n"
+                                        "font-weight: 400;\n"
+                                        "font-size: 18px;\n"
+                                        "line-height: 18px;\n"
+                                        "border: 0px solid #646464;\n"
+                                        "color: rgba(255, 255, 255, 0.8);background: rgba(23, 23, 23, 0.0);}\n"
+                                        "QPushButton:hover{\n"
+                                        "color: rgba(255, 255, 255, 1.0)\n"
+                                        "}")
+        self.button_close.setObjectName("button_close")
+        self.frame_element_2 = QtWidgets.QFrame(self)
+        self.frame_element_2.setGeometry(QtCore.QRect(0, 56, 511, 121))
+        self.frame_element_2.setStyleSheet("background: #181818;\n"
+                                           "border: 1px solid #646464;\n"
+                                           "box-sizing: border-box;\n"
+                                           "border-radius: 4px;")
+        self.frame_element_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_element_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_element_2.setObjectName("frame_element_2")
+        self.tag_label = Dialog_add_label(self.frame_element_2)
+        self.tag_label.setGeometry(QtCore.QRect(10, 5, 61, 31))
+        self.tag_label.setObjectName("tag_label")
+        self.element_label = Dialog_add_label(self.frame_element_2)
+        self.element_label.setGeometry(QtCore.QRect(10, 76, 81, 31))
+        self.element_label.setObjectName("element_label")
+        self.tag_choice = QtWidgets.QComboBox(self.frame_element_2)
+        self.tag_choice.setGeometry(QtCore.QRect(90, 10, 241, 20))
         self.tag_choice.setStyleSheet("background: #2B2B2B;\n"
                                       "border-radius: 4px;\n"
                                       "font-family: \'Roboto Mono\';\n"
@@ -182,8 +227,123 @@ class Dialog_get_date(QtWidgets.QDialog):
         self.tag_choice.setDuplicatesEnabled(False)
         self.tag_choice.setFrame(True)
         self.tag_choice.setObjectName("tag_choice")
-        self.action_choice = QtWidgets.QComboBox(self)
-        self.action_choice.setGeometry(QtCore.QRect(70, 100, 151, 20))
+        self.element_choice_2 = QtWidgets.QComboBox(self.frame_element_2)
+        self.element_choice_2.setGeometry(QtCore.QRect(90, 82, 241, 20))
+        self.element_choice_2.setStyleSheet("background: #2B2B2B;\n"
+                                            "border-radius: 4px;\n"
+                                            "font-family: \'Roboto Mono\';\n"
+                                            "font-style: normal;\n"
+                                            "font-weight: 400;\n"
+                                            "font-size: 14px;\n"
+                                            "line-height: 18px;\n"
+                                            "\n"
+                                            "color: rgba(255, 255, 255, 0.8);\n"
+                                            "")
+        self.element_choice_2.setDuplicatesEnabled(False)
+        self.element_choice_2.setFrame(True)
+        self.element_choice_2.setObjectName("element_choice_2")
+        self.class_label = QtWidgets.QLabel(self.frame_element_2)
+        self.class_label.setGeometry(QtCore.QRect(10, 40, 61, 31))
+        self.class_label.setStyleSheet("font: 8pt \"NSimSun\";;\n"
+                                       "font-weight: 200;\n"
+                                       "font-size: 18px;\n"
+                                       "line-height: 10px;\n"
+                                       "text-decoration-line: underline;\n"
+                                       "background: rgba(44, 40, 40, 0.0);\n"
+                                       "color: rgba(255, 255, 255, 0.8);\n"
+                                       "\n"
+                                       "border: 0.5px solid rgba(167, 167, 167, 0.0);")
+        self.class_label.setObjectName("class_label")
+        self.class_choice = QtWidgets.QComboBox(self.frame_element_2)
+        self.class_choice.setGeometry(QtCore.QRect(90, 45, 151, 20))
+        self.class_choice.setStyleSheet("background: #2B2B2B;\n"
+                                        "border-radius: 4px;\n"
+                                        "font-family: \'Roboto Mono\';\n"
+                                        "font-style: normal;\n"
+                                        "font-weight: 400;\n"
+                                        "font-size: 14px;\n"
+                                        "line-height: 18px;\n"
+                                        "\n"
+                                        "color: rgba(255, 255, 255, 0.8);\n"
+                                        "")
+        self.class_choice.setDuplicatesEnabled(False)
+        self.class_choice.setFrame(True)
+        self.class_choice.setObjectName("class_choice")
+        self.id_label = QtWidgets.QLabel(self.frame_element_2)
+        self.id_label.setGeometry(QtCore.QRect(260, 40, 41, 31))
+        self.id_label.setStyleSheet("font: 8pt \"NSimSun\";;\n"
+                                    "font-weight: 200;\n"
+                                    "font-size: 18px;\n"
+                                    "line-height: 10px;\n"
+                                    "text-decoration-line: underline;\n"
+                                    "background: rgba(44, 40, 40, 0.0);\n"
+                                    "color: rgba(255, 255, 255, 0.8);\n"
+                                    "\n"
+                                    "border: 0.5px solid rgba(167, 167, 167, 0.0);")
+        self.id_label.setObjectName("id_label")
+        self.id_choice = QtWidgets.QComboBox(self.frame_element_2)
+        self.id_choice.setGeometry(QtCore.QRect(310, 45, 161, 20))
+        self.id_choice.setStyleSheet("background: #2B2B2B;\n"
+                                     "border-radius: 4px;\n"
+                                     "font-family: \'Roboto Mono\';\n"
+                                     "font-style: normal;\n"
+                                     "font-weight: 400;\n"
+                                     "font-size: 14px;\n"
+                                     "line-height: 18px;\n"
+                                     "\n"
+                                     "color: rgba(255, 255, 255, 0.8);\n"
+                                     "")
+        self.id_choice.setDuplicatesEnabled(False)
+        self.id_choice.setFrame(True)
+        self.id_choice.setObjectName("id_choice")
+        self.frame_lock_1 = QtWidgets.QFrame(self.frame_element_2)
+        self.frame_lock_1.setGeometry(QtCore.QRect(0, 0, 511, 121))
+        self.frame_lock_1.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_lock_1.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_lock_1.setObjectName("frame_lock_1")
+        self.descr = QtWidgets.QTextBrowser(self.frame_lock_1)
+        self.descr.setGeometry(QtCore.QRect(90, 40, 211, 41))
+        self.descr.setStyleSheet("font: 8pt \"NSimSun\";;\n"
+                                 "font-weight: 200;\n"
+                                 "font-size: 13px;\n"
+                                 "line-height: 10px;\n"
+                                 "text-decoration-line: underline;\n"
+                                 "background: rgba(44, 40, 40, 0.0);\n"
+                                 "color: rgba(255, 255, 255, 0.8);\n"
+                                 "\n"
+                                 "border: 0.5px solid rgba(167, 167, 167, 0.0);")
+        self.descr.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.descr.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.descr.setObjectName("descr")
+        self.lock_label = QtWidgets.QLabel(self.frame_lock_1)
+        self.lock_label.setEnabled(True)
+        self.lock_label.setGeometry(QtCore.QRect(300, 10, 51, 51))
+        self.lock_label.setStyleSheet("\n"
+                                      "background: rgba(44, 40, 40, 0.0);\n"
+                                      "\n"
+                                      "\n"
+                                      "border: 0.5px solid rgba(167, 167, 167, 0.0);")
+        self.lock_label.setText("")
+        self.lock_label.setPixmap(QtGui.QPixmap("../parser/material/lock_icon_02.png"))
+        self.lock_label.setScaledContents(True)
+        self.lock_label.setObjectName("lock_label")
+        self.frame_action_3 = QtWidgets.QFrame(self)
+        self.frame_action_3.setGeometry(QtCore.QRect(0, 178, 511, 80))
+        self.frame_action_3.setStyleSheet("background: #181818;\n"
+                                          "border: 1px solid #646464;\n"
+                                          "box-sizing: border-box;\n"
+                                          "border-radius: 4px;")
+        self.frame_action_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_action_3.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_action_3.setObjectName("frame_action_3")
+        self.label_4 = Dialog_add_label(self.frame_action_3)
+        self.label_4.setGeometry(QtCore.QRect(10, 10, 81, 31))
+        self.label_4.setObjectName("label_4")
+        self.label_5 = Dialog_add_label(self.frame_action_3)
+        self.label_5.setGeometry(QtCore.QRect(10, 40, 81, 31))
+        self.label_5.setObjectName("label_5")
+        self.action_choice = QtWidgets.QComboBox(self.frame_action_3)
+        self.action_choice.setGeometry(QtCore.QRect(90, 17, 171, 20))
         self.action_choice.setStyleSheet("background: #2B2B2B;\n"
                                          "border-radius: 4px;\n"
                                          "font-family: \'Roboto Mono\';\n"
@@ -197,81 +357,8 @@ class Dialog_get_date(QtWidgets.QDialog):
         self.action_choice.setDuplicatesEnabled(False)
         self.action_choice.setFrame(True)
         self.action_choice.setObjectName("action_choice")
-        self.site_line = QtWidgets.QLineEdit(self)
-        self.site_line.setGeometry(QtCore.QRect(70, 28, 241, 20))
-        self.site_line.setStyleSheet("background: #2B2B2B;\n"
-                                     "border-radius: 4px;\n"
-                                     "font-family: \'Roboto Mono\';\n"
-                                     "font-style: normal;\n"
-                                     "font-weight: 400;\n"
-                                     "font-size: 14px;\n"
-                                     "line-height: 18px;\n"
-                                     "\n"
-                                     "color: rgba(255, 255, 255, 0.8);\n"
-                                     "")
-        self.site_line.setText("")
-        self.site_line.setPlaceholderText("your site")
-        self.site_line.setObjectName("site_line")
-        self.mark_line = QtWidgets.QLineEdit(self)
-        self.mark_line.setGeometry(QtCore.QRect(70, 150, 291, 20))
-        self.mark_line.setStyleSheet("background: #2B2B2B;\n"
-                                     "border-radius: 4px;\n"
-                                     "font-family: \'Roboto Mono\';\n"
-                                     "font-style: normal;\n"
-                                     "font-weight: 400;\n"
-                                     "font-size: 14px;\n"
-                                     "line-height: 18px;\n"
-                                     "\n"
-                                     "color: rgba(255, 255, 255, 0.8);\n"
-                                     "")
-        self.mark_line.setText("")
-        self.mark_line.setPlaceholderText("maybe you want marked this?")
-        self.mark_line.setObjectName("mark_line")
-        self.element_choice = QtWidgets.QComboBox(self)
-        self.element_choice.setGeometry(QtCore.QRect(320, 60, 151, 20))
-        self.element_choice.setStyleSheet("background: #2B2B2B;\n"
-                                          "border-radius: 4px;\n"
-                                          "font-family: \'Roboto Mono\';\n"
-                                          "font-style: normal;\n"
-                                          "font-weight: 400;\n"
-                                          "font-size: 14px;\n"
-                                          "line-height: 18px;\n"
-                                          "\n"
-                                          "color: rgba(255, 255, 255, 0.8);\n"
-                                          "")
-        self.element_choice.setDuplicatesEnabled(False)
-        self.element_choice.setFrame(True)
-        self.element_choice.setObjectName("element_choice")
-        self.continue_button = QtWidgets.QPushButton(self)
-        self.continue_button.setGeometry(QtCore.QRect(420, 150, 81, 23))
-        self.continue_button.setStyleSheet("QPushButton {\n"
-                                           "font-family: \'Roboto Mono\';\n"
-                                           "font-style: normal;\n"
-                                           "font-weight: 400;\n"
-                                           "font-size: 18px;\n"
-                                           "line-height: 18px;\n"
-                                           "border: 0px solid #646464;\n"
-                                           "color: rgba(255, 255, 255, 0.8);background: rgba(23, 23, 23, 0.0);}\n"
-                                           "QPushButton:hover{\n"
-                                           "color: rgba(255, 255, 255, 1.0)\n"
-                                           "}")
-        self.continue_button.setObjectName("continue_button")
-        self.button_close = QtWidgets.QPushButton(self)
-        self.button_close.setGeometry(QtCore.QRect(490, 0, 21, 23))
-        self.button_close.setStyleSheet("QPushButton {\n"
-                                        "font-family: \'Roboto Mono\';\n"
-                                        "font-style: normal;\n"
-                                        "font-weight: 400;\n"
-                                        "font-size: 18px;\n"
-                                        "line-height: 18px;\n"
-                                        "border: 0px solid #646464;\n"
-                                        "color: rgba(255, 255, 255, 0.8);background: rgba(23, 23, 23, 0.0);}\n"
-                                        "QPushButton:hover{\n"
-                                        "color: rgba(255, 255, 255, 1.0)\n"
-                                        "}")
-        self.button_close.setObjectName("button_close")
-        self.value_line = QtWidgets.QLineEdit(self)
-        self.value_line.setGeometry(QtCore.QRect(250, 100, 191, 20))
+        self.value_line = QtWidgets.QLineEdit(self.frame_action_3)
+        self.value_line.setGeometry(QtCore.QRect(290, 17, 191, 20))
         self.value_line.setStyleSheet("background: #2B2B2B;\n"
                                       "border-radius: 4px;\n"
                                       "font-family: \'Roboto Mono\';\n"
@@ -282,67 +369,211 @@ class Dialog_get_date(QtWidgets.QDialog):
                                       "\n"
                                       "color: rgba(255, 255, 255, 0.8);\n"
                                       "")
+        self.value_line.setInputMask("")
         self.value_line.setText("")
         self.value_line.setPlaceholderText("input value")
         self.value_line.setObjectName("value_line")
-        self.descr.setHtml(
-            "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-            "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-            "p, li { white-space: pre-wrap; }\n"
-            "</style></head><body style=\" font-family:\'NSimSun\'; font-size:13px; font-weight:200; font-style:normal;\">\n"
-            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\">site: </span></p>\n"
-            "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\"><br /></p>\n"
-            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\">tag:                                          element:</span></p>\n"
-            "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\"><br /></p>\n"
-            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\">action:</span></p>\n"
-            "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\"><br /></p>\n"
-            "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Roboto Mono\'; font-weight:296;\"><br /></p>\n"
-            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\">mark:</span></p></body></html>")
-        self.continue_button.setText("continue")
+        self.frame_lock_2 = QtWidgets.QFrame(self.frame_action_3)
+        self.frame_lock_2.setGeometry(QtCore.QRect(0, 0, 511, 80))
+        self.frame_lock_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_lock_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_lock_2.setObjectName("frame_lock_2")
+        self.descr_2 = QtWidgets.QTextBrowser(self.frame_lock_2)
+        self.descr_2.setGeometry(QtCore.QRect(90, 20, 211, 41))
+        self.descr_2.setStyleSheet("font: 8pt \"NSimSun\";;\n"
+                                   "font-weight: 200;\n"
+                                   "font-size: 13px;\n"
+                                   "line-height: 10px;\n"
+                                   "text-decoration-line: underline;\n"
+                                   "background: rgba(44, 40, 40, 0.0);\n"
+                                   "color: rgba(255, 255, 255, 0.8);\n"
+                                   "\n"
+                                   "border: 0.5px solid rgba(167, 167, 167, 0.0);")
+        self.descr_2.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.descr_2.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.descr_2.setObjectName("descr_2")
+        self.lock_label_1 = QtWidgets.QLabel(self.frame_lock_2)
+        self.lock_label_1.setEnabled(True)
+        self.lock_label_1.setGeometry(QtCore.QRect(300, 10, 51, 51))
+        self.lock_label_1.setStyleSheet("\n"
+                                        "background: rgba(44, 40, 40, 0.0);\n"
+                                        "\n"
+                                        "\n"
+                                        "border: 0.5px solid rgba(167, 167, 167, 0.0);")
+        self.lock_label_1.setText("")
+        self.lock_label_1.setPixmap(QtGui.QPixmap("../parser/material/lock_icon_02.png"))
+        self.lock_label_1.setScaledContents(True)
+        self.lock_label_1.setObjectName("lock_label_1")
+        self.pushButton = QtWidgets.QPushButton(self)
+        self.pushButton.setGeometry(QtCore.QRect(0, 259, 511, 25))
+        self.pushButton.setStyleSheet("\n"
+                                      "font: 8pt \"NSimSun\";\n"
+                                      "font-style: normal;\n"
+                                      "font-weight: 300;\n"
+                                      "font-size: 18px;\n"
+                                      "line-height: 32px;\n"
+                                      "\n"
+                                      "color: #FFFFFF;background: #181818;\n"
+                                      "border: 1px solid #646464;\n"
+                                      "box-sizing: border-box;\n"
+                                      "border-radius: 4px;")
+        self.pushButton.setObjectName("pushButton")
+        self.site_label.setText("Site:")
         self.button_close.setText("X")
+        self.tag_label.setText("Tag:")
+        self.element_label.setText("Element:")
+        self.class_label.setText("class:")
+        self.id_label.setText("id:")
+        self.descr.setHtml(
+            "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+            "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+            "p, li { white-space: pre-wrap; }\n"
+            "</style></head><body style=\" font-family:\'NSimSun\'; font-size:13px; font-weight:200; font-style:normal;\">\n"
+            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:13px;\">The seal is unlocked if you fill in the item above.</span></p></body></html>")
+        self.label_4.setText("Action:")
+        self.label_5.setText("Mark:")
+        self.descr_2.setHtml(
+            "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+            "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+            "p, li { white-space: pre-wrap; }\n"
+            "</style></head><body style=\" font-family:\'NSimSun\'; font-size:13px; font-weight:200; font-style:normal;\">\n"
+            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:13px;\">The seal is unlocked if you fill in the item above.</span></p></body></html>")
+        self.pushButton.setText("-- serfing --")
         """set fun"""
-        self.button_close.clicked.connect(lambda: self.close())
-        self.site_line.textChanged.connect(self.update_list_parse)
+        # self.site_line.textChanged.connect(self.stage_1)
+        self.tag_choice.setMinimumContentsLength(40)
+        self.class_choice.setMinimumContentsLength(40)
+        self.element_choice_2.setMinimumContentsLength(40)
+        self.button_close.clicked.connect(self.close)
         """hide"""
-        self.value_line.hide()
+
         """value"""
-        self.site_text = ""
+        self.parse_container = ParserContainer()
+        self.site_url = "https://bik.sfu-kras.ru/elib/view?id=BOOK1-%D0%91%D0%91%D0%9A84%282%296/%D0%9F%20195-681789936"
         self.action_list = ["track changes", "set condition"]  # set condition меет 3 подпункта на условия
+        self.stage_1()
 
-    def update_list_parse(self):
-        self.site_text = self.site_line.text()
-        self.tag_list, self.element_list = "тут функция которая возвращает обнавленные значения принимает site_text"
-        self.descr.setHtml(
-            "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-            "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-            "p, li { white-space: pre-wrap; }\n"
-            "</style></head><body style=\" font-family:\'NSimSun\'; font-size:13px; font-weight:200; font-style:normal;\">\n"
-            f"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\">site: {self.site_text} </span></p>\n"
-            "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\"><br /></p>\n"
-            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\">tag:                                          element:</span></p>\n"
-            "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\"><br /></p>\n"
-            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\">action:</span></p>\n"
-            "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\"><br /></p>\n"
-            "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Roboto Mono\'; font-weight:296;\"><br /></p>\n"
-            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\">mark:</span></p></body></html>")
+    def stage_1(self):
+        # self.site_url = self.site_line.text()
+        if check_website(self.site_url):
+            self.frame_lock_1.hide()
+            self.stage_2(self.site_url)
+        else:
+            self.frame_lock_1.show()
 
-    def update_mark(self):
-        self.mark_text = self.mark_line.text()
-        self.descr.setHtml(
-            "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-            "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-            "p, li { white-space: pre-wrap; }\n"
-            "</style></head><body style=\" font-family:\'NSimSun\'; font-size:13px; font-weight:200; font-style:normal;\">\n"
-            f"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\">site: {self.site_text} </span></p>\n"
-            "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\"><br /></p>\n"
-            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\">tag:                                          element:</span></p>\n"
-            "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\"><br /></p>\n"
-            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\">action:</span></p>\n"
-            "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\"><br /></p>\n"
-            "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Roboto Mono\'; font-weight:296;\"><br /></p>\n"
-            f"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Roboto Mono\'; font-size:11pt; font-weight:296;\">mark:{self.mark_text}</span></p></body></html>")
+    def stage_2(self, site_url):
+        self.parse_container.url = site_url
+        self.parse_container.get_all_tag()
+        self.parse_container.get_all_class()
+        self.parse_container.get_all_id()
+        self.load_checkbox()
+        self.tag_choice.currentTextChanged.connect(lambda: self.update_current())
+        self.class_choice.currentTextChanged.connect(lambda: self.update_current())
+        self.id_choice.currentTextChanged.connect(lambda: self.update_current())
 
-    @staticmethod
-    def get_data():
-        dialog = Dialog_get_date()
-        dialog.exec_()
+    def load_checkbox(self):
+        self.tag_choice.clear()
+        self.tag_choice.addItem("...")
+        self.tag_choice.addItems(self.parse_container.tag_list)
+        self.class_choice.clear()
+        self.class_choice.addItem("...")
+        self.class_choice.addItems(self.parse_container.class_list)
+        self.id_choice.clear()
+        self.id_choice.addItem("...")
+        self.id_choice.addItems(self.parse_container.id_list)
+
+    def update_current(self):
+        self.parse_container.current_tag = self.tag_choice.currentText()
+        self.parse_container.current_class = self.class_choice.currentText()
+        self.parse_container.current_id = self.id_choice.currentText()
+        print(self.parse_container.current_tag)
+   
+
+    def mousePressEvent(self, event):
+        self.dragPos = event.globalPos()
+
+    def mouseMoveEvent(self, event):
+        if event.buttons() == QtCore.Qt.MiddleButton:
+            self.move(self.pos() + event.globalPos() - self.dragPos)
+            self.dragPos = event.globalPos()
+            event.accept()
+
+
+"""parse"""
+
+
+class ParserContainer():
+    def __init__(self, url=None):
+        self.url = url
+        self.tag_list = []
+        self.class_list = []
+        self.id_list = []
+        self.current_tag = None
+        self.current_class = None
+        self.current_id = None
+
+    def get_all_tag(self):
+        if self.url is not None:
+            page = requests.get(self.url)
+            soup = BeautifulSoup(page.text, "html.parser")
+            self.tag_list = []
+            for tag in soup.findAll(True):
+                self.tag_list.append(tag.name)
+            self.tag_list = list(set(self.tag_list))
+            self.tag_list.sort()
+
+    def get_all_class(self):
+        if self.url is not None:
+            page = requests.get(self.url)
+            soup = BeautifulSoup(page.text, "html.parser")
+            self.class_list = set()
+            tags = {tag.name for tag in soup.find_all()}
+            for tag in tags:
+                for i in soup.find_all(tag):
+                    if i.has_attr("class"):
+                        if len(i['class']) != 0:
+                            self.class_list.add(" ".join(i['class']))
+        self.class_list = list(self.class_list)
+
+    def get_all_id(self):
+        if self.url is not None:
+            page = requests.get(self.url)
+            soup = BeautifulSoup(page.text, "html.parser")
+            self.id_list = set()
+            tags = {tag.name for tag in soup.find_all()}
+            for tag in tags:
+                for i in soup.find_all(tag):
+                    if i.has_attr("id"):
+                        if len(i['id']) != 0:
+                            self.id_list.add(" ".join(i['id']))
+        self.id_list = list(self.id_list)
+
+    def find_element(self):
+        pass
+
+
+def check_website(url):
+    try:
+        page = requests.get(url)
+        if page.status_code == 200:
+            return True
+        else:
+            return False
+    except:
+        print("problem")
+
+"""parse"""
+
+
+class Dialog_add_label(QtWidgets.QLabel):
+    def __init__(self, parent):
+        super(Dialog_add_label, self).__init__(parent=parent)
+        self.setStyleSheet("font: 8pt \"NSimSun\";;\n"
+                                       "font-weight: 200;\n"
+                                       "font-size: 18px;\n"
+                                       "line-height: 10px;\n"
+                                       "text-decoration-line: underline;\n"
+                                       "background: rgba(44, 40, 40, 0.0);\n"
+                                       "color: rgba(255, 255, 255, 0.8);\n"
+                                       "\n"
+                                       "border: 0.5px solid rgba(167, 167, 167, 0.0);")

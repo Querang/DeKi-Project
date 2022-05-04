@@ -14,7 +14,6 @@ from library.layout.generation_classes import FolderButton, GenerateFolderPage, 
 from library.layout.find_page import FindPage
 
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -148,23 +147,23 @@ class Ui_MainWindow(object):
         self.lib_sub_right.setStyleSheet("background: #121212;")
         self.lib_sub_right.setObjectName("lib_sub_right")
         self.top_bar = QtWidgets.QFrame(self.lib_main)
-        self.top_bar.setGeometry(QtCore.QRect(710+184, 0, 86, 22))
+        self.top_bar.setGeometry(QtCore.QRect(710 + 184, 0, 86, 22))
         self.top_bar.setStyleSheet("background: #000000;")
         self.top_bar.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.top_bar.setFrameShadow(QtWidgets.QFrame.Raised)
         self.top_bar.setObjectName("top_bar")
         self.button_X = TabButton(self.top_bar)
-        self.button_X.setGeometry(QtCore.QRect(70-10, 0, 31, 23))
+        self.button_X.setGeometry(QtCore.QRect(70 - 10, 0, 31, 23))
         self.button_X.setObjectName("button_X")
         self.button_swap = TabButton(self.top_bar)
-        self.button_swap.setGeometry(QtCore.QRect(45-5, 0, 31, 23))
+        self.button_swap.setGeometry(QtCore.QRect(45 - 5, 0, 31, 23))
         self.button_swap.setObjectName("button_swap")
         self.tutorial_button = TabButton(self.top_bar)
-        self.tutorial_button.setGeometry(QtCore.QRect(31-5, 0, 21, 23))
+        self.tutorial_button.setGeometry(QtCore.QRect(31 - 5, 0, 21, 23))
         self.tutorial_button.setObjectName("tutorial_button")
-        self.tutorial_button.setText( "?")
+        self.tutorial_button.setText("?")
         self.button_setting = QtWidgets.QPushButton(self.top_bar)
-        self.button_setting.setGeometry(QtCore.QRect(8-5, 1, 31, 23))
+        self.button_setting.setGeometry(QtCore.QRect(8 - 5, 1, 31, 23))
         self.button_setting.setStyleSheet("color: #FFFFFF;\n"
                                           "background: rgba(199, 199, 199, 0.0);")
         self.button_setting.setText("")
@@ -212,14 +211,10 @@ class Ui_MainWindow(object):
         self.button_save_folder.setIcon(icon3)
         self.button_save_folder.setIconSize(QtCore.QSize(40, 39))
 
-
-
-
-
         self.button_save_folder.setObjectName("button_save_folder")
         MainWindow.setCentralWidget(self.centralwidget)
         self.retranslateUi(MainWindow)
-          # main page
+        # main page
         self.lib_right.addWidget(FindPage())
         self.lib_right.addWidget(self.lib_sub_right)
 
@@ -246,12 +241,10 @@ class Ui_MainWindow(object):
 
 
 class TabButton(QtWidgets.QPushButton):
-    def __init__(self,parent):
+    def __init__(self, parent):
         super(TabButton, self).__init__(parent=parent)
         self.setStyleSheet(" QPushButton {"
                            "background: rgba(149, 149, 149, 0.0);\n"
                            "color: rgba(255, 255, 255, 0.7);}\n}"
                            "QPushButton:hover {\n"
                            "color: white;}")
-
-

@@ -1,6 +1,6 @@
 import sqlite3
 import yaml
-
+from sqlite3 import Error
 """yaml"""
 
 
@@ -18,3 +18,23 @@ def write_config(file_path, config_dict):
             yaml.dump(config_dict, f, default_flow_style=False)
     except:
         print("mistake")
+
+
+def create_connection(db_file):
+    """ create a database connection to a SQLite database """
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+        return conn
+    except Error as e:
+        print(e)
+    return conn
+
+def add_received_data(conn,parser_data):
+    sql = ''' INSERT INTO parser_label_data(tag,class,id_html,mark,action,action_value,notify,notify_time)
+                  VALUES(?,?,?,?,?) '''
+    cur = conn.cursor()
+    cur.execute(sql, parser_data)
+    conn.commit()
+    return cur.lastrowid
+

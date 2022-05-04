@@ -1,11 +1,9 @@
 import sys
 
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5 import QtGui
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore
 from layout.main_layout import Ui_MainWindow
 from layout.template_layout import Dialog_get_date
-import Firo_parse_sqlite
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):

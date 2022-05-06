@@ -74,8 +74,12 @@ class ParserContainer():
                 self.content_list.append(i.text)
 
 
-
-a = ParserContainer()
+# a = ParserContainer()
 # a.find_element()
 # a.get_all_class()
 # print(a.class_list)
+url = "https://bik.sfu-kras.ru/elib/view?id=BOOK1-84%284%D0%90%29-444/%D0%9C%20805-521870"
+page = requests.get(url)
+soup = BeautifulSoup(page.text, "html.parser")
+content = soup.find_all(None, class_='list',id = None)
+print(content)

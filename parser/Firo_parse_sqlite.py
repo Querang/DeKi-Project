@@ -1,6 +1,7 @@
 import sqlite3
 import yaml
 from sqlite3 import Error
+
 """yaml"""
 
 
@@ -30,7 +31,8 @@ def create_connection(db_file):
         print(e)
     return conn
 
-def add_received_data(conn,parser_data):
+
+def add_received_data(conn, parser_data):
     sql = ''' INSERT INTO parser_label_data(url,tag,class,id_html,mark,action,action_value,notify,notify_time)
                   VALUES(?,?,?,?,?,?,?,?,?) '''
     cur = conn.cursor()
@@ -38,7 +40,23 @@ def add_received_data(conn,parser_data):
     conn.commit()
     return cur.lastrowid
 
+
+def get_data(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM parser_label_data ")
+    date_container = cur.fetchall()
+    # print(book_date)
+    return date_container
+
+
+def delete_label(conn, id):
+    sql = 'DELETE FROM parser_label_data WHERE id=?'
+    cur = conn.cursor()
+    cur.execute(sql, (id,))
+    conn.commit()
+
+
 if __name__ == "__main__":
     conn = create_connection("parse_.db")
     with conn:
-        add_received_data(conn,("","awd","","","show","","",None))
+        print(get_data(conn))

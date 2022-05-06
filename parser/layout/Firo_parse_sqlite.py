@@ -37,4 +37,9 @@ def add_received_data(conn,parser_data):
     cur.execute(sql, parser_data)
     conn.commit()
     return cur.lastrowid
+def delete_label(conn, id):
+    sql = 'DELETE FROM parser_label_data WHERE id=?'
+    cur = conn.cursor()
+    cur.execute(sql, (id,))
+    conn.commit()
 

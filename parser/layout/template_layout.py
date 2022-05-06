@@ -17,12 +17,18 @@ import Firo_parse_sqlite
 
 
 class GenerateParseLabel(QtWidgets.QGroupBox):
-    def __init__(self, parent, data):
-        super(GenerateParseLabel, self).__init__(parent=parent)
-        self.site_text_pull, self.tag_text, self.action_text, self.mark_text = data
-        self.setGeometry(QtCore.QRect(0, 0, 398, 182))
-        self.setMinimumSize(QtCore.QSize(398, 182))
-        self.setMaximumSize(QtCore.QSize(398, 182))
+    def __init__(self, main_obj, data):
+        super(GenerateParseLabel, self).__init__()
+        """value"""
+        self.main_obj = main_obj
+        self.self_id, self.site_text_pull, self.tag_text, self.class_text, self.id_text, self.mark_text, self.action_text, self.action_value, self.notify, self.notify_time = data
+        self.parser_container = ParserContainer()
+        self.parser_container.url, self.parser_container.current_tag, self.parser_container.current_class, self.parser_container.current_id, self.parser_container.action = self.site_text_pull, self.tag_text, self.class_text, self.id_text, self.action_text
+        self.conn = Firo_parse_sqlite.create_connection("parse_.db")
+        self.amount_content = 0
+        self.amount_unchecked_content = 0
+        """value"""
+        self.setMinimumSize(QtCore.QSize(398, 51))
         self.setStyleSheet("background: rgba(44, 40, 40, 0.0);")
         self.setTitle("")
         self.setObjectName("parser_label")
@@ -90,7 +96,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
         self.status_icon.setIcon(icon1)
         self.status_icon.setIconSize(QtCore.QSize(16, 20))
         self.status_icon.setObjectName("status_icon")
-        self.extend = QtWidgets.QPushButton(self.parser_label_sub)
+        self.extend = MenuLabel(self, self.parser_label_sub)
         self.extend.setGeometry(QtCore.QRect(360, 13, 21, 21))
         self.extend.setStyleSheet("color: #FFFFFF;\n"
                                   "background: rgba(199, 199, 199, 0.0);")
@@ -109,7 +115,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
         self.briefly_info_frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.briefly_info_frame.setObjectName("briefly_info_frame")
         self.briefly_info = QtWidgets.QTextBrowser(self.briefly_info_frame)
-        self.briefly_info.setGeometry(QtCore.QRect(10, 10, 371, 111))
+        self.briefly_info.setGeometry(QtCore.QRect(10, 10, 398, 111))
         self.briefly_info.setStyleSheet("font-family: \'Roboto Mono\';\n"
                                         "font-style: normal;\n"
                                         "font-weight: 300;\n"
@@ -125,7 +131,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
         self.briefly_info.setObjectName("briefly_info")
 
         self.site_text.setHtml(
-            "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+            f"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"{self.site_text_pull}\">\n"
             "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
             "p, li { white-space: pre-wrap; }\n"
             "</style></head><body style=\" font-family:\'Roboto Mono\'; font-size:13px; font-weight:296; font-style:normal;\">\n"
@@ -135,24 +141,71 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
             "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
             "p, li { white-space: pre-wrap; }\n"
             "</style></head><body style=\" font-family:\'Roboto Mono\'; font-size:13px; font-weight:296; font-style:normal;\">\n"
-            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">element: 10 uncheced: 5</span></p></body></html>")
+            f"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">element: {self.amount_content} unchecked: {self.amount_unchecked_content}</span></p></body></html>")
         self.briefly_info.setHtml(
             "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
             "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
             "p, li { white-space: pre-wrap; }\n"
             "</style></head><body style=\" font-family:\'Roboto Mono\'; font-size:13px; font-weight:296; font-style:normal;\">\n"
-            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">site: </span></p>\n"
-            "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;\"><br /></p>\n"
-            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">tag:                          element:</span></p>\n"
-            "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;\"><br /></p>\n"
-            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">action:</span></p>\n"
-            "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;\"><br /></p>\n"
-            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">mark:</span></p></body></html>")
+            f"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">site: {self.site_text_pull}</span></p>\n"
+            f"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;\"><br /></p>\n"
+            f"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">tag: {self.tag_text}                          class:{self.class_text}</span></p>\n"
+            f"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;\"><br /></p>\n"
+            f"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">action: {self.action_text}</span></p>\n"
+            f"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;\"><br /></p>\n"
+            f"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">mark:{self.mark_text}</span></p></body></html>")
+
+    def handler_content(self):
+        pass
+
+
+class MenuLabel(QtWidgets.QPushButton):
+
+    def __init__(self, label_obj, parent):
+        super(MenuLabel, self).__init__(parent)
+        self.label_obj = label_obj
+
+    def mousePressEvent(self, event):
+
+        menu = QtWidgets.QMenu(self)
+        menu.setStyleSheet("font-family: \'RobotoFlex\';\n"
+                           "font-style: normal;\n"
+                           "font-weight: 200;\n"
+                           "font-size: 16px;\n"
+                           "line-height: 75.4%;\n"
+                           "/* or 14px */\n"
+                           "background: rgba(199, 199, 199, 0.0);\n"
+                           "border: 0.5px solid rgba(167, 167, 167, 0.01);\n"
+                           "color: rgba(255, 255, 255, 0.85);\n"
+                           "")
+        Notify = menu.addMenu("Notify")
+        Notify.addAction("Yes")
+        Notify.addAction("No")
+        Show = menu.addMenu("Show")
+        Notify_time = menu.addMenu('Notify_time')
+        Notify_time.addAction("5 min")
+        Notify_time.addAction("15 min")
+        Notify_time.addAction("1 hour")
+        Show_minimalistic = Show.addAction("Show_minimalistic")
+        Show_extend = Show.addAction("Show_extend")
+        Delete = menu.addAction("Delete")
+        result = menu.exec_(self.mapToGlobal(event.pos()))
+        if Delete == result:
+            Firo_parse_sqlite.delete_label(self.label_obj.conn, self.label_obj.self_id)
+            self.label_obj.main_obj.load_label()
+        elif Show_extend == result:
+            self.label_obj.setMinimumSize(QtCore.QSize(398, 181))
+        elif Show_minimalistic == result:
+            self.label_obj.setMinimumSize(QtCore.QSize(398, 51))
+
+        elif result == result:
+            pass
 
 
 class Dialog_get_date(QtWidgets.QDialog):
-    def __init__(self, position):
+    def __init__(self, main_obj, position):
         super(Dialog_get_date, self).__init__()
+        self.main_obj = main_obj
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.position_x, self.position_y = position
@@ -541,6 +594,7 @@ class Dialog_get_date(QtWidgets.QDialog):
                 Firo_parse_sqlite.add_received_data(conn, self.parse_container.return_arguments())
                 self.frame_success.show()
                 threading.Thread(target=lambda: self.frame_success.show()).start()
+                threading.Thread(target=self.main_obj.load_label()).start()
                 threading.Thread(target=self.close_dialog).start()
 
     def close_dialog(self):
@@ -658,20 +712,7 @@ class ParserContainer():
             soup = BeautifulSoup(page.text, "html.parser")
             self.content_list = []
             content = None
-            if self.current_tag is not None:
-                content = soup.find_all(self.current_tag)
-                if self.current_class is not None:
-                    content = soup.find_all(self.current_tag, class_=self.current_class)
-                    if self.current_id is not None:
-                        content = soup.find_all(self.current_tag, class_=self.current_class, id=self.current_id)
-            else:
-                if self.current_class is not None:
-                    content = soup.find_all(class_=self.current_class)
-                    if self.current_id is not None:
-                        content = soup.find_all(class_=self.current_class, id=self.current_id)
-                else:
-                    if self.current_id is not None:
-                        content = soup.find_all(id=self.current_id)
+            content = soup.find_all(self.current_tag, class_=self.current_class, id=self.current_id)
             if content:
                 for i in content:
                     self.content_list.append(i.get_text())

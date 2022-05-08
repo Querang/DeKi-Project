@@ -56,7 +56,36 @@ def delete_label(conn, id):
     conn.commit()
 
 
+def return_content(conn, id_label):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM parse_content WHERE id_content =?", (id_label,))
+    parse_date_container = cur.fetchall()
+    return parse_date_container
+
+
+def add_content(conn, list_content):
+    print(list_content)
+    id = list_content[0][0]
+    sql = 'DELETE FROM parse_content WHERE id_content=?'
+    cur = conn.cursor()
+    cur.execute(sql, (id,))
+    for i in list_content:
+        sql = ''' INSERT INTO parse_content(id_content,text_content,time_parse)
+                          VALUES(?,?,?) '''
+        cur = conn.cursor()
+        cur.execute(sql, tuple(i))
+
+        conn.commit()
+
+
+def del_content_by_time(conn, id, time):
+    sql = 'DELETE FROM parse_content WHERE id_content=? AND time_parse =?'
+    cur = conn.cursor()
+    cur.execute(sql, (id, time))
+    conn.commit()
+
+
 if __name__ == "__main__":
     conn = create_connection("parse_.db")
     with conn:
-        print(get_data(conn))
+        add_content(conn, [[1, "11", "20"], [1, "21", "21"], [1, "22", "22"], [1, "23", "23"], [1, "24", "24"]])

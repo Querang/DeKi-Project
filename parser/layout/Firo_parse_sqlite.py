@@ -1,6 +1,7 @@
 import sqlite3
 import yaml
 from sqlite3 import Error
+
 """yaml"""
 
 
@@ -30,16 +31,58 @@ def create_connection(db_file):
         print(e)
     return conn
 
-def add_received_data(conn,parser_data):
+
+def add_received_data(conn, parser_data):
     sql = ''' INSERT INTO parser_label_data(tag,class,id_html,mark,action,action_value,notify,notify_time)
                   VALUES(?,?,?,?,?) '''
     cur = conn.cursor()
     cur.execute(sql, parser_data)
     conn.commit()
     return cur.lastrowid
+
+
 def delete_label(conn, id):
     sql = 'DELETE FROM parser_label_data WHERE id=?'
     cur = conn.cursor()
     cur.execute(sql, (id,))
     conn.commit()
 
+
+def return_content(conn, id_label):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM parse_content WHERE id_content =?", (id_label,))
+    parse_date_container = cur.fetchall()
+    return parse_date_container
+
+
+def add_content(conn, list_content):
+    id = list_content[0][0]
+    sql = 'DELETE FROM parse_content WHERE id_content=?'
+    cur = conn.cursor()
+    cur.execute(sql, (id,))
+    for i in list_content:
+        sql = ''' INSERT INTO parse_content(id_content,text_content,time_parse)
+                          VALUES(?,?,?) '''
+        cur = conn.cursor()
+        cur.execute(sql, tuple(i))
+
+        conn.commit()
+
+
+def del_content(conn, id):
+    sql = 'DELETE FROM parse_content WHERE id_content=?'
+    cur = conn.cursor()
+    cur.execute(sql, (id,))
+    conn.commit()
+
+def del_content_by_time(conn, id,time):
+    sql = 'DELETE FROM parse_content WHERE id_content=? AND time_parse =?'
+    cur = conn.cursor()
+    cur.execute(sql, (id,time))
+    conn.commit()
+
+
+if __name__ == "__main__":
+    conn = create_connection("parse_.db")
+    with conn:
+        del_content_by_time(conn,16,"23:39:53")

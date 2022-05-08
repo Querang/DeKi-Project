@@ -1,17 +1,23 @@
 from bs4 import BeautifulSoup
 import requests
+import schedule
+import time
+
 
 
 class ParserContainer():
-    def __init__(self, url="https://bik.sfu-kras.ru/elib/view?id=BOOK1-84%284%D0%90%29-444/%D0%9C%20805-521870"):
+    def __init__(self, url="https://www.google.com/search?q=%D0%B2%D1%80%D0%B5%D0%BC%D1%8F&oq=%D0%B2%D1%80%D0%B5%D0%BC%D1%8F&aqs=chrome..69i57j69i59j69i61l3.1322j0j15&sourceid=chrome&ie=UTF-8"):
         self.url = url
         self.tag_list = []
         self.class_list = []
         self.id_list = []
-        self.current_tag = "..."
-        self.current_class = "..."
-        self.current_id = "..."
+        self.current_tag = None
+        self.current_class = None
+        self.current_id = None
         self.content_list = []
+        self.action = None
+        self.action_value = None
+        self.mark = None
 
     def get_all_tag(self):
         if self.url is not None:
@@ -55,31 +61,19 @@ class ParserContainer():
             soup = BeautifulSoup(page.text, "html.parser")
             self.content_list = []
             content = None
-            if self.current_tag != "...":
-                content = soup.find_all(tag=self.current_tag)
-                if self.current_class != "...":
-                    content = soup.find_all(tag=self.current_tag, class_=self.current_class)
-                    if self.current_id != "...":
-                        content = soup.find_all(tag=self.current_tag, class_=self.current_class, id=self.current_id)
-            else:
-                if self.current_class != "...":
-                    content = soup.find_all(class_=self.current_class)
-                    if self.current_id != "...":
-                        content = soup.find_all(class_=self.current_class, id=self.current_id)
-                else:
-                    if self.current_id != "...":
-                        content = soup.find_all(id=self.current_id)
-
+            content = soup.find_all(self.current_tag, class_=self.current_class, id=self.current_id)
             for i in content:
                 self.content_list.append(i.text)
 
-
-# a = ParserContainer()
-# a.find_element()
+a = ParserContainer()
+a.current_class = "BNeawe iBp4i AP7Wnd"
+# a.current_class = "bookmark-text-add"
+a.find_content_by_type()
+print(a.content_list)
 # a.get_all_class()
 # print(a.class_list)
-url = "https://bik.sfu-kras.ru/elib/view?id=BOOK1-84%284%D0%90%29-444/%D0%9C%20805-521870"
-page = requests.get(url)
-soup = BeautifulSoup(page.text, "html.parser")
-content = soup.find_all(None, class_='list',id = None)
-print(content)
+# url = "https://yandex.ru/time"
+# page = requests.get(url)
+# soup = BeautifulSoup(page.text, "html.parser")
+# content = soup.find_all(None, class_="digital-clock__seconds",id = None)
+# print(content)

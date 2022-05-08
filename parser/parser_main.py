@@ -12,7 +12,7 @@ from layout.main_layout import Ui_MainWindow
 from layout.template_layout import Dialog_get_date
 import Firo_parse_sqlite
 import layout.template_layout
-
+from multiprocessing import Process
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -25,8 +25,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.conn = Firo_parse_sqlite.create_connection("parse_.db")
         """function"""
         self.load_label()
-        self.ProgressBar()
-
+        # self.ProgressBar()
+        self.button_X.clicked.connect(self.close_app)
+    def close_app(self):
+        self.connect_sub()
+        sys.exit()
     def load_label(self):
         with self.conn:
             data = Firo_parse_sqlite.get_data(self.conn)
@@ -39,11 +42,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     #         schedule.run_pending()
     #         time.sleep(1)
     #
-    # def connect_sub(self):
-    #     while self.verticalLayout_2.count():
-    #         child = self.verticalLayout_2.takeAt(0)
-    #         if child.widget():
-    #             child.widget().handler_content()
+    def connect_sub(self):
+        while self.verticalLayout_2.count():
+            child = self.verticalLayout_2.takeAt(0)
+            if child.widget():
+               if  child.widget().hand:
+                   child.widget().hand.kill()
 
     def get_parse_date(self):
         self.dialog_date = Dialog_get_date(self, [self.geometry().x(), self.geometry().y()])
@@ -124,5 +128,6 @@ class ProgressLoading(QDialog):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    app.setQuitOnLastWindowClosed(True)
     w = MainWindow()
     sys.exit(app.exec_())

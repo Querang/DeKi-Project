@@ -85,7 +85,17 @@ def del_content_by_time(conn, id, time):
     conn.commit()
 
 
+def update_label(conn,id_label,notify,notify_time,pause):
+    sql = ''' UPDATE parser_label_data
+                  SET notify = ? ,
+                      notify_time = ?,
+                      pause = ?
+                  WHERE id = ?'''
+    cur = conn.cursor()
+    cur.execute(sql, (notify,notify_time,pause,id_label))
+    conn.commit()
+
 if __name__ == "__main__":
     conn = create_connection("parse_.db")
     with conn:
-        add_content(conn, [[1, "11", "20"], [1, "21", "21"], [1, "22", "22"], [1, "23", "23"], [1, "24", "24"]])
+        update_label(conn,16,None,"1 hour","True")

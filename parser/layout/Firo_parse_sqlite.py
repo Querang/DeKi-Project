@@ -33,8 +33,8 @@ def create_connection(db_file):
 
 
 def add_received_data(conn, parser_data):
-    sql = ''' INSERT INTO parser_label_data(tag,class,id_html,mark,action,action_value,notify,notify_time)
-                  VALUES(?,?,?,?,?) '''
+    sql = ''' INSERT INTO parser_label_data(tag,class,id_html,mark,action,action_value,notify,notify_time,pause)
+                  VALUES(?,?,?,?,?,?) '''
     cur = conn.cursor()
     cur.execute(sql, parser_data)
     conn.commit()
@@ -81,8 +81,17 @@ def del_content_by_time(conn, id,time):
     cur.execute(sql, (id,time))
     conn.commit()
 
+def update_label(conn,id_label,notify,notify_time,pause):
+    sql = ''' UPDATE parser_label_data
+                  SET notify = ? ,
+                      notify_time = ?,
+                      pause = ?
+                  WHERE id = ?'''
+    cur = conn.cursor()
+    cur.execute(sql, (notify,notify_time,pause,id_label))
+    conn.commit()
 
 if __name__ == "__main__":
     conn = create_connection("parse_.db")
     with conn:
-        del_content_by_time(conn,16,"23:39:53")
+        update_label(conn,16,None,"1 hour","True")

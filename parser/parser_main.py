@@ -3,8 +3,9 @@ import threading
 import time
 from PyQt5 import QtCore, QtGui, QtWidgets
 import schedule
+from PyQt5.QtCore import QTimer, QThread, pyqtSignal
 from PyQt5.QtGui import QMovie, QPixmap
-from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog,QLabel
+from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QLabel
 from PyQt5 import QtCore
 from PyQt5.uic.properties import QtGui
 
@@ -13,6 +14,7 @@ from layout.template_layout import Dialog_get_date
 import Firo_parse_sqlite
 import layout.template_layout
 from multiprocessing import Process
+
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -25,11 +27,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.conn = Firo_parse_sqlite.create_connection("parse_.db")
         """function"""
         self.load_label()
-        # self.ProgressBar()
+        self.ProgressBar()
         self.button_X.clicked.connect(self.close_app)
+
     def close_app(self):
         self.connect_sub()
         sys.exit()
+
     def load_label(self):
         with self.conn:
             data = Firo_parse_sqlite.get_data(self.conn)
@@ -46,8 +50,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         while self.verticalLayout_2.count():
             child = self.verticalLayout_2.takeAt(0)
             if child.widget():
-               if  child.widget().hand:
-                   child.widget().hand.kill()
+                if child.widget().hand:
+                    child.widget().hand.kill()
 
     def get_parse_date(self):
         self.dialog_date = Dialog_get_date(self, [self.geometry().x(), self.geometry().y()])
@@ -108,22 +112,44 @@ class ProgressLoading(QDialog):
         self.label_2.setScaledContents(False)
         self.label_2.setObjectName("label_2")
 
-        self.descr_2.setHtml(
-                                        "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-                                        "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-                                        "p, li { white-space: pre-wrap; }\n"
-                                        "</style></head><body style=\" font-family:\'NSimSun\'; font-size:13px; font-weight:200; font-style:normal;\">\n"
-                                        "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:13px;\">Loading...</span></p>\n"
-                                        "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-                                        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">Firo: I\'m in a hurry, but you have to wait!</span></p></body></html>")
-
+        # self.descr_2.setHtml(
+        #                                 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        #                                 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+        #                                 "p, li { white-space: pre-wrap; }\n"
+        #                                 "</style></head><body style=\" font-family:\'NSimSun\'; font-size:13px; font-weight:200; font-style:normal;\">\n"
+        #                                 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:13px;\">Loading...</span></p>\n"
+        #                                 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+        #                                 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">Firo: I\'m in a hurry, but you have to wait!</span></p></body></html>")
+        thread = DummyThread(self)
+        thread.start()
+        thread.finished.connect(lambda: self.loading())
+        self.point = "Loading."
         threading.Thread(target=self.close_this).start()
 
-
     def close_this(self):
-        print("qq")
-        time.sleep(10)
+        time.sleep(15)
         self.close()
+
+    def loading(self):
+        self.descr_2.setHtml(
+            "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+            "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+            "p, li { white-space: pre-wrap; }\n"
+            f"</style></head><body style=\" font-family:\'NSimSun\'; font-size:13px; font-weight:200; font-style:normal;\">\n"
+            f"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:13px;\">{self.point}</span></p>\n"
+            "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">Firo: I\'m in a hurry, but you have to wait!</span></p></body></html>")
+        self.point = self.point + "."
+        if self.point == "Loading....":
+            self.point = "Loading."
+
+
+class DummyThread(QThread):
+    finished = pyqtSignal()
+    def run(self):
+        while True:
+            self.finished.emit()
+            time.sleep(1)
 
 
 if __name__ == '__main__':

@@ -1031,200 +1031,283 @@ class Ui_MainWindow(object):
         self.close_not_button.setObjectName("close_not_button")
 
 
-        """голосовые настройки"""
-        self.centralwidget.setObjectName("centralwidget")
-        self.setting_page_3 = QtWidgets.QFrame(self.centralwidget)
-        self.setting_page_3.setGeometry(QtCore.QRect(260, 139, 929, 445))
-        self.setting_page_3.setStyleSheet("background: rgba(33, 24, 24, 0.6);\n"
-                                          "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.35);\n"
+        """ voice settings """
+        self.voice_set_1 = QtWidgets.QFrame(self.centralwidget)
+        self.voice_set_1.setGeometry(QtCore.QRect(570, 120, 929, 445))
+        self.voice_set_1.setStyleSheet("background: rgba(23, 23, 23, 0.7);\n"
+                                       "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                       "border-radius: 13px;")
+        self.voice_set_1.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.voice_set_1.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.voice_set_1.setObjectName("voice_set_1")
+        self.button_panel_1 = QtWidgets.QFrame(self.voice_set_1)
+        self.button_panel_1.setGeometry(QtCore.QRect(0, 0, 221, 445))
+        self.button_panel_1.setStyleSheet("background: rgba(23, 23, 23, 1);\n"
+                                          "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                           "border-radius: 13px;")
-        self.setting_page_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.setting_page_3.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.setting_page_3.setObjectName("setting_page_3")
-        self.label_setting_page_3 = QtWidgets.QLabel(self.setting_page_3)
-        self.label_setting_page_3.setGeometry(QtCore.QRect(20, 0, 71, 31))
-        self.label_setting_page_3.setStyleSheet("font: 8pt \"Arial\";\n"
-                                                "font-style: normal;\n"
-                                                "font-weight: normal;\n"
-                                                "font-size: 14px;\n"
-                                                "line-height: 34px;\n"
-                                                "/* identical to box height */\n"
-                                                "background: rgba(33, 24, 24, 0.0);\n"
-                                                "\n"
-                                                "color: #FFFFFF;\n"
-                                                "")
-        self.label_setting_page_3.setObjectName("label_setting_page_3")
-        self.label_window_page_3 = QtWidgets.QLabel(self.setting_page_3)
-        self.label_window_page_3.setGeometry(QtCore.QRect(10, 56, 169, 80))
-        self.label_window_page_3.setStyleSheet("background: rgba(33, 24, 24, 0.7);\n"
-                                               "font: 18pt \"Arial\";\n"
-                                               "border: 3px solid #575151;\n"
-                                               "box-sizing: border-box;\n"
-                                               "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                               "border-radius: 13px;\n"
-                                               "\n"
-                                               "font-weight: normal;\n"
-                                               "\n"
-                                               "line-height: 40px;\n"
-                                               "\n"
-                                               "color: #FFFFFF;\n"
-                                               "")
-        self.label_window_page_3.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_window_page_3.setObjectName("label_window_page_3")
-        self.label_page_3 = QtWidgets.QLabel(self.setting_page_3)
-        self.label_page_3.setGeometry(QtCore.QRect(786, 10, 91, 31))
-        self.label_page_3.setStyleSheet("background: rgba(33, 24, 24, 0.0);\n"
-                                        "font: 16pt \"Arial\";\n"
+        self.button_panel_1.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.button_panel_1.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.button_panel_1.setObjectName("button_panel_1")
+        self.mic_button_1 = QtWidgets.QPushButton(self.button_panel_1)
+        self.mic_button_1.setGeometry(QtCore.QRect(40, 40, 151, 28))
+        self.mic_button_1.setStyleSheet("font: 12pt \"Arial\";\n"
+                                        "color: rgba(255, 255, 255, 1);\n"
+                                        "border: 1px solid rgba(233, 233, 233, 1);\n"
+                                        "background: rgba(255, 255, 255, 0.1);\n"
                                         "box-sizing: border-box;\n"
-                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                        "border-radius: 13px;\n"
-                                        "\n"
-                                        "font-weight: normal;\n"
-                                        "\n"
-                                        "line-height: 40px;\n"
-                                        "\n"
-                                        "color: #FFFFFF;\n"
-                                        "")
-        self.label_page_3.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_page_3.setObjectName("label_page_3")
-        self.button_on_2_page = QtWidgets.QPushButton(self.setting_page_3)
-        self.button_on_2_page.setGeometry(QtCore.QRect(761, 13, 31, 26))
-        self.button_on_2_page.setStyleSheet("background: rgba(33, 24, 24, 0.0);")
-        self.button_on_2_page.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("material/image 52.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.button_on_2_page.setIcon(icon)
-        self.button_on_2_page.setObjectName("button_on_2_page")
-        self.microphone_select = QtWidgets.QComboBox(self.setting_page_3)
-        self.microphone_select.setGeometry(QtCore.QRect(190, 56, 721, 80))
-        self.microphone_select.setStyleSheet("background: rgba(33, 24, 24, 0.7);\n"
+                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.5);")
+        self.mic_button_1.setObjectName("mic_button_1")
+        self.name_button_1 = QtWidgets.QPushButton(self.button_panel_1)
+        self.name_button_1.setGeometry(QtCore.QRect(40, 90, 151, 28))
+        self.name_button_1.setStyleSheet("border-radius: 2px;\n"
+                                         "font: 12pt \"Arial\";\n"
+                                         "color: rgba(255, 255, 255, 1);\n"
+                                         "background: rgba(23, 23, 23, 0.31);\n"
+                                         "box-sizing: border-box;\n"
+                                         "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+        self.name_button_1.setObjectName("name_button_1")
+        self.command_button_1 = QtWidgets.QPushButton(self.button_panel_1)
+        self.command_button_1.setGeometry(QtCore.QRect(40, 140, 151, 28))
+        self.command_button_1.setStyleSheet("border-radius: 2px;\n"
+                                            "font: 12pt \"Arial\";\n"
+                                            "color: rgba(255, 255, 255, 1);\n"
+                                            "background: rgba(23, 23, 23, 0.31);\n"
+                                            "box-sizing: border-box;\n"
+                                            "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+        self.command_button_1.setObjectName("command_button_1")
+        self.microphone_select = QtWidgets.QComboBox(self.voice_set_1)
+        self.microphone_select.setGeometry(QtCore.QRect(260, 20, 631, 80))
+        self.microphone_select.setStyleSheet("background: rgba(23, 23, 23, 0.7);;\n"
                                              "font: 18pt \"Arial\";\n"
                                              "border: 3px solid #575151;\n"
                                              "box-sizing: border-box;\n"
                                              "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                              "border-radius: 13px;\n"
-                                             "\n"
                                              "font-weight: normal;\n"
-                                             "\n"
                                              "line-height: 40px;\n"
-                                             "\n"
-                                             "color: #FFFFFF;\n"
-                                             "")
+                                             "color: #FFFFFF;\n")
         self.microphone_select.setEditable(False)
         self.microphone_select.setCurrentText("")
         self.microphone_select.setObjectName("microphone_select")
+        self.mic_check_button = QtWidgets.QPushButton(self.voice_set_1)
+        self.mic_check_button.setGeometry(QtCore.QRect(260, 120, 241, 55))
+        self.mic_check_button.setStyleSheet("background:  rgba(23, 23, 23, 0.7);\n"
+                                            "font: 12pt \"Arial\";\n"
+                                            "border: 3px solid #575151;\n"
+                                            "box-sizing: border-box;\n"
+                                            "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                            "border-radius: 13px;\n"
+                                            "font-weight: normal;\n"
+                                            "line-height: 40px;\n"
+                                            "color: #FFFFFF;\n")
+        self.mic_check_button.setObjectName("mic_check_button")
 
-        self.frame_create_voice_command = QtWidgets.QFrame(self.setting_page_3)
-        self.frame_create_voice_command.setGeometry(QtCore.QRect(10, 180, 901, 80))
-        self.frame_create_voice_command.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_create_voice_command.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_create_voice_command.setObjectName("frame_create_voice_command")
-        self.choose_bd_command = QtWidgets.QComboBox(self.frame_create_voice_command)
-        self.choose_bd_command.setGeometry(QtCore.QRect(10, 10, 201, 55))
-        self.choose_bd_command.setStyleSheet("background: rgba(33, 24, 24, 0.7);\n"
-                                             "font: 14pt \"Arial\";\n"
+        self.set_voice_2 = QtWidgets.QFrame(self.centralwidget)
+        self.set_voice_2.setGeometry(QtCore.QRect(570, 120, 929, 445))
+        self.set_voice_2.setStyleSheet("background: rgba(23, 23, 23, 0.7);\n"
+                                       "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                       "border-radius: 13px;")
+        self.set_voice_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.set_voice_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.set_voice_2.setObjectName("set_voice_2")
+        self.button_panel_2 = QtWidgets.QFrame(self.set_voice_2)
+        self.button_panel_2.setGeometry(QtCore.QRect(0, 0, 221, 445))
+        self.button_panel_2.setStyleSheet("background: rgba(23, 23, 23, 1);\n"
+                                          "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                          "border-radius: 13px;")
+        self.button_panel_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.button_panel_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.button_panel_2.setObjectName("button_panel_2")
+        self.mic_button_2 = QtWidgets.QPushButton(self.button_panel_2)
+        self.mic_button_2.setGeometry(QtCore.QRect(40, 40, 151, 28))
+        self.mic_button_2.setStyleSheet("font: 12pt \"Arial\";\n"
+                                        "color: rgba(255, 255, 255, 1);\n"
+                                        "background: rgba(23, 23, 23, 0.31);\n"
+                                        "box-sizing: border-box;\n"
+                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+        self.mic_button_2.setObjectName("mic_button_2")
+        self.name_button_2 = QtWidgets.QPushButton(self.button_panel_2)
+        self.name_button_2.setGeometry(QtCore.QRect(40, 90, 151, 28))
+        self.name_button_2.setStyleSheet("font: 12pt \"Arial\";\n"
+                                         "color: rgba(255, 255, 255, 1);\n"
+                                         "border: 1px solid rgba(233, 233, 233, 1);\n"
+                                         "background: rgba(255, 255, 255, 0.1);\n"
+                                         "box-sizing: border-box;\n"
+                                         "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.5);")
+        self.name_button_2.setObjectName("name_button_2")
+        self.command_button_2 = QtWidgets.QPushButton(self.button_panel_2)
+        self.command_button_2.setGeometry(QtCore.QRect(40, 140, 151, 28))
+        self.command_button_2.setStyleSheet("border-radius: 2px;\n"
+                                            "font: 12pt \"Arial\";\n"
+                                            "color: rgba(255, 255, 255, 1);\n"
+                                            "background: rgba(23, 23, 23, 0.31);\n"
+                                            "box-sizing: border-box;\n"
+                                            "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+        self.command_button_2.setObjectName("command_button_2")
+        self.create_name_button = QtWidgets.QPushButton(self.set_voice_2)
+        self.create_name_button.setGeometry(QtCore.QRect(580, 160, 313, 51))
+        self.create_name_button.setStyleSheet("background:  rgba(23, 23, 23, 0.7);\n"
+                                              "font: 12pt \"Arial\";\n"
+                                              "border: 3px solid #575151;\n"
+                                              "box-sizing: border-box;\n"
+                                              "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                              "border-radius: 13px;\n"
+                                              "font-weight: normal;\n"
+                                              "line-height: 40px;\n"
+                                              "color: #FFFFFF;\n")
+        self.create_name_button.setObjectName("create_name_button")
+        self.command_bd_select = QtWidgets.QComboBox(self.set_voice_2)
+        self.command_bd_select.setGeometry(QtCore.QRect(260, 80, 309, 51))
+        self.command_bd_select.setStyleSheet("background: rgba(23, 23, 23, 0.7);;\n"
+                                             "font: 18pt \"Arial\";\n"
                                              "border: 3px solid #575151;\n"
                                              "box-sizing: border-box;\n"
                                              "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                              "border-radius: 13px;\n"
-                                             "\n"
                                              "font-weight: normal;\n"
-                                             "\n"
                                              "line-height: 40px;\n"
-                                             "\n"
-                                             "color: #FFFFFF;\n"
-                                             "")
-        self.choose_bd_command.setEditable(False)
-        self.choose_bd_command.setCurrentText("")
-        self.choose_bd_command.setObjectName("choose_bd_command")
-        self.lineEdit_name_command = QtWidgets.QLineEdit(self.frame_create_voice_command)
-        self.lineEdit_name_command.setGeometry(QtCore.QRect(235, 10, 201, 55))
-        self.lineEdit_name_command.setStyleSheet("background: rgba(33, 24, 24, 0.7);\n"
-                                                 "font: 12pt \"Arial\";\n"
-                                                 "border: 3px solid #575151;\n"
-                                                 "box-sizing: border-box;\n"
-                                                 "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                                 "border-radius: 13px;\n"
-                                                 "\n"
-                                                 "font-weight: normal;\n"
-                                                 "\n"
-                                                 "line-height: 40px;\n"
-                                                 "\n"
-                                                 "color: #FFFFFF;\n"
-                                                 "")
-        self.lineEdit_name_command.setObjectName("lineEdit_name_command")
-        self.Input_voice_command = QtWidgets.QPushButton(self.frame_create_voice_command)
-        self.Input_voice_command.setGeometry(QtCore.QRect(465, 10, 201, 55))
-        self.Input_voice_command.setStyleSheet("background: rgba(33, 24, 24, 0.7);\n"
-                                               "font: 12pt \"Arial\";\n"
-                                               "border: 3px solid #575151;\n"
-                                               "box-sizing: border-box;\n"
-                                               "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                               "border-radius: 13px;\n"
-                                               "\n"
-                                               "font-weight: normal;\n"
-                                               "\n"
-                                               "line-height: 40px;\n"
-                                               "\n"
-                                               "color: #FFFFFF;\n"
-                                               "")
-        self.Input_voice_command.setObjectName("Input_voice_command")
-        self.create_command_button = QtWidgets.QPushButton(self.frame_create_voice_command)
-        self.create_command_button.setGeometry(QtCore.QRect(690, 10, 201, 55))
-        self.create_command_button.setStyleSheet("background: rgba(33, 24, 24, 0.7);\n"
-                                                 "font: 12pt \"Arial\";\n"
-                                                 "border: 3px solid #575151;\n"
-                                                 "box-sizing: border-box;\n"
-                                                 "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                                 "border-radius: 13px;\n"
-                                                 "\n"
-                                                 "font-weight: normal;\n"
-                                                 "\n"
-                                                 "line-height: 40px;\n"
-                                                 "\n"
-                                                 "color: #FFFFFF;\n"
-                                                 "")
-        self.create_command_button.setObjectName("create_command_button")
-        self.frame_delete_voice_command = QtWidgets.QFrame(self.setting_page_3)
-        self.frame_delete_voice_command.setGeometry(QtCore.QRect(10, 310, 450, 80))
-        self.frame_delete_voice_command.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_delete_voice_command.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_delete_voice_command.setObjectName("frame_delete_voice_command")
-        self.choose_bd_voice_command = QtWidgets.QComboBox(self.frame_delete_voice_command)
-        self.choose_bd_voice_command.setGeometry(QtCore.QRect(10, 10, 201, 55))
-        self.choose_bd_voice_command.setStyleSheet("background: rgba(33, 24, 24, 0.7);\n"
-                                                   "font: 14pt \"Arial\";\n"
-                                                   "border: 3px solid #575151;\n"
-                                                   "box-sizing: border-box;\n"
-                                                   "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                                   "border-radius: 13px;\n"
-                                                   "\n"
-                                                   "font-weight: normal;\n"
-                                                   "\n"
-                                                   "line-height: 40px;\n"
-                                                   "\n"
-                                                   "color: #FFFFFF;\n"
-                                                   "")
-        self.choose_bd_voice_command.setEditable(False)
-        self.choose_bd_voice_command.setCurrentText("")
-        self.choose_bd_voice_command.setObjectName("choose_bd_voice_command")
-        self.delete_command_button = QtWidgets.QPushButton(self.frame_delete_voice_command)
-        self.delete_command_button.setGeometry(QtCore.QRect(240, 10, 201, 55))
-        self.delete_command_button.setStyleSheet("background: rgba(33, 24, 24, 0.7);\n"
-                                                 "font: 12pt \"Arial\";\n"
-                                                 "border: 3px solid #575151;\n"
-                                                 "box-sizing: border-box;\n"
-                                                 "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                                 "border-radius: 13px;\n"
-                                                 "\n"
-                                                 "font-weight: normal;\n"
-                                                 "\n"
-                                                 "line-height: 40px;\n"
-                                                 "\n"
-                                                 "color: #FFFFFF;\n"
-                                                 "")
-        self.delete_command_button.setObjectName("delete_command_button")
+                                             "color: #FFFFFF;\n")
+        self.command_bd_select.setEditable(False)
+        self.command_bd_select.setCurrentText("")
+        self.command_bd_select.setObjectName("command_bd_select")
+        self.input_name_command_voice = QtWidgets.QLineEdit(self.set_voice_2)
+        self.input_name_command_voice.setGeometry(QtCore.QRect(580, 80, 313, 51))
+        self.input_name_command_voice.setStyleSheet("box-sizing: border-box;\n"
+                                                    "font: 12pt \"Arial\";\n"
+                                                    "position: absolute;\n"
+                                                    "width: 313px;\n"
+                                                    "height: 51px;\n"
+                                                    "left: 1108px;\n"
+                                                    "top: 517px;\n"
+                                                    "color: #FFFFFF;\n"
+                                                    "background: rgba(233, 209, 209, 0.5);\n"
+                                                    "border-radius: 11px;\n")
+        self.input_name_command_voice.setObjectName("input_name_command_voice")
+        self.instr_1 = QtWidgets.QLabel(self.set_voice_2)
+        self.instr_1.setGeometry(QtCore.QRect(360, 140, 121, 20))
+        self.instr_1.setStyleSheet("position: absolute;\n"
+                                   "width: 205px;\n"
+                                   "height: 20px;\n"
+                                   "left: 841px;\n"
+                                   "top: 574px;\n"
+                                   "background: rgba(23, 23, 23, 0);\n"
+                                   "font-family: \'Roboto Mono\';\n"
+                                   "font-style: normal;\n"
+                                   "font-weight: 400;\n"
+                                   "font-size: 16px;\n"
+                                   "line-height: 21px;\n"
+                                   "color: rgba(255, 255, 255, 1);\n")
+        self.instr_1.setObjectName("instr_1")
 
+        self.bd_com = QtWidgets.QLabel(self.set_voice_2)
+        self.bd_com.setGeometry(QtCore.QRect(360, 140, 121, 20))
+        self.bd_com.setStyleSheet("position: absolute;\n"
+                                   "width: 205px;\n"
+                                   "height: 20px;\n"
+                                   "left: 841px;\n"
+                                   "top: 574px;\n"
+                                   "background: rgba(23, 23, 23, 0);\n"
+                                   "font-family: \'Roboto Mono\';\n"
+                                   "font-style: normal;\n"
+                                   "font-weight: 400;\n"
+                                   "font-size: 16px;\n"
+                                   "line-height: 21px;\n"
+                                   "color: rgba(255, 255, 255, 1);\n")
+        self.bd_com.setObjectName("bd_com")
+
+
+        self.set_voice_3 = QtWidgets.QFrame(self.centralwidget)
+        self.set_voice_3.setGeometry(QtCore.QRect(570, 120, 929, 445))
+        self.set_voice_3.setStyleSheet("background: rgba(23, 23, 23, 0.7);\n"
+                                       "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                       "border-radius: 13px;")
+        self.set_voice_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.set_voice_3.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.set_voice_3.setObjectName("set_voice_3")
+        self.button_panel_3 = QtWidgets.QFrame(self.set_voice_3)
+        self.button_panel_3.setGeometry(QtCore.QRect(0, 0, 221, 445))
+        self.button_panel_3.setStyleSheet("background: rgba(23, 23, 23, 1);\n"
+                                          "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                          "border-radius: 13px;")
+        self.button_panel_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.button_panel_3.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.button_panel_3.setObjectName("button_panel_3")
+        self.mic_button_3 = QtWidgets.QPushButton(self.button_panel_3)
+        self.mic_button_3.setGeometry(QtCore.QRect(40, 40, 151, 28))
+        self.mic_button_3.setStyleSheet("font: 12pt \"Arial\";\n"
+                                        "color: rgba(255, 255, 255, 1);\n"
+                                        "background: rgba(23, 23, 23, 0.31);\n"
+                                        "box-sizing: border-box;\n"
+                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+        self.mic_button_3.setObjectName("mic_button_3")
+        self.name_button_3 = QtWidgets.QPushButton(self.button_panel_3)
+        self.name_button_3.setGeometry(QtCore.QRect(40, 90, 151, 28))
+        self.name_button_3.setStyleSheet("border-radius: 2px;\n"
+                                         "font: 12pt \"Arial\";\n"
+                                         "color: rgba(255, 255, 255, 1);\n"
+                                         "background: rgba(23, 23, 23, 0.31);\n"
+                                         "box-sizing: border-box;\n"
+                                         "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+        self.name_button_3.setObjectName("name_button_3")
+        self.command_button_3 = QtWidgets.QPushButton(self.button_panel_3)
+        self.command_button_3.setGeometry(QtCore.QRect(40, 140, 151, 28))
+        self.command_button_3.setStyleSheet("font: 12pt \"Arial\";\n"
+                                            "color: rgba(255, 255, 255, 1);\n"
+                                            "border: 1px solid rgba(233, 233, 233, 1);\n"
+                                            "background: rgba(255, 255, 255, 0.1);\n"
+                                            "box-sizing: border-box;\n"
+                                            "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.5);")
+        self.command_button_3.setObjectName("command_button_3")
+        self.command_scrollArea_1 = QtWidgets.QScrollArea(self.set_voice_3)
+        self.command_scrollArea_1.setGeometry(QtCore.QRect(240, 10, 671, 421))
+        self.command_scrollArea_1.setStyleSheet("QScrollBar:horizontal {\n"
+                                                "  border-color: rgb(227, 227, 227);\n"
+                                                "  border-width: 1px;\n"
+                                                "  border-style: solid;\n"
+                                                "  background-color: rgb(240, 240, 240);\n"
+                                                "    height: 15px;\n"
+                                                "    margin: 0px 21px 0 21px;\n"
+                                                " }\n"
+                                                " QScrollBar::handle:horizontal {\n"
+                                                "    background-color: rgb(200, 200, 200);\n"
+                                                "    max-width: 5px;\n"
+                                                " }\n"
+                                                "QScrollBar::add-line:horizontal {\n"
+                                                "    border: 1px solid grey;\n"
+                                                "  background-color: rgb(241, 241, 241);\n"
+                                                "    height: 20px;\n"
+                                                "    subcontrol-position: right;\n"
+                                                "    subcontrol-origin: margin;\n"
+                                                " }\n"
+                                                " QScrollBar::sub-line:horizontal {\n"
+                                                "  border: 1px solid grey;\n"
+                                                "    background-color: rgb(241, 241, 241);\n"
+                                                "    height: 20px;\n"
+                                                "    subcontrol-position: left;\n"
+                                                "    subcontrol-origin: margin;\n"
+                                                " }\n"
+                                                " QScrollBar:left-arrow:horizontal\n"
+                                                "{\n"
+                                                "  image: url(:/BarIcon/Icons/leftarrow.png);\n"
+                                                "}\n"
+                                                "QScrollBar::right-arrow:horizontal \n"
+                                                "{\n"
+                                                "  image: url(:/BarIcon/Icons/rightarrow.png);\n"
+                                                "}\n"
+                                                "QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
+                                                "     background: none;\n"
+                                                "}")
+        self.command_scrollArea_1.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.command_scrollArea_1.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.command_scrollArea_1.setWidgetResizable(True)
+        self.command_scrollArea_1.setObjectName("command_scrollArea_1")
+        self.scrollAreaWidgetContentsVoiceCom_1 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContentsVoiceCom_1.setGeometry(QtCore.QRect(0, 0, 671, 421))
+        self.scrollAreaWidgetContentsVoiceCom_1.setStyleSheet("background: rgba(23, 23, 23, 0.0);")
+        self.scrollAreaWidgetContentsVoiceCom_1.setObjectName("scrollAreaWidgetContentsVoiceCom_1")
+        self.gridLayout = QtWidgets.QGridLayout(self.scrollAreaWidgetContentsVoiceCom_1)
+        self.gridLayout.setObjectName("gridLayout")
+        self.command_scrollArea_1.setWidget(self.scrollAreaWidgetContentsVoiceCom_1)
 
 
         """ note frame"""
@@ -1645,13 +1728,6 @@ class Ui_MainWindow(object):
         self.label_window_page_2.setText("main window")
         self.label_normal_window_page_2.setText("Normal size")
         self.label_page_2.setText("page 2")
-        self.label_page_3.setText("page 3")
-        self.label_window_page_3.setText("Микрофон")
-        self.label_setting_page_3.setText("settings")
-        self.lineEdit_name_command.setText("Назв голкоманды")
-        self.Input_voice_command.setText("Для голоса")
-        self.create_command_button.setText("Создать команду")
-        self.delete_command_button.setText("Удалить команду")
         self.label.setText("настройки")
         self.label_2.setText("Вайфу это твой выбор")
         self.label_3.setText("язык")
@@ -1667,6 +1743,20 @@ class Ui_MainWindow(object):
         self.label_10.setText("страница 1")
         self.label_8.setText("И нисколько я не думаю\n")
         self.voice_helper_label.setText("voice helper")
+        """ войс """
+        self.mic_button_1.setText("Микрофон")
+        self.name_button_1.setText("Наименование")
+        self.command_button_1.setText("Список команд")
+        self.mic_check_button.setText("Проверка микрофона")
+        self.mic_button_2.setText("Микрофон")
+        self.name_button_2.setText("Наименование")
+        self.command_button_2.setText("Список команд")
+        self.create_name_button.setText("Создать команду")
+        self.input_name_command_voice.setText("Название команды")
+        self.instr_1.setText("Выбор команды")
+        self.mic_button_3.setText("Микрофон")
+        self.name_button_3.setText("Наименование")
+        self.command_button_3.setText("Список команд")
         # button
         """ фрейм где эти кнопки"""
         self.setting_button.setText("настройки")

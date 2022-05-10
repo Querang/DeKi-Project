@@ -35,15 +35,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.frame_rule_command.hide()
         self.command_panel_frame.hide()
         self.teg_frame.hide()
+        self.voice_set_1.hide()
+        self.set_voice_2.hide()
+        self.set_voice_3.hide()
+        self.bd_com.hide()
         self.main_note_frame.hide()
         self.setting_frame.hide()
         self.Note_frame_2.hide()
         # self.frame_main.hide()
         self.main_min_frame.hide()
         self.setting_page_2.hide()
-        self.setting_page_3.hide()
         self.notification_panel.hide()
         """hotkey"""
+        self.shortcut = QShortcut(QKeySequence("s"), self)
+        self.shortcut.activated.connect(self.set_voice_set_frame)
+        self.shortcut = QShortcut(QKeySequence("q"), self)
+        self.shortcut.activated.connect(self.set_main_after_voice)
         self.shortcut = QShortcut(QKeySequence("Ctrl+W"), self)
         self.shortcut.activated.connect(self.hide_main_window)
         self.shortcut = QShortcut(QKeySequence("v"), self)
@@ -51,9 +58,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
         """assign an action"""
+        self.command_button_1.clicked.connect(self.set_v_3)
+        self.command_button_2.clicked.connect(self.set_v_3)
+        self.name_button_1.clicked.connect(self.set_v_2)
+        self.name_button_3.clicked.connect(self.set_v_2)
+        self.mic_button_2.clicked.connect(self.set_v_1)
+        self.mic_button_3.clicked.connect(self.set_v_1)
         self.close_not_button.clicked.connect(self.close_notification)
-        self.button_on_2_page.clicked.connect(self.set_on_page_2)
-        self.button_on_3_page.clicked.connect(self.set_on_page_3)
         self.rule_command_button.clicked.connect(self.show_rule_command_frame)
         self.rule_command_back_button.clicked.connect(self.back_on_main_frame)
         self.like_command_button.clicked.connect(self.show_hide_like_command)
@@ -80,9 +91,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_note_min.clicked.connect(self.show_note_frame)
         self.setting_button_on_page_2.clicked.connect(self.set_on_page_2)
         self.button_on_1_page.clicked.connect(self.set_on_page_1)
-        self.microphone_select.activated[str].connect(self.onActivated)
+        self.microphone_select.activated[str].connect(self.onActivated_1)
+        self.command_bd_select.activated[str].connect(self.onActivated_2)
         self.button_window_r_2.clicked.connect(self.Next_main_window_size)
         self.button_window_l_2.clicked.connect(self.Next_main_window_size)
+        self.create_name_button.clicked.connect(self.add_voice_com)
         """set variables"""
         self.scroll_px = 0
         self.button_bar = [0, 1, 2, 3]
@@ -96,6 +109,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.del_list = []  # выбранные команды для удаления попадают сюда
         self.language_list = ["russian", "english"]
         self.microphone_search()
+        self.bd_command_searcher()
         self.commands = {
             (f"здравствуй", f"привет", f"hello"): self.play_greetings,
             (f"до встречи", f"пока", f"закончить работу", f"завершение", f"на этом всё"): self.play_farewell_and_quit,
@@ -108,8 +122,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
              f"википедию", f"открой википедию"): self.search_for_definition_on_wikipedia,
             (f"команда", f"выполнить команду"): self.active_command_voice,
             (f"копируй", f"копируйте", f"скопируй", f"копирую"): self.copy_data,
-            (f"вставить", f"вставь"): self.input_copied_data,
-            (f"помоги", f"диспетчер", f"помощник"): self.dispatcher
+            (f"вставить", f"вставь", f"ставь", f"ставить"): self.input_copied_data,
+            (f"помоги", f"диспетчер", f"помощник"): self.dispatcher,
+            (f"вырезать"): self.cut_data
 }
 
         conn = sqlite_Neko.create_connection("Neko.db")
@@ -337,12 +352,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     """fun setting frame"""
     def set_on_page_2(self):
         self.setting_frame.hide()
-        self.setting_page_3.hide()
         self.setting_page_2.show()
 
-    def set_on_page_3(self):
-        self.setting_page_2.hide()
-        self.setting_page_3.show()
 
     def set_on_page_1(self):
         self.setting_frame.show()
@@ -356,6 +367,31 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             self.setting_frame.hide()
             self.frame_main.show()
+
+    def set_voice_set_frame(self):
+        self.frame_main.hide()
+        self.voice_set_1.show()
+
+    def set_main_after_voice(self):
+        self.voice_set_1.hide()
+        self.set_voice_2.hide()
+        self.set_voice_3.hide()
+        self.frame_main.show()
+
+    def set_v_1(self):
+        self.voice_set_1.show()
+        self.set_voice_2.hide()
+        self.set_voice_3.hide()
+
+    def set_v_2(self):
+        self.voice_set_1.hide()
+        self.set_voice_2.show()
+        self.set_voice_3.hide()
+
+    def set_v_3(self):
+        self.voice_set_1.hide()
+        self.set_voice_2.hide()
+        self.set_voice_3.show()
 
     def save_global_setting(self):
         """ stores global settings in database  """
@@ -570,6 +606,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.clear_note(self.delite_bar)
         self.show_update_item_in_area_delite_choice()
 
+    def add_voice_com(self):
+        """add voice com"""
+        conn = sqlite_Neko.create_connection("Neko.db")
+        command_name = self.input_name_command_voice.text()
+        bd_name = self.bd_com.text()
+        with conn:
+            voice_com = (command_name, bd_name, 1)
+            sqlite_Neko.create_voice_com(conn, voice_com)
+            self.input_name_command_voice.setText("Успешно")
+
     def show_update_item_in_area_delite_choice(self):
         """updates buttons containing commands"""
         conn = sqlite_Neko.create_connection("Neko.db")
@@ -738,6 +784,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """
         Запись и распознавание аудио
         """
+        mic_index = self.onActivated_1()
+        microphone = speech_recognition.Microphone(device_index=mic_index)
+
         with microphone:
             recognized_data = ""
 
@@ -853,6 +902,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         keyboard.release("c")
         keyboard.release("ctrl")
 
+    def cut_data(self, *args: tuple):
+        keyboard.press("ctrl")
+        keyboard.press("x")
+        keyboard.release("x")
+        keyboard.release("ctrl")
+
     def input_copied_data(self, *args: tuple):
         keyboard.press("ctrl")
         keyboard.press("v")
@@ -867,9 +922,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         keyboard.release("shift")
         keyboard.release("esc")
 
-    def onActivated(self, text):
-        print(self.microphone_select.)
+    def onActivated_1(self):
+        return self.microphone_select.currentIndex()
 
+    def onActivated_2(self, text):
+        self.bd_com.setText(text)
 
     def microphone_search(self):
         name_list = []
@@ -880,6 +937,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.microphone_select.addItem(name)
         print(name_list)
 
+    def bd_command_searcher(self):
+        conn = sqlite_Neko.create_connection("Neko.db")
+        names = sqlite_Neko.select_all_command(conn)
+        self.command_bd_select.addItems(names)
 
     def execute_command_with_name(self, command_name: str, *args: list):
         """
@@ -908,7 +969,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 if __name__ == "__main__":
     ttsEngine = pyttsx3.init()
     recognizer = speech_recognition.Recognizer()
-    microphone = speech_recognition.Microphone()
     app = QApplication(sys.argv)
     w = MainWindow()
     w.show()

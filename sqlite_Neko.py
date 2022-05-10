@@ -28,6 +28,22 @@ def create_task(conn, task):
     conn.commit()
     return cur.lastrowid
 
+
+def create_voice_com(conn, voice_commands):
+    """
+    Create a new project into the projects table
+    :param conn:
+    :param voice_commands:
+    :return: project id
+    """
+    sql = ''' INSERT INTO voice_commands(command_name,bd_name,active)
+              VALUES(?,?,?) '''
+    cur = conn.cursor()
+    cur.execute(sql, voice_commands)
+    conn.commit()
+    return cur.lastrowid
+
+
 def get_note_list(conn,current_folder):
     cur = conn.cursor()
     cur.execute("SELECT object_name FROM note WHERE work_table =? ", (current_folder,))
@@ -43,6 +59,7 @@ def get_note_list(conn,current_folder):
         list_all_note.append(i[0])
 
     return (list_all_note,list_objiect_name)
+
 
 def create_note(conn, notet):
     """
@@ -280,3 +297,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

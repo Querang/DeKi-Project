@@ -10,7 +10,7 @@ from PyQt5 import QtCore
 from PyQt5.uic.properties import QtGui
 
 from layout.main_layout import Ui_MainWindow
-from layout.template_layout import Dialog_get_date
+# from layout.template_layout import Dialog_get_date
 import Firo_parse_sqlite
 import layout.template_layout
 from multiprocessing import Process
@@ -27,7 +27,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.conn = Firo_parse_sqlite.create_connection("parse_.db")
         """function"""
         self.load_label()
-        self.ProgressBar()
+        # self.ProgressBar()
         self.button_X.clicked.connect(self.close_app)
 
     def close_app(self):

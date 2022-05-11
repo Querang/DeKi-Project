@@ -14,7 +14,7 @@ import schedule
 from PyQt5 import QtCore, QtGui, QtWidgets
 from bs4 import BeautifulSoup
 import requests
-import Firo_parse_sqlite
+import parser.Firo_parse_sqlite as Firo_parse_sqlite
 
 
 class MyThread(threading.Thread):
@@ -62,7 +62,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
         super(GenerateParseLabel, self).__init__()
         """value"""
         self.main_obj = main_obj
-        self.self_id, self.site_text_pull, self.tag_text, self.class_text, self.id_text, self.mark_text, self.action_text, self.action_value, self.notify, self.notify_time, self.pause = data
+        self.self_id, self.site_text_pull, self.tag_text, self.class_text, self.id_text, self.mark_text, self.action_text, self.action_value, self.notify, self.notify_time, self.pause,self.icon_path = data
         self.parser_container = ParserContainer()
         self.parser_container.url, self.parser_container.current_tag, self.parser_container.current_class, self.parser_container.current_id, self.parser_container.action = self.site_text_pull, self.tag_text, self.class_text, self.id_text, self.action_text
         self.amount_content = 0
@@ -78,12 +78,13 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
         self.parser_label_sub.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.parser_label_sub.setFrameShadow(QtWidgets.QFrame.Raised)
         self.parser_label_sub.setObjectName("parser_label_sub")
-        self.icon_mark = QtWidgets.QLabel(self.parser_label_sub)
+        self.icon_mark = MenuIcon(self.parser_label_sub, self)
         self.icon_mark.setGeometry(QtCore.QRect(0, 0, 51, 51))
         self.icon_mark.setStyleSheet("background: rgba(44, 40, 40, 0.0);")
         self.icon_mark.setText("")
-        self.icon_mark.setPixmap(QtGui.QPixmap("../parser/material/mark_icon/bell.png"))
+        self.icon_mark.setPixmap(QtGui.QPixmap(self.icon_path))
         self.icon_mark.setAlignment(QtCore.Qt.AlignCenter)
+        self.icon_mark.setScaledContents(True)
         self.icon_mark.setObjectName("icon_mark")
         self.site_text = QtWidgets.QTextBrowser(self.parser_label_sub)
         self.site_text.setGeometry(QtCore.QRect(60, 4, 221, 21))
@@ -207,7 +208,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
 
         else:
             self.hand = None
-        # self.handler_content()
+        self.handler_content()
 
     def handler_content_schedule(self):
         # print(self.notify_time)
@@ -236,25 +237,36 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
             while True:
                 schedule.run_pending()
                 time.sleep(1)
+
     def handler_content(self):
-        # conn = Firo_parse_sqlite.create_connection("parse_.db")
+        conn = Firo_parse_sqlite.create_connection("parse_.db")
         print(self.self_id)
-        # now = datetime.now()
-        # current_time = now.strftime("%H:%M:%S")
-        # self.parser_container.find_content_by_type()
-        # content_stroke = [self.self_id, "\n".join(self.parser_container.content_list), current_time]
-        # """get last content or if None"""
-        # last_content = Firo_parse_sqlite.return_content(conn, self.self_id)
-        # print(content_stroke)
-        # if last_content:
-        #     if last_content[0][1] != content_stroke[1]:
-        #         last_content.insert(0, content_stroke)
-        #     else:
-        #         print("exist")
-        #
-        # else:
-        #     last_content.insert(0, content_stroke)
-        #     Firo_parse_sqlite.add_content(conn, last_content[:10])
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        self.parser_container.find_content_by_type()
+        content_stroke = [self.self_id, "\n".join(self.parser_container.content_list), current_time]
+        """get last content or if None"""
+        last_content = Firo_parse_sqlite.return_content(conn, self.self_id)
+        print(content_stroke)
+        if self.action_text == "keep track of content changes":
+            if last_content:
+                if last_content[0][1] != content_stroke[1]:
+                    last_content.insert(0, content_stroke)
+                    Firo_parse_sqlite.add_content(conn, last_content[:10])
+                else:
+                    print("exist")
+
+            else:
+                last_content.insert(0, content_stroke)
+                Firo_parse_sqlite.add_content(conn, last_content[:10])
+
+        elif self.action_text == "substring search":
+            if self.action_value in content_stroke[1]:
+                last_content.insert(0, content_stroke)
+                Firo_parse_sqlite.add_content(conn, last_content[:10])
+            else:
+                print("exist")
+
 
     def notify_push(self):
         pass
@@ -269,7 +281,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
     def update_label(self):
         conn = Firo_parse_sqlite.create_connection("parse_.db")
         with conn:
-            Firo_parse_sqlite.update_label(conn, self.self_id, self.notify, self.notify_time, self.pause)
+            Firo_parse_sqlite.update_label(conn, self.self_id, self.notify, self.notify_time, self.pause,self.icon_path)
         schedule.clear(f"{self.self_id}")
         self.hand.kill()
         self.hand = MyThread(target=self.handler_content_schedule)
@@ -290,7 +302,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
             self.pause_button.setIcon(icon)
         conn = Firo_parse_sqlite.create_connection("parse_.db")
         with conn:
-            Firo_parse_sqlite.update_label(conn, self.self_id, self.notify, self.notify_time, self.pause)
+            Firo_parse_sqlite.update_label(conn, self.self_id, self.notify, self.notify_time, self.pause,self.icon_path)
         if self.pause == "False":
             schedule.clear(f"{self.self_id}")
             self.hand.kill()
@@ -300,6 +312,67 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
             self.hand = MyThread(target=self.handler_content_schedule)
             self.hand.start()
         print(self.pause)
+
+
+class MenuIcon(QtWidgets.QLabel):
+    def __init__(self, label_obj, parent):
+        super(MenuIcon, self).__init__(label_obj)
+        self.label_obj = parent
+
+    def mousePressEvent(self, event):
+        self.dragPos = event.globalPos()
+        a = DialogIcon(self.label_obj, (self.dragPos.x(), self.dragPos.y()))
+        a.exec_()
+
+
+class DialogIcon(QtWidgets.QDialog):
+    def __init__(self, label_obj, position):
+        super(DialogIcon, self).__init__()
+        self.label_obj = label_obj
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.position_x, self.position_y = position
+        self.setGeometry(QtCore.QRect(self.position_x, self.position_y + 10, 101, 101))
+        self.frame_2 = QtWidgets.QFrame(self)
+        self.frame_2.setGeometry(QtCore.QRect(0, 0, 101, 101))
+        self.frame_2.setStyleSheet("background: #181818;\n"
+                                   "border: 0.5px solid rgba(167, 167, 167, 0.0);")
+        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.extend = MenuButton(self.frame_2, "../parser/material/mark_icon/bell.png")
+        self.extend.setGeometry(QtCore.QRect(0, 0, 50, 50))
+        self.extend_2 = MenuButton(self.frame_2, "../parser/material/mark_icon/bell_2.png")
+        self.extend_2.setGeometry(QtCore.QRect(50, 0, 50, 50))
+        self.extend_3 = MenuButton(self.frame_2, "../parser/material/mark_icon/bell_3.png")
+        self.extend_3.setGeometry(QtCore.QRect(0, 50, 50, 50))
+        self.extend_3.setIconSize(QtCore.QSize(40, 40))
+        self.extend.clicked.connect(lambda :self.custom_icon("../parser/material/mark_icon/bell.png"))
+        self.extend_2.clicked.connect(lambda: self.custom_icon("../parser/material/mark_icon/bell_2.png"))
+        self.extend_3.clicked.connect(lambda: self.custom_icon("../parser/material/mark_icon/bell_3.png"))
+
+    def custom_icon(self,path):
+        self.label_obj.icon_mark.setPixmap(QtGui.QPixmap(path))
+        conn = Firo_parse_sqlite.create_connection("parse_.db")
+        with conn:
+            Firo_parse_sqlite.update_label(conn, self.label_obj.self_id, self.label_obj.notify, self.label_obj.notify_time, self.label_obj.pause,
+                                           path)
+            self.close()
+
+
+class MenuButton(QtWidgets.QPushButton):
+    def __init__(self, parent, icon_path):
+        super(MenuButton, self).__init__(parent=parent)
+        self.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(icon_path), QtGui.QIcon.Normal,
+                       QtGui.QIcon.Off)
+        self.setIcon(icon)
+        self.setIconSize(QtCore.QSize(50, 50))
+        self.setStyleSheet(" QPushButton {"
+                           "border: 0.5px solid rgba(167, 167, 167, 0.0);\n"
+                           "background: rgba(199, 199, 199, 0.0);\n""color: rgba(255, 255, 255, 0.70);}\n"
+                           "QPushButton:hover {\n"
+                           "background: rgba(199, 199, 199, 0.2);}")
 
 
 class MenuLabel(QtWidgets.QPushButton):
@@ -340,7 +413,9 @@ class MenuLabel(QtWidgets.QPushButton):
         if Delete == result:
             conn = Firo_parse_sqlite.create_connection("parse_.db")
             Firo_parse_sqlite.del_content(conn, self.label_obj.self_id)
+            print("QQ")
             Firo_parse_sqlite.delete_label(conn, self.label_obj.self_id)
+            print("QQ")
             self.label_obj.deleteLater()
         elif Show_extend == result:
             self.label_obj.setMinimumSize(QtCore.QSize(398, 181))
@@ -456,6 +531,15 @@ class Dialog_view_content(QtWidgets.QDialog):
         for item in content:
             print(item)
             self.verticalLayout_2.addWidget(ContentLabel(item))
+
+    def mousePressEvent(self, event):
+        self.dragPos = event.globalPos()
+
+    def mouseMoveEvent(self, event):
+        if event.buttons() == QtCore.Qt.MiddleButton:
+            self.move(self.pos() + event.globalPos() - self.dragPos)
+            self.dragPos = event.globalPos()
+            event.accept()
 
 
 class ContentLabel(QtWidgets.QWidget):
@@ -980,7 +1064,7 @@ class Dialog_get_date(QtWidgets.QDialog):
             "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">Firo believes in you and hopes that you did not just click.</span></p></body></html>")
 
         """set fun"""
-        # self.site_line.textChanged.connect(self.stage_1)
+        self.site_line.textChanged.connect(self.stage_1)
         self.tag_choice.setMinimumContentsLength(40)
         self.class_choice.setMinimumContentsLength(40)
         self.element_choice_2.setMinimumContentsLength(40)
@@ -992,15 +1076,16 @@ class Dialog_get_date(QtWidgets.QDialog):
         self.frame_success.hide()
         """value"""
         self.parse_container = ParserContainer()
-        self.site_url = "https://bik.sfu-kras.ru/elib/view?id=BOOK1-84%284%D0%90%29-444/%D0%9C%20805-521870"
-        self.action_list = ["...", "show content", "substring search",
-                            "track change in content"]  # set condition меет 3 подпункта на условия
+        # self.site_url = "https://bik.sfu-kras.ru/elib/view?id=BOOK1-84%284%D0%90%29-444/%D0%9C%20805-521870"
+        self.action_list = ["...", "keep track of content changes", "substring search"
+                            ]  # set condition меет 3 подпункта на условия
         self.action_choice.addItems(self.action_list)
-        self.stage_1()
+
+
 
     def stage_1(self):
-        # self.site_url = self.site_line.text()
-        if check_website(self.site_url):
+        self.site_url = self.site_line.text()
+        if self.parse_container.check_website(self.site_url):
             self.frame_lock_1.hide()
             self.stage_2(self.site_url)
         else:
@@ -1067,6 +1152,8 @@ class Dialog_get_date(QtWidgets.QDialog):
             self.parse_container.current_id = None
         if self.action_choice.currentText() != "...":
             self.parse_container.action = self.action_choice.currentText()
+            if self.action_choice.currentText() == "substring search":
+                self.value_line.show()
         else:
             self.parse_container.action = None
         self.parse_container.find_content_by_type()
@@ -1106,7 +1193,7 @@ class ParserContainer():
     def return_arguments(self):
         return (
             self.url, self.current_tag, self.current_class, self.current_id, self.mark, self.action, self.action_value,
-            "15 min", None, "True")
+            "15 min", None, "True","../parser/material/mark_icon/bell.png")
 
     def get_all_tag(self):
         if self.url is not None:
@@ -1158,16 +1245,16 @@ class ParserContainer():
                     self.content_list.append(i.get_text())
             # print(self.content_list)
 
-
-def check_website(url):
-    try:
-        page = requests.get(url)
-        if page.status_code == 200:
-            return True
-        else:
-            return False
-    except:
-        print("problem")
+    @staticmethod
+    def check_website(url):
+        try:
+            page = requests.get(url)
+            if page.status_code == 200:
+                return True
+            else:
+                return False
+        except:
+            print("problem")
 
 
 """parse"""

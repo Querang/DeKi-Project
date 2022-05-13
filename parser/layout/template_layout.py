@@ -14,7 +14,7 @@ import schedule
 from PyQt5 import QtCore, QtGui, QtWidgets
 from bs4 import BeautifulSoup
 import requests
-import parser.Firo_parse_sqlite as Firo_parse_sqlite
+import Firo_parse_sqlite
 
 
 class MyThread(threading.Thread):

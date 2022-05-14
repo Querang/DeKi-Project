@@ -402,16 +402,20 @@ class GenerateBook(QtWidgets.QWidget):
 
     def left_click_on_book(self):
         try:
-            dst = os.path.abspath(r"../library/bookshelf/pdfjs-2.13.216-dist/web/compressed.tracemonkey-pldi-09.pdf")
+            dst = os.path.abspath(r"../library/bookshelf/pdfjs-2.14.305-dist/web/compressed.tracemonkey-pldi-09.pdf")
             conn = library.Neko_lib_sqlite.create_connection("lib.db")
             with conn:
+
                 data_book = library.Neko_lib_sqlite.get_book(conn, self.id_book)
                 print(data_book[1])
             src = os.path.abspath(r"../library/bookshelf/" + f"{data_book[1]}" + ".pdf")
+            print("1")
+            print(src,dst)
             shutil.copyfile(src, dst, follow_symlinks=True)
-            webbrowser.open("http://localhost:8000/bookshelf/pdfjs-2.13.216-dist/web/viewer.html")
+            print("2")
+            webbrowser.open("http://localhost:8000/bookshelf/pdfjs-2.14.305-dist/web/viewer.html")
         except:
-            pass
+            print("noo")
         config_names = library.Neko_lib_sqlite.read_config("lib_config.yaml")
         if config_names["flag_f11"]:
             time.sleep(4)

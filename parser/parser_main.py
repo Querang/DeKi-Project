@@ -10,22 +10,26 @@ from PyQt5 import QtCore
 from PyQt5.uic.properties import QtGui
 
 from layout.main_layout import Ui_MainWindow
-# from layout.template_layout import Dialog_get_date
+from layout.template_layout import Dialog_get_date,FlowLayout
 import Firo_parse_sqlite
 import layout.template_layout
-from multiprocessing import Process
+import threading
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
-    def __init__(self):
+    def __init__(self,window_notify):
         super().__init__()
+
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setupUi(self)
         self.show()
         self.serfing_button.clicked.connect(self.get_parse_date)
+        self.window_notify = window_notify
         # self.get_parse_date()
         self.conn = Firo_parse_sqlite.create_connection("parse_.db")
         """function"""
+        # ww = threading.Thread(target= create_main2)
+        # ww.start()
         self.load_label()
         # self.ProgressBar()
         self.button_X.clicked.connect(self.close_app)
@@ -38,7 +42,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         with self.conn:
             data = Firo_parse_sqlite.get_data(self.conn)
             for item in data:
-                self.verticalLayout_2.addWidget(layout.template_layout.GenerateParseLabel(self, item))
+                self.verticalLayout_2.addWidget(layout.template_layout.GenerateParseLabel(self, item,self.window_notify))
 
     # def connect(self):
     #     schedule.every(10).seconds.do(self.connect_sub)
@@ -54,7 +58,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     child.widget().hand.kill()
 
     def get_parse_date(self):
-        self.dialog_date = Dialog_get_date(self, [self.geometry().x(), self.geometry().y()])
+        self.dialog_date = Dialog_get_date(self, [self.geometry().x(), self.geometry().y()],self.window_notify)
         self.dialog_date.exec_()
 
     def mousePressEvent(self, event):
@@ -142,7 +146,47 @@ class ProgressLoading(QDialog):
         self.point = self.point + "."
         if self.point == "Loading....":
             self.point = "Loading."
-
+class Ui_MainWindow(QMainWindow):
+    def __init__(self):
+        super(Ui_MainWindow, self).__init__()
+        self.setWindowFlags(self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        desktop = QtWidgets.QApplication.desktop()
+        self.setGeometry(QtCore.QRect(desktop.width() - 230, 40, 180, 60))
+        self.show()
+        self.centralwidget = QtWidgets.QWidget(self)
+        self.centralwidget.setObjectName("centralwidget")
+        self.frame_container_area = QtWidgets.QFrame(self.centralwidget)
+        self.frame_container_area.setGeometry(QtCore.QRect(0, 0, 451, 321))
+        self.frame_container_area.setMinimumSize(QtCore.QSize(451, 321))
+        self.frame_container_area.setMaximumSize(QtCore.QSize(451, 521))
+        self.frame_container_area.setStyleSheet("background: rgba(44, 40, 40, 0.0);")
+        self.frame_container_area.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_container_area.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_container_area.setObjectName("frame_container_area")
+        self.area_for_item = QtWidgets.QScrollArea(self.frame_container_area)
+        self.area_for_item.setGeometry(QtCore.QRect(0, 0, 416, 501))
+        self.area_for_item.setMinimumSize(QtCore.QSize(416, 300))
+        self.area_for_item.setMaximumSize(QtCore.QSize(416, 501))
+        self.area_for_item.setStyleSheet("background: rgba(44, 40, 40, 0.0);\n"
+"border: 0.5px solid rgba(167, 167, 167, 0.0);")
+        self.area_for_item.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.area_for_item.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.area_for_item.setWidgetResizable(True)
+        self.area_for_item.setObjectName("area_for_item")
+        self.area_for_item_container = QtWidgets.QWidget()
+        self.area_for_item_container.setGeometry(QtCore.QRect(0, 0, 414, 499))
+        self.area_for_item_container.setObjectName("area_for_item_container")
+        self.verticalLayout_2 = FlowLayout(self.area_for_item_container)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.area_for_item.setWidget(self.area_for_item_container)
+        self.scroll_label = QtWidgets.QLabel(self.frame_container_area)
+        self.scroll_label.setGeometry(QtCore.QRect(435, 20, 4, 450))
+        self.scroll_label.setStyleSheet("background: #0C0C0C;")
+        self.scroll_label.setObjectName("scroll_label")
+        self.verticalLayout_2.addWidget(QtWidgets.QPushButton())
+        self.setCentralWidget(self.centralwidget)
 
 class DummyThread(QThread):
     finished = pyqtSignal()
@@ -151,9 +195,12 @@ class DummyThread(QThread):
             self.finished.emit()
             time.sleep(1)
 
-
+# class DummyThread(QThread):
+#     a = Ui_MainWindow()
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(True)
-    w = MainWindow()
+    a = Ui_MainWindow()
+    w = MainWindow(a)
+
     sys.exit(app.exec_())

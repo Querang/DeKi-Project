@@ -62,8 +62,8 @@ def add_content(conn, list_content):
     cur.execute(sql, (id,))
     for i in list_content:
         print(i)
-        sql = ''' INSERT INTO parse_content(id_content,text_content,time_parse)
-                          VALUES(?,?,?) '''
+        sql = ''' INSERT INTO parse_content(id_content,text_content,time_parse,checked)
+                          VALUES(?,?,?,?) '''
         cur = conn.cursor()
         cur.execute(sql, tuple(i))
 
@@ -91,6 +91,14 @@ def update_label(conn,id_label,notify,notify_time,pause,icon_path):
                   WHERE id = ?'''
     cur = conn.cursor()
     cur.execute(sql, (notify,notify_time,pause,icon_path,id_label))
+    conn.commit()
+
+def update_content(conn,id_label):
+    sql = ''' UPDATE parse_content
+                  SET checked = ? 
+                  WHERE id_content = ?'''
+    cur = conn.cursor()
+    cur.execute(sql, ("true", id_label))
     conn.commit()
 class SqliteManage():
     def __init__(self, db_file):
@@ -154,4 +162,4 @@ class SqliteManage():
 if __name__ == "__main__":
     conn = create_connection("parse_.db")
     with conn:
-        del_content(conn,17)
+        update_content(conn,16)

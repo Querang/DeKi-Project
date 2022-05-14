@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>170</width>
+    <height>60</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="frame_container_area">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>451</width>
+      <height>321</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>451</width>
+      <height>321</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>451</width>
+      <height>521</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: rgba(44, 40, 40, 0.0);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QScrollArea" name="area_for_item">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>416</width>
+       <height>501</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>416</width>
+       <height>300</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>416</width>
+       <height>501</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: rgba(44, 40, 40, 0.0);
+border: 0.5px solid rgba(167, 167, 167, 0.0);</string>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="area_for_item_container">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>414</width>
+        <height>499</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2"/>
+     </widget>
+    </widget>
+    <widget class="QLabel" name="scroll_label">
+     <property name="geometry">
+      <rect>
+       <x>435</x>
+       <y>20</y>
+       <width>4</width>
+       <height>450</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: #0C0C0C;</string>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

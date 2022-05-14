@@ -58,11 +58,13 @@ class MyThread(threading.Thread):
 
 
 class GenerateParseLabel(QtWidgets.QGroupBox):
-    def __init__(self, main_obj, data):
+    def __init__(self, main_obj, data, window_notify):
         super(GenerateParseLabel, self).__init__()
         """value"""
+        self.window_notify = window_notify
         self.main_obj = main_obj
-        self.self_id, self.site_text_pull, self.tag_text, self.class_text, self.id_text, self.mark_text, self.action_text, self.action_value, self.notify, self.notify_time, self.pause,self.icon_path = data
+        self.push_icon = ''
+        self.self_id, self.site_text_pull, self.tag_text, self.class_text, self.id_text, self.mark_text, self.action_text, self.action_value, self.notify, self.notify_time, self.pause, self.icon_path = data
         self.parser_container = ParserContainer()
         self.parser_container.url, self.parser_container.current_tag, self.parser_container.current_class, self.parser_container.current_id, self.parser_container.action = self.site_text_pull, self.tag_text, self.class_text, self.id_text, self.action_text
         self.amount_content = 0
@@ -100,7 +102,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
         self.site_text.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.site_text.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.site_text.setObjectName("site_text")
-        self.element_text = QtWidgets.QTextBrowser(self.parser_label_sub)
+        self.element_text = QtWidgets.QLabel(self.parser_label_sub)
         self.element_text.setGeometry(QtCore.QRect(60, 26, 181, 21))
         self.element_text.setStyleSheet("font-family: \'Roboto Mono\';\n"
                                         "font-style: normal;\n"
@@ -112,8 +114,6 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
                                         "color: rgba(255, 255, 255, 0.8);\n"
                                         "\n"
                                         "border: 0.5px solid rgba(167, 167, 167, 0.0);")
-        self.element_text.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.element_text.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.element_text.setObjectName("element_text")
         self.pause_button = QtWidgets.QPushButton(self.parser_label_sub)
         self.pause_button.setGeometry(QtCore.QRect(300, 13, 21, 21))
@@ -183,12 +183,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
             "p, li { white-space: pre-wrap; }\n"
             "</style></head><body style=\" font-family:\'Roboto Mono\'; font-size:13px; font-weight:296; font-style:normal;\">\n"
             f"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">{self.site_text_pull}<br /><br /></span></p></body></html>")
-        self.element_text.setHtml(
-            "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-            "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-            "p, li { white-space: pre-wrap; }\n"
-            "</style></head><body style=\" font-family:\'Roboto Mono\'; font-size:13px; font-weight:296; font-style:normal;\">\n"
-            f"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">element: {self.amount_content} unchecked: {self.amount_unchecked_content}</span></p></body></html>")
+        self.element_text.setText(f"amount: {self.amount_content} unchecked: {self.amount_unchecked_content}")
         self.briefly_info.setHtml(
             "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
             "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -202,14 +197,24 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
             f"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;\"><br /></p>\n"
             f"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">mark:{self.mark_text}</span></p></body></html>")
         self.pause_button.clicked.connect(self.pause_parse)
-        if self.pause == "True":
-            self.hand = MyThread(target=self.handler_content_schedule)
-            self.hand.start()
+        self.ww = self.parser_container.check_website(self.site_text_pull)
+        if self.ww:
+            if self.pause == "True":
+                self.hand = MyThread(target=self.handler_content_schedule)
+                self.hand.start()
 
+            else:
+                self.hand = None
+            self.handler_content()
+        # self.notify_push()
         else:
-            self.hand = None
-        self.handler_content()
-
+            icon1 = QtGui.QIcon()
+            icon1.addPixmap(QtGui.QPixmap("../parser/material/mistake.png"),
+                            QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            self.status_icon.setIcon(icon1)
+        self.notify_push()
+    def up_amount(self):
+        self.element_text.setText(f"amount: {self.amount_content} unchecked: {self.amount_unchecked_content}")
     def handler_content_schedule(self):
         # print(self.notify_time)
         if self.notify_time == "1 min":
@@ -244,7 +249,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
         now = datetime.now()
         current_time = now.strftime("%H:%M:%S")
         self.parser_container.find_content_by_type()
-        content_stroke = [self.self_id, "\n".join(self.parser_container.content_list), current_time]
+        content_stroke = [self.self_id, "\n".join(self.parser_container.content_list), current_time, "false"]
         """get last content or if None"""
         last_content = Firo_parse_sqlite.return_content(conn, self.self_id)
         print(content_stroke)
@@ -259,17 +264,28 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
             else:
                 last_content.insert(0, content_stroke)
                 Firo_parse_sqlite.add_content(conn, last_content[:10])
+                # if self.push_icon:
+                #     self.push_icon.reset_label()
+                # else:
+                #     self.notify_push()
 
         elif self.action_text == "substring search":
             if self.action_value in content_stroke[1]:
                 last_content.insert(0, content_stroke)
                 Firo_parse_sqlite.add_content(conn, last_content[:10])
+                self.notify_push()
             else:
                 print("exist")
-
-
+        self.amount_content = len(last_content)
+        a = 0
+        for i in last_content:
+            if i[3] == "false":
+                a+=1
+        self.amount_unchecked_content = a
+        self.element_text.setText(f"amount: {self.amount_content} unchecked: {self.amount_unchecked_content}")
     def notify_push(self):
-        pass
+        self.push_icon = NotifyIcon(self, self.amount_unchecked_content, self.icon_path)
+        self.window_notify.verticalLayout_2.addWidget(self.push_icon)
 
     def mousePressEvent(self, e: QtGui.QMouseEvent):
         if e.button() == QtCore.Qt.MouseButton.LeftButton:
@@ -278,41 +294,83 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
         else:
             e.ignore()
 
+    def view_content_notify(self):
+        content_window = Dialog_view_content(self, [self.main_obj.geometry().x(), self.main_obj.geometry().y()])
+        content_window.exec_()
+
     def update_label(self):
         conn = Firo_parse_sqlite.create_connection("parse_.db")
         with conn:
-            Firo_parse_sqlite.update_label(conn, self.self_id, self.notify, self.notify_time, self.pause,self.icon_path)
+            Firo_parse_sqlite.update_label(conn, self.self_id, self.notify, self.notify_time, self.pause,
+                                           self.icon_path)
         schedule.clear(f"{self.self_id}")
         self.hand.kill()
         self.hand = MyThread(target=self.handler_content_schedule)
         self.hand.start()
 
     def pause_parse(self):
-        if self.pause == "True":
-            self.pause = "False"
-            icon = QtGui.QIcon()
-            icon.addPixmap(QtGui.QPixmap("../parser/material/pause_2.png"), QtGui.QIcon.Normal,
-                           QtGui.QIcon.Off)
-            self.pause_button.setIcon(icon)
-        elif self.pause == "False":
-            self.pause = "True"
-            icon = QtGui.QIcon()
-            icon.addPixmap(QtGui.QPixmap("../parser/material/pause_1.png"), QtGui.QIcon.Normal,
-                           QtGui.QIcon.Off)
-            self.pause_button.setIcon(icon)
-        conn = Firo_parse_sqlite.create_connection("parse_.db")
-        with conn:
-            Firo_parse_sqlite.update_label(conn, self.self_id, self.notify, self.notify_time, self.pause,self.icon_path)
-        if self.pause == "False":
-            schedule.clear(f"{self.self_id}")
-            self.hand.kill()
+        if self.ww:
+            if self.pause == "True":
+                self.pause = "False"
+                icon = QtGui.QIcon()
+                icon.addPixmap(QtGui.QPixmap("../parser/material/pause_2.png"), QtGui.QIcon.Normal,
+                               QtGui.QIcon.Off)
+                self.pause_button.setIcon(icon)
+            elif self.pause == "False":
+                self.pause = "True"
+                icon = QtGui.QIcon()
+                icon.addPixmap(QtGui.QPixmap("../parser/material/pause_1.png"), QtGui.QIcon.Normal,
+                               QtGui.QIcon.Off)
+                self.pause_button.setIcon(icon)
+            conn = Firo_parse_sqlite.create_connection("parse_.db")
+            with conn:
+                Firo_parse_sqlite.update_label(conn, self.self_id, self.notify, self.notify_time, self.pause,
+                                               self.icon_path)
+            if self.pause == "False":
+                schedule.clear(f"{self.self_id}")
+                self.hand.kill()
 
-        if self.pause == "True":
-            self.hand = None
-            self.hand = MyThread(target=self.handler_content_schedule)
-            self.hand.start()
-        print(self.pause)
+            if self.pause == "True":
+                self.hand = None
+                self.hand = MyThread(target=self.handler_content_schedule)
+                self.hand.start()
+            print(self.pause)
 
+
+class NotifyIcon(QtWidgets.QWidget):
+    def __init__(self, main_obj, label_value, icon_path):
+        super(NotifyIcon, self).__init__()
+        self.main_obj, self.label_value, self.icon_path = main_obj, label_value, icon_path
+        self.setGeometry(QtCore.QRect(70, 320, 60, 60))
+        self.setMinimumSize(QtCore.QSize(60, 60))
+        self.setMaximumSize(QtCore.QSize(60, 60))
+        self.setObjectName("widget")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(self.icon_path), QtGui.QIcon.Normal,
+                       QtGui.QIcon.Off)
+
+        self.notify = QtWidgets.QPushButton(self)
+        self.notify.setGeometry(QtCore.QRect(0, 0, 60, 60))
+        self.notify.setStyleSheet("border: 0.5px solid rgba(167, 167, 167, 0.0);\n"
+                                  "background: #181818;\n"
+                                  "border-radius: 5px;\n"
+                                  "")
+        self.notify.setText("")
+        self.notify.setIcon(icon)
+        self.notify.setIconSize(QtCore.QSize(50, 50))
+        self.notify.setObjectName("notify")
+        self.label = QtWidgets.QLabel(self)
+        self.label.setGeometry(QtCore.QRect(48, 40, 16, 16))
+        self.label.setStyleSheet("color: #FFFFFF;")
+        self.label.setObjectName("label")
+        self.label.setText(f"{self.label_value}")
+        self.notify.clicked.connect(lambda: self.click_icon())
+
+    def reset_label(self):
+        self.label.setText(f"{self.main_obj.amount_unchecked_content}")
+    def click_icon(self):
+        self.main_obj.view_content_notify()
+        self.deleteLater()
 
 class MenuIcon(QtWidgets.QLabel):
     def __init__(self, label_obj, parent):
@@ -346,15 +404,16 @@ class DialogIcon(QtWidgets.QDialog):
         self.extend_3 = MenuButton(self.frame_2, "../parser/material/mark_icon/bell_3.png")
         self.extend_3.setGeometry(QtCore.QRect(0, 50, 50, 50))
         self.extend_3.setIconSize(QtCore.QSize(40, 40))
-        self.extend.clicked.connect(lambda :self.custom_icon("../parser/material/mark_icon/bell.png"))
+        self.extend.clicked.connect(lambda: self.custom_icon("../parser/material/mark_icon/bell.png"))
         self.extend_2.clicked.connect(lambda: self.custom_icon("../parser/material/mark_icon/bell_2.png"))
         self.extend_3.clicked.connect(lambda: self.custom_icon("../parser/material/mark_icon/bell_3.png"))
 
-    def custom_icon(self,path):
+    def custom_icon(self, path):
         self.label_obj.icon_mark.setPixmap(QtGui.QPixmap(path))
         conn = Firo_parse_sqlite.create_connection("parse_.db")
         with conn:
-            Firo_parse_sqlite.update_label(conn, self.label_obj.self_id, self.label_obj.notify, self.label_obj.notify_time, self.label_obj.pause,
+            Firo_parse_sqlite.update_label(conn, self.label_obj.self_id, self.label_obj.notify,
+                                           self.label_obj.notify_time, self.label_obj.pause,
                                            path)
             self.close()
 
@@ -528,9 +587,11 @@ class Dialog_view_content(QtWidgets.QDialog):
         conn = Firo_parse_sqlite.create_connection("parse_.db")
         with conn:
             content = Firo_parse_sqlite.return_content(conn, self.parent.self_id)
+            Firo_parse_sqlite.update_content(conn,self.parent.self_id)
+            self.parent.up_amount()
         for item in content:
             print(item)
-            self.verticalLayout_2.addWidget(ContentLabel(item))
+            self.verticalLayout_2.addWidget(ContentLabel(item,self.parent))
 
     def mousePressEvent(self, event):
         self.dragPos = event.globalPos()
@@ -543,11 +604,11 @@ class Dialog_view_content(QtWidgets.QDialog):
 
 
 class ContentLabel(QtWidgets.QWidget):
-    def __init__(self, item):
+    def __init__(self, item,main_obj):
         super(ContentLabel, self).__init__()
         self.setGeometry(QtCore.QRect(0, 0, 536, 168))
         self.setMinimumSize(QtCore.QSize(536, 168))
-
+        self.main_obj = main_obj
         self.frame = QtWidgets.QFrame(self)
         self.frame.setGeometry(QtCore.QRect(0, 0, 536, 168))
         self.frame.setStyleSheet("background: rgba(44, 40, 40, 0.0);border: 1px solid #646464;")
@@ -615,6 +676,7 @@ class ContentLabel(QtWidgets.QWidget):
         conn = Firo_parse_sqlite.create_connection("parse_.db")
         with conn:
             Firo_parse_sqlite.del_content_by_time(conn, self.id_label, self.time)
+            self.main_obj.up_amount()
             self.deleteLater()
 
 
@@ -723,8 +785,9 @@ class FlowLayout(QtWidgets.QLayout):
 
 
 class Dialog_get_date(QtWidgets.QDialog):
-    def __init__(self, main_obj, position):
+    def __init__(self, main_obj, position,window_notify):
         super(Dialog_get_date, self).__init__()
+        self.window_notify = window_notify
         self.main_obj = main_obj
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
@@ -1081,8 +1144,6 @@ class Dialog_get_date(QtWidgets.QDialog):
                             ]  # set condition меет 3 подпункта на условия
         self.action_choice.addItems(self.action_list)
 
-
-
     def stage_1(self):
         self.site_url = self.site_line.text()
         if self.parse_container.check_website(self.site_url):
@@ -1116,11 +1177,11 @@ class Dialog_get_date(QtWidgets.QDialog):
                 self.frame_success.show()
                 try:
                     self.main_obj.verticalLayout_2.addWidget(
-                        GenerateParseLabel(self.main_obj, (id_label,) + self.parse_container.return_arguments()))
+                        GenerateParseLabel(self.main_obj, (id_label,) + self.parse_container.return_arguments(),self.window_notify))
                 except:
                     print("fail")
                 print("qq")
-                threading.Thread(target=self.close_dialog).start()
+                self.close_dialog()
 
     def close_dialog(self):
         time.sleep(3)
@@ -1193,7 +1254,7 @@ class ParserContainer():
     def return_arguments(self):
         return (
             self.url, self.current_tag, self.current_class, self.current_id, self.mark, self.action, self.action_value,
-            "15 min", None, "True","../parser/material/mark_icon/bell.png")
+            "15 min", None, "True", "../parser/material/mark_icon/bell.png")
 
     def get_all_tag(self):
         if self.url is not None:

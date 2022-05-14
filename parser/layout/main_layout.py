@@ -75,6 +75,8 @@ class Ui_MainWindow(object):
         self.sorted_by_mark.setDuplicatesEnabled(False)
         self.sorted_by_mark.setFrame(True)
         self.sorted_by_mark.setObjectName("sorted_by_mark")
+        self.sorted_by_mark.addItem("Show all")
+
         self.sorted_by_time = QtWidgets.QComboBox(self.sub_top_frame)
         self.sorted_by_time.setGeometry(QtCore.QRect(223, 10, 206, 29))
         self.sorted_by_time.setStyleSheet("background: #2B2B2B;\n"
@@ -90,6 +92,7 @@ class Ui_MainWindow(object):
         self.sorted_by_time.setDuplicatesEnabled(False)
         self.sorted_by_time.setFrame(True)
         self.sorted_by_time.setObjectName("sorted_by_time")
+        self.sorted_by_time.addItem("Sorted: recent")
         self.button_clear_find = QtWidgets.QPushButton(self.sub_top_frame)
         self.button_clear_find.setGeometry(QtCore.QRect(393, 43, 31, 31))
         self.button_clear_find.setStyleSheet("color: rgba(255, 255, 255, 0.8);\n"

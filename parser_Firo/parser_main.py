@@ -1,18 +1,14 @@
 import sys
-import threading
 import time
 from PyQt5 import QtCore, QtGui, QtWidgets
-import schedule
 from PyQt5.QtCore import QTimer, QThread, pyqtSignal
 from PyQt5.QtGui import QMovie, QPixmap, QIcon
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QLabel, QSystemTrayIcon, QStyle, QAction, QMenu, qApp
 from PyQt5 import QtCore
-from PyQt5.uic.properties import QtGui
-
-from layout.main_layout import Ui_MainWindow
-from layout.template_layout import Dialog_get_date, FlowLayout
+from parser_Firo.layout.main_layout import Ui_MainWindow
+from parser_Firo.layout.template_layout import Dialog_get_date, FlowLayout
 import Firo_parse_sqlite
-import layout.template_layout
+import parser_Firo.layout.template_layout as template_layout
 import threading
 
 
@@ -22,6 +18,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.Tool)
         self.setupUi(self)
         self.show()
+        print(sys.path)
         self.serfing_button.clicked.connect(self.get_parse_date)
         self.window_notify = window_notify
         # self.get_parse_date()
@@ -34,7 +31,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_X.clicked.connect(self.hide)
         self.tray_icon = QSystemTrayIcon(self)
         icon = QIcon()
-        icon.addPixmap(QPixmap("../parser/material/Firo_parser.png"), QIcon.Normal,
+        icon.addPixmap(QPixmap("../parser_Firo/material/Firo_parser.png"), QIcon.Normal,
                        QIcon.Off)
         self.tray_icon.setIcon(icon)
         show_action = QAction("Show", self)
@@ -60,7 +57,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             data = Firo_parse_sqlite.get_data(self.conn)
             for item in data:
                 self.verticalLayout_2.addWidget(
-                    layout.template_layout.GenerateParseLabel(self, item, self.window_notify))
+                    template_layout.GenerateParseLabel(self, item, self.window_notify))
 
     # def connect(self):
     #     schedule.every(10).seconds.do(self.connect_sub)

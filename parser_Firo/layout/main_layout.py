@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import Firo_parse_sqlite
+import parser_Firo.Firo_parse_sqlite as Firo_parse_sqlite
 
 
 class Ui_MainWindow(object):

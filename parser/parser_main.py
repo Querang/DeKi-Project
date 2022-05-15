@@ -4,23 +4,22 @@ import time
 from PyQt5 import QtCore, QtGui, QtWidgets
 import schedule
 from PyQt5.QtCore import QTimer, QThread, pyqtSignal
-from PyQt5.QtGui import QMovie, QPixmap
-from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QLabel
+from PyQt5.QtGui import QMovie, QPixmap, QIcon
+from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QLabel, QSystemTrayIcon, QStyle, QAction, QMenu, qApp
 from PyQt5 import QtCore
 from PyQt5.uic.properties import QtGui
 
 from layout.main_layout import Ui_MainWindow
-from layout.template_layout import Dialog_get_date,FlowLayout
+from layout.template_layout import Dialog_get_date, FlowLayout
 import Firo_parse_sqlite
 import layout.template_layout
 import threading
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
-    def __init__(self,window_notify):
+    def __init__(self, window_notify):
         super().__init__()
-
-        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.Tool)
         self.setupUi(self)
         self.show()
         self.serfing_button.clicked.connect(self.get_parse_date)
@@ -32,7 +31,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # ww.start()
         self.load_label()
         # self.ProgressBar()
-        self.button_X.clicked.connect(self.close_app)
+        self.button_X.clicked.connect(self.hide)
+        self.tray_icon = QSystemTrayIcon(self)
+        icon = QIcon()
+        icon.addPixmap(QPixmap("../parser/material/Firo_parser.png"), QIcon.Normal,
+                       QIcon.Off)
+        self.tray_icon.setIcon(icon)
+        show_action = QAction("Show", self)
+        quit_action = QAction("Exit", self)
+        hide_action = QAction("Hide", self)
+        show_action.triggered.connect(self.show)
+        hide_action.triggered.connect(self.hide)
+        quit_action.triggered.connect(self.close_app)
+        tray_menu = QMenu()
+        tray_menu.addAction(show_action)
+        tray_menu.addAction(hide_action)
+        tray_menu.addAction(quit_action)
+        self.tray_icon.setContextMenu(tray_menu)
+        self.tray_icon.show()
+
 
     def close_app(self):
         self.connect_sub()
@@ -42,7 +59,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         with self.conn:
             data = Firo_parse_sqlite.get_data(self.conn)
             for item in data:
-                self.verticalLayout_2.addWidget(layout.template_layout.GenerateParseLabel(self, item,self.window_notify))
+                self.verticalLayout_2.addWidget(
+                    layout.template_layout.GenerateParseLabel(self, item, self.window_notify))
 
     # def connect(self):
     #     schedule.every(10).seconds.do(self.connect_sub)
@@ -58,7 +76,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     child.widget().hand.kill()
 
     def get_parse_date(self):
-        self.dialog_date = Dialog_get_date(self, [self.geometry().x(), self.geometry().y()],self.window_notify)
+        self.dialog_date = Dialog_get_date(self, [self.geometry().x(), self.geometry().y()], self.window_notify)
         self.dialog_date.exec_()
 
     def mousePressEvent(self, event):
@@ -146,11 +164,13 @@ class ProgressLoading(QDialog):
         self.point = self.point + "."
         if self.point == "Loading....":
             self.point = "Loading."
+
+
 class Ui_MainWindow(QMainWindow):
     def __init__(self):
         super(Ui_MainWindow, self).__init__()
-        self.setWindowFlags(self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
-        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.Tool | QtCore.Qt.WindowStaysOnTopHint)
+
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         desktop = QtWidgets.QApplication.desktop()
         self.setGeometry(QtCore.QRect(desktop.width() - 230, 40, 180, 60))
@@ -170,7 +190,7 @@ class Ui_MainWindow(QMainWindow):
         self.area_for_item.setMinimumSize(QtCore.QSize(416, 300))
         self.area_for_item.setMaximumSize(QtCore.QSize(416, 501))
         self.area_for_item.setStyleSheet("background: rgba(44, 40, 40, 0.0);\n"
-"border: 0.5px solid rgba(167, 167, 167, 0.0);")
+                                         "border: 0.5px solid rgba(167, 167, 167, 0.0);")
         self.area_for_item.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.area_for_item.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.area_for_item.setWidgetResizable(True)
@@ -188,12 +208,15 @@ class Ui_MainWindow(QMainWindow):
         self.verticalLayout_2.addWidget(QtWidgets.QPushButton())
         self.setCentralWidget(self.centralwidget)
 
+
 class DummyThread(QThread):
     finished = pyqtSignal()
+
     def run(self):
         while True:
             self.finished.emit()
             time.sleep(1)
+
 
 # class DummyThread(QThread):
 #     a = Ui_MainWindow()
@@ -202,5 +225,6 @@ if __name__ == '__main__':
     app.setQuitOnLastWindowClosed(True)
     a = Ui_MainWindow()
     w = MainWindow(a)
+    app.setWindowIcon(QIcon('../parser/lib_material/Firo_parser.png'))
 
     sys.exit(app.exec_())

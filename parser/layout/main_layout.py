@@ -25,16 +25,18 @@ class Ui_MainWindow(object):
         self.serfing_button.setGeometry(QtCore.QRect(0, 632, 452, 53))
         self.serfing_button.setMinimumSize(QtCore.QSize(452, 53))
         self.serfing_button.setMaximumSize(QtCore.QSize(452, 53))
-        self.serfing_button.setStyleSheet("\n"
+        self.serfing_button.setStyleSheet(" QPushButton {"
                                           "font: 8pt \"NSimSun\";\n"
                                           "font-style: normal;\n"
                                           "font-weight: 300;\n"
                                           "font-size: 24px;\n"
                                           "line-height: 32px;\n"
-                                          "\n"
-                                          "color: #FFFFFF;\n"
-                                          "\n"
-                                          "background: #101010;")
+                           "background: #101010;"
+                           "color: rgba(255, 255, 255, 0.7);}\n}"
+                           "QPushButton:hover {\n"
+                           "color: white;}""\n"
+
+                                          )
         self.serfing_button.setObjectName("serfing_button")
         self.sub_top_frame = QtWidgets.QFrame(self.centralwidget)
         self.sub_top_frame.setGeometry(QtCore.QRect(0, 25, 452, 86))
@@ -108,31 +110,16 @@ class Ui_MainWindow(object):
         self.topbar.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.topbar.setFrameShadow(QtWidgets.QFrame.Raised)
         self.topbar.setObjectName("topbar")
-        self.button_X = QtWidgets.QPushButton(self.topbar)
+        self.button_X = TabButton(self.topbar)
         self.button_X.setGeometry(QtCore.QRect(419, 2, 31, 23))
-        self.button_X.setStyleSheet("color: #FFFFFF;\n"
-                                    "background: rgba(199, 199, 199, 0.0);")
-        self.button_X.setObjectName("button_X")
-        self.button_swap_2 = QtWidgets.QPushButton(self.topbar)
+
+        self.button_swap_2 = TabButton(self.topbar)
         self.button_swap_2.setGeometry(QtCore.QRect(400, 2, 21, 23))
-        self.button_swap_2.setStyleSheet("color: #FFFFFF;\n"
-                                         "background: rgba(199, 199, 199, 0.0);")
-        self.button_swap_2.setObjectName("button_swap_2")
-        self.button_setting = QtWidgets.QPushButton(self.topbar)
-        self.button_setting.setGeometry(QtCore.QRect(360, 2, 21, 23))
-        self.button_setting.setStyleSheet("color: #FFFFFF;\n"
-                                          "background: rgba(199, 199, 199, 0.0);")
-        self.button_setting.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../../../../DeKi-Project/library/lib_material/gear.png"), QtGui.QIcon.Normal,
-                       QtGui.QIcon.Off)
-        self.button_setting.setIcon(icon)
-        self.button_setting.setObjectName("button_setting")
-        self.tutorial_button = QtWidgets.QPushButton(self.topbar)
+
+
+        self.tutorial_button = TabButton(self.topbar)
         self.tutorial_button.setGeometry(QtCore.QRect(380, 2, 21, 23))
-        self.tutorial_button.setStyleSheet("color: #FFFFFF;\n"
-                                           "background: rgba(199, 199, 199, 0.0);")
-        self.tutorial_button.setObjectName("tutorial_button")
+
         self.name_app = QtWidgets.QTextBrowser(self.topbar)
         self.name_app.setGeometry(QtCore.QRect(0, 0, 221, 21))
         self.name_app.setStyleSheet("font-family: \'Roboto Mono\';\n"
@@ -195,6 +182,15 @@ class Ui_MainWindow(object):
                                          "</style></head><body style=\" font-family:\'Roboto Mono\'; font-size:13px; font-weight:296; font-style:normal;\">\n"
                                          "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">Firo\'s parser</span></p></body></html>"))
         self.scroll_label.setText(_translate("MainWindow", "TextLabel"))
+
+class TabButton(QtWidgets.QPushButton):
+    def __init__(self, parent):
+        super(TabButton, self).__init__(parent=parent)
+        self.setStyleSheet(" QPushButton {"
+                           "background: rgba(149, 149, 149, 0.0);\n"
+                           "color: rgba(255, 255, 255, 0.7);}\n}"
+                           "QPushButton:hover {\n"
+                           "color: white;}")
 class FlowLayout(QtWidgets.QLayout):
     def __init__(self, parent=None, margin=0, hspacing=15, vspacing=10):
         super(FlowLayout, self).__init__(parent)

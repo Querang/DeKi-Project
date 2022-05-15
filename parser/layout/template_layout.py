@@ -212,9 +212,11 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
             icon1.addPixmap(QtGui.QPixmap("../parser/material/mistake.png"),
                             QtGui.QIcon.Normal, QtGui.QIcon.Off)
             self.status_icon.setIcon(icon1)
-        self.notify_push()
+
     def up_amount(self):
+        self.amount_unchecked_content = 0
         self.element_text.setText(f"amount: {self.amount_content} unchecked: {self.amount_unchecked_content}")
+
     def handler_content_schedule(self):
         # print(self.notify_time)
         if self.notify_time == "1 min":
@@ -258,6 +260,10 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
                 if last_content[0][1] != content_stroke[1]:
                     last_content.insert(0, content_stroke)
                     Firo_parse_sqlite.add_content(conn, last_content[:10])
+                    if self.push_icon:
+                        self.push_icon.reset_label()
+                    else:
+                        self.notify_push()
                 else:
                     print("exist")
 
@@ -274,15 +280,20 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
                 last_content.insert(0, content_stroke)
                 Firo_parse_sqlite.add_content(conn, last_content[:10])
                 self.notify_push()
+                if self.push_icon:
+                    self.push_icon.reset_label()
+                else:
+                    self.notify_push()
             else:
                 print("exist")
         self.amount_content = len(last_content)
         a = 0
         for i in last_content:
             if i[3] == "false":
-                a+=1
+                a += 1
         self.amount_unchecked_content = a
         self.element_text.setText(f"amount: {self.amount_content} unchecked: {self.amount_unchecked_content}")
+
     def notify_push(self):
         self.push_icon = NotifyIcon(self, self.amount_unchecked_content, self.icon_path)
         self.window_notify.verticalLayout_2.addWidget(self.push_icon)
@@ -368,9 +379,11 @@ class NotifyIcon(QtWidgets.QWidget):
 
     def reset_label(self):
         self.label.setText(f"{self.main_obj.amount_unchecked_content}")
+
     def click_icon(self):
         self.main_obj.view_content_notify()
         self.deleteLater()
+
 
 class MenuIcon(QtWidgets.QLabel):
     def __init__(self, label_obj, parent):
@@ -387,7 +400,7 @@ class DialogIcon(QtWidgets.QDialog):
     def __init__(self, label_obj, position):
         super(DialogIcon, self).__init__()
         self.label_obj = label_obj
-        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.Tool )
         self.position_x, self.position_y = position
         self.setGeometry(QtCore.QRect(self.position_x, self.position_y + 10, 101, 101))
         self.frame_2 = QtWidgets.QFrame(self)
@@ -415,7 +428,7 @@ class DialogIcon(QtWidgets.QDialog):
             Firo_parse_sqlite.update_label(conn, self.label_obj.self_id, self.label_obj.notify,
                                            self.label_obj.notify_time, self.label_obj.pause,
                                            path)
-            self.close()
+            self.deleteLater()
 
 
 class MenuButton(QtWidgets.QPushButton):
@@ -580,18 +593,18 @@ class Dialog_view_content(QtWidgets.QDialog):
             "p, li { white-space: pre-wrap; }\n"
             "</style></head><body style=\" font-family:\'Roboto Mono\'; font-size:13px; font-weight:296; font-style:normal;\">\n"
             f"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">| mark : {self.parent.mark_text}<br /><br /></span></p></body></html>")
-        self.button_close.clicked.connect(lambda: self.close())
+        self.button_close.clicked.connect(lambda: self.deleteLater())
         self.load_content()
 
     def load_content(self):
         conn = Firo_parse_sqlite.create_connection("parse_.db")
         with conn:
             content = Firo_parse_sqlite.return_content(conn, self.parent.self_id)
-            Firo_parse_sqlite.update_content(conn,self.parent.self_id)
+            Firo_parse_sqlite.update_content(conn, self.parent.self_id)
             self.parent.up_amount()
         for item in content:
             print(item)
-            self.verticalLayout_2.addWidget(ContentLabel(item,self.parent))
+            self.verticalLayout_2.addWidget(ContentLabel(item, self.parent))
 
     def mousePressEvent(self, event):
         self.dragPos = event.globalPos()
@@ -604,7 +617,7 @@ class Dialog_view_content(QtWidgets.QDialog):
 
 
 class ContentLabel(QtWidgets.QWidget):
-    def __init__(self, item,main_obj):
+    def __init__(self, item, main_obj):
         super(ContentLabel, self).__init__()
         self.setGeometry(QtCore.QRect(0, 0, 536, 168))
         self.setMinimumSize(QtCore.QSize(536, 168))
@@ -655,7 +668,6 @@ class ContentLabel(QtWidgets.QWidget):
         self.time_label.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.time_label.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.time_label.setObjectName("time_label")
-        print("qq")
         self.descr_3.setHtml(
             "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
             "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -785,7 +797,7 @@ class FlowLayout(QtWidgets.QLayout):
 
 
 class Dialog_get_date(QtWidgets.QDialog):
-    def __init__(self, main_obj, position,window_notify):
+    def __init__(self, main_obj, position, window_notify):
         super(Dialog_get_date, self).__init__()
         self.window_notify = window_notify
         self.main_obj = main_obj
@@ -1131,7 +1143,7 @@ class Dialog_get_date(QtWidgets.QDialog):
         self.tag_choice.setMinimumContentsLength(40)
         self.class_choice.setMinimumContentsLength(40)
         self.element_choice_2.setMinimumContentsLength(40)
-        self.button_close.clicked.connect(self.close)
+        self.button_close.clicked.connect(lambda: self.deleteLater())
         self.save_button.clicked.connect(self.save_note)
         """success"""
         """hide"""
@@ -1177,7 +1189,8 @@ class Dialog_get_date(QtWidgets.QDialog):
                 self.frame_success.show()
                 try:
                     self.main_obj.verticalLayout_2.addWidget(
-                        GenerateParseLabel(self.main_obj, (id_label,) + self.parse_container.return_arguments(),self.window_notify))
+                        GenerateParseLabel(self.main_obj, (id_label,) + self.parse_container.return_arguments(),
+                                           self.window_notify))
                 except:
                     print("fail")
                 print("qq")
@@ -1309,10 +1322,13 @@ class ParserContainer():
     @staticmethod
     def check_website(url):
         try:
+            print("qq")
             page = requests.get(url)
             if page.status_code == 200:
+                print("true")
                 return True
             else:
+                print("false")
                 return False
         except:
             print("problem")

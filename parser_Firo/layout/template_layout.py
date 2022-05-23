@@ -206,12 +206,12 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
             else:
                 self.hand = None
             self.handler_content()
-        # self.notify_push()
         else:
             icon1 = QtGui.QIcon()
             icon1.addPixmap(QtGui.QPixmap("../parser_Firo/material/mistake.png"),
                             QtGui.QIcon.Normal, QtGui.QIcon.Off)
             self.status_icon.setIcon(icon1)
+
 
     def up_amount(self):
         self.amount_unchecked_content = 0
@@ -225,7 +225,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
                 schedule.run_pending()
                 time.sleep(1)
         elif self.notify_time == "15 min":
-            schedule.every(2).seconds.do(self.handler_content).tag(f"{self.self_id}")
+            schedule.every(15).minutes.do(self.handler_content).tag(f"{self.self_id}")
             while True:
                 schedule.run_pending()
                 time.sleep(1)
@@ -260,10 +260,11 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
                 if last_content[0][1] != content_stroke[1]:
                     last_content.insert(0, content_stroke)
                     Firo_parse_sqlite.add_content(conn, last_content[:10])
-                    if self.push_icon:
-                        self.push_icon.reset_label()
-                    else:
-                        self.notify_push()
+                    if self.notify == "true":
+                        if self.push_icon:
+                            self.push_icon.reset_label()
+                        else:
+                            self.notify_push()
                 else:
                     print("exist")
 
@@ -280,10 +281,11 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
                 last_content.insert(0, content_stroke)
                 Firo_parse_sqlite.add_content(conn, last_content[:10])
                 self.notify_push()
-                if self.push_icon:
-                    self.push_icon.reset_label()
-                else:
-                    self.notify_push()
+                if self.notify == "true":
+                    if self.push_icon:
+                        self.push_icon.reset_label()
+                    else:
+                        self.notify_push()
             else:
                 print("exist")
         self.amount_content = len(last_content)
@@ -968,7 +970,7 @@ class Dialog_get_date(QtWidgets.QDialog):
         self.descr.setObjectName("descr")
         self.lock_label = QtWidgets.QLabel(self.frame_lock_1)
         self.lock_label.setEnabled(True)
-        self.lock_label.setGeometry(QtCore.QRect(300, 10, 51, 51))
+        self.lock_label.setGeometry(QtCore.QRect(300, 20, 51, 51))
         self.lock_label.setStyleSheet("\n"
                                       "background: rgba(44, 40, 40, 0.0);\n"
                                       "\n"
@@ -1193,12 +1195,11 @@ class Dialog_get_date(QtWidgets.QDialog):
                                            self.window_notify))
                 except:
                     print("fail")
-                print("qq")
-                self.close_dialog()
+                threading.Thread(target=self.close_dialog).start()
 
     def close_dialog(self):
         time.sleep(3)
-        self.close()
+        self.deleteLater()
 
     def load_checkbox(self):
         self.tag_choice.clear()
@@ -1266,8 +1267,8 @@ class ParserContainer():
 
     def return_arguments(self):
         return (
-            self.url, self.current_tag, self.current_class, self.current_id, self.mark, self.action, self.action_value,
-            "15 min", None, "True", "../parser_Firo/material/mark_icon/bell.png")
+            self.url, self.current_tag, self.current_class, self.current_id, self.mark, self.action, self.action_value,"false",
+            "15 min", "True", "../parser_Firo/material/mark_icon/bell.png")
 
     def get_all_tag(self):
         if self.url is not None:

@@ -27,7 +27,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # ww = threading.Thread(target= create_main2)
         # ww.start()
         self.load_label()
-        # self.ProgressBar()
+        self.ProgressBar()
         self.button_X.clicked.connect(self.hide)
         self.tray_icon = QSystemTrayIcon(self)
         icon = QIcon()
@@ -41,6 +41,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         hide_action.triggered.connect(self.hide)
         quit_action.triggered.connect(self.close_app)
         tray_menu = QMenu()
+        tray_menu.setStyleSheet("font-family: \'RobotoFlex\';\n"
+                                     "font-style: normal;\n"
+                                     "font-weight: 200;\n"
+                                     "font-size: 16px;\n"
+                                     "line-height: 75.4%;\n"
+                                     "/* or 14px */\n"
+                                     "background: rgba(199, 199, 199, 0.0);\n"
+                                     "border: 0.5px solid rgba(167, 167, 167, 0.01);\n"
+                                     "color: rgba(255, 255, 255, 0.85);\n"
+                                     "")
         tray_menu.addAction(show_action)
         tray_menu.addAction(hide_action)
         tray_menu.addAction(quit_action)
@@ -93,7 +103,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 class ProgressLoading(QDialog):
     def __init__(self, position):
         super(ProgressLoading, self).__init__()
-        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.Tool)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.position_x, self.position_y = position
         self.setGeometry(QtCore.QRect(self.position_x, self.position_y, 452, 682))
@@ -127,7 +137,7 @@ class ProgressLoading(QDialog):
         self.label_2.setStyleSheet("background: rgba(44, 40, 40, 0.0);\n"
                                    "border: 0.5px solid rgba(167, 167, 167, 0.0);")
         self.label_2.setText("")
-        self.label_2.setPixmap(QPixmap("../parser/material/Firo_s.png"))
+        self.label_2.setPixmap(QPixmap("../parser_Firo/material/Firo_s.png"))
         self.label_2.setScaledContents(False)
         self.label_2.setObjectName("label_2")
 
@@ -146,7 +156,7 @@ class ProgressLoading(QDialog):
         threading.Thread(target=self.close_this).start()
 
     def close_this(self):
-        time.sleep(15)
+        time.sleep(6)
         self.close()
 
     def loading(self):

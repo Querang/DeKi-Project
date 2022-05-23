@@ -9,6 +9,8 @@ import webbrowser
 import wave
 import json
 import keyboard
+import Neko_voice
+from multiprocessing import Process
 from vosk import Model, KaldiRecognizer
 from PyQt5.QtGui import QKeySequence, QWheelEvent
 from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut
@@ -32,13 +34,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.grid = QtWidgets.QGridLayout(self.frame_11)
 
         """hide/show frame"""
+        self.voice_set_1.hide()
         self.frame_rule_command.hide()
         self.command_panel_frame.hide()
         self.teg_frame.hide()
-        self.voice_set_1.hide()
-        self.set_voice_2.hide()
-        self.set_voice_3.hide()
-        self.bd_com.hide()
         self.main_note_frame.hide()
         self.setting_frame.hide()
         self.Note_frame_2.hide()
@@ -47,23 +46,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setting_page_2.hide()
         self.notification_panel.hide()
         """hotkey"""
-        self.shortcut = QShortcut(QKeySequence("s"), self)
-        self.shortcut.activated.connect(self.set_voice_set_frame)
-        self.shortcut = QShortcut(QKeySequence("q"), self)
-        self.shortcut.activated.connect(self.set_main_after_voice)
         self.shortcut = QShortcut(QKeySequence("Ctrl+W"), self)
         self.shortcut.activated.connect(self.hide_main_window)
-        self.shortcut = QShortcut(QKeySequence("v"), self)
-        self.shortcut.activated.connect(self.voice_helper)
+        self.shortcut = QShortcut(QKeySequence("s"), self)
+        self.shortcut.activated.connect(self.show_voice_settings)
 
 
         """assign an action"""
-        self.command_button_1.clicked.connect(self.set_v_3)
-        self.command_button_2.clicked.connect(self.set_v_3)
-        self.name_button_1.clicked.connect(self.set_v_2)
-        self.name_button_3.clicked.connect(self.set_v_2)
-        self.mic_button_2.clicked.connect(self.set_v_1)
-        self.mic_button_3.clicked.connect(self.set_v_1)
+        self.mic_button_1.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(0))
+        self.name_button_1.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(1))
+        self.command_button_1.clicked.connect(self.set_voice_page_3)
+        self.exit_button_2.clicked.connect(self.close_voice_settings)
         self.close_not_button.clicked.connect(self.close_notification)
         self.rule_command_button.clicked.connect(self.show_rule_command_frame)
         self.rule_command_back_button.clicked.connect(self.back_on_main_frame)
@@ -107,6 +100,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.directory_list = []  # список получает пути, выбранные через проводник
         self.link_site = ""  # получает название сайта
         self.del_list = []  # выбранные команды для удаления попадают сюда
+        self.del_list_voice = []
         self.language_list = ["russian", "english"]
         self.microphone_search()
         self.bd_command_searcher()
@@ -126,6 +120,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             (f"помоги", f"диспетчер", f"помощник"): self.dispatcher,
             (f"вырезать"): self.cut_data
 }
+        self.voice_process = Process(target=lambda: self.voice_helper)
+        self.voice_process.start()
 
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
@@ -368,31 +364,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.setting_frame.hide()
             self.frame_main.show()
 
-    def set_voice_set_frame(self):
-        self.frame_main.hide()
-        self.voice_set_1.show()
-
-    def set_main_after_voice(self):
-        self.voice_set_1.hide()
-        self.set_voice_2.hide()
-        self.set_voice_3.hide()
-        self.frame_main.show()
-
-    def set_v_1(self):
-        self.voice_set_1.show()
-        self.set_voice_2.hide()
-        self.set_voice_3.hide()
-
-    def set_v_2(self):
-        self.voice_set_1.hide()
-        self.set_voice_2.show()
-        self.set_voice_3.hide()
-
-    def set_v_3(self):
-        self.voice_set_1.hide()
-        self.set_voice_2.hide()
-        self.set_voice_3.show()
-
     def save_global_setting(self):
         """ stores global settings in database  """
         conn = sqlite_Neko.create_connection("Neko.db")
@@ -610,11 +581,43 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """add voice com"""
         conn = sqlite_Neko.create_connection("Neko.db")
         command_name = self.input_name_command_voice.text()
-        bd_name = self.bd_com.text()
-        with conn:
-            voice_com = (command_name, bd_name, 1)
-            sqlite_Neko.create_voice_com(conn, voice_com)
-            self.input_name_command_voice.setText("Успешно")
+        sources_in_bd = sqlite_Neko.voice_commands_source(conn)
+        names_in_bd = sqlite_Neko.voice_commands_names(conn)
+        count_names = 0
+        count = 0
+        for i in command_name:
+            if i == " ":
+                count = count + 1
+        if count == len(command_name):
+            self.input_name_command_voice.setText("")
+        elif (command_name.find("(") != -1) or (command_name.find(")") != -1):
+            self.input_name_command_voice.setText("")
+        else:
+            while command_name[len(command_name)-1] == " ":
+                command_name = command_name[0: len(command_name)-2]
+            bd_name = self.bd_com.text()
+
+        for j in sources_in_bd:
+            bd_name = self.bd_com.text()
+            if j == bd_name:
+                count_names = count_names + 1
+
+        name_flag = True
+        for j in names_in_bd:
+            if j == command_name:
+                name_flag = False
+
+        if count_names < 4 and name_flag is True:
+            with conn:
+                bd_name = self.bd_com.text()
+                voice_com = (command_name, bd_name, 1)
+                sqlite_Neko.create_voice_com(conn, voice_com)
+                self.input_name_command_voice.setText("")
+        else:
+            if name_flag is False:
+                self.input_name_command_voice.setText("Такое название уже есть!")
+            else:
+                self.input_name_command_voice.setText("Слишком много названий!")
 
     def show_update_item_in_area_delite_choice(self):
         """updates buttons containing commands"""
@@ -700,7 +703,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """считывает название кнопки, выполняет команду"""
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
-            sql_command_name = sqlite_Neko.select_all_command(conn)
+            sql_command_name = sqlite_Neko.voice_commands_names(conn)
+            sql_command_name_source = sqlite_Neko.voice_commands_source(conn)
             main_button_name = str()
             for i in range(len(button_name)):
                 if i < len(button_name) - 1:
@@ -708,10 +712,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 elif i == len(button_name) - 1:
                     main_button_name = main_button_name + str(button_name[i])
             if str(main_button_name) in sql_command_name:
+                index = sql_command_name.index(str(main_button_name))
+                real_name = sql_command_name_source[index]
                 sql_command_type = sqlite_Neko.select_type_of_commands(conn)
                 sql_command_files = sqlite_Neko.select_files_of_commands(conn)
                 sql_command_site = sqlite_Neko.select_sites_of_command(conn)
-                index = sql_command_name.index(str(main_button_name))
+                index = sql_command_name.index(str(real_name))
                 command_type = sql_command_type[index]
                 if command_type == 's':
                     if sql_command_site[index].find("https://"):
@@ -748,12 +754,158 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.del_list.append(qq)
         print(self.del_list)
 
+    def show_voice_settings(self):
+        self.voice_set_1.show()
+
+    def close_voice_settings(self):
+        self.voice_set_1.hide()
+
+    def load_voice_commands_list(self):
+        conn = sqlite_Neko.create_connection("Neko.db")
+        with conn:
+            sql_command_name = sqlite_Neko.select_all_command(conn)
+            sql_voice_names = sqlite_Neko.voice_commands_names(conn)
+            sql_voice_source = sqlite_Neko.voice_commands_source(conn)
+            sql_active_list = sqlite_Neko.voice_commands_status(conn)
+            for i in sql_command_name:
+                self.command_bd_box = QtWidgets.QGroupBox()
+                self.command_bd_box.setGeometry(QtCore.QRect(50, 40, 640, 182))
+                self.command_bd_box.setMinimumSize(QtCore.QSize(640, 51))
+                self.command_bd_box.setMaximumSize(QtCore.QSize(640, 51))
+                self.command_bd_box.setStyleSheet("background: rgba(200, 40, 40, 0.0);")
+                self.command_bd_box.setTitle("")
+                self.command_bd_box.setObjectName("command_bd_box")
+                self.name_table = QtWidgets.QFrame(self.command_bd_box)
+                self.name_table.setGeometry(QtCore.QRect(0, 0, 640, 51))
+                self.name_table.setStyleSheet("background: #181818;\n"
+                                              "border: 1px solid #646464;")
+                self.name_table.setFrameShape(QtWidgets.QFrame.StyledPanel)
+                self.name_table.setFrameShadow(QtWidgets.QFrame.Raised)
+                self.name_table.setObjectName("name_table")
+                self.source_command = QtWidgets.QLabel(self.name_table)
+                self.source_command.setGeometry(QtCore.QRect(20, 13, 61, 21))
+                self.source_command.setText(f"Команда {i}")
+                self.source_command.setStyleSheet("background: rgba(149, 149, 149, 0.0);\n"
+                                                  "color: rgba(255, 255, 255, 0.7);\n"
+                                                  "border: 0px solid #646464;")
+                self.button_added_2 = QtWidgets.QPushButton(self.name_table)
+                self.button_added_2.setGeometry(QtCore.QRect(470, 13, 61, 21))
+                self.button_added_2.setStyleSheet(" QPushButton {"
+                                                  "border: 0px solid #646464;"
+                                                  "background: rgba(149, 149, 149, 0.0);\n"
+                                                  "color: rgba(255, 255, 255, 0.7);}\n}"
+                                                  "QPushButton:hover {\n"
+                                                  "color: white;}")
+                self.button_added_2.setText("Раскрыть")
+                self.button_added_2.clicked.connect(lambda checked,
+                                                           panel=self.command_bd_box, button=self.button_added_2:
+                                                    self.setSizeContainer(panel, button))
+                self.button_added_2.setObjectName("button_added_2")
+                self.button_added_3 = QtWidgets.QPushButton(self.name_table)
+                self.button_added_3.setGeometry(QtCore.QRect(560, 13, 61, 21))
+                self.button_added_3.setStyleSheet(" QPushButton {"
+                                                  "border: 0px solid #646464;"
+                                                  "background: rgba(149, 149, 149, 0.0);\n"
+                                                  "color: rgba(255, 255, 255, 0.7);}\n}"
+                                                  "QPushButton:hover {\n"
+                                                  "color: white;}")
+                active_counter = 0
+                inactive_counter = 0
+                coincidence_counter = 0
+                for k in range(len(sql_voice_source)):
+                    if i == sql_voice_source[k]:
+                        print(k)
+                        coincidence_counter = coincidence_counter + 1
+                        if sql_active_list[k] == 1:
+                            active_counter = active_counter + 1
+                        if sql_active_list[k] == 0:
+                            inactive_counter = inactive_counter + 1
+                if coincidence_counter == active_counter:
+                    self.button_added_3.setText("Активно")
+                elif coincidence_counter == inactive_counter:
+                    self.button_added_3.setText("Неактивно")
+                self.button_added_3.setObjectName("button_added_3")
+                self.button_added_3.clicked.connect(lambda checked, text=i, status=self.button_added_3.text(),
+                                                    button=self.button_added_3:
+                                                    self.active_status(text, status, button))
+                self.contain_table = QtWidgets.QFrame(self.command_bd_box)
+                self.contain_table.setGeometry(QtCore.QRect(0, 53, 640, 131))
+                self.contain_table.setStyleSheet("background: #181818;\n"
+                                                 "border: 1px solid #646464;")
+                self.contain_table.setFrameShape(QtWidgets.QFrame.StyledPanel)
+                self.contain_table.setFrameShadow(QtWidgets.QFrame.Raised)
+                self.contain_table.setObjectName("contain_table")
+                placement = 10
+                for j in range(len(sql_voice_names)):
+                    if sql_voice_source[j] == i:
+                        self.named_command = QtWidgets.QLabel(self.contain_table)
+                        self.named_command.setGeometry(QtCore.QRect(20, placement, 111, 21))
+                        self.named_command.setText(f"{sql_voice_names[j]}")
+                        self.named_command.setStyleSheet("background: rgba(149, 149, 149, 0.0);\n"
+                                                          "color: rgba(255, 255, 255, 0.7);\n"
+                                                          "border: 0px solid #646464;")
+                        self.deleter = QtWidgets.QPushButton(self.contain_table)
+                        self.deleter.setGeometry(QtCore.QRect(140, placement, 111, 21))
+                        self.deleter.setStyleSheet(" QPushButton {"
+                                                   "border: 0px solid #646464;"
+                                                   "background: rgba(149, 149, 149, 0.0);\n"
+                                                   "color: rgba(255, 255, 255, 0.7);}\n}"
+                                                   "QPushButton:hover {\n"
+                                                   "color: white;}")
+                        self.deleter.setText(f"Удалить")
+                        self.deleter.clicked.connect(lambda checked, text=self.named_command.text(),
+                                                     button=self.deleter,
+                                                     label=self.named_command:
+                                                            self.del_voice_command(text, button, label))
+                        self.deleter.setObjectName("deleter")
+                        placement = placement + 30
+                self.gridLayout_10.addWidget(self.command_bd_box)
+
+    def setSizeContainer(self, panel, button):
+        panel_text = button.text()
+        if panel_text == "Раскрыть":
+            panel.setMinimumSize(QtCore.QSize(640, 191))
+            panel.setMaximumSize(QtCore.QSize(640, 191))
+            button.setText("Cкрыть")
+        else:
+            panel.setMinimumSize(QtCore.QSize(640, 51))
+            panel.setMaximumSize(QtCore.QSize(640, 51))
+            button.setText("Раскрыть")
+
+    def del_voice_command(self, text, button, label):
+        conn = sqlite_Neko.create_connection("Neko.db")
+        with conn:
+            sqlite_Neko.delete_voice_commands(conn, text)
+        button.hide()
+        label.hide()
+
+    def active_status(self, name, status, button):
+        if status == "Активно":
+            status = 1
+        else:
+            status = 0
+        conn = sqlite_Neko.create_connection("Neko.db")
+        with conn:
+            sqlite_Neko.update_active_voice(conn, name, status)
+        if button.text() == "Активно":
+            button.setText("Неактивно")
+        else:
+            button.setText("Активно")
+        self.clear_note(self.gridLayout_10)
+        self.load_voice_commands_list()
+
+    def set_voice_page_3(self):
+        self.clear_note(self.gridLayout_10)
+        self.load_voice_commands_list()
+        self.stackedWidget.setCurrentIndex(2)
+
     def del_command(self):
         """delite command from database with name from del_list"""
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             for i in self.del_list:
                 sqlite_Neko.delete_task(conn, i)
+                sqlite_Neko.delete_voice_source(conn, i)
         self.clear_note(self.delite_bar)
         self.clear_note(self.gridLayout_9)
         self.show_update_item_in_area_delite_choice()
@@ -894,6 +1046,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         farewells = ["Пока", "До новых встреч"]
         self.play_voice_assistant_speech(farewells[random.randint(0, len(farewells) - 1)])
         ttsEngine.stop()
+        self.voice_process.kill()
         quit()
 
     def copy_data(self, *args: tuple):

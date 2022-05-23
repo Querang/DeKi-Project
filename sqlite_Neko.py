@@ -161,6 +161,28 @@ def select_all_command(conn):
     return command
 
 
+def voice_commands_names(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM voice_commands")
+
+    rows = cur.fetchall()
+    command = []
+    for i in rows:
+        command.append(i[0])
+    return command
+
+
+def voice_commands_source(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM voice_commands")
+
+    rows = cur.fetchall()
+    command = []
+    for i in rows:
+        command.append(i[1])
+    return command
+
+
 def delete_task(conn, command):
     """
     Delete a task by task id
@@ -172,6 +194,55 @@ def delete_task(conn, command):
     cur = conn.cursor()
     cur.execute(sql, (command,))
     conn.commit()
+
+
+def delete_voice_commands(conn, command_name):
+    """
+    Delete a task by task id
+    :param conn:  Connection to the SQLite database
+    :param command_name: command name for the voice
+    :return:
+    """
+    sql = 'DELETE FROM voice_commands WHERE command_name=?'
+    cur = conn.cursor()
+    cur.execute(sql, (command_name,))
+    conn.commit()
+
+
+def delete_voice_source(conn, bd_name):
+    """
+    Delete a task by task id
+    :param conn:  Connection to the SQLite database
+    :param bd_name: command name for the voice
+    :return:
+    """
+    sql = 'DELETE FROM voice_commands WHERE bd_name=?'
+    cur = conn.cursor()
+    cur.execute(sql, (bd_name,))
+    conn.commit()
+
+
+def update_active_voice(conn, bd_name, status):
+    cur = conn.cursor()
+    sql = 'UPDATE voice_commands SET active = ? WHERE bd_name = ?'
+    if status == 1:
+        active = 0
+        data = (active, bd_name)
+        cur.execute(sql, data)
+    else:
+        active = 1
+        data = (active, bd_name)
+        cur.execute(sql, data)
+    conn.commit()
+
+def voice_commands_status(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM voice_commands")
+    rows = cur.fetchall()
+    command = []
+    for i in rows:
+        command.append(i[2])
+    return command
 
 
 def reset_button_note(conn, work_table,current_button):

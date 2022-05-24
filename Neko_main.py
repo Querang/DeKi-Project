@@ -51,6 +51,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.shortcut = QShortcut(QKeySequence("s"), self)
         self.shortcut.activated.connect(self.show_voice_settings)
 
+        self.voice_process = Process(target=Neko_voice.voice_helper)
+        self.voice_process.start()
 
         """assign an action"""
         self.mic_button_1.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(0))
@@ -104,24 +106,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.language_list = ["russian", "english"]
         self.microphone_search()
         self.bd_command_searcher()
-        self.commands = {
-            (f"здравствуй", f"привет", f"hello"): self.play_greetings,
-            (f"до встречи", f"пока", f"закончить работу", f"завершение", f"на этом всё"): self.play_farewell_and_quit,
-            (f"гугл", f"найди", f"google", f"поиск", f"открой гугл", f"открыть гугл", f"найти в гугл",
-             f"найти", f"найти в гугле", f"найти в google",
-             f"загугли", f"загуглить", f"поискать", f"ищем"): self.search_for_term_on_google,
-            (f"ютуб", f"видео", f"youtube", f"на ютубе", f"найти видео", f"искать видео", f"искать на ютуб",
-             f"искать на youtube", f"в ютубе"): self.search_for_video_on_youtube,
-            (f"википедия", f"вики", f"wikipedia", f"энциклопедия", f"расскажи о", f"википедии", f"в википедии",
-             f"википедию", f"открой википедию"): self.search_for_definition_on_wikipedia,
-            (f"команда", f"выполнить команду"): self.active_command_voice,
-            (f"копируй", f"копируйте", f"скопируй", f"копирую"): self.copy_data,
-            (f"вставить", f"вставь", f"ставь", f"ставить"): self.input_copied_data,
-            (f"помоги", f"диспетчер", f"помощник"): self.dispatcher,
-            (f"вырезать"): self.cut_data
-}
-        self.voice_process = Process(target=lambda: self.voice_helper)
-        self.voice_process.start()
+
 
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
@@ -699,6 +684,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.clear_note(self.gridLayout_9)
                             self.command_panel_frame_button_update()
 
+    "голосовые из бд"
     def active_command_voice(self, button_name):
         """считывает название кнопки, выполняет команду"""
         conn = sqlite_Neko.create_connection("Neko.db")
@@ -754,9 +740,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.del_list.append(qq)
         print(self.del_list)
 
+    "показать головые команды"
     def show_voice_settings(self):
         self.voice_set_1.show()
 
+    "закрыть голосовые настройки"
     def close_voice_settings(self):
         self.voice_set_1.hide()
 
@@ -910,6 +898,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.clear_note(self.gridLayout_9)
         self.show_update_item_in_area_delite_choice()
 
+    "проигрывается речь помощника"
     def play_voice_assistant_speech(self, text_to_speech):
         """
         Проигрывание речи ответов голосового ассистента (без сохранения аудио)
@@ -932,6 +921,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ttsEngine.say(str(text_to_speech))
         ttsEngine.runAndWait()
 
+    "запись и распознавание речи"
     def record_and_recognize_audio(self, *args: tuple):
         """
         Запись и распознавание аудио
@@ -976,6 +966,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print(recognized_data)
         return recognized_data
 
+    "оффлайн запись и распознавание речи"
     def use_offline_recognition(self):
         recognized_data = ""
         try:
@@ -997,6 +988,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print("Sorry, speech service is unavailable. Try again later")
         return recognized_data
 
+    "поиск в гугле"
     def search_for_term_on_google(self, *args: tuple):
         """
         Поиск в Google с автоматическим открытием ссылок (на список результатов и на сами результаты, если возможно)
@@ -1010,6 +1002,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         webbrowser.get().open(url)
         self.play_voice_assistant_speech(f"Вот что было найдено по запросу {search_term}")
 
+    "поиск на ютубе"
     def search_for_video_on_youtube(self, *args: tuple):
         """
         Поиск видео на YouTube с автоматическим открытием ссылки на список результатов
@@ -1021,6 +1014,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         webbrowser.get().open(url)
         self.play_voice_assistant_speech(f"Вот что было найдено по запросу {search_term}")
 
+    "поиск в википедии"
     def search_for_definition_on_wikipedia(self, *args: tuple):
         """
         Поиск в Wikipedia определения с последующим озвучиванием результатов и открытием ссылок
@@ -1032,6 +1026,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         webbrowser.get().open(url)
         self.play_voice_assistant_speech(f"Вот что было найдено по запросу {search_term}")
 
+    "тестовая функция уведомления"
     def play_greetings(self, *args: tuple):
         """
         Проигрывание случайной приветственной речи
@@ -1039,6 +1034,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.label_with_text.setText("Привет!")
         self.notification_panel.show()
 
+    "выход из программы и прекращение голосового распознавания"
     def play_farewell_and_quit(self, *args: tuple):
         """
         Проигрывание прощательной речи и выход
@@ -1046,27 +1042,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         farewells = ["Пока", "До новых встреч"]
         self.play_voice_assistant_speech(farewells[random.randint(0, len(farewells) - 1)])
         ttsEngine.stop()
-        self.voice_process.kill()
         quit()
 
+    "копирование"
     def copy_data(self, *args: tuple):
         keyboard.press("ctrl")
         keyboard.press("c")
         keyboard.release("c")
         keyboard.release("ctrl")
 
+    "вырезать"
     def cut_data(self, *args: tuple):
         keyboard.press("ctrl")
         keyboard.press("x")
         keyboard.release("x")
         keyboard.release("ctrl")
 
+    "вставить"
     def input_copied_data(self, *args: tuple):
         keyboard.press("ctrl")
         keyboard.press("v")
         keyboard.release("ctrl")
         keyboard.release("v")
 
+    "открыть диспетчер задач"
     def dispatcher(self, *args: tuple):
         keyboard.press("ctrl")
         keyboard.press("shift")
@@ -1075,12 +1074,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         keyboard.release("shift")
         keyboard.release("esc")
 
+    "для выбора микрофона"
     def onActivated_1(self):
         return self.microphone_select.currentIndex()
 
+    "для выбора голосовой команды"
     def onActivated_2(self, text):
         self.bd_com.setText(text)
 
+    "создает список микрофонов"
     def microphone_search(self):
         name_list = []
         index_list = []
@@ -1090,33 +1092,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.microphone_select.addItem(name)
         print(name_list)
 
+    "для добавления команд в комбобокс"
     def bd_command_searcher(self):
         conn = sqlite_Neko.create_connection("Neko.db")
         names = sqlite_Neko.select_all_command(conn)
         self.command_bd_select.addItems(names)
 
-    def execute_command_with_name(self, command_name: str, *args: list):
+    "выполняет голосовые команды, которым пользователь дал названия"
+    def execute_command_with_name(self, command_name: str, *args: list, commands: dict):
         """
         Выполнение заданной пользователем команды и аргументами
         :param command_name: название команды
         :param args: аргументы, которые будут переданы в метод
+        :param commands: список команд
         :return:
         """
-        for key in self.commands.keys():
+        for key in commands.keys():
             if command_name in key:
-                self.commands[key](*args)
+                commands[key](*args)
             else:
                 print("Command not found")
-
-
-    def voice_helper(self):
-        voice_input = self.record_and_recognize_audio()
-        os.remove("microphone-results.wav")
-        print(voice_input)
-        voice_input = voice_input.split(" ")
-        command = voice_input[0]
-        command_options = [str(input_part) for input_part in voice_input[1:len(voice_input)]]
-        self.execute_command_with_name(command, command_options)
 
 
 if __name__ == "__main__":

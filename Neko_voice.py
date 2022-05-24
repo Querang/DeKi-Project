@@ -30,20 +30,30 @@ def voice_helper():
 			(f"вставить", f"вставь", f"ставь", f"ставить"): input_copied_data,
 			(f"помоги", f"диспетчер", f"помощник", f"диспетчер", f"диспетчер"): dispatcher,
 			(f"вырезать", f"вырезать", f"вырезать", f"вырезать", f"вырезать"): cut_data,
-			(f"команды", f"команда", f"голосовая", f"голосовые", f"выполнить", f"выполни",
-			 f"используй", f"использую", f"примени", f"применяй", f"сделай", f"делай",
-			 f"делаем"): active_command_voice
+			(f"команда", f"голосовая",f"выполнить", f"используй", f"примени", f"сделай"): active_command_voice
 		}
 		voice_input = record_and_recognize_audio()
 		if os.path.exists("microphone-results.wav"):
 			os.remove("microphone-results.wav")
 			print(voice_input)
 			voice_input = voice_input.split(" ")
-			command = voice_input[0]
-			command_options = [str(input_part) for input_part in voice_input[1:len(voice_input)]]
-			execute_command_with_name(command, commands, command_options)
-		else:
-			voice_helper()
+			conn = sqlite_Neko.create_connection("Neko.db")
+			with conn:
+				character_name = sqlite_Neko.get_name(conn)
+			if len(voice_input) > 1:
+				helper_name = voice_input[0]
+				if fuzz.ratio(helper_name, character_name) > 20:
+					command = voice_input[1]
+					if len(voice_input) > 2:
+						command_options = [str(input_part) for input_part in voice_input[2:len(voice_input)]]
+						execute_command_with_name(command, commands, command_options)
+					else:
+						command_options = ["none"]
+						execute_command_with_name(command, commands, command_options)
+				else:
+					voice_helper()
+			else:
+				voice_helper()
 
 
 def execute_command_with_name(command_name: str, dictionary: dict, *args: list):
@@ -213,33 +223,40 @@ def active_command_voice(button_name):
 	with conn:
 		sql_command_name = sqlite_Neko.voice_commands_names(conn)
 		sql_command_name_source = sqlite_Neko.voice_commands_source(conn)
+		sql_command_status = sqlite_Neko.voice_commands_status(conn)
+		print(sql_command_name)
+		print(sql_command_name_source)
+		print(sql_command_status)
 		main_button_name = str()
 		for i in range(len(button_name)):
 			if i < len(button_name) - 1:
 				main_button_name = main_button_name + str(button_name[i]) + ' '
 			elif i == len(button_name) - 1:
 				main_button_name = main_button_name + str(button_name[i])
-		if fuzz.ratio(str(main_button_name), sql_command_name) > 70:
-			index = sql_command_name.index(str(main_button_name))
-			real_name = sql_command_name_source[index]
-			sql_command_type = sqlite_Neko.select_type_of_commands(conn)
-			sql_command_files = sqlite_Neko.select_files_of_commands(conn)
-			sql_command_site = sqlite_Neko.select_sites_of_command(conn)
-			index = sql_command_name.index(str(real_name))
-			command_type = sql_command_type[index]
-			if command_type == 's':
-				if sql_command_site[index].find("https://"):
-					webbrowser.open_new_tab(str(sql_command_site[index]))
-				else:
-					webbrowser.open_new_tab("https://" + str(sql_command_site[index]))
-			elif command_type == 'f':
-				for i in sql_command_files[index]:
-					print(sql_command_files[index])
-					if os.path.exists(i) is True:
-						subprocess.call(('cmd', '/c', 'start', '', i))
-					elif os.path.exists(i) is False:
-						if i == "":
-							pass
+		for i in range(len(sql_command_name)):
+			if fuzz.ratio(str(main_button_name), sql_command_name[i]) > 70:
+				index = sql_command_name.index(str(main_button_name))
+				real_name = sql_command_name_source[index]
+				status = sql_command_status[index]
+				if int(status) == 1:
+					sql_command_type = sqlite_Neko.select_type_of_commands(conn)
+					sql_command_files = sqlite_Neko.select_files_of_commands(conn)
+					sql_command_site = sqlite_Neko.select_sites_of_command(conn)
+					index = sql_command_name.index(str(real_name))
+					command_type = sql_command_type[index]
+					if command_type == 's':
+						if sql_command_site[index].find("https://"):
+							webbrowser.open_new_tab(str(sql_command_site[index]))
+						else:
+							webbrowser.open_new_tab("https://" + str(sql_command_site[index]))
+					elif command_type == 'f':
+						for i in sql_command_files[index]:
+							print(sql_command_files[index])
+							if os.path.exists(i) is True:
+								subprocess.call(('cmd', '/c', 'start', '', i))
+							elif os.path.exists(i) is False:
+								if i == "":
+									pass
 
 
 def show_voice_settings(self):

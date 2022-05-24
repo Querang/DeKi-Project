@@ -235,6 +235,7 @@ def update_active_voice(conn, bd_name, status):
         cur.execute(sql, data)
     conn.commit()
 
+
 def voice_commands_status(conn):
     cur = conn.cursor()
     cur.execute("SELECT * FROM voice_commands")

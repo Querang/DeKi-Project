@@ -9,7 +9,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import  scroll_name
 
 
 class Ui_MainWindow(object):
@@ -1032,7 +1031,7 @@ class Ui_MainWindow(object):
         self.close_not_button.setObjectName("close_not_button")
 
 
-        """ voice settings """
+        """ voice settings frame """
         self.centralwidget.setObjectName("centralwidget")
         self.voice_set_1 = QtWidgets.QFrame(self.centralwidget)
         self.voice_set_1.setGeometry(QtCore.QRect(480, 270, 929, 445))
@@ -1105,21 +1104,6 @@ class Ui_MainWindow(object):
         self.microphone_select.setEditable(False)
         self.microphone_select.setCurrentText("")
         self.microphone_select.setObjectName("microphone_select")
-        self.mic_check_button = QtWidgets.QPushButton(self.page_1)
-        self.mic_check_button.setGeometry(QtCore.QRect(20, 115, 241, 55))
-        self.mic_check_button.setStyleSheet(" QPushButton {"
-                                            "font: 12pt \"Arial\";\n"
-                                            "background: rgba(149, 149, 149, 0.0);\n"
-                                            "border: 3px solid #575151;\n"
-                                            "box-sizing: border-box;\n"
-                                            "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                            "border-radius: 13px;\n"
-                                            "font-weight: normal;\n"
-                                            "line-height: 40px;\n"
-                                            "color: rgba(255, 255, 255, 0.7);}\n}"
-                                            "QPushButton:hover {\n"
-                                            "color: white;}")
-        self.mic_check_button.setObjectName("mic_check_button")
         self.instr_check = QtWidgets.QLabel(self.page_1)
         self.instr_check.setGeometry(QtCore.QRect(270, 130, 191, 20))
         self.instr_check.setStyleSheet("position: absolute;\n"
@@ -1655,7 +1639,6 @@ class Ui_MainWindow(object):
         self.mic_button_1.setText("Микрофон")
         self.name_button_1.setText("Наименование")
         self.command_button_1.setText("Список команд")
-        self.mic_check_button.setText("Проверка микрофона")
         self.create_name_button.setText("Создать команду")
         self.input_name_command_voice.setText("Название команды")
         self.instr_1.setText("Выбор команды")

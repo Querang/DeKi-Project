@@ -740,15 +740,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.del_list.append(qq)
         print(self.del_list)
 
-    "показать головые команды"
     def show_voice_settings(self):
+        """показать головые команды"""
         self.voice_set_1.show()
 
-    "закрыть голосовые настройки"
     def close_voice_settings(self):
+        """закрыть голосовые настройки"""
         self.voice_set_1.hide()
 
     def load_voice_commands_list(self):
+        """загрузка команд из базы данных на фрейм с их отображением"""
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             sql_command_name = sqlite_Neko.select_all_command(conn)
@@ -756,6 +757,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             sql_voice_source = sqlite_Neko.voice_commands_source(conn)
             sql_active_list = sqlite_Neko.voice_commands_status(conn)
             for i in sql_command_name:
+                """Создание фрейма"""
                 self.command_bd_box = QtWidgets.QGroupBox()
                 self.command_bd_box.setGeometry(QtCore.QRect(50, 40, 640, 182))
                 self.command_bd_box.setMinimumSize(QtCore.QSize(640, 51))
@@ -801,6 +803,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 inactive_counter = 0
                 coincidence_counter = 0
                 for k in range(len(sql_voice_source)):
+                    """проверка активности команды"""
                     if i == sql_voice_source[k]:
                         print(k)
                         coincidence_counter = coincidence_counter + 1
@@ -825,6 +828,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.contain_table.setObjectName("contain_table")
                 placement = 10
                 for j in range(len(sql_voice_names)):
+                    """Добавление всех названий для команды"""
                     if sql_voice_source[j] == i:
                         self.named_command = QtWidgets.QLabel(self.contain_table)
                         self.named_command.setGeometry(QtCore.QRect(20, placement, 111, 21))
@@ -850,6 +854,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.gridLayout_10.addWidget(self.command_bd_box)
 
     def setSizeContainer(self, panel, button):
+        """изменяет размер контейнера"""
         panel_text = button.text()
         if panel_text == "Раскрыть":
             panel.setMinimumSize(QtCore.QSize(640, 191))
@@ -861,6 +866,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             button.setText("Раскрыть")
 
     def del_voice_command(self, text, button, label):
+        """удаляет команды"""
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             sqlite_Neko.delete_voice_commands(conn, text)
@@ -868,6 +874,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         label.hide()
 
     def active_status(self, name, status, button):
+        """изменяет статус команды"""
         if status == "Активно":
             status = 1
         else:
@@ -883,6 +890,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.load_voice_commands_list()
 
     def set_voice_page_3(self):
+        """переход на третью страницу stackwidget"""
         self.clear_note(self.gridLayout_10)
         self.load_voice_commands_list()
         self.stackedWidget.setCurrentIndex(2)
@@ -898,192 +906,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.clear_note(self.gridLayout_9)
         self.show_update_item_in_area_delite_choice()
 
-    "проигрывается речь помощника"
-    def play_voice_assistant_speech(self, text_to_speech):
-        """
-        Проигрывание речи ответов голосового ассистента (без сохранения аудио)
-        :param text_to_speech: текст, который нужно преобразовать в речь
-        """
-        ttsEngine = pyttsx3.init()
-        rate = ttsEngine.getProperty('rate')
-        ttsEngine.setProperty('rate', 200)
-        volume = ttsEngine.getProperty('volume')
-        ttsEngine.setProperty('volume', 3)
-        conn = sqlite_Neko.create_connection("Neko.db")
-        with conn:
-            language = sqlite_Neko.get_language(conn)
-            if language == "russian":
-                ttsEngine.setProperty('voice', 'ru')
-                ttsEngine.setProperty('voice', 'Anna')
-            elif language == "english":
-                ttsEngine.setProperty('voice', 'en')
-                ttsEngine.setProperty('voice', 'Kendra')
-        ttsEngine.say(str(text_to_speech))
-        ttsEngine.runAndWait()
 
-    "запись и распознавание речи"
-    def record_and_recognize_audio(self, *args: tuple):
-        """
-        Запись и распознавание аудио
-        """
-        mic_index = self.onActivated_1()
-        microphone = speech_recognition.Microphone(device_index=mic_index)
-
-        with microphone:
-            recognized_data = ""
-
-            # регулирование уровня окружающего шума
-            recognizer.adjust_for_ambient_noise(microphone, duration=2)
-
-            try:
-                print("Listening...")
-                audio = recognizer.listen(microphone, 5, 5)
-
-                with open("microphone-results.wav", "wb") as file:
-                    file.write(audio.get_wav_data())
-
-            except speech_recognition.WaitTimeoutError:
-                print("Can you check if your microphone is on, please?")
-                return
-
-            # использование online-распознавания через Google
-            try:
-                print("Started recognition...")
-                conn = sqlite_Neko.create_connection("Neko.db")
-                with conn:
-                    language = sqlite_Neko.get_language(conn)
-                    if language == "russian":
-                        recognized_data = recognizer.recognize_google(audio, language="ru").lower()
-                    elif language == "english":
-                        recognized_data = recognizer.recognize_google(audio, language="en").lower()
-
-            except speech_recognition.UnknownValueError:
-                pass
-
-            except speech_recognition.RequestError:
-                print("Trying to use offline recognition...")
-                recognized_data = self.use_offline_recognition()
-                print(recognized_data)
-        return recognized_data
-
-    "оффлайн запись и распознавание речи"
-    def use_offline_recognition(self):
-        recognized_data = ""
-        try:
-            if not os.path.exists("vosk-model-small-ru-0.22"):
-                print("Please download the model from:\n"
-                      "https://alphacephei.com/vosk/models and unpack as 'model' in the current folder.")
-                exit(1)
-
-            wave_audio_file = wave.open("microphone-results.wav", "rb")
-            model = Model("vosk-model-small-ru-0.22")
-            offline_recognizer = KaldiRecognizer(model, wave_audio_file.getframerate())
-            data = wave_audio_file.readframes(wave_audio_file.getnframes())
-            if data:
-                if offline_recognizer.AcceptWaveform(data):
-                    recognized_data = offline_recognizer.Result()
-                    recognized_data = json.loads(recognized_data)
-                    recognized_data = recognized_data["text"]
-        except:
-            print("Sorry, speech service is unavailable. Try again later")
-        return recognized_data
-
-    "поиск в гугле"
-    def search_for_term_on_google(self, *args: tuple):
-        """
-        Поиск в Google с автоматическим открытием ссылок (на список результатов и на сами результаты, если возможно)
-        :param args: фраза поискового запроса
-        """
-        if not args[0]: return
-        search_term = " ".join(args[0])
-
-        # открытие ссылки на поисковик в браузере
-        url = "https://google.com/search?q=" + search_term
-        webbrowser.get().open(url)
-        self.play_voice_assistant_speech(f"Вот что было найдено по запросу {search_term}")
-
-    "поиск на ютубе"
-    def search_for_video_on_youtube(self, *args: tuple):
-        """
-        Поиск видео на YouTube с автоматическим открытием ссылки на список результатов
-        :param args: фраза поискового запроса
-        """
-        if not args[0]: return
-        search_term = " ".join(args[0])
-        url = "https://www.youtube.com/results?search_query=" + search_term
-        webbrowser.get().open(url)
-        self.play_voice_assistant_speech(f"Вот что было найдено по запросу {search_term}")
-
-    "поиск в википедии"
-    def search_for_definition_on_wikipedia(self, *args: tuple):
-        """
-        Поиск в Wikipedia определения с последующим озвучиванием результатов и открытием ссылок
-        :param args: фраза поискового запроса
-        """
-        if not args[0]: return
-        search_term = " ".join(args[0])
-        url = "https://ru.wikipedia.org/wiki/" + search_term
-        webbrowser.get().open(url)
-        self.play_voice_assistant_speech(f"Вот что было найдено по запросу {search_term}")
-
-    "тестовая функция уведомления"
-    def play_greetings(self, *args: tuple):
-        """
-        Проигрывание случайной приветственной речи
-        """
-        self.label_with_text.setText("Привет!")
-        self.notification_panel.show()
-
-    "выход из программы и прекращение голосового распознавания"
-    def play_farewell_and_quit(self, *args: tuple):
-        """
-        Проигрывание прощательной речи и выход
-        """
-        farewells = ["Пока", "До новых встреч"]
-        self.play_voice_assistant_speech(farewells[random.randint(0, len(farewells) - 1)])
-        ttsEngine.stop()
-        quit()
-
-    "копирование"
-    def copy_data(self, *args: tuple):
-        keyboard.press("ctrl")
-        keyboard.press("c")
-        keyboard.release("c")
-        keyboard.release("ctrl")
-
-    "вырезать"
-    def cut_data(self, *args: tuple):
-        keyboard.press("ctrl")
-        keyboard.press("x")
-        keyboard.release("x")
-        keyboard.release("ctrl")
-
-    "вставить"
-    def input_copied_data(self, *args: tuple):
-        keyboard.press("ctrl")
-        keyboard.press("v")
-        keyboard.release("ctrl")
-        keyboard.release("v")
-
-    "открыть диспетчер задач"
-    def dispatcher(self, *args: tuple):
-        keyboard.press("ctrl")
-        keyboard.press("shift")
-        keyboard.press("esc")
-        keyboard.release("ctrl")
-        keyboard.release("shift")
-        keyboard.release("esc")
-
-    "для выбора микрофона"
     def onActivated_1(self):
+        """для выбора микрофона"""
         return self.microphone_select.currentIndex()
 
-    "для выбора голосовой команды"
     def onActivated_2(self, text):
+        """для выбора голосовой команды"""
         self.bd_com.setText(text)
 
-    "создает список микрофонов"
     def microphone_search(self):
+        """создает список микрофонов"""
         name_list = []
         index_list = []
         for index, name in enumerate(speech_recognition.Microphone.list_microphone_names()):
@@ -1092,26 +925,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.microphone_select.addItem(name)
         print(name_list)
 
-    "для добавления команд в комбобокс"
     def bd_command_searcher(self):
+        """для добавления команд в combobox"""
         conn = sqlite_Neko.create_connection("Neko.db")
         names = sqlite_Neko.select_all_command(conn)
         self.command_bd_select.addItems(names)
-
-    "выполняет голосовые команды, которым пользователь дал названия"
-    def execute_command_with_name(self, command_name: str, *args: list, commands: dict):
-        """
-        Выполнение заданной пользователем команды и аргументами
-        :param command_name: название команды
-        :param args: аргументы, которые будут переданы в метод
-        :param commands: список команд
-        :return:
-        """
-        for key in commands.keys():
-            if command_name in key:
-                commands[key](*args)
-            else:
-                print("Command not found")
 
 
 if __name__ == "__main__":

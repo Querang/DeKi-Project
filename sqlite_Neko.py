@@ -162,6 +162,7 @@ def select_all_command(conn):
 
 
 def voice_commands_names(conn):
+    """возвращает названия команд"""
     cur = conn.cursor()
     cur.execute("SELECT * FROM voice_commands")
 
@@ -173,6 +174,7 @@ def voice_commands_names(conn):
 
 
 def voice_commands_source(conn):
+    """возвращает список команд, на которые ссылаются названия"""
     cur = conn.cursor()
     cur.execute("SELECT * FROM voice_commands")
 
@@ -198,7 +200,7 @@ def delete_task(conn, command):
 
 def delete_voice_commands(conn, command_name):
     """
-    Delete a task by task id
+    Delete a voice command by command name
     :param conn:  Connection to the SQLite database
     :param command_name: command name for the voice
     :return:
@@ -211,7 +213,7 @@ def delete_voice_commands(conn, command_name):
 
 def delete_voice_source(conn, bd_name):
     """
-    Delete a task by task id
+    Delete a task by voice command
     :param conn:  Connection to the SQLite database
     :param bd_name: command name for the voice
     :return:
@@ -223,6 +225,7 @@ def delete_voice_source(conn, bd_name):
 
 
 def update_active_voice(conn, bd_name, status):
+    """обновляет статус голосовых команд"""
     cur = conn.cursor()
     sql = 'UPDATE voice_commands SET active = ? WHERE bd_name = ?'
     if status == 1:
@@ -237,6 +240,7 @@ def update_active_voice(conn, bd_name, status):
 
 
 def voice_commands_status(conn):
+    """возвращает список статусов команд"""
     cur = conn.cursor()
     cur.execute("SELECT * FROM voice_commands")
     rows = cur.fetchall()

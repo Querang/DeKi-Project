@@ -1,9 +1,7 @@
 import os.path
 import sqlite_Neko
 import subprocess
-import Neko_layout
 from fuzzywuzzy import fuzz
-from fuzzywuzzy import process
 import pyttsx3
 import speech_recognition
 import webbrowser
@@ -15,6 +13,7 @@ import keyboard
 
 def voice_helper():
 	while True:
+		"""список команд доступных"""
 		commands = {
 			(f"до встречи", f"пока", f"закончить работу", f"завершение", f"на этом всё", f"выключение",
 			 f"прекращение", f"выключайся", f"off", f"не работай",
@@ -40,11 +39,16 @@ def voice_helper():
 			conn = sqlite_Neko.create_connection("Neko.db")
 			with conn:
 				character_name = sqlite_Neko.get_name(conn)
+			"""проверяют длину команды"""
 			if len(voice_input) > 1:
+				"""проверяет, что бы первая команда была обращением к помощнику"""
 				helper_name = voice_input[0]
 				if fuzz.ratio(helper_name, character_name) > 20:
+					"""проверяет схожесть"""
 					command = voice_input[1]
+					"""отбирает команду"""
 					if len(voice_input) > 2:
+						"""остальные опциональные аргументы"""
 						command_options = [str(input_part) for input_part in voice_input[2:len(voice_input)]]
 						execute_command_with_name(command, commands, command_options)
 					else:
@@ -73,7 +77,6 @@ def execute_command_with_name(command_name: str, dictionary: dict, *args: list):
 				print("Command not found")
 	else:
 		voice_helper()
-
 
 
 def record_and_recognize_audio():
@@ -122,6 +125,7 @@ def record_and_recognize_audio():
 
 
 def use_offline_recognition():
+	"""распознаватель речи при отсутствии интернета"""
 	recognized_data = ""
 	try:
 		if not os.path.exists("vosk-model-small-ru-0.22"):
@@ -188,6 +192,7 @@ def play_farewell_and_quit(*args: tuple):
 
 
 def copy_data(*args: tuple):
+	"""копировать"""
 	keyboard.press("ctrl")
 	keyboard.press("c")
 	keyboard.release("c")
@@ -195,6 +200,7 @@ def copy_data(*args: tuple):
 
 
 def cut_data(*args: tuple):
+	"""вырезать"""
 	keyboard.press("ctrl")
 	keyboard.press("x")
 	keyboard.release("x")
@@ -202,6 +208,7 @@ def cut_data(*args: tuple):
 
 
 def input_copied_data(*args: tuple):
+	"""вставить"""
 	keyboard.press("ctrl")
 	keyboard.press("v")
 	keyboard.release("ctrl")
@@ -209,6 +216,7 @@ def input_copied_data(*args: tuple):
 
 
 def dispatcher(*args: tuple):
+	"""открыть диспетчер"""
 	keyboard.press("ctrl")
 	keyboard.press("shift")
 	keyboard.press("esc")
@@ -257,11 +265,3 @@ def active_command_voice(button_name):
 							elif os.path.exists(i) is False:
 								if i == "":
 									pass
-
-
-def show_voice_settings(self):
-	self.voice_set_1.show()
-
-
-def close_voice_settings(self):
-	self.voice_set_1.hide()

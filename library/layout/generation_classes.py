@@ -15,12 +15,13 @@ from library.layout.dialog_window import Ui_Dialog_folder, ErrorDialog
 import library.Neko_lib_sqlite
 import sys, os
 
-basedir = os.path.dirname(os.curdir)
+basedir = r"C:\Program Files\DeKi\Neko_library\lib_main"
 
 class GenerateFolderPage(QtWidgets.QWidget):
     def __init__(self, name_folder, id_folder, list_book, main_obj):
         super(GenerateFolderPage, self).__init__()
         self.config_name = library.Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
+        print(os.path.join(basedir,"lib_config.yaml"))
         print(self.config_name)
         self.flag_sort = self.config_name["flag_sort"]
         self.action_flag = False  # delete folder
@@ -130,7 +131,7 @@ class GenerateFolderPage(QtWidgets.QWidget):
             for file in files:
                 if pathlib.Path(file).suffix == ".pdf":
                     print("ok")
-                    new_dist = os.path.abspath(os.path.join(basedir,"bookshelf"))
+                    new_dist = os.path.join(basedir,"bookshelf")
                     new_path = shutil.copy(file, new_dist, follow_symlinks=True)
                     conn = library.Neko_lib_sqlite.create_connection(os.path.join(basedir,"lib.db"))
                     with conn:
@@ -223,9 +224,9 @@ class GenerateFolderPage(QtWidgets.QWidget):
         doc = fitz.open(path)
         page = doc.load_page(0)
         pix = page.get_pixmap()
-        pix.save(os.path.join(basedir,f"lib_material/image_for_book/{book_name}.png"))
+        pix.save(os.path.join(basedir,f"lib_material\image_for_book\{book_name}.png"))
         "set value"
-        book_image_path = os.path.join(basedir,f"lib_material/image_for_book/{book_name}.png")
+        book_image_path = os.path.join(basedir,f"lib_material\image_for_book\{book_name}.png")
         book_path = path
         current_page = 0
         return (self.id_folder, book_name, book_path, book_image_path, current_page)
@@ -248,8 +249,8 @@ class GenerateFolderPage(QtWidgets.QWidget):
                 self.gridLayout.addWidget(
                     GenerateBook(library.Neko_lib_sqlite.get_book(conn, id_book), self.main_obj, self.frame_del_book,
                                  self.list_del_book))
-        except:
-            pass
+        except :
+            print("Error in add_book")
 
 
 class ShowcaseButton(QtWidgets.QPushButton):
@@ -361,7 +362,7 @@ class GenerateBook(QtWidgets.QWidget):
                                            "padding: 0;")
         self.like_mark_label.setText("")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(os.path.join(basedir,"lib_material/like_mark.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off))
+        icon3.addPixmap(QtGui.QPixmap("lib_material/like_mark.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.like_mark_label.setIcon(icon3)
         self.like_mark_label.setIconSize(QtCore.QSize(32, 32))
         self.like_mark_label.setAutoRepeat(False)
@@ -404,18 +405,17 @@ class GenerateBook(QtWidgets.QWidget):
 
     def left_click_on_book(self):
         try:
-            dst = os.path.join(basedir,"bookshelf/pdfjs-2.14.305-dist/web/compressed.tracemonkey-pldi-09.pdf")
+            dst = os.path.abspath("bookshelf/pdfjs-2.14.305-dist/web/compressed.tracemonkey-pldi-09.pdf")
             conn = library.Neko_lib_sqlite.create_connection("lib.db")
             with conn:
 
                 data_book = library.Neko_lib_sqlite.get_book(conn, self.id_book)
                 print(data_book[1])
-            src = os.path.join(basedir,f"{data_book[1]}.pdf")
-            print("1")
+            src = os.path.abspath(f"bookshelf/{data_book[1]}.pdf")
             print(src,dst)
             shutil.copyfile(src, dst, follow_symlinks=True)
             print("2")
-            webbrowser.open("http://localhost:8000/bookshelf/pdfjs-2.14.305-dist/web/viewer.html")
+            webbrowser.open("http://localhost:7000/bookshelf/pdfjs-2.14.305-dist/web/viewer.html")
         except:
             print("noo")
         config_names = library.Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))

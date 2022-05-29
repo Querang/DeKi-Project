@@ -12,7 +12,7 @@ from multiprocessing import freeze_support
 import http.server
 import socketserver
 from library.layout.dialog_window import SettingDialog, TutorialDialog, ErrorDialog
-basedir = os.path.dirname(os.curdir)
+
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -117,7 +117,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
 def server():
-    PORT = 8000
+    PORT = 7000
     Handler = http.server.SimpleHTTPRequestHandler
     with socketserver.TCPServer(("", PORT), Handler) as httpd:
         print("serving at port", PORT)

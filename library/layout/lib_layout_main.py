@@ -14,7 +14,6 @@ from library.layout.generation_classes import FolderButton, GenerateFolderPage, 
 from library.layout.find_page import FindPage
 import sys, os
 
-basedir = os.path.dirname(os.curdir)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):

@@ -8,7 +8,9 @@ from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QShortcut, QFileDialog
 
 import library.Neko_lib_sqlite
+import sys, os
 
+basedir = os.path.dirname(os.curdir)
 
 class Ui_Dialog_folder(QtWidgets.QDialog):
     def __init__(self, parent, button_continue_flag):
@@ -86,7 +88,7 @@ class SettingDialog(QtWidgets.QDialog):
         self.parent = parent
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setGeometry(QtCore.QRect(457, 93, 277, 357))
-        config_names = library.Neko_lib_sqlite.read_config("lib_config.yaml")
+        config_names = library.Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
         self.setStyleSheet("background: #1F1F1F;border: 1px solid #727272;")
         self.textBrowser = QtWidgets.QTextBrowser(self)
         self.textBrowser.setGeometry(QtCore.QRect(10, 20, 181, 51))
@@ -192,12 +194,12 @@ class SettingDialog(QtWidgets.QDialog):
         self.button_export.clicked.connect(self.copy_books)
 
     def change_setting(self, config_name, flag):
-        config_names = library.Neko_lib_sqlite.read_config("lib_config.yaml")
+        config_names = library.Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
         if flag:
             config_names[config_name] = True
         else:
             config_names[config_name] = False
-        library.Neko_lib_sqlite.write_config("lib_config.yaml", config_names)
+        library.Neko_lib_sqlite.write_config(os.path.join(basedir,"lib_config.yaml"), config_names)
 
     def copy_books(self):
         try:
@@ -205,7 +207,7 @@ class SettingDialog(QtWidgets.QDialog):
             new_dist = folder + "/neko_lib"
             os.mkdir(new_dist)
             print("qq")
-            for root, dirs, files in os.walk(os.path.abspath(r"../library/bookshelf")):
+            for root, dirs, files in os.walk(os.path.abspath(os.path.join(basedir,"bookshelf"))):
                 print(root, dirs, files)
                 for file in files:
                     print(os.path.join(root, file))

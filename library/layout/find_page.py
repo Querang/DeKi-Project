@@ -1,7 +1,9 @@
+import os
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 import library.Neko_lib_sqlite
 from library.layout.generation_classes import GenerateBook, FlowLayout
-
+basedir = os.path.dirname(os.curdir)
 
 class FindPage(QtWidgets.QWidget):
     def __init__(self):
@@ -93,12 +95,12 @@ class FindPage(QtWidgets.QWidget):
                                          "border-top:0px solid rgb(46, 46, 46);")
         self.button_reboot.setText("")
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("../library/lib_material/reboot.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4.addPixmap(QtGui.QPixmap(os.path.join(basedir,"lib_material/reboot.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.button_reboot.setIcon(icon4)
         self.button_reboot.setIconSize(QtCore.QSize(31, 29))
         self.button_reboot.setObjectName("button_reboot")
         self.button_reboot.clicked.connect(self.reboot_book)
-        conn = library.Neko_lib_sqlite.create_connection("lib.db")
+        conn = library.Neko_lib_sqlite.create_connection(os.path.join(basedir,"lib.db"))
         with conn:
             self.list_book = library.Neko_lib_sqlite.get_all_book(conn)
         self.frame_del_book, self.list_del_book = [], []
@@ -110,12 +112,12 @@ class FindPage(QtWidgets.QWidget):
                 child.widget().deleteLater()
 
     def reboot_book(self):
-        conn = library.Neko_lib_sqlite.create_connection("lib.db")
+        conn = library.Neko_lib_sqlite.create_connection(os.path.join(basedir,"lib.db"))
         with conn:
             self.list_book = library.Neko_lib_sqlite.get_all_book(conn)
 
     def add_book(self, id_book):
-        conn = library.Neko_lib_sqlite.create_connection("lib.db")
+        conn = library.Neko_lib_sqlite.create_connection(os.path.join(basedir,"lib.db"))
         with conn:
             self.gridLayout_2.addWidget(
                 GenerateBook(library.Neko_lib_sqlite.get_book(conn, id_book), self.frame_del_book, self.list_del_book))

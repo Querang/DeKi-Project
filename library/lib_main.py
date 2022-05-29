@@ -1,3 +1,4 @@
+import os
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5 import QtGui
@@ -7,10 +8,11 @@ from library import Neko_lib_sqlite
 from library.layout.lib_layout_main import Ui_MainWindow
 from library.layout.main_page import MainPage
 from multiprocessing import Process
+from multiprocessing import freeze_support
 import http.server
 import socketserver
 from library.layout.dialog_window import SettingDialog, TutorialDialog, ErrorDialog
-
+basedir = os.path.dirname(os.curdir)
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -47,7 +49,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def save_folder(self):
         try:
             name_folder = self.folder_name_input.text()
-            conn = Neko_lib_sqlite.create_connection("lib.db")
+            conn = Neko_lib_sqlite.create_connection(os.path.join(basedir,"lib.db"))
             with conn:
                 """get resource"""
                 id_folder = Neko_lib_sqlite.create_folder(conn, name_folder)
@@ -64,14 +66,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass  # here will be append dialog window with mistake
 
     def close_app(self):
-        config_name = Neko_lib_sqlite.read_config("lib_config.yaml")
+        config_name = Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
         (config_name["window_position_x"], config_name["window_position_y"]) = self.geometry().x(), self.geometry().y()
-        Neko_lib_sqlite.write_config("lib_config.yaml", config_name)
+        Neko_lib_sqlite.write_config(os.path.join(basedir,"lib_config.yaml"), config_name)
         self.server_process.kill()
         sys.exit()
 
     def load_folder(self):
-        conn = Neko_lib_sqlite.create_connection("lib.db")
+        conn = Neko_lib_sqlite.create_connection(os.path.join(basedir,"lib.db"))
         with conn:
             """get resource"""
             all_folder = Neko_lib_sqlite.get_all_folder_and_id(conn)
@@ -123,9 +125,10 @@ def server():
 
 
 if __name__ == '__main__':
+    freeze_support()
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(True)
-    app.setWindowIcon(QtGui.QIcon('../library/lib_material/icon_window.png'))
+    app.setWindowIcon(QtGui.QIcon(os.path.join(basedir,'lib_material/icon_window.png')))
     # app.setQuitOnLastWindowClosed(True)
     w = MainWindow()
     sys.exit(app.exec_())

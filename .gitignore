@@ -10,3 +10,7 @@ __pycache__/
 parser/layout/qq.py
 
 parser_Firo/layout/qq.py
+
+library/dist/
+
+library/build/

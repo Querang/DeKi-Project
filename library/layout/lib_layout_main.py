@@ -12,17 +12,19 @@ import library.Neko_lib_sqlite
 from PyQt5 import QtCore, QtGui, QtWidgets
 from library.layout.generation_classes import FolderButton, GenerateFolderPage, MenuButton
 from library.layout.find_page import FindPage
+import sys, os
 
+basedir = os.path.dirname(os.curdir)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(979, 620)
         "set central place flag_save_position point on save previous place window at the next opening"
-        config_names = library.Neko_lib_sqlite.read_config("lib_config.yaml")
+        config_names = library.Neko_lib_sqlite.read_config(os.path.join(basedir, "lib_config.yaml"))
         self.flag_save_position = config_names["flag_pos"]
         if self.flag_save_position:
-            config_name = library.Neko_lib_sqlite.read_config("lib_config.yaml")
+            config_name = library.Neko_lib_sqlite.read_config(os.path.join(basedir, "lib_config.yaml"))
             MainWindow.move(config_name["window_position_x"], config_name["window_position_y"])
         else:
             desktop = QtWidgets.QApplication.desktop()
@@ -55,7 +57,7 @@ class Ui_MainWindow(object):
         self.button_main_folder.setGeometry(QtCore.QRect(0, 20, 170, 27))
         self.button_main_folder.setMinimumSize(QtCore.QSize(170, 27))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("lib_material/home.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(os.path.join(basedir,"lib_material/home.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.button_main_folder.setIcon(icon)
         self.button_main_folder.setIconSize(QtCore.QSize(21, 21))
         self.button_main_folder.setObjectName("button_main_folder")
@@ -63,7 +65,7 @@ class Ui_MainWindow(object):
         self.button_create_folder.setGeometry(QtCore.QRect(0, 79, 170, 31))
         self.button_create_folder.setMinimumSize(QtCore.QSize(170, 31))
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("lib_material/add_folder.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap(os.path.join(basedir,"lib_material/add_folder.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.button_create_folder.setIcon(icon1)
         self.button_create_folder.setIconSize(QtCore.QSize(21, 21))
         self.button_create_folder.setObjectName("button_create_folder")
@@ -71,7 +73,7 @@ class Ui_MainWindow(object):
         self.button_find.setGeometry(QtCore.QRect(0, 50, 170, 27))
         self.button_find.setMinimumSize(QtCore.QSize(170, 27))
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("lib_material/find.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap(os.path.join(basedir,"lib_material/find.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.button_find.setIcon(icon2)
         self.button_find.setIconSize(QtCore.QSize(21, 21))
         self.button_find.setObjectName("button_find")
@@ -168,7 +170,7 @@ class Ui_MainWindow(object):
                                           "background: rgba(199, 199, 199, 0.0);")
         self.button_setting.setText("")
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("../library/lib_material/gear.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4.addPixmap(QtGui.QPixmap(os.path.join(basedir,"lib_material/gear.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.button_setting.setIcon(icon4)
         # self.lib_sub_right.addWidget(self.lib_sub_right_page_folder)
         self.page_find_book = QtWidgets.QWidget()
@@ -207,7 +209,7 @@ class Ui_MainWindow(object):
                                               "border-top:0px solid rgb(46, 46, 46);")
         self.button_save_folder.setText("")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("lib_material/save_button.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap(os.path.join(basedir,"lib_material/save_button.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.button_save_folder.setIcon(icon3)
         self.button_save_folder.setIconSize(QtCore.QSize(40, 39))
 

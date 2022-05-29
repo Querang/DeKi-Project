@@ -13,12 +13,14 @@ from PyQt5.QtWidgets import QShortcut
 
 from library.layout.dialog_window import Ui_Dialog_folder, ErrorDialog
 import library.Neko_lib_sqlite
+import sys, os
 
+basedir = os.path.dirname(os.curdir)
 
 class GenerateFolderPage(QtWidgets.QWidget):
     def __init__(self, name_folder, id_folder, list_book, main_obj):
         super(GenerateFolderPage, self).__init__()
-        self.config_name = library.Neko_lib_sqlite.read_config("lib_config.yaml")
+        self.config_name = library.Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
         print(self.config_name)
         self.flag_sort = self.config_name["flag_sort"]
         self.action_flag = False  # delete folder
@@ -104,7 +106,7 @@ class GenerateFolderPage(QtWidgets.QWidget):
                                         "border-top:0px solid rgb(46, 46, 46);")
         self.button_trash.setText("")
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("lib_material/trash.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4.addPixmap(QtGui.QPixmap(os.path.join(basedir,"lib_material/trash.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.button_trash.setIcon(icon4)
         self.button_trash.setIconSize(QtCore.QSize(46, 43))
         self.button_trash.setObjectName("button_trash")
@@ -128,9 +130,9 @@ class GenerateFolderPage(QtWidgets.QWidget):
             for file in files:
                 if pathlib.Path(file).suffix == ".pdf":
                     print("ok")
-                    new_dist = os.path.abspath(r"../library/bookshelf")
+                    new_dist = os.path.abspath(os.path.join(basedir,"bookshelf"))
                     new_path = shutil.copy(file, new_dist, follow_symlinks=True)
-                    conn = library.Neko_lib_sqlite.create_connection("lib.db")
+                    conn = library.Neko_lib_sqlite.create_connection(os.path.join(basedir,"lib.db"))
                     with conn:
                         id_book = library.Neko_lib_sqlite.create_book(conn, self.get_date_about_book(new_path))
                         self.list_book = library.Neko_lib_sqlite.get_list_book_id(conn, self.id_folder)
@@ -141,9 +143,9 @@ class GenerateFolderPage(QtWidgets.QWidget):
             print("mistake")
 
     def type_sort_book(self, flag):
-        config_name = library.Neko_lib_sqlite.read_config("lib_config.yaml")
+        config_name = library.Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
         config_name["flag_sort"] = flag
-        library.Neko_lib_sqlite.write_config("lib_config.yaml", config_name)
+        library.Neko_lib_sqlite.write_config(os.path.join(basedir,"lib_config.yaml"), config_name)
         self.flag_sort = flag
         self.load_book(self.list_book)
 
@@ -153,7 +155,7 @@ class GenerateFolderPage(QtWidgets.QWidget):
             self.action = Ui_Dialog_folder.get_data(self.main_obj, self.action_flag)
             print(self.action)
             if self.action:
-                conn = library.Neko_lib_sqlite.create_connection("lib.db")
+                conn = library.Neko_lib_sqlite.create_connection(os.path.join(basedir,"lib.db"))
                 library.Neko_lib_sqlite.del_folder(conn, self.id_folder)
                 self.main_obj.clearLayout()
                 self.main_obj.load_folder()
@@ -165,16 +167,16 @@ class GenerateFolderPage(QtWidgets.QWidget):
             pass  # here will be append dialog window with mistake
 
     def del_book(self):
-        conn = library.Neko_lib_sqlite.create_connection("lib.db")
+        conn = library.Neko_lib_sqlite.create_connection(os.path.join(basedir,"lib.db"))
         with conn:
             try:
-                config_name = library.Neko_lib_sqlite.read_config("lib_config.yaml")
+                config_name = library.Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
                 for id_book in self.list_del_book:
                     if id_book in config_name["recent_book"]:
                         config_name["recent_book"].remove(id_book)
                     if id_book in config_name["favorites_book"]:
                         config_name["favorites_book"].remove(id_book)
-                library.Neko_lib_sqlite.write_config("lib_config.yaml", config_name)
+                library.Neko_lib_sqlite.write_config(os.path.join(basedir,"lib_config.yaml"), config_name)
                 self.main_obj.main_page.reload_like_book()
                 self.main_obj.main_page.reload_recent_book()
                 library.Neko_lib_sqlite.del_books(conn, self.list_del_book)
@@ -203,10 +205,10 @@ class GenerateFolderPage(QtWidgets.QWidget):
             files = QtWidgets.QFileDialog.getOpenFileNames(self, 'Open file', None, "Book (*.pdf )")[0]
             for file in files:
                 # print(file)
-                new_dist = os.path.abspath(r"../library/bookshelf")
+                new_dist = os.path.join(basedir,"bookshelf")
                 new_path = shutil.copy(file, new_dist, follow_symlinks=True)
                 print("this", new_path)
-                conn = library.Neko_lib_sqlite.create_connection("lib.db")
+                conn = library.Neko_lib_sqlite.create_connection(os.path.join(basedir,"lib.db"))
                 with conn:
                     id_book = library.Neko_lib_sqlite.create_book(conn, self.get_date_about_book(new_path))
                     self.list_book = library.Neko_lib_sqlite.get_list_book_id(conn, self.id_folder)
@@ -221,9 +223,9 @@ class GenerateFolderPage(QtWidgets.QWidget):
         doc = fitz.open(path)
         page = doc.load_page(0)
         pix = page.get_pixmap()
-        pix.save(fr"../library/lib_material/image_for_book/{book_name}.png")
+        pix.save(os.path.join(basedir,f"lib_material/image_for_book/{book_name}.png"))
         "set value"
-        book_image_path = fr"../library/lib_material/image_for_book/{book_name}.png"
+        book_image_path = os.path.join(basedir,f"lib_material/image_for_book/{book_name}.png")
         book_path = path
         current_page = 0
         return (self.id_folder, book_name, book_path, book_image_path, current_page)
@@ -241,7 +243,7 @@ class GenerateFolderPage(QtWidgets.QWidget):
 
     def add_book(self, id_book):
         try:
-            conn = library.Neko_lib_sqlite.create_connection("lib.db")
+            conn = library.Neko_lib_sqlite.create_connection(os.path.join(basedir,"lib.db"))
             with conn:
                 self.gridLayout.addWidget(
                     GenerateBook(library.Neko_lib_sqlite.get_book(conn, id_book), self.main_obj, self.frame_del_book,
@@ -359,7 +361,7 @@ class GenerateBook(QtWidgets.QWidget):
                                            "padding: 0;")
         self.like_mark_label.setText("")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("../library/lib_material/like_mark.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap(os.path.join(basedir,"lib_material/like_mark.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off))
         self.like_mark_label.setIcon(icon3)
         self.like_mark_label.setIconSize(QtCore.QSize(32, 32))
         self.like_mark_label.setAutoRepeat(False)
@@ -378,7 +380,7 @@ class GenerateBook(QtWidgets.QWidget):
         self.check_on_like_mark()
 
     def check_on_like_mark(self):
-        config_name = library.Neko_lib_sqlite.read_config("lib_config.yaml")
+        config_name = library.Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
         if self.id_book in config_name["favorites_book"]:
             self.like_mark_label.show()
 
@@ -388,27 +390,27 @@ class GenerateBook(QtWidgets.QWidget):
     def add_favorite_book(self):
         self.check_on_like_mark()
         if self.main_obj:
-            config_name = library.Neko_lib_sqlite.read_config("lib_config.yaml")
+            config_name = library.Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
             print(config_name["favorites_book"], self.id_book)
             if self.id_book in config_name["favorites_book"]:
                 config_name["favorites_book"].remove(self.id_book)
             else:
                 config_name["favorites_book"].append(self.id_book)
             print(config_name["favorites_book"], self.id_book)
-            library.Neko_lib_sqlite.write_config("lib_config.yaml", config_name)
+            library.Neko_lib_sqlite.write_config(os.path.join(basedir,"lib_config.yaml"), config_name)
             self.check_on_like_mark()
             self.main_obj.main_page.reload_like_book()
             self.main_obj.main_page.reload_recent_book()
 
     def left_click_on_book(self):
         try:
-            dst = os.path.abspath(r"../library/bookshelf/pdfjs-2.14.305-dist/web/compressed.tracemonkey-pldi-09.pdf")
+            dst = os.path.join(basedir,"bookshelf/pdfjs-2.14.305-dist/web/compressed.tracemonkey-pldi-09.pdf")
             conn = library.Neko_lib_sqlite.create_connection("lib.db")
             with conn:
 
                 data_book = library.Neko_lib_sqlite.get_book(conn, self.id_book)
                 print(data_book[1])
-            src = os.path.abspath(r"../library/bookshelf/" + f"{data_book[1]}" + ".pdf")
+            src = os.path.join(basedir,f"{data_book[1]}.pdf")
             print("1")
             print(src,dst)
             shutil.copyfile(src, dst, follow_symlinks=True)
@@ -416,19 +418,19 @@ class GenerateBook(QtWidgets.QWidget):
             webbrowser.open("http://localhost:8000/bookshelf/pdfjs-2.14.305-dist/web/viewer.html")
         except:
             print("noo")
-        config_names = library.Neko_lib_sqlite.read_config("lib_config.yaml")
+        config_names = library.Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
         if config_names["flag_f11"]:
             time.sleep(4)
             keyboard.press_and_release('f11')
         if self.main_obj:
-            config_name = library.Neko_lib_sqlite.read_config("lib_config.yaml")
+            config_name = library.Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
 
             if self.id_book in config_name["recent_book"]:
                 config_name["recent_book"].remove(self.id_book)
                 config_name["recent_book"].insert(0, self.id_book)
             else:
                 config_name["recent_book"].insert(0, self.id_book)
-            library.Neko_lib_sqlite.write_config("lib_config.yaml", config_name)
+            library.Neko_lib_sqlite.write_config(os.path.join(basedir,"lib_config.yaml"), config_name)
             self.main_obj.main_page.reload_recent_book()
 
     def click_on_book(self, frame_del_obj, list_del_book):
@@ -487,7 +489,7 @@ class FolderButton(QtWidgets.QWidget):
         self.button_folder.leftClicked.connect(self.switch_on_page)
 
     def change_color_btn(self):
-        current_folder = library.Neko_lib_sqlite.read_config("lib_config.yaml")
+        current_folder = library.Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
         for w in self.obj_frame.findChildren(FolderButton):
             print(w)
             if current_folder["current_folder"] == w.index_folder:
@@ -520,9 +522,9 @@ class FolderButton(QtWidgets.QWidget):
 
     def switch_on_page(self):
         self.obj_main_window.lib_right.setCurrentIndex(2)
-        current_folder = library.Neko_lib_sqlite.read_config("lib_config.yaml")
+        current_folder = library.Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
         current_folder["current_folder"] = self.index_folder
-        library.Neko_lib_sqlite.write_config("lib_config.yaml", current_folder)
+        library.Neko_lib_sqlite.write_config(os.path.join(basedir,"lib_config.yaml"), current_folder)
         self.change_color_btn()
         self.obj_page.setCurrentIndex(self.index_folder)
 

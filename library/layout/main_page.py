@@ -2,7 +2,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import library.Neko_lib_sqlite
 from library.layout.dialog_window import ErrorDialog
 from library.layout.generation_classes import FlowLayout, GenerateBook
+import sys, os
 
+basedir = os.path.dirname(os.curdir)
 
 class MainPage(QtWidgets.QWidget):
     def __init__(self, main_obj):
@@ -47,7 +49,7 @@ class MainPage(QtWidgets.QWidget):
         self.load_page()
 
     def load_page(self):
-        config_name = library.Neko_lib_sqlite.read_config("lib_config.yaml")
+        config_name = library.Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
         # self.clearLayout(self.sub_book_layout)
         if config_name["recent_book"]:
             for id_book in config_name["recent_book"][:15]:
@@ -64,7 +66,7 @@ class MainPage(QtWidgets.QWidget):
             self.like_book_area.gridLayout.addWidget(NoBook())
 
     def reload_like_book(self):
-        config_name = library.Neko_lib_sqlite.read_config("lib_config.yaml")
+        config_name = library.Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
         self.clearLayout(self.like_book_area.gridLayout)
         self.clearLayout(self.like_book_area_more.gridLayout)
         if config_name["favorites_book"]:
@@ -76,7 +78,7 @@ class MainPage(QtWidgets.QWidget):
             self.like_book_area.gridLayout.addWidget(NoBook())
 
     def reload_recent_book(self):
-        config_name = library.Neko_lib_sqlite.read_config("lib_config.yaml")
+        config_name = library.Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
         self.clearLayout(self.resent_book_area.gridLayout)
         self.clearLayout(self.resent_book_area_more.gridLayout)
         if config_name["recent_book"]:
@@ -88,19 +90,19 @@ class MainPage(QtWidgets.QWidget):
 
     def add_book(self, obj_layout, id_book):
         try:
-            conn = library.Neko_lib_sqlite.create_connection("lib.db")
+            conn = library.Neko_lib_sqlite.create_connection(os.path.join(basedir,"lib.db"))
             self.obj_layout = obj_layout
             with conn:
                 self.obj_layout.addWidget(
                     GenerateBook(library.Neko_lib_sqlite.get_book(conn, id_book), self.main_obj))
         except:
-            config_name = library.Neko_lib_sqlite.read_config("lib_config.yaml")
+            config_name = library.Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
             if id_book in config_name["recent_book"]:
                 config_name["recent_book"].remove(id_book)
             elif id_book in config_name["favorites_book"]:
                 config_name["favorites_book"].remove(id_book)
             else:
-                conn = library.Neko_lib_sqlite.create_connection("lib.db")
+                conn = library.Neko_lib_sqlite.create_connection(os.path.join(basedir,"lib.db"))
                 library.Neko_lib_sqlite.del_books(conn, [id_book])
                 self.error_dialog = ErrorDialog(self.main_obj)
                 self.error_dialog.exec_()

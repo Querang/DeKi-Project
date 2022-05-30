@@ -6,14 +6,16 @@ from layout_file.main_frame import Ui_MainFrame
 from add_frame import Ui_AddFrame
 from layout_file.setting_frame import Ui_SettingFrame
 from layout_file.main_min_frame import Ui_MainMinFrame
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut
+from PyQt5.QtGui import QKeySequence, QIcon, QPixmap
+from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut, QSystemTrayIcon, QAction, QMenu
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_MainMinFrame):
     def __init__(self):
         super().__init__()
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         MainWindow.setObjectName(self, "MainWindow")
         MainWindow.resize(self, 1366, 767)
         self.centralwidget = QtWidgets.QWidget(self)
@@ -37,8 +39,6 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_Main
         self.stackedWidget_sourse.setGeometry(QtCore.QRect(9, -1, 1311, 761))
         self.stackedWidget_sourse.setStyleSheet("")
         self.stackedWidget_sourse.setObjectName("stackedWidget_sourse")
-        self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
-        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
         self.stackedWidget_sourse.addWidget(Ui_MainFrame.setup_Main_frame(self))
         self.stackedWidget_sourse.addWidget(Ui_AddFrame.setup_add_frame(self))
@@ -50,10 +50,10 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_Main
         self.setting_button.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(2))
 
         self.rule_button_min.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(1))
+        self.move_to_adding_section.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(1))
         self.setting_button_min.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(2))
 
-        self.button_note.clicked.connect(
-            lambda: webbrowser.open("https://keep.google.com/u/0/#home", new=0, autoraise=True))
+
 
 
         self.next_on_page_2_button.clicked.connect(lambda: self.stackedWidget_setting_page.setCurrentIndex(0))
@@ -75,11 +75,36 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_Main
         self.button_window_r_2.clicked.connect(self.Next_main_window_size)
         """min frame"""
         self.wrap_button.clicked.connect(lambda : self.showMinimized())
-        self.button_note_min.clicked.connect(
-            lambda: webbrowser.open("https://keep.google.com/u/0/#home", new=0, autoraise=True))
-
+        self.tray_icon = QSystemTrayIcon(self)
+        icon = QIcon()
+        icon.addPixmap(QPixmap("material/Neko_helper.png"), QIcon.Normal,
+                       QIcon.Off)
+        self.tray_icon.setIcon(icon)
+        show_action = QAction("Show", self)
+        quit_action = QAction("Exit", self)
+        hide_action = QAction("Hide", self)
+        show_action.triggered.connect(self.show)
+        hide_action.triggered.connect(self.hide)
+        quit_action.triggered.connect(self.close_app)
+        tray_menu = QMenu()
+        tray_menu.setStyleSheet("font-family: \'RobotoFlex\';\n"
+                                "font-style: normal;\n"
+                                "font-weight: 200;\n"
+                                "font-size: 16px;\n"
+                                "line-height: 75.4%;\n"
+                                "/* or 14px */\n"
+                                "background: rgba(199, 199, 199, 0.0);\n"
+                                "border: 0.5px solid rgba(167, 167, 167, 0.01);\n"
+                                "color: rgba(255, 255, 255, 0.85);\n"
+                                "")
+        tray_menu.addAction(show_action)
+        tray_menu.addAction(hide_action)
+        tray_menu.addAction(quit_action)
+        self.tray_icon.setContextMenu(tray_menu)
+        self.tray_icon.show()
     """system fun"""
-
+    def close_app(self):
+        sys.exit()
     """ setting fun """
     def main_frame_set(self):
         if self.config_name["main_window_size"] == "min":
@@ -397,8 +422,9 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_Main
                                             "see\n"
                                             "master")
 
-
-app = QApplication(sys.argv)
-w = MainWindow()
-w.show()
-app.exec_()
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    w = MainWindow()
+    w.show()
+    app.setWindowIcon(QIcon('material/Neko_helper.png'))
+    app.exec_()

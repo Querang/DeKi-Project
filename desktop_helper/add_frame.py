@@ -39,7 +39,7 @@ class Ui_AddFrame(object):
                                        "color: #FFFFFF;")
         self.label_add_1.setObjectName("label_add_1")
         self.label_add_4 = QtWidgets.QTextBrowser(self.page_add_1)
-        self.label_add_4.setGeometry(QtCore.QRect(300, 230, 201, 29))
+        self.label_add_4.setGeometry(QtCore.QRect(300, 230, 201, 42))
         self.label_add_4.setStyleSheet("background: rgba(233, 209, 209, 0.3);\n"
                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                        "border-radius: 6px;\n"

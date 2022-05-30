@@ -1,5 +1,9 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+import os
+import subprocess
+import webbrowser
 
+from PyQt5 import QtCore, QtGui, QtWidgets
+import desktop_helper.sqlite_Neko as sqlite_Neko
 
 class Ui_MainFrame(object):
     def setup_Main_frame(self):
@@ -85,7 +89,7 @@ class Ui_MainFrame(object):
         self.frame_icon_other_frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_icon_other_frame.setObjectName("frame_icon_other_frame")
         self.icon_buttons_area = QtWidgets.QScrollArea(self.frame_icon_other_frame)
-        self.icon_buttons_area.setGeometry(QtCore.QRect(4, 9, 72, 281))
+        self.icon_buttons_area.setGeometry(QtCore.QRect(12, 24, 60, 281))
         self.icon_buttons_area.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
                                              "")
         self.icon_buttons_area.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
@@ -93,84 +97,133 @@ class Ui_MainFrame(object):
         self.icon_buttons_area.setWidgetResizable(True)
         self.icon_buttons_area.setObjectName("icon_buttons_area")
         self.icon_buttons_area_container = QtWidgets.QWidget()
-        self.icon_buttons_area_container.setGeometry(QtCore.QRect(0, 0, 72, 281))
+        self.icon_buttons_area_container.setGeometry(QtCore.QRect(0, 0, 60, 281))
         self.icon_buttons_area_container.setObjectName("icon_buttons_area_container")
-        self.gridLayout = QtWidgets.QGridLayout(self.icon_buttons_area_container)
-        self.gridLayout.setObjectName("gridLayout")
-        self.tag_button = QtWidgets.QPushButton(self.icon_buttons_area_container)
-        self.tag_button.setEnabled(True)
-        self.tag_button.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                      "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                      "border-radius: 13px;")
-        self.tag_button.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("material/image 42.png"), QtGui.QIcon.Normal,
-                       QtGui.QIcon.Off)
-        self.tag_button.setIcon(icon)
-        self.tag_button.setIconSize(QtCore.QSize(50, 50))
-        self.tag_button.setAutoDefault(False)
-        self.tag_button.setDefault(False)
-        self.tag_button.setObjectName("tag_button")
-        self.gridLayout.addWidget(self.tag_button, 3, 0, 1, 1)
-        self.button_note = QtWidgets.QPushButton(self.icon_buttons_area_container)
-        self.button_note.setEnabled(True)
-        self.button_note.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                       "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                       "border-radius: 13px;")
-        self.button_note.setText("")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("material/image 50.png"), QtGui.QIcon.Normal,
-                        QtGui.QIcon.Off)
-        self.button_note.setIcon(icon1)
-        self.button_note.setIconSize(QtCore.QSize(50, 50))
-        self.button_note.setAutoDefault(False)
-        self.button_note.setDefault(False)
-        self.button_note.setObjectName("button_note")
-        self.gridLayout.addWidget(self.button_note, 0, 0, 1, 1)
-        self.command_list_button = QtWidgets.QPushButton(self.icon_buttons_area_container)
-        self.command_list_button.setEnabled(True)
-        self.command_list_button.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                               "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                               "border-radius: 13px;")
-        self.command_list_button.setText("")
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("material/image 41.png"), QtGui.QIcon.Normal,
-                        QtGui.QIcon.Off)
-        self.command_list_button.setIcon(icon2)
-        self.command_list_button.setIconSize(QtCore.QSize(50, 50))
-        self.command_list_button.setAutoDefault(False)
-        self.command_list_button.setDefault(False)
-        self.command_list_button.setObjectName("command_list_button")
-        self.gridLayout.addWidget(self.command_list_button, 1, 0, 1, 1)
-        self.remain_button = QtWidgets.QPushButton(self.icon_buttons_area_container)
-        self.remain_button.setEnabled(True)
-        self.remain_button.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                         "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                         "border-radius: 13px;")
-        self.remain_button.setText("")
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("material/image 63.png"), QtGui.QIcon.Normal,
-                        QtGui.QIcon.Off)
-        self.remain_button.setIcon(icon3)
-        self.remain_button.setIconSize(QtCore.QSize(50, 50))
-        self.remain_button.setAutoDefault(False)
-        self.remain_button.setDefault(False)
-        self.remain_button.setObjectName("remain_button")
-        self.gridLayout.addWidget(self.remain_button, 2, 0, 1, 1)
+
+        self.Flowlayout_for_button = FlowLayout(self.icon_buttons_area_container)
+        self.Flowlayout_for_button.setObjectName("Flowlayout_for_button")
         self.icon_buttons_area.setWidget(self.icon_buttons_area_container)
         """add variable"""
         self.teg_list_frame.hide()
-        self.tag_button_flag = False
+
+
         """button connect"""
 
-
+        self.append_icon_button()
+        "like frame"
+        self.command_panel_frame = QtWidgets.QFrame(self.mainframe)
+        self.command_panel_frame.setGeometry(QtCore.QRect(690, 60, 171, 491))
+        self.command_panel_frame.setGeometry(QtCore.QRect(690, 60, 161, 491))
+        self.command_panel_frame.setStyleSheet("background: rgba(23, 23, 23, 0.83);\n"
+                                               "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                               "border-radius: 13px;")
+        self.command_panel_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.command_panel_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.command_panel_frame.setObjectName("command_panel_frame")
+        self.scrollArea_9 = QtWidgets.QScrollArea(self.command_panel_frame)
+        self.scrollArea_9.setGeometry(QtCore.QRect(10, 16, 151, 461))
+        self.scrollArea_9.setGeometry(QtCore.QRect(0, 16, 171, 461))
+        self.scrollArea_9.setWidgetResizable(True)
+        self.scrollArea_9.setObjectName("scrollArea_9")
+        self.scrollAreaWidgetContents_9 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_9.setGeometry(QtCore.QRect(0, 0, 151, 461))
+        self.scrollAreaWidgetContents_9.setGeometry(QtCore.QRect(0, 0, 161, 461))
+        self.scrollAreaWidgetContents_9.setObjectName("scrollAreaWidgetContents_9")
+        self.gridLayout_9 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_9)
+        self.gridLayout_9.setObjectName("gridLayout_9")
+        self.scrollArea_9.setWidget(self.scrollAreaWidgetContents_9)
+        self.gridLayout_9.setAlignment(QtCore.Qt.AlignLeft)
+        self.gridLayout_9.setAlignment(QtCore.Qt.AlignTop)
+        self.scrollArea_9.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.command_panel_frame.hide()
+        self.command_panel_frame_button_update()
         return self.page_main_frame
 
-    def append_icon_button(self):
-        pass
+    def command_panel_frame_button_update(self):
+        """обновляет кнопки, содержащие команды для выполнения"""
+        conn = sqlite_Neko.create_connection("Neko.db")
+        with conn:
+            name = sqlite_Neko.select_all_command(conn)
+            print(name)
+        for i, j in enumerate(name):
+            self.scrollArea_9.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+            self.pushButton = QtWidgets.QPushButton()
+            self.pushButton.setGeometry(QtCore.QRect(11, 11, 129, 429))
+            self.pushButton.setMinimumSize(125, 52)
+            self.pushButton.setMaximumSize(125, 52)
+            self.pushButton.setMinimumSize(140, 52)
+            self.pushButton.setMaximumSize(140, 52)
+            self.pushButton.setStyleSheet("border-radius: 2px;\n"
+                                          "font: 12pt \"MS Shell Dlg 2\";\n"
+                                          "color: rgba(255, 255, 255, 0.67);\n"
+                                          "\n"
+                                          "background: rgba(23, 23, 23, 0.31);\n"
+                                          "border: 1px solid rgba(233, 233, 233, 0.22);\n"
+                                          "box-sizing: border-box;\n"
+                                          "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);")
+            self.pushButton.setText(f"{j}")
+            self.pushButton.clicked.connect(lambda checked, button=self.pushButton: self.active_command_button(button))
+            self.gridLayout_9.addWidget(self.pushButton, i, 0)
 
+    def active_command_button(self, pushButton):
+        """считывает название кнопки, выполняет команду"""
+        conn = sqlite_Neko.create_connection("Neko.db")
+        with conn:
+            button_name = pushButton.text()
+            sql_command_name = sqlite_Neko.select_all_command(conn)
+            sql_command_type = sqlite_Neko.select_type_of_commands(conn)
+            sql_command_files = sqlite_Neko.select_files_of_commands(conn)
+            sql_command_site = sqlite_Neko.select_sites_of_command(conn)
+            index = sql_command_name.index(button_name)
+            command_type = sql_command_type[index]
+            if command_type == 's':
+                if sql_command_site[index].find("https://"):
+                    webbrowser.open_new_tab(str(sql_command_site[index]))
+                else:
+                    webbrowser.open_new_tab("https://" + str(sql_command_site[index]))
+            elif command_type == 'f':
+                for i in sql_command_files[index]:
+                    print(sql_command_files[index])
+                    if os.path.exists(i) is True:
+                        os.system(f"start {i}")
+                        subprocess.call(('cmd', '/c', 'start', '', i))
+                    elif os.path.exists(i) is False:
+                        pass
+                        # if i == "":
+                        #     pass
+                        # else:
+                        #     self.del_list.append(button_name)
+                        #     self.del_command()
+                        #     self.clear_note(self.gridLayout_9)
+                        #     self.command_panel_frame_button_update()
+
+    def append_icon_button(self):
+        self.tag_button = IconButton("material/teg_icon.png")
+        self.tag_button.clicked.connect(  lambda: self.teg_list_frame.show() if self.teg_list_frame.isHidden() else self.teg_list_frame.hide())
+        self.command_list_button = IconButton("material/like.png")
+        self.command_list_button.clicked.connect(
+            lambda: self.command_panel_frame.show() if self.command_panel_frame.isHidden() else self.command_panel_frame.hide())
+        self.move_to_adding_section = IconButton("material/add_command.png")
+        # self.info_button = IconButton("material/info.png")
+        # self.setting_button_icon = IconButton("material/setting_icon.png")
+        self.setting_voice = IconButton("material/voice_setting.png")
+        self.Flowlayout_for_button.addWidget(self.tag_button)
+        self.Flowlayout_for_button.addWidget(self.command_list_button)
+        self.Flowlayout_for_button.addWidget(self.move_to_adding_section)
+        self.Flowlayout_for_button.addWidget(self.setting_voice)
+        # self.Flowlayout_for_button.addWidget(self.setting_button_icon)
+        # self.Flowlayout_for_button.addWidget(self.info_button)
+
+    def mousePressEvent(self, event):
+        self.dragPos = event.globalPos()
+
+    def mouseMoveEvent(self, event):
+        if event.buttons() == QtCore.Qt.MiddleButton:
+            self.move(self.pos() + event.globalPos() - self.dragPos)
+            self.dragPos = event.globalPos()
+            event.accept()
 class FlowLayout(QtWidgets.QLayout):
-    def __init__(self, parent=None, margin=20, hspacing=15, vspacing=20):
+    def __init__(self, parent=None, margin=0, hspacing=0, vspacing=10):
         super(FlowLayout, self).__init__(parent)
         self._hspacing = hspacing
         self._vspacing = vspacing
@@ -273,15 +326,22 @@ class FlowLayout(QtWidgets.QLayout):
             return parent.spacing()
 
 class IconButton(QtWidgets.QPushButton):
-    def __init__(self):
+    def __init__(self,icon_path):
         super(IconButton, self).__init__()
+        self.setMinimumSize(QtCore.QSize(56, 52))
+        self.setMaximumSize(QtCore.QSize(56, 52))
+        self.setGeometry(QtCore.QRect(0, 0, 56, 52))
         self.setEnabled(True)
-        self.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
-                                      "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                      "border-radius: 13px;")
+        self.setStyleSheet(" QPushButton {"
+                           "background: rgba(149, 149, 149, 0.0);\n"
+                           
+                         
+                           "color: rgba(255, 255, 255, 0.7);}\n"
+                           "QPushButton:hover {\n"
+                           "background: rgba(255, 255, 255, 0.05);}")
         self.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("material/image 42.png"), QtGui.QIcon.Normal,
+        icon.addPixmap(QtGui.QPixmap(icon_path), QtGui.QIcon.Normal,
                        QtGui.QIcon.Off)
         self.setIcon(icon)
-        self.setIconSize(QtCore.QSize(50, 50))
+        self.setIconSize(QtCore.QSize(56, 52))

@@ -1,8 +1,8 @@
 SERVICE_ACCOUNT_FILE: quixotic-module-345613-61b69307a3db.json
 behavior: waify
 calendarId: turchanov.denisa@gmail.com
-language: ru
+language: en
 main_window_size: normal
-name_character: Firo-chan
+name_character: Neko
 name_user: Firo
 view_character: Neko

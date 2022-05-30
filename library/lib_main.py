@@ -12,8 +12,9 @@ from multiprocessing import freeze_support
 import http.server
 import socketserver
 from library.layout.dialog_window import SettingDialog, TutorialDialog, ErrorDialog
-
-
+import traceback
+from sqlite3 import Error
+basedir = os.path.abspath(os.curdir)
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
@@ -49,7 +50,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def save_folder(self):
         try:
             name_folder = self.folder_name_input.text()
-            conn = Neko_lib_sqlite.create_connection(os.path.join(basedir,"lib.db"))
+            conn = Neko_lib_sqlite.create_connection("lib.db")
             with conn:
                 """get resource"""
                 id_folder = Neko_lib_sqlite.create_folder(conn, name_folder)
@@ -60,20 +61,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             """add new page"""
             self.lib_sub_right.insertWidget(id_folder, GenerateFolderPage(name_folder, id_folder, [], self))
             self.lib_sub_right.setCurrentIndex(id_folder)
-        except:
-            self.error_dialog = ErrorDialog(self)
-            self.error_dialog.exec_()
-            pass  # here will be append dialog window with mistake
+        except Error:
+            tb = traceback.format_exc()
+            QtWidgets.QMessageBox.information(self,"",tb)
+            # self.error_dialog = ErrorDialog(self)
+            # self.error_dialog.exec_()
+
+
 
     def close_app(self):
-        config_name = Neko_lib_sqlite.read_config(os.path.join(basedir,"lib_config.yaml"))
+        config_name = Neko_lib_sqlite.read_config("lib_config.yaml")
         (config_name["window_position_x"], config_name["window_position_y"]) = self.geometry().x(), self.geometry().y()
         Neko_lib_sqlite.write_config(os.path.join(basedir,"lib_config.yaml"), config_name)
         self.server_process.kill()
         sys.exit()
 
     def load_folder(self):
-        conn = Neko_lib_sqlite.create_connection(os.path.join(basedir,"lib.db"))
+        conn = Neko_lib_sqlite.create_connection("lib.db")
         with conn:
             """get resource"""
             all_folder = Neko_lib_sqlite.get_all_folder_and_id(conn)

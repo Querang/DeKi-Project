@@ -15,7 +15,7 @@ from library.layout.dialog_window import Ui_Dialog_folder, ErrorDialog
 import library.Neko_lib_sqlite
 import sys, os
 
-basedir = r"C:\Program Files\DeKi\Neko_library\lib_main"
+basedir = os.path.abspath(os.curdir)
 
 class GenerateFolderPage(QtWidgets.QWidget):
     def __init__(self, name_folder, id_folder, list_book, main_obj):

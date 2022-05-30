@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QShortcut, QFileDialog
 import library.Neko_lib_sqlite
 import sys, os
 
-basedir = r"C:\Program Files\DeKi\Neko_library\lib_main"
+basedir = os.path.abspath(os.curdir)
 
 class Ui_Dialog_folder(QtWidgets.QDialog):
     def __init__(self, parent, button_continue_flag):

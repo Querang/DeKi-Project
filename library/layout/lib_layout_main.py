@@ -14,16 +14,16 @@ from library.layout.generation_classes import FolderButton, GenerateFolderPage, 
 from library.layout.find_page import FindPage
 import sys, os
 
-
+basedir = os.path.abspath(os.curdir)
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(979, 620)
         "set central place flag_save_position point on save previous place window at the next opening"
-        config_names = library.Neko_lib_sqlite.read_config(os.path.join(basedir, "lib_config.yaml"))
+        config_names = library.Neko_lib_sqlite.read_config("lib_config.yaml")
         self.flag_save_position = config_names["flag_pos"]
         if self.flag_save_position:
-            config_name = library.Neko_lib_sqlite.read_config(os.path.join(basedir, "lib_config.yaml"))
+            config_name = library.Neko_lib_sqlite.read_config("lib_config.yaml")
             MainWindow.move(config_name["window_position_x"], config_name["window_position_y"])
         else:
             desktop = QtWidgets.QApplication.desktop()

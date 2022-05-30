@@ -4,7 +4,7 @@ from library.layout.dialog_window import ErrorDialog
 from library.layout.generation_classes import FlowLayout, GenerateBook
 import sys, os
 
-basedir = r"C:\Program Files\DeKi\Neko_library\lib_main"
+basedir = os.path.abspath(os.curdir)
 print(basedir)
 class MainPage(QtWidgets.QWidget):
     def __init__(self, main_obj):

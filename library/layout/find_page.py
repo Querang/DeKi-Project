@@ -3,7 +3,7 @@ import os
 from PyQt5 import QtCore, QtGui, QtWidgets
 import library.Neko_lib_sqlite
 from library.layout.generation_classes import GenerateBook, FlowLayout
-basedir = r"C:\Program Files\DeKi\Neko_library\lib_main"
+basedir = os.path.abspath(os.curdir)
 
 class FindPage(QtWidgets.QWidget):
     def __init__(self):

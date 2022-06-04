@@ -185,7 +185,6 @@ class Ui_MainFrame(object):
                 for i in sql_command_files[index]:
                     print(sql_command_files[index])
                     if os.path.exists(i) is True:
-                        os.system(f"start {i}")
                         subprocess.call(('cmd', '/c', 'start', '', i))
                     elif os.path.exists(i) is False:
                         pass

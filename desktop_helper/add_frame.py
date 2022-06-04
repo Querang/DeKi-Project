@@ -4,6 +4,7 @@ import webbrowser
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sqlite_Neko
 
+
 class Ui_AddFrame(object):
     def setup_add_frame(self):
         self.page_add_frame = QtWidgets.QWidget()
@@ -178,14 +179,14 @@ class Ui_AddFrame(object):
         self.back_from_add_button = QtWidgets.QPushButton(self.page_add_1)
         self.back_from_add_button.setGeometry(QtCore.QRect(20, 200, 171, 38))
         self.back_from_add_button.setStyleSheet(" QPushButton {"
-                                         "background: rgba(23, 23, 23, 0.9);\n"
+                                                "background: rgba(23, 23, 23, 0.9);\n"
                                                 "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                                 "border-radius: 10px;\n"
                                                 "font-size: 14px;\n"
                                                 "line-height: 27px;\n"
-                                         "color: rgba(255, 255, 255, 0.7);}\n"
-                                         "QPushButton:hover {\n"
-                                         "color: white;}")
+                                                "color: rgba(255, 255, 255, 0.7);}\n"
+                                                "QPushButton:hover {\n"
+                                                "color: white;}")
         self.back_from_add_button.setObjectName("back_from_add_button")
         self.background_bread_button = QtWidgets.QFrame(self.page_add_1)
         self.background_bread_button.setGeometry(QtCore.QRect(240, 140, 261, 77))
@@ -292,7 +293,7 @@ class Ui_AddFrame(object):
                                        "font-weight: 400;\n"
                                        "font-size: 12px;\n"
                                        "line-height: 18px;\n"
-                                      
+
                                        "padding: 10px 0 0 5px;\n"
                                        "color: #FFFFFF;")
         self.label_add_8.setObjectName("label_add_8")
@@ -457,8 +458,19 @@ class Ui_AddFrame(object):
         self.del_bar_frame.hide()
         self.trash_can_button_flag = False
         self.trash_can_button.clicked.connect(self.delete_command_switch)
+        self.container_flow = QtWidgets.QFrame(self.page_add_1)
+        self.container_flow.setGeometry(QtCore.QRect(600, 150, 281, 311))
+        self.Flowlayout_for_folder = FlowLayout()
+        self.container_flow.setStyleSheet("background: rgba(23, 23, 23, 0.0);\n"
+                            "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                            "border-radius: 13px;\n"
+                            "font-size: 12px;\n"
+                            "line-height: 27px;\n"
+                            "\n"
+                            "color: #FFFFFF;")
 
         """add variable"""
+        self.container_flow.setLayout(self.Flowlayout_for_folder)
         return self.page_add_1
 
     def delete_command_switch(self):
@@ -481,13 +493,27 @@ class Ui_AddFrame(object):
     def get_directory(self):
         """select files for action"""
         folder = QtWidgets.QFileDialog.getOpenFileName(self, "Выберите файл", "/")[0]
-        print(folder)
         self.directory_list.append(folder)
+        print(self.directory_list)
+        label = QtWidgets.QLabel()
+        label.setMinimumSize(121, 151)
+
+        label.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+                            "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                            "border-radius: 13px;\n"
+                            "font-size: 12px;\n"
+                            "line-height: 27px;\n"
+                            "\n"
+                            "color: #FFFFFF;")
+
+        ne = folder[:20] + "\n" + folder[20:40:] + "\n" + folder[40:60:] + "\n" + folder[60::]
+        label.setText(ne)
+        self.Flowlayout_for_folder.addWidget(label)
 
     def add_date_in_Neko_bd(self):
         """add command to database"""
         self.link_site = self.lineedit_site.text()
-        if (self.directory_list != []) and (self.link_site in ["set site", "укажи сайт"]):
+        if self.directory_list != []:
             conn = sqlite_Neko.create_connection("Neko.db")
             command = self.lineedit_command.text()
             file = []
@@ -503,7 +529,7 @@ class Ui_AddFrame(object):
                 self.directory_list = []
                 self.clear_note(self.delete_bar_grid)
                 self.lineedit_command.setText("access")
-        elif (self.directory_list == []) and (self.link_site not in ["set site", "укажи сайт"]):
+        elif self.directory_list == []:
             conn = sqlite_Neko.create_connection("Neko.db")
             command = self.lineedit_command.text()
             with conn:
@@ -515,6 +541,8 @@ class Ui_AddFrame(object):
             self.lineedit_command.setText("fail")
         self.clear_note(self.delete_bar_grid)
         self.show_update_item_in_area_delete_choice()
+        self.clear_note(self.Flowlayout_for_folder)
+        self.command_panel_frame_button_update()
 
     def show_update_item_in_area_delete_choice(self):
         """updates buttons containing commands"""
@@ -616,3 +644,107 @@ class Ui_AddFrame(object):
                 sqlite_Neko.delete_task(conn, i)
         self.clear_note(self.delete_bar_grid)
         self.show_update_item_in_area_delete_choice()
+
+
+class FlowLayout(QtWidgets.QLayout):
+    def __init__(self, parent=None, margin=0, hspacing=15, vspacing=10):
+        super(FlowLayout, self).__init__(parent)
+        self._hspacing = hspacing
+        self._vspacing = vspacing
+        self._items = []
+        self.setContentsMargins(margin, 0, margin, margin)
+
+    def __del__(self):
+        del self._items[:]
+
+    def addItem(self, item):
+        self._items.append(item)
+
+    def horizontalSpacing(self):
+        if self._hspacing >= 0:
+            return self._hspacing
+        else:
+            return self.smartSpacing(
+                QtWidgets.QStyle.PM_LayoutHorizontalSpacing)
+
+    def verticalSpacing(self):
+        if self._vspacing >= 0:
+            return self._vspacing
+        else:
+            return self.smartSpacing(
+                QtWidgets.QStyle.PM_LayoutVerticalSpacing)
+
+    def count(self):
+        return len(self._items)
+
+    def itemAt(self, index):
+        if 0 <= index < len(self._items):
+            return self._items[index]
+
+    def takeAt(self, index):
+        if 0 <= index < len(self._items):
+            return self._items.pop(index)
+
+    def expandingDirections(self):
+        return QtCore.Qt.Orientations(0)
+
+    def hasHeightForWidth(self):
+        return True
+
+    def heightForWidth(self, width):
+        return self.doLayout(QtCore.QRect(0, 0, width, 0), True)
+
+    def setGeometry(self, rect):
+        super(FlowLayout, self).setGeometry(rect)
+        self.doLayout(rect, False)
+
+    def sizeHint(self):
+        return self.minimumSize()
+
+    def minimumSize(self):
+        size = QtCore.QSize()
+        for item in self._items:
+            size = size.expandedTo(item.minimumSize())
+        left, top, right, bottom = self.getContentsMargins()
+        size += QtCore.QSize(left + right, top + bottom)
+        return size
+
+    def doLayout(self, rect, testonly):
+        left, top, right, bottom = self.getContentsMargins()
+        effective = rect.adjusted(+left, +top, -right, -bottom)
+        x = effective.x()
+        y = effective.y()
+        lineheight = 0
+        for item in self._items:
+            widget = item.widget()
+            hspace = self.horizontalSpacing()
+            if hspace == -1:
+                hspace = widget.style().layoutSpacing(
+                    QtWidgets.QSizePolicy.PushButton,
+                    QtWidgets.QSizePolicy.PushButton, QtCore.Qt.Horizontal)
+            vspace = self.verticalSpacing()
+            if vspace == -1:
+                vspace = widget.style().layoutSpacing(
+                    QtWidgets.QSizePolicy.PushButton,
+                    QtWidgets.QSizePolicy.PushButton, QtCore.Qt.Vertical)
+            nextX = x + item.sizeHint().width() + hspace
+            if nextX - hspace > effective.right() and lineheight > 0:
+                x = effective.x()
+                y = y + lineheight + vspace
+                nextX = x + item.sizeHint().width() + hspace
+                lineheight = 0
+            if not testonly:
+                item.setGeometry(
+                    QtCore.QRect(QtCore.QPoint(x, y), item.sizeHint()))
+            x = nextX
+            lineheight = max(lineheight, item.sizeHint().height())
+        return y + lineheight - rect.y() + bottom
+
+    def smartSpacing(self, pm):
+        parent = self.parent()
+        if parent is None:
+            return -1
+        elif parent.isWidgetType():
+            return parent.style().pixelMetric(pm, None, parent)
+        else:
+            return parent.spacing()

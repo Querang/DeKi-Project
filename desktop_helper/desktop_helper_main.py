@@ -97,7 +97,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
         tray_menu.addAction(quit_action)
         self.tray_icon.setContextMenu(tray_menu)
         self.tray_icon.show()
-        # self.stackedWidget_sourse.setCurrentIndex(1)
+        self.stackedWidget_sourse.setCurrentIndex(1)
 
     """system fun"""
     def on_add_frame(self):

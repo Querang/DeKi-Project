@@ -210,6 +210,7 @@ class Ui_SettingFrame(object):
                                       "color: #FFFFFF;")
         self.Nickname_2.setAlignment(QtCore.Qt.AlignCenter)
         self.Nickname_2.setObjectName("Nickname_2")
+        self.Nickname_2.setPlaceholderText("Nickname")
         self.label_setting_6 = QtWidgets.QLabel(self.page_setting_1)
         self.label_setting_6.setGeometry(QtCore.QRect(220, 310, 561, 55))
         self.label_setting_6.setStyleSheet("background: rgba(23, 23, 23, 0.8);\n"
@@ -265,27 +266,33 @@ class Ui_SettingFrame(object):
         self.character_set.setObjectName("character_set")
         self.button_save = QtWidgets.QPushButton(self.page_setting_1)
         self.button_save.setGeometry(QtCore.QRect(800, 310, 106, 55))
-        self.button_save.setStyleSheet("background: rgba(23, 23, 23, 0.8);\n"
-                                       "border: 1px solid #B19696;\n"
-                                       "box-sizing: border-box;\n"
-                                       "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                       "border-radius: 13px;\n"
-                                       "font-size: 26px;\n"
-                                       "\n"
-                                       "\n"
-                                       "color: #FFFFFF;")
+        self.button_save.setStyleSheet(" QPushButton {"
+                                         "background: rgba(23, 23, 23, 0.8);\n"
+                                         "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+                                        
+                                         "border: 1px solid #B19696;\n"
+                                          "font-size: 26px;\n"
+                                         "line-height: 15px;\n"
+                            
+                                         "border-radius: 13px;\n"
+                                         "color: rgba(255, 255, 255, 0.7);}\n"
+                                         "QPushButton:hover {\n"
+                                         "color: white;}")
         self.button_save.setObjectName("button_save")
         self.back_fome_setting_button = QtWidgets.QPushButton(self.page_setting_1)
         self.back_fome_setting_button.setGeometry(QtCore.QRect(800, 370, 106, 55))
-        self.back_fome_setting_button.setStyleSheet("background: rgba(23, 23, 23, 0.8);\n"
-                                                    "border: 1px solid #B19696;\n"
-                                                    "box-sizing: border-box;\n"
-                                                    "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
-                                                    "border-radius: 13px;\n"
-                                                    "font-size: 26px;\n"
-                                                    "\n"
-                                                    "\n"
-                                                    "color: #FFFFFF;")
+        self.back_fome_setting_button.setStyleSheet(" QPushButton {"
+                                       "background: rgba(23, 23, 23, 0.8);\n"
+                                       "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
+
+                                       "border: 1px solid #B19696;\n"
+                                         "font-size: 26px;\n"
+                                       "line-height: 15px;\n"
+
+                                       "border-radius: 13px;\n"
+                                       "color: rgba(255, 255, 255, 0.7);}\n"
+                                       "QPushButton:hover {\n"
+                                       "color: white;}")
         self.back_fome_setting_button.setObjectName("back_fome_setting_button")
         self.label_setting_8 = QtWidgets.QLabel(self.page_setting_1)
         self.label_setting_8.setGeometry(QtCore.QRect(720, 56, 171, 31))
@@ -315,6 +322,7 @@ class Ui_SettingFrame(object):
                                       "color: #FFFFFF;")
         self.Nickname_1.setAlignment(QtCore.Qt.AlignCenter)
         self.Nickname_1.setObjectName("Nickname_1")
+        self.Nickname_1.setPlaceholderText("Nickname")
         self.label_10 = QtWidgets.QLabel(self.page_setting_1)
         self.label_10.setGeometry(QtCore.QRect(770, 10, 121, 31))
         self.label_10.setStyleSheet("background: rgba(33, 24, 24, 0.0);\n"

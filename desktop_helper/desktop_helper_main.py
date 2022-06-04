@@ -1,6 +1,5 @@
 import keyboard
 import sys
-import webbrowser
 import sqlite_Neko
 from layout_file.main_frame import Ui_MainFrame
 from add_frame import Ui_AddFrame
@@ -11,7 +10,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut, QSystemTrayIco
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_MainMinFrame):
+class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_MainMinFrame):
     def __init__(self):
         super().__init__()
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
@@ -45,19 +44,15 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_Main
         self.stackedWidget_sourse.addWidget(Ui_SettingFrame.setup_settinf_frame(self))
         self.stackedWidget_sourse.addWidget(Ui_MainMinFrame.setup_main_min_frame(self))
         """button connect"""
-
-        self.rule_button.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(1))
-        self.setting_button.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(2))
+        self.rule_button.clicked.connect(self.on_add_frame)
+        self.setting_button.clicked.connect(self.on_setting_frame)
 
         self.rule_button_min.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(1))
-        self.move_to_adding_section.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(1))
+        self.move_to_adding_section.clicked.connect(self.on_add_frame)
         self.setting_button_min.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(2))
 
-
-
-
         self.next_on_page_2_button.clicked.connect(lambda: self.stackedWidget_setting_page.setCurrentIndex(0))
-        self.button_on_1_page.clicked.connect(lambda: self.stackedWidget_setting_page.setCurrentIndex(1))
+        self.button_on_1_page.clicked.connect(self.on_add_frame)
         self.bread_button_2.clicked.connect(self.get_directory)
         self.save_command_button.clicked.connect(self.add_date_in_Neko_bd)
         self.delete_button.clicked.connect(self.del_command)
@@ -74,7 +69,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_Main
         MainWindow.setCentralWidget(self, self.centralwidget)
         self.button_window_r_2.clicked.connect(self.Next_main_window_size)
         """min frame"""
-        self.wrap_button.clicked.connect(lambda : self.showMinimized())
+        self.wrap_button.clicked.connect(lambda: self.showMinimized())
         self.tray_icon = QSystemTrayIcon(self)
         icon = QIcon()
         icon.addPixmap(QPixmap("material/Neko_helper.png"), QIcon.Normal,
@@ -102,10 +97,22 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_Main
         tray_menu.addAction(quit_action)
         self.tray_icon.setContextMenu(tray_menu)
         self.tray_icon.show()
+        # self.stackedWidget_sourse.setCurrentIndex(1)
+
     """system fun"""
+    def on_add_frame(self):
+        self.stackedWidget_sourse.setCurrentIndex(1)
+        self.lineedit_site.clearFocus()
+        self.lineedit_command.clearFocus()
+    def on_setting_frame(self):
+        self.stackedWidget_sourse.setCurrentIndex(2)
+        self.Nickname_1.clearFocus()
+        self.Nickname_2.clearFocus()
     def close_app(self):
         sys.exit()
+
     """ setting fun """
+
     def main_frame_set(self):
         if self.config_name["main_window_size"] == "min":
             self.stackedWidget_sourse.setCurrentIndex(3)
@@ -154,10 +161,10 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_Main
     def save_global_setting(self):
         """ stores global settings in database  """
         get_user_name = self.Nickname_2.text()
-        if get_user_name not in ["нике", "nickname"]:
+        if get_user_name != "":
             self.config_name["name_user"] = get_user_name
         get_character_name = self.Nickname_1.text()
-        if get_character_name not in ["нике", "nickname"]:
+        if get_character_name != "":
             self.config_name["name_character"] = get_character_name
         print(get_user_name, self.config_name["name_user"])
         sqlite_Neko.write_config("config.yaml", self.config_name)
@@ -193,7 +200,6 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_Main
             self.dialog_character.setText(
                 f"""{self.config_name["name_user"]}, I hope you didn't just call me?""")
 
-
     """set language"""
 
     def set_ru(self):
@@ -205,7 +211,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_Main
         self.setting_button.setText("setting")
         self.rule_button.setText("ruling command")
         self.q_a_button.setText("q&&a")
-        self.lineedit_command.setText("enter name command...")
+        self.lineedit_command.setPlaceholderText("enter name command...")
         self.label_add_1.setHtml(
             "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
             "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -219,7 +225,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_Main
             "</style></head><body style=\" font-family:\'Titillium Web\'; font-size:13px; font-weight:400; font-style:normal;\">\n"
             "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">Фиро: так можно указать сайт!</span></p></body></html>")
         self.save_command_button.setText("save")
-        self.label_add_click_1.setText("*клик*")
+        self.label_add_click_1.setText("*maid*")
         self.label_29.setText("TextLabel")
         self.label_add_7.setHtml(
             "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -227,7 +233,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_Main
             "p, li { white-space: pre-wrap; }\n"
             "</style></head><body style=\" font-family:\'Titillium Web\'; font-size:13px; font-weight:400; font-style:normal;\">\n"
             "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">...</span></p></body></html>")
-        self.lineedit_site.setText("set site")
+        self.lineedit_site.setPlaceholderText("set site")
         self.label_add_6.setHtml(
             "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
             "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -296,13 +302,13 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_Main
         self.label_setting_4.setText("язык")
         self.label_setting_5.setText("характер")
         self.label_setting_2.setText("Укажите  свой  ник")
-        self.Nickname_2.setText("нике")
+        self.Nickname_1.setPlaceholderText("нике")
         self.label_setting_6.setText("русский")
         self.label_setting_7.setText("вайфу")
         self.button_save.setText("save")
         self.back_fome_setting_button.setText("back")
         self.label_setting_8.setText("Укажите  ник  персонажа")
-        self.Nickname_1.setText("нике")
+        self.Nickname_2.setPlaceholderText("нике")
         self.label_10.setText("page 1")
         self.wrap_button.setText("wrap")
         self.label_dialog_min_frame.setText("Рада вас\n"
@@ -310,15 +316,15 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_Main
                                             "хозяин")
 
     def set_en(self):
-        self.setting_button_min.setText( "setting")
-        self.rule_button_min.setText( "ruling command")
-        self.q_a_button_3.setText( "q&&a")
+        self.setting_button_min.setText("setting")
+        self.rule_button_min.setText("ruling command")
+        self.q_a_button_3.setText("q&&a")
         self.dialog_character.setText(
             f"""{self.config_name["name_user"]},надеюсь, ты меня не просто так позвал?""")
         self.setting_button.setText("setting")
         self.rule_button.setText("ruling command")
         self.q_a_button.setText("q&&a")
-        self.lineedit_command.setText("enter name command...")
+        self.lineedit_command.setPlaceholderText("enter name command...")
         self.label_add_1.setHtml(
             "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
             "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -332,7 +338,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_Main
             "</style></head><body style=\" font-family:\'Titillium Web\'; font-size:13px; font-weight:400; font-style:normal;\">\n"
             "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">Firo: this is how you specify the site!</span></p></body></html>")
         self.save_command_button.setText("save")
-        self.label_add_click_1.setText("*click*")
+        self.label_add_click_1.setText("*maid*")
         self.label_29.setText("TextLabel")
         self.label_add_7.setHtml(
             "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -340,7 +346,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_Main
             "p, li { white-space: pre-wrap; }\n"
             "</style></head><body style=\" font-family:\'Titillium Web\'; font-size:13px; font-weight:400; font-style:normal;\">\n"
             "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">...</span></p></body></html>")
-        self.lineedit_site.setText("set site")
+        self.lineedit_site.setPlaceholderText("set site")
         self.label_add_6.setHtml(
             "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
             "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -409,18 +415,19 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame,Ui_Main
         self.label_setting_4.setText("language")
         self.label_setting_5.setText("character")
         self.label_setting_2.setText("Enter your nickname")
-        self.Nickname_2.setText("nickname")
+        self.Nickname_1.setPlaceholderText("Nickname")
         self.label_setting_6.setText("english")
         self.label_setting_7.setText("waifu")
         self.button_save.setText("save")
         self.back_fome_setting_button.setText("back")
         self.label_setting_8.setText("Specify character nickname")
-        self.Nickname_1.setText("nickname")
+        self.Nickname_2.setPlaceholderText("Nickname")
         self.label_10.setText("page 1")
         self.wrap_button.setText("wrap")
         self.label_dialog_min_frame.setText("Nice to see you\n"
                                             "see\n"
                                             "master")
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

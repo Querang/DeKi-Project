@@ -177,13 +177,15 @@ class Ui_AddFrame(object):
         self.label_add_click_3.setObjectName("label_add_click_3")
         self.back_from_add_button = QtWidgets.QPushButton(self.page_add_1)
         self.back_from_add_button.setGeometry(QtCore.QRect(20, 200, 171, 38))
-        self.back_from_add_button.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
+        self.back_from_add_button.setStyleSheet(" QPushButton {"
+                                         "background: rgba(23, 23, 23, 0.9);\n"
                                                 "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                                 "border-radius: 10px;\n"
                                                 "font-size: 14px;\n"
                                                 "line-height: 27px;\n"
-                                                "\n"
-                                                "color: #FFFFFF;")
+                                         "color: rgba(255, 255, 255, 0.7);}\n"
+                                         "QPushButton:hover {\n"
+                                         "color: white;}")
         self.back_from_add_button.setObjectName("back_from_add_button")
         self.background_bread_button = QtWidgets.QFrame(self.page_add_1)
         self.background_bread_button.setGeometry(QtCore.QRect(240, 140, 261, 77))
@@ -290,7 +292,8 @@ class Ui_AddFrame(object):
                                        "font-weight: 400;\n"
                                        "font-size: 12px;\n"
                                        "line-height: 18px;\n"
-                                       "padding: 0 0 0 5px;\n"
+                                      
+                                       "padding: 10px 0 0 5px;\n"
                                        "color: #FFFFFF;")
         self.label_add_8.setObjectName("label_add_8")
         self.label_add_3 = QtWidgets.QTextBrowser(self.page_add_1)

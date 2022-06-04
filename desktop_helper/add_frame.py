@@ -543,6 +543,7 @@ class Ui_AddFrame(object):
         self.show_update_item_in_area_delete_choice()
         self.clear_note(self.Flowlayout_for_folder)
         self.command_panel_frame_button_update()
+        self.command_panel_frame_1_button_update()
 
     def show_update_item_in_area_delete_choice(self):
         """updates buttons containing commands"""

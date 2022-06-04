@@ -49,6 +49,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
 
         self.rule_button_min.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(1))
         self.move_to_adding_section.clicked.connect(self.on_add_frame)
+        self.move_to_adding_section_min.clicked.connect(self.on_add_frame)
         self.setting_button_min.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(2))
 
         self.next_on_page_2_button.clicked.connect(lambda: self.stackedWidget_setting_page.setCurrentIndex(0))
@@ -56,6 +57,8 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
         self.bread_button_2.clicked.connect(self.get_directory)
         self.save_command_button.clicked.connect(self.add_date_in_Neko_bd)
         self.delete_button.clicked.connect(self.del_command)
+
+
 
         """add frame"""
         self.show_update_item_in_area_delete_choice()
@@ -97,7 +100,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
         tray_menu.addAction(quit_action)
         self.tray_icon.setContextMenu(tray_menu)
         self.tray_icon.show()
-        self.stackedWidget_sourse.setCurrentIndex(1)
+        self.stackedWidget_sourse.setCurrentIndex(3)
 
     """system fun"""
     def on_add_frame(self):

@@ -188,13 +188,13 @@ class Ui_MainFrame(object):
                         subprocess.call(('cmd', '/c', 'start', '', i))
                     elif os.path.exists(i) is False:
                         pass
-                        # if i == "":
-                        #     pass
-                        # else:
-                        #     self.del_list.append(button_name)
-                        #     self.del_command()
-                        #     self.clear_note(self.gridLayout_9)
-                        #     self.command_panel_frame_button_update()
+                        if i == "":
+                            pass
+                        else:
+                            self.del_list.append(button_name)
+                            self.del_command()
+                            self.clear_note(self.gridLayout_9)
+                            self.command_panel_frame_button_update()
 
     def append_icon_button(self):
         self.tag_button = IconButton("material/teg_icon.png")

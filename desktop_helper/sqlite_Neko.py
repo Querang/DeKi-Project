@@ -3,6 +3,112 @@ from sqlite3 import Error
 
 import yaml
 
+def delete_voice_commands(conn, command_name):
+    """
+    Delete a voice command by command name
+    :param conn:  Connection to the SQLite database
+    :param command_name: command name for the voice
+    :return:
+    """
+    sql = 'DELETE FROM voice_commands WHERE command_name=?'
+    cur = conn.cursor()
+    cur.execute(sql, (command_name,))
+    conn.commit()
+
+
+def delete_voice_source(conn, bd_name):
+    """
+    Delete a task by voice command
+    :param conn:  Connection to the SQLite database
+    :param bd_name: command name for the voice
+    :return:
+    """
+    sql = 'DELETE FROM voice_commands WHERE bd_name=?'
+    cur = conn.cursor()
+    cur.execute(sql, (bd_name,))
+    conn.commit()
+
+
+def update_active_voice(conn, bd_name, status):
+    """обновляет статус голосовых команд"""
+    cur = conn.cursor()
+    sql = 'UPDATE voice_commands SET active = ? WHERE bd_name = ?'
+    if status == 1:
+        active = 0
+        data = (active, bd_name)
+        cur.execute(sql, data)
+    else:
+        active = 1
+        data = (active, bd_name)
+        cur.execute(sql, data)
+    conn.commit()
+
+
+def voice_commands_status(conn):
+    """возвращает список статусов команд"""
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM voice_commands")
+    rows = cur.fetchall()
+    command = []
+    for i in rows:
+        command.append(i[2])
+    return command
+def voice_commands_names(conn):
+    """возвращает названия команд"""
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM voice_commands")
+
+    rows = cur.fetchall()
+    command = []
+    for i in rows:
+        command.append(i[0])
+    return command
+
+def get_language(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT language FROM global_setting")
+    rows = cur.fetchall()
+    return rows[0][0]
+
+
+def get_name(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT name_character FROM global_setting")
+    rows = cur.fetchall()
+    return rows[0][0]
+
+
+def change_language(conn):
+    cur = conn.cursor
+    language = get_language(conn)
+    if language == "english":
+        cur.execute("UPDATE global_setting SET language = russian WHERE rowid = 1")
+    if language == "russian":
+        cur.execute("UPDATE global_setting SET language = english WHERE rowid = 1")
+    conn.commit()
+def voice_commands_source(conn):
+    """возвращает список команд, на которые ссылаются названия"""
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM voice_commands")
+
+    rows = cur.fetchall()
+    command = []
+    for i in rows:
+        command.append(i[1])
+    return command
+def create_voice_com(conn, voice_commands):
+    """
+    Create a new project into the projects table
+    :param conn:
+    :param voice_commands:
+    :return: project id
+    """
+    sql = ''' INSERT INTO voice_commands(command_name,bd_name,active)
+              VALUES(?,?,?) '''
+    cur = conn.cursor()
+    cur.execute(sql, voice_commands)
+    conn.commit()
+    return cur.lastrowid
 """yaml"""
 def read_config(file_path):
     with open(file_path, "r") as f:

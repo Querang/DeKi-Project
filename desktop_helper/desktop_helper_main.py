@@ -1,16 +1,23 @@
+from multiprocessing import Process
+
 import keyboard
 import sys
+
+import pyttsx3
+import speech_recognition
+
 import sqlite_Neko
 from layout_file.main_frame import Ui_MainFrame
 from add_frame import Ui_AddFrame
 from layout_file.setting_frame import Ui_SettingFrame
 from layout_file.main_min_frame import Ui_MainMinFrame
+from layout_file.voice_frame import Ui_VoiceFrame
 from PyQt5.QtGui import QKeySequence, QIcon, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut, QSystemTrayIcon, QAction, QMenu
 from PyQt5 import QtCore, QtGui, QtWidgets
+from voice_function import voice_helper
 
-
-class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_MainMinFrame):
+class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_MainMinFrame,Ui_VoiceFrame):
     def __init__(self):
         super().__init__()
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
@@ -43,6 +50,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
         self.stackedWidget_sourse.addWidget(Ui_AddFrame.setup_add_frame(self))
         self.stackedWidget_sourse.addWidget(Ui_SettingFrame.setup_settinf_frame(self))
         self.stackedWidget_sourse.addWidget(Ui_MainMinFrame.setup_main_min_frame(self))
+        self.stackedWidget_sourse.addWidget(Ui_VoiceFrame.setup_Voice_frame(self))
         """button connect"""
         self.rule_button.clicked.connect(self.on_add_frame)
         self.setting_button.clicked.connect(self.on_setting_frame)
@@ -51,9 +59,11 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
         self.move_to_adding_section.clicked.connect(self.on_add_frame)
         self.move_to_adding_section_min.clicked.connect(self.on_add_frame)
         self.setting_button_min.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(2))
+        self.setting_voice.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(4))
+        self.setting_voice_min.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(4))
 
         self.next_on_page_2_button.clicked.connect(lambda: self.stackedWidget_setting_page.setCurrentIndex(0))
-        self.button_on_1_page.clicked.connect(self.on_add_frame)
+        self.button_on_1_page.clicked.connect(lambda: self.stackedWidget_setting_page.setCurrentIndex(1))
         self.bread_button_2.clicked.connect(self.get_directory)
         self.save_command_button.clicked.connect(self.add_date_in_Neko_bd)
         self.delete_button.clicked.connect(self.del_command)
@@ -73,35 +83,36 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
         self.button_window_r_2.clicked.connect(self.Next_main_window_size)
         """min frame"""
         self.wrap_button.clicked.connect(lambda: self.showMinimized())
-        self.tray_icon = QSystemTrayIcon(self)
-        icon = QIcon()
-        icon.addPixmap(QPixmap("material/Neko_helper.png"), QIcon.Normal,
-                       QIcon.Off)
-        self.tray_icon.setIcon(icon)
-        show_action = QAction("Show", self)
-        quit_action = QAction("Exit", self)
-        hide_action = QAction("Hide", self)
-        show_action.triggered.connect(self.show)
-        hide_action.triggered.connect(self.hide)
-        quit_action.triggered.connect(self.close_app)
-        tray_menu = QMenu()
-        tray_menu.setStyleSheet("font-family: \'RobotoFlex\';\n"
-                                "font-style: normal;\n"
-                                "font-weight: 200;\n"
-                                "font-size: 16px;\n"
-                                "line-height: 75.4%;\n"
-                                "/* or 14px */\n"
-                                "background: rgba(199, 199, 199, 0.0);\n"
-                                "border: 0.5px solid rgba(167, 167, 167, 0.01);\n"
-                                "color: rgba(255, 255, 255, 0.85);\n"
-                                "")
-        tray_menu.addAction(show_action)
-        tray_menu.addAction(hide_action)
-        tray_menu.addAction(quit_action)
-        self.tray_icon.setContextMenu(tray_menu)
-        self.tray_icon.show()
-        self.stackedWidget_sourse.setCurrentIndex(3)
-
+        # self.tray_icon = QSystemTrayIcon(self)
+        # icon = QIcon()
+        # icon.addPixmap(QPixmap("material/Neko_helper.png"), QIcon.Normal,
+        #                QIcon.Off)
+        # self.tray_icon.setIcon(icon)
+        # show_action = QAction("Show", self)
+        # quit_action = QAction("Exit", self)
+        # hide_action = QAction("Hide", self)
+        # show_action.triggered.connect(self.show)
+        # hide_action.triggered.connect(self.hide)
+        # quit_action.triggered.connect(self.close_app)
+        # tray_menu = QMenu()
+        # tray_menu.setStyleSheet("font-family: \'RobotoFlex\';\n"
+        #                         "font-style: normal;\n"
+        #                         "font-weight: 200;\n"
+        #                         "font-size: 16px;\n"
+        #                         "line-height: 75.4%;\n"
+        #                         "/* or 14px */\n"
+        #                         "background: rgba(199, 199, 199, 0.0);\n"
+        #                         "border: 0.5px solid rgba(167, 167, 167, 0.01);\n"
+        #                         "color: rgba(255, 255, 255, 0.85);\n"
+        #                         "")
+        # tray_menu.addAction(show_action)
+        # tray_menu.addAction(hide_action)
+        # tray_menu.addAction(quit_action)
+        # self.tray_icon.setContextMenu(tray_menu)
+        # self.tray_icon.show()
+        # self.stackedWidget_sourse.setCurrentIndex(0)
+        self.voice_process = Process(target=voice_helper)
+        self.voice_process.start()
     """system fun"""
     def on_add_frame(self):
         self.stackedWidget_sourse.setCurrentIndex(1)
@@ -121,10 +132,12 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
             self.stackedWidget_sourse.setCurrentIndex(3)
             self.back_from_add_button.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(3))
             self.back_fome_setting_button.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(3))
+            self.exit_button_2.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(3))
         else:
             self.stackedWidget_sourse.setCurrentIndex(0)  # исходное окно
             self.back_from_add_button.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(0))
             self.back_fome_setting_button.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(0))
+            self.exit_button_2.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(0))
 
     def Next_main_window_size(self):
         if self.config_name["main_window_size"] == "normal":
@@ -206,6 +219,15 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
     """set language"""
 
     def set_ru(self):
+        """ войс """
+        self.exit_button_2.setText("Выйти")
+        self.mic_button_1.setText("Микрофон")
+        self.name_button_1.setText("Наименование")
+        self.command_button_1.setText("Список команд")
+        self.create_name_button.setText("Создать команду")
+        self.input_name_command_voice.setText("Название команды")
+        self.instr_1.setText("Выбор команды")
+
         self.setting_button_min.setText("setting")
         self.rule_button_min.setText("ruling command")
         self.q_a_button_3.setText("q&&a")
@@ -319,6 +341,15 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
                                             "хозяин")
 
     def set_en(self):
+        """ voice """
+        self.exit_button_2.setText("Exit")
+        self.mic_button_1.setText("Microphone")
+        self.name_button_1.setText("Name")
+        self.command_button_1.setText("List of commands")
+        self.create_name_button.setText("Create command")
+        self.input_name_command_voice.setText("Command Name")
+        self.instr_1.setText("Team selection")
+
         self.setting_button_min.setText("setting")
         self.rule_button_min.setText("ruling command")
         self.q_a_button_3.setText("q&&a")
@@ -433,6 +464,8 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
 
 
 if __name__ == '__main__':
+    ttsEngine = pyttsx3.init()
+    recognizer = speech_recognition.Recognizer()
     app = QApplication(sys.argv)
     w = MainWindow()
     w.show()

@@ -73,7 +73,7 @@ class Ui_MainMinFrame(object):
                                                   "font-size: 12px;\n"
                                                   "line-height: 27px;\n"
                                                   "text-align: center;\n"
-                                                  "padding: 0 0 0 13px;\n"
+                                                  "padding: 0 0 0 10px;\n"
                                                   "color: #FFFFFF;")
         self.label_dialog_min_frame.setObjectName("label_dialog_min_frame")
         self.teg_list_frame_2 = QtWidgets.QFrame(self.page_main_min)

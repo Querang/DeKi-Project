@@ -172,6 +172,7 @@ class Ui_VoiceFrame(object):
         self.mic_button_1.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(0))
         self.name_button_1.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(1))
         self.command_button_1.clicked.connect(self.set_voice_page_3)
+        self.create_name_button.clicked.connect(self.add_voice_com)
         self.microphone_search()
         self.bd_command_searcher()
         return self.page_voice_frame
@@ -185,20 +186,64 @@ class Ui_VoiceFrame(object):
             item = gridLayout.takeAt(0)
             widget = item.widget()
             widget.deleteLater()
+
+    def add_voice_com(self):
+        """add voice com"""
+        conn = sqlite_Neko.create_connection("Neko.db")
+        command_name = self.input_name_command_voice.text()
+        sources_in_bd = sqlite_Neko.voice_commands_source(conn)
+        names_in_bd = sqlite_Neko.voice_commands_names(conn)
+        count_names = 0
+        count = 0
+        for i in command_name:
+            if i == " ":
+                count = count + 1
+        if count == len(command_name):
+            self.input_name_command_voice.setPlaceholderText("")
+        elif (command_name.find("(") != -1) or (command_name.find(")") != -1):
+            self.input_name_command_voice.setPlaceholderText("")
+        else:
+            while command_name[len(command_name) - 1] == " ":
+                command_name = command_name[0: len(command_name) - 2]
+            bd_name = self.command_bd_select.currentText()
+
+        for j in sources_in_bd:
+            bd_name = self.command_bd_select.currentText()
+            if j == bd_name:
+                count_names = count_names + 1
+
+        name_flag = True
+        for j in names_in_bd:
+            if j == command_name:
+                name_flag = False
+
+        if count_names < 4 and name_flag is True:
+            with conn:
+                bd_name = self.command_bd_select.currentText()
+                voice_com = (command_name, bd_name, 1)
+                sqlite_Neko.create_voice_com(conn, voice_com)
+                self.input_name_command_voice.setText("")
+                self.input_name_command_voice.setPlaceholderText("access")
+        else:
+            if name_flag is False:
+                self.input_name_command_voice.setText("")
+                self.input_name_command_voice.setPlaceholderText("Такое название уже есть!")
+            else:
+                self.input_name_command_voice.setText("")
+                self.input_name_command_voice.setPlaceholderText("Слишком много названий!")
     def set_voice_page_3(self):
         """переход на третью страницу stackwidget"""
         self.clear_note(self.gridLayout_10)
         self.load_voice_commands_list()
         self.stackedWidget.setCurrentIndex(2)
+
     def load_voice_commands_list(self):
         """загрузка команд из базы данных на фрейм с их отображением"""
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
             sql_command_name = sqlite_Neko.select_all_command(conn)
             sql_voice_names = sqlite_Neko.voice_commands_names(conn)
-
             sql_voice_source = sqlite_Neko.voice_commands_source(conn)
-
             sql_active_list = sqlite_Neko.voice_commands_status(conn)
 
             for i in sql_command_name:
@@ -298,8 +343,6 @@ class Ui_VoiceFrame(object):
                         placement = placement + 30
                 self.gridLayout_10.addWidget(self.command_bd_box)
 
-
-
     def onActivated_1(self):
         """для выбора микрофона"""
         return self.microphone_select.currentIndex()
@@ -359,6 +402,3 @@ class Ui_VoiceFrame(object):
             button.setText("Активно")
         self.clear_note(self.gridLayout_10)
         self.load_voice_commands_list()
-
-
-

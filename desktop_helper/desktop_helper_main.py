@@ -225,7 +225,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
         self.name_button_1.setText("Наименование")
         self.command_button_1.setText("Список команд")
         self.create_name_button.setText("Создать команду")
-        self.input_name_command_voice.setText("Название команды")
+        self.input_name_command_voice.setPlaceholderText("Название команды")
         self.instr_1.setText("Выбор команды")
 
         self.setting_button_min.setText("setting")
@@ -347,7 +347,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
         self.name_button_1.setText("Name")
         self.command_button_1.setText("List of commands")
         self.create_name_button.setText("Create command")
-        self.input_name_command_voice.setText("Command Name")
+        self.input_name_command_voice.setPlaceholderText("Command Name")
         self.instr_1.setText("Team selection")
 
         self.setting_button_min.setText("setting")

@@ -36,26 +36,23 @@ def voice_helper():
 			os.remove("microphone-results.wav")
 			print(voice_input)
 			voice_input = voice_input.split(" ")
-			conn = sqlite_Neko.create_connection("Neko.db")
-			with conn:
-				character_name = sqlite_Neko.get_name(conn)
+			config_name = sqlite_Neko.read_config("config.yaml")
 			"""проверяют длину команды"""
-			if len(voice_input) > 1:
+			if len(voice_input) >= 1:
 				"""проверяет, что бы первая команда была обращением к помощнику"""
-				helper_name = voice_input[0]
-				if fuzz.ratio(helper_name, character_name) > 20:
-					"""проверяет схожесть"""
-					command = voice_input[1]
-					"""отбирает команду"""
-					if len(voice_input) > 2:
-						"""остальные опциональные аргументы"""
-						command_options = [str(input_part) for input_part in voice_input[2:len(voice_input)]]
-						execute_command_with_name(command, commands, command_options)
-					else:
-						command_options = ["none"]
-						execute_command_with_name(command, commands, command_options)
+
+				"""проверяет схожесть"""
+				command = voice_input[0]
+				"""отбирает команду"""
+				if len(voice_input) >=1:
+					"""остальные опциональные аргументы"""
+					command_options = [str(input_part) for input_part in voice_input[2:len(voice_input)]]
+					print(command, commands, command_options)
+					execute_command_with_name(command, commands, command_options)
 				else:
-					voice_helper()
+					command_options = ["none"]
+					execute_command_with_name(command, commands, command_options)
+
 			else:
 				voice_helper()
 
@@ -106,13 +103,11 @@ def record_and_recognize_audio():
 		# использование online-распознавания через Google
 		try:
 			print("Started recognition...")
-			conn = sqlite_Neko.create_connection("Neko.db")
-			with conn:
-				language = sqlite_Neko.get_language(conn)
-				if language == "russian":
-					recognized_data = recognizer.recognize_google(audio, language="ru").lower()
-				elif language == "english":
-					recognized_data = recognizer.recognize_google(audio, language="en").lower()
+			config_name = sqlite_Neko.read_config("config.yaml")
+			if config_name["language"] == "ru":
+				recognized_data = recognizer.recognize_google(audio, language="ru").lower()
+			elif config_name["language"] == "en":
+				recognized_data = recognizer.recognize_google(audio, language="en").lower()
 
 		except speech_recognition.UnknownValueError:
 			pass

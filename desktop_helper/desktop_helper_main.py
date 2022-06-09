@@ -1,23 +1,17 @@
-from multiprocessing import Process
-
-import keyboard
 import sys
-
-import pyttsx3
-import speech_recognition
-
-import sqlite_Neko
-from layout_file.main_frame import Ui_MainFrame
-from add_frame import Ui_AddFrame
-from layout_file.setting_frame import Ui_SettingFrame
-from layout_file.main_min_frame import Ui_MainMinFrame
-from layout_file.voice_frame import Ui_VoiceFrame
+from desktop_helper import sqlite_Neko
+from desktop_helper.layout_file.main_frame import Ui_MainFrame
+from desktop_helper.add_frame import Ui_AddFrame
+from desktop_helper.layout_file.setting_frame import Ui_SettingFrame
+from desktop_helper.layout_file.main_min_frame import Ui_MainMinFrame
+from desktop_helper.layout_file.voice_frame import Ui_VoiceFrame
 from PyQt5.QtGui import QKeySequence, QIcon, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut, QSystemTrayIcon, QAction, QMenu
 from PyQt5 import QtCore, QtGui, QtWidgets
-from voice_function import voice_helper
+import desktop_helper.Neko_voice as Neko_voice
 
-class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_MainMinFrame,Ui_VoiceFrame):
+
+class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_MainMinFrame, Ui_VoiceFrame):
     def __init__(self):
         super().__init__()
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
@@ -27,9 +21,15 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
         """hotkey"""
-        self.shortcut = QShortcut(QKeySequence("Ctrl+W"), self)
-        self.shortcut.activated.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(3))
-        keyboard.add_hotkey("W+E", lambda: self.stackedWidget_sourse.setCurrentIndex(0))
+        self.shortcut_wrap = QShortcut(QKeySequence("Ctrl+W"), self)
+        self.shortcut_wrap.activated.connect(lambda: self.showMinimized())
+
+        self.shortcut_test_mod = QShortcut(QKeySequence("Ctrl+T"), self)
+        self.shortcut_test_mod.activated.connect(self.test_mod)
+
+        self.shortcut_manage = QShortcut(QKeySequence("Ctrl+M"), self)
+        self.shortcut_manage.activated.connect(self.manage_voice_process)
+
         """config setting"""
         self.config_name = sqlite_Neko.read_config("config.yaml")
         self.directory_list = []
@@ -58,7 +58,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
         self.rule_button_min.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(1))
         self.move_to_adding_section.clicked.connect(self.on_add_frame)
         self.move_to_adding_section_min.clicked.connect(self.on_add_frame)
-        self.setting_button_min.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(2))
+        self.setting_button_min.clicked.connect(self.on_setting_frame)
         self.setting_voice.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(4))
         self.setting_voice_min.clicked.connect(lambda: self.stackedWidget_sourse.setCurrentIndex(4))
 
@@ -67,8 +67,6 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
         self.bread_button_2.clicked.connect(self.get_directory)
         self.save_command_button.clicked.connect(self.add_date_in_Neko_bd)
         self.delete_button.clicked.connect(self.del_command)
-
-
 
         """add frame"""
         self.show_update_item_in_area_delete_choice()
@@ -83,46 +81,95 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
         self.button_window_r_2.clicked.connect(self.Next_main_window_size)
         """min frame"""
         self.wrap_button.clicked.connect(lambda: self.showMinimized())
-        # self.tray_icon = QSystemTrayIcon(self)
-        # icon = QIcon()
-        # icon.addPixmap(QPixmap("material/Neko_helper.png"), QIcon.Normal,
-        #                QIcon.Off)
-        # self.tray_icon.setIcon(icon)
-        # show_action = QAction("Show", self)
-        # quit_action = QAction("Exit", self)
-        # hide_action = QAction("Hide", self)
-        # show_action.triggered.connect(self.show)
-        # hide_action.triggered.connect(self.hide)
-        # quit_action.triggered.connect(self.close_app)
-        # tray_menu = QMenu()
-        # tray_menu.setStyleSheet("font-family: \'RobotoFlex\';\n"
-        #                         "font-style: normal;\n"
-        #                         "font-weight: 200;\n"
-        #                         "font-size: 16px;\n"
-        #                         "line-height: 75.4%;\n"
-        #                         "/* or 14px */\n"
-        #                         "background: rgba(199, 199, 199, 0.0);\n"
-        #                         "border: 0.5px solid rgba(167, 167, 167, 0.01);\n"
-        #                         "color: rgba(255, 255, 255, 0.85);\n"
-        #                         "")
-        # tray_menu.addAction(show_action)
-        # tray_menu.addAction(hide_action)
-        # tray_menu.addAction(quit_action)
-        # self.tray_icon.setContextMenu(tray_menu)
-        # self.tray_icon.show()
-        # self.stackedWidget_sourse.setCurrentIndex(0)
-        self.voice_process = Process(target=voice_helper)
-        self.voice_process.start()
+        self.tray_icon = QSystemTrayIcon(self)
+        icon = QIcon()
+        icon.addPixmap(QPixmap("material/Neko_helper.png"), QIcon.Normal,
+                       QIcon.Off)
+        self.tray_icon.setIcon(icon)
+        show_action = QAction("Show", self)
+        quit_action = QAction("Exit", self)
+        hide_action = QAction("Hide", self)
+        show_action.triggered.connect(self.show)
+        hide_action.triggered.connect(self.hide)
+        quit_action.triggered.connect(self.close_app)
+        tray_menu = QMenu()
+        tray_menu.setStyleSheet("font-family: \'RobotoFlex\';\n"
+                                "font-style: normal;\n"
+                                "font-weight: 200;\n"
+                                "font-size: 16px;\n"
+                                "line-height: 75.4%;\n"
+                                "/* or 14px */\n"
+                                "background: rgba(199, 199, 199, 0.0);\n"
+                                "border: 0.5px solid rgba(167, 167, 167, 0.01);\n"
+                                "color: rgba(255, 255, 255, 0.85);\n"
+                                "")
+        tray_menu.addAction(show_action)
+        tray_menu.addAction(hide_action)
+        tray_menu.addAction(quit_action)
+        self.tray_icon.setContextMenu(tray_menu)
+        self.tray_icon.show()
+        # self.stackedWidget_sourse.setCurrentIndex(4)
+
+        self.voice_process = Neko_voice.NekoVoice()
+        # self.voice_process = Process(target=voice_helper)
+        # self.voice_process.start()
+
     """system fun"""
+
+    def test_mod(self):
+        try:
+            self.voice_process_test = Neko_voice.TestVoice()
+            self.voice_process_test.exec_()
+        except:
+            pass
+    def manage_voice_process(self):
+        self.voice_process.manage()
+        if self.voice_process.flag:
+            if self.config_name["language"] == "ru":
+                self.dialog_character.setText(
+                    f"""{self.config_name["name_user"]},надеюсь, ты меня не просто так позвал?""")
+                self.label_dialog_min_frame.setText("Рада вас\n"
+                                                    "видеть\n"
+                                                    "хозяин")
+            else:
+                self.label_dialog_min_frame.setText("Nice to see \n"
+                                                    "you\n"
+                                                    "master")
+                self.dialog_character.setText(
+                    f"""{self.config_name["name_user"]}, I hope you didn't just call me?""")
+
+        else:
+            if self.config_name["language"] == "ru":
+                self.dialog_character.setText(
+                    f"""{self.config_name["name_user"]}, горничная вас не слышит!""")
+                self.label_dialog_min_frame.setText("Пауза это\n"
+                                                    "грустно\n"
+                                                    "хозяин")
+            else:
+                self.label_dialog_min_frame.setText("Pause this\n"
+                                                    "sad\n"
+                                                    "master")
+                self.dialog_character.setText(
+                    f"""{self.config_name["name_user"]}, the maid can't hear you!""")
+
+
+
+    def update_voice_process(self):
+        self.voice_process.update_setup()
+
     def on_add_frame(self):
         self.stackedWidget_sourse.setCurrentIndex(1)
         self.lineedit_site.clearFocus()
         self.lineedit_command.clearFocus()
+
     def on_setting_frame(self):
         self.stackedWidget_sourse.setCurrentIndex(2)
         self.Nickname_1.clearFocus()
         self.Nickname_2.clearFocus()
+
     def close_app(self):
+        if self.voice_process.flag:
+            self.voice_process.manage()
         sys.exit()
 
     """ setting fun """
@@ -185,6 +232,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
         print(get_user_name, self.config_name["name_user"])
         sqlite_Neko.write_config("config.yaml", self.config_name)
         self.set_name_in_widget()
+        self.voice_process.update_setup()
         self.main_frame_set()
 
     def update_language(self):
@@ -208,13 +256,14 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
     def set_name_in_widget(self):
         """ follows after save_global_setting(), applies resulting changes to unique variables
         self.config_name["view_character"], self.name_character, self.name_user, self.language, self.behavior, self.work_table"""
-        if self.config_name == "ru":
+        if self.config_name["language"] == "ru":
             self.dialog_character.setText(
                 f"""{self.config_name["name_user"]}, надеюсь, ты меня не просто так позвал?""")
             print(self.current_paths_character)
         else:
             self.dialog_character.setText(
                 f"""{self.config_name["name_user"]}, I hope you didn't just call me?""")
+
 
     """set language"""
 
@@ -286,7 +335,7 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
             "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
             "p, li { white-space: pre-wrap; }\n"
             "</style></head><body style=\" font-family:\'Titillium Web\'; font-size:12px; font-weight:400; font-style:normal;\">\n"
-            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12px;\">Фиро выполнит ваше поручение!</span></p></body></html>")
+            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12px;\">Неко выполнит ваше поручение!</span></p></body></html>")
         self.label_add_3.setHtml(
             "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
             "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -458,14 +507,12 @@ class MainWindow(QMainWindow, Ui_MainFrame, Ui_AddFrame, Ui_SettingFrame, Ui_Mai
         self.Nickname_2.setPlaceholderText("Nickname")
         self.label_10.setText("page 1")
         self.wrap_button.setText("wrap")
-        self.label_dialog_min_frame.setText("Nice to see you\n"
-                                            "see\n"
+        self.label_dialog_min_frame.setText("Nice to see \n"
+                                            "you\n"
                                             "master")
 
 
 if __name__ == '__main__':
-    ttsEngine = pyttsx3.init()
-    recognizer = speech_recognition.Recognizer()
     app = QApplication(sys.argv)
     w = MainWindow()
     w.show()

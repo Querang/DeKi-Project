@@ -3,6 +3,7 @@ from sqlite3 import Error
 
 import yaml
 
+
 def delete_voice_commands(conn, command_name):
     """
     Delete a voice command by command name
@@ -53,6 +54,8 @@ def voice_commands_status(conn):
     for i in rows:
         command.append(i[2])
     return command
+
+
 def voice_commands_names(conn):
     """возвращает названия команд"""
     cur = conn.cursor()
@@ -64,28 +67,7 @@ def voice_commands_names(conn):
         command.append(i[0])
     return command
 
-def get_language(conn):
-    cur = conn.cursor()
-    cur.execute("SELECT language FROM global_setting")
-    rows = cur.fetchall()
-    return rows[0][0]
 
-
-def get_name(conn):
-    cur = conn.cursor()
-    cur.execute("SELECT name_character FROM global_setting")
-    rows = cur.fetchall()
-    return rows[0][0]
-
-
-def change_language(conn):
-    cur = conn.cursor
-    language = get_language(conn)
-    if language == "english":
-        cur.execute("UPDATE global_setting SET language = russian WHERE rowid = 1")
-    if language == "russian":
-        cur.execute("UPDATE global_setting SET language = english WHERE rowid = 1")
-    conn.commit()
 def voice_commands_source(conn):
     """возвращает список команд, на которые ссылаются названия"""
     cur = conn.cursor()
@@ -94,8 +76,10 @@ def voice_commands_source(conn):
     rows = cur.fetchall()
     command = []
     for i in rows:
-        command.append(i[1])
+        command.append(i[:2])
     return command
+
+
 def create_voice_com(conn, voice_commands):
     """
     Create a new project into the projects table
@@ -109,7 +93,11 @@ def create_voice_com(conn, voice_commands):
     cur.execute(sql, voice_commands)
     conn.commit()
     return cur.lastrowid
+
+
 """yaml"""
+
+
 def read_config(file_path):
     with open(file_path, "r") as f:
         return yaml.safe_load(f)
@@ -119,7 +107,10 @@ def write_config(file_path, config_dict):
     with open(file_path, "w") as f:
         yaml.dump(config_dict, f, default_flow_style=False)
 
+
 """sqlite"""
+
+
 def create_connection(db_file):
     """ create a database connection to a SQLite database """
 
@@ -159,7 +150,6 @@ def create_note(conn, notet):
     cur = conn.cursor()
     cur.execute(sql, notet)
     conn.commit()
-
 
 
 def get_paths_character(conn, name):
@@ -289,7 +279,6 @@ def select_sites_of_command(conn):
     for i in rows:
         sites.append(i[5])
     return sites
-
 
 
 if __name__ == '__main__':

@@ -14,3 +14,11 @@ parser_Firo/layout/qq.py
 library/dist/
 
 library/build/
+
+parser_Firo/dist/
+
+parser_Firo/build/
+
+desktop_helper/build/
+
+desktop_helper/dist/

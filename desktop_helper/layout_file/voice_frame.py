@@ -173,6 +173,7 @@ class Ui_VoiceFrame(object):
         self.name_button_1.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(1))
         self.command_button_1.clicked.connect(self.set_voice_page_3)
         self.create_name_button.clicked.connect(self.add_voice_com)
+        self.microphone_select.currentTextChanged.connect(self.onActivated_1)
         self.microphone_search()
         self.bd_command_searcher()
         return self.page_voice_frame
@@ -222,6 +223,7 @@ class Ui_VoiceFrame(object):
                 bd_name = self.command_bd_select.currentText()
                 voice_com = (command_name, bd_name, 1)
                 sqlite_Neko.create_voice_com(conn, voice_com)
+                self.voice_process.update_setup()
                 self.input_name_command_voice.setText("")
                 self.input_name_command_voice.setPlaceholderText("access")
         else:
@@ -345,7 +347,10 @@ class Ui_VoiceFrame(object):
 
     def onActivated_1(self):
         """для выбора микрофона"""
-        return self.microphone_select.currentIndex()
+        config_name = sqlite_Neko.read_config("config.yaml")
+        config_name["device"] = self.microphone_select.currentIndex()
+        sqlite_Neko.write_config("config.yaml",config_name)
+
 
     def onActivated_2(self, text):
         """для выбора голосовой команды"""
@@ -385,7 +390,7 @@ class Ui_VoiceFrame(object):
         with conn:
             sqlite_Neko.delete_voice_commands(conn, text)
         button.hide()
-        label.hide()
+        label.hide() # !!!!!!!!!!!!!!!!!
 
     def active_status(self, name, status, button):
         """изменяет статус команды"""

@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QLabel, QSystemT
 from PyQt5 import QtCore
 from parser_Firo.layout.main_layout import Ui_MainWindow
 from parser_Firo.layout.template_layout import Dialog_get_date, FlowLayout
-import Firo_parse_sqlite
+from parser_Firo import Firo_parse_sqlite
 import parser_Firo.layout.template_layout as template_layout
 import threading
 
@@ -31,7 +31,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_X.clicked.connect(self.hide)
         self.tray_icon = QSystemTrayIcon(self)
         icon = QIcon()
-        icon.addPixmap(QPixmap("../parser_Firo/material/Firo_parser.png"), QIcon.Normal,
+        icon.addPixmap(QPixmap("material/Firo_parser.png"), QIcon.Normal,
                        QIcon.Off)
         self.tray_icon.setIcon(icon)
         show_action = QAction("Show", self)
@@ -137,7 +137,7 @@ class ProgressLoading(QDialog):
         self.label_2.setStyleSheet("background: rgba(44, 40, 40, 0.0);\n"
                                    "border: 0.5px solid rgba(167, 167, 167, 0.0);")
         self.label_2.setText("")
-        self.label_2.setPixmap(QPixmap("../parser_Firo/material/Firo_s.png"))
+        self.label_2.setPixmap(QPixmap("material/Firo_s.png"))
         self.label_2.setScaledContents(False)
         self.label_2.setObjectName("label_2")
 
@@ -229,9 +229,9 @@ class DummyThread(QThread):
 #     a = Ui_MainWindow()
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    app.setQuitOnLastWindowClosed(True)
+    # app.setQuitOnLastWindowClosed(True)
     a = Ui_MainWindow()
     w = MainWindow(a)
-    app.setWindowIcon(QIcon('../parser/lib_material/Firo_parser.png'))
+    app.setWindowIcon(QIcon('material/Firo_parser.png'))
 
     sys.exit(app.exec_())

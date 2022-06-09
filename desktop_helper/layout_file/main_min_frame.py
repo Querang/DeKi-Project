@@ -159,8 +159,17 @@ class Ui_MainMinFrame(object):
         self.command_panel_frame_1_1.hide()
         self.command_panel_frame_1_button_update()
         return self.page_main_min
-
+    def clear_note(self, gridLayout):
+        """
+           Clears the resulting layout from elements
+           param gridLayout_note: layout для очистки от элементов
+           """
+        while gridLayout.count():
+            item = gridLayout.takeAt(0)
+            widget = item.widget()
+            widget.deleteLater()
     def command_panel_frame_1_button_update(self):
+        self.clear_note(self.gridLayout_9_min)
         """обновляет кнопки, содержащие команды для выполнения"""
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
@@ -198,10 +207,7 @@ class Ui_MainMinFrame(object):
             index = sql_command_name.index(button_name)
             command_type = sql_command_type[index]
             if command_type == 's':
-                if sql_command_site[index].find("https://"):
-                    webbrowser.open_new_tab(str(sql_command_site[index]))
-                else:
-                    webbrowser.open_new_tab("https://" + str(sql_command_site[index]))
+                webbrowser.open_new_tab(str(sql_command_site[index]))
             elif command_type == 'f':
                 for i in sql_command_files[index]:
                     print(sql_command_files[index])

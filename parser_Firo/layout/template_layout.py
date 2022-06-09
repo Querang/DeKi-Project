@@ -122,12 +122,12 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
         self.pause_button.setText("")
         if self.pause == "True":
             icon = QtGui.QIcon()
-            icon.addPixmap(QtGui.QPixmap("../parser_Firo/material/pause_1.png"), QtGui.QIcon.Normal,
+            icon.addPixmap(QtGui.QPixmap("material/pause_1.png"), QtGui.QIcon.Normal,
                            QtGui.QIcon.Off)
             self.pause_button.setIcon(icon)
         else:
             icon = QtGui.QIcon()
-            icon.addPixmap(QtGui.QPixmap("../parser_Firo/material/pause_2.png"), QtGui.QIcon.Normal,
+            icon.addPixmap(QtGui.QPixmap("material/pause_2.png"), QtGui.QIcon.Normal,
                            QtGui.QIcon.Off)
             self.pause_button.setIcon(icon)
         self.pause_button.setIconSize(QtCore.QSize(14, 10))
@@ -138,7 +138,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
                                        "background: rgba(199, 199, 199, 0.0);")
         self.status_icon.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("../parser_Firo/material/good_connect_ver_2.png"),
+        icon1.addPixmap(QtGui.QPixmap("material/good_connect_ver_2.png"),
                         QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.status_icon.setIcon(icon1)
         self.status_icon.setIconSize(QtCore.QSize(16, 20))
@@ -149,7 +149,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
                                   "background: rgba(199, 199, 199, 0.0);")
         self.extend.setText("")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("../parser_Firo/material/tree_point.png"), QtGui.QIcon.Normal,
+        icon2.addPixmap(QtGui.QPixmap("material/tree_point.png"), QtGui.QIcon.Normal,
                         QtGui.QIcon.Off)
         self.extend.setIcon(icon2)
         self.extend.setIconSize(QtCore.QSize(20, 20))
@@ -208,7 +208,7 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
             self.handler_content()
         else:
             icon1 = QtGui.QIcon()
-            icon1.addPixmap(QtGui.QPixmap("../parser_Firo/material/mistake.png"),
+            icon1.addPixmap(QtGui.QPixmap("material/mistake.png"),
                             QtGui.QIcon.Normal, QtGui.QIcon.Off)
             self.status_icon.setIcon(icon1)
 
@@ -326,13 +326,13 @@ class GenerateParseLabel(QtWidgets.QGroupBox):
             if self.pause == "True":
                 self.pause = "False"
                 icon = QtGui.QIcon()
-                icon.addPixmap(QtGui.QPixmap("../parser_Firo/material/pause_2.png"), QtGui.QIcon.Normal,
+                icon.addPixmap(QtGui.QPixmap("material/pause_2.png"), QtGui.QIcon.Normal,
                                QtGui.QIcon.Off)
                 self.pause_button.setIcon(icon)
             elif self.pause == "False":
                 self.pause = "True"
                 icon = QtGui.QIcon()
-                icon.addPixmap(QtGui.QPixmap("../parser_Firo/material/pause_1.png"), QtGui.QIcon.Normal,
+                icon.addPixmap(QtGui.QPixmap("material/pause_1.png"), QtGui.QIcon.Normal,
                                QtGui.QIcon.Off)
                 self.pause_button.setIcon(icon)
             conn = Firo_parse_sqlite.create_connection("parse_.db")
@@ -412,16 +412,16 @@ class DialogIcon(QtWidgets.QDialog):
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
-        self.extend = MenuButton(self.frame_2, "../parser_Firo/material/mark_icon/bell.png")
+        self.extend = MenuButton(self.frame_2, "material/mark_icon/bell.png")
         self.extend.setGeometry(QtCore.QRect(0, 0, 50, 50))
-        self.extend_2 = MenuButton(self.frame_2, "../parser_Firo/material/mark_icon/bell_2.png")
+        self.extend_2 = MenuButton(self.frame_2, "material/mark_icon/bell_2.png")
         self.extend_2.setGeometry(QtCore.QRect(50, 0, 50, 50))
-        self.extend_3 = MenuButton(self.frame_2, "../parser_Firo/material/mark_icon/bell_3.png")
+        self.extend_3 = MenuButton(self.frame_2, "material/mark_icon/bell_3.png")
         self.extend_3.setGeometry(QtCore.QRect(0, 50, 50, 50))
         self.extend_3.setIconSize(QtCore.QSize(40, 40))
-        self.extend.clicked.connect(lambda: self.custom_icon("../parser_Firo/material/mark_icon/bell.png"))
-        self.extend_2.clicked.connect(lambda: self.custom_icon("../parser_Firo/material/mark_icon/bell_2.png"))
-        self.extend_3.clicked.connect(lambda: self.custom_icon("../parser_Firo/material/mark_icon/bell_3.png"))
+        self.extend.clicked.connect(lambda: self.custom_icon("material/mark_icon/bell.png"))
+        self.extend_2.clicked.connect(lambda: self.custom_icon("material/mark_icon/bell_2.png"))
+        self.extend_3.clicked.connect(lambda: self.custom_icon("material/mark_icon/bell_3.png"))
 
     def custom_icon(self, path):
         self.label_obj.icon_mark.setPixmap(QtGui.QPixmap(path))
@@ -977,7 +977,7 @@ class Dialog_get_date(QtWidgets.QDialog):
                                       "\n"
                                       "border: 0.5px solid rgba(167, 167, 167, 0.0);")
         self.lock_label.setText("")
-        self.lock_label.setPixmap(QtGui.QPixmap("../parser_Firo/material/lock_icon_02.png"))
+        self.lock_label.setPixmap(QtGui.QPixmap("material/lock_icon_02.png"))
         self.lock_label.setScaledContents(True)
         self.lock_label.setObjectName("lock_label")
         self.frame_action_3 = QtWidgets.QFrame(self)
@@ -1070,7 +1070,7 @@ class Dialog_get_date(QtWidgets.QDialog):
                                         "\n"
                                         "border: 0.5px solid rgba(167, 167, 167, 0.0);")
         self.lock_label_1.setText("")
-        self.lock_label_1.setPixmap(QtGui.QPixmap("../parser_Firo/material/lock_icon_02.png"))
+        self.lock_label_1.setPixmap(QtGui.QPixmap("material/lock_icon_02.png"))
         self.lock_label_1.setScaledContents(True)
         self.lock_label_1.setObjectName("lock_label_1")
         self.save_button = QtWidgets.QPushButton(self)
@@ -1268,7 +1268,7 @@ class ParserContainer():
     def return_arguments(self):
         return (
             self.url, self.current_tag, self.current_class, self.current_id, self.mark, self.action, self.action_value,"false",
-            "15 min", "True", "../parser_Firo/material/mark_icon/bell.png")
+            "15 min", "True", "material/mark_icon/bell.png")
 
     def get_all_tag(self):
         if self.url is not None:

@@ -2,7 +2,7 @@ import os
 import subprocess
 import webbrowser
 from PyQt5 import QtCore, QtGui, QtWidgets
-import sqlite_Neko
+from desktop_helper import sqlite_Neko
 
 
 class Ui_AddFrame(object):
@@ -284,7 +284,7 @@ class Ui_AddFrame(object):
         self.info_button.setDefault(False)
         self.info_button.setObjectName("info_button")
         self.label_add_8 = QtWidgets.QTextBrowser(self.page_add_1)
-        self.label_add_8.setGeometry(QtCore.QRect(20, 152, 171, 41))
+        self.label_add_8.setGeometry(QtCore.QRect(20, 150, 171, 48))
         self.label_add_8.setStyleSheet("background: rgba(23, 23, 23, 0.9);\n"
                                        "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);\n"
                                        "border-radius: 6px;\n"
@@ -535,6 +535,8 @@ class Ui_AddFrame(object):
             with conn:
                 task = ("s", "", "", "", "", self.link_site, command)
                 sqlite_Neko.create_task(conn, task)
+                sqlite_Neko.create_voice_com(conn, (command,command,1))
+                self.voice_process.update_setup()
                 self.lineedit_command.setText("access")
 
         else:
@@ -643,8 +645,11 @@ class Ui_AddFrame(object):
         with conn:
             for i in self.del_list:
                 sqlite_Neko.delete_task(conn, i)
+                sqlite_Neko.delete_voice_source(conn, i)
         self.clear_note(self.delete_bar_grid)
         self.show_update_item_in_area_delete_choice()
+        self.command_panel_frame_button_update()
+        self.command_panel_frame_1_button_update()
 
 
 class FlowLayout(QtWidgets.QLayout):

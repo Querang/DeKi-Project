@@ -1,6 +1,7 @@
 behavior: waify
+device: 0
 language: ru
-main_window_size: min
-name_character: Neko
-name_user: Firo
+main_window_size: normal
+name_character: "\u041D\u044D\u043A\u043E"
+name_user: "\u0421\u0435\u043C\u043F\u0430\u0439"
 view_character: Neko

@@ -140,6 +140,7 @@ class Ui_MainFrame(object):
         return self.page_main_frame
 
     def command_panel_frame_button_update(self):
+        self.clear_note(self.gridLayout_9)
         """обновляет кнопки, содержащие команды для выполнения"""
         conn = sqlite_Neko.create_connection("Neko.db")
         with conn:
@@ -177,10 +178,8 @@ class Ui_MainFrame(object):
             index = sql_command_name.index(button_name)
             command_type = sql_command_type[index]
             if command_type == 's':
-                if sql_command_site[index].find("https://"):
-                    webbrowser.open_new_tab(str(sql_command_site[index]))
-                else:
-                    webbrowser.open_new_tab("https://" + str(sql_command_site[index]))
+
+                webbrowser.open_new_tab(str(sql_command_site[index]))
             elif command_type == 'f':
                 for i in sql_command_files[index]:
                     print(sql_command_files[index])
